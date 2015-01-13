@@ -30,9 +30,9 @@ namespace NGitVersion.Model
 #endif
         }
 
-        public string Company { get { return "TODO My Company"; } }
-        public string Product { get { return "TODO My Product"; } }
-        public string Copyright { get { return "TODO My Copyright"; } }
+        public string Company { get { return "jeromerg"; } }
+        public string Product { get { return "NCase"; } }
+        public string Copyright { get { return "Apache License 2.0"; } }
         public string Major { get { return "0"; } }
         public string Minor { get { return "0"; } }
         public string Build { get { return "0"; } }
