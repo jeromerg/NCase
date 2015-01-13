@@ -17,7 +17,7 @@ namespace NCaseTest
         [Test]
         public void Test()
         {
-            var testCaseBuilder = new TestCaseBuilder();
+            var testCaseBuilder = new CaseBuilder();
 
             var o = testCaseBuilder.CreateComponent<ITestData>();
 

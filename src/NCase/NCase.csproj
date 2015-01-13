@@ -59,7 +59,7 @@
     <Compile Include="Util\Stacktrace\InvocationAndFrame.cs" />
     <Compile Include="Api\Dev\INodeFactory.cs" />
     <Compile Include="Api\Dev\ITarget.cs" />
-    <Compile Include="Api\TestCaseBuilder.cs" />
+    <Compile Include="Api\CaseBuilder.cs" />
     <Compile Include="Api\Dev\IComponentFactory.cs" />
     <Compile Include="Api\Dev\IBuilderStrategy.cs" />
     <Compile Include="BuilderStrategy\ImplicitBranchingBuilderStrategy.cs" />
