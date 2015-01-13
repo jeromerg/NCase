@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using Autofac;
-using NTestCase;
-using NTestCase.Api.Dev.Dir;
-using NTestCase.Api.Use;
-using NTestCase.Util.Visit;
+﻿using NCase.Api;
+using NCase.Api.Dev.Dir;
 using NUnit.Framework;
 
-namespace NTestCaseTest
+namespace NCaseTest
 {
     [TestFixture]
     public class Tests

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using NTestCase.Api.Dev;
+using NCase.Api.Dev;
 
-namespace NTestCase.BuilderStrategy
+namespace NCase.BuilderStrategy
 {
     public class ImplicitBranchingBuilderStrategy : IBuilderStrategy
     {

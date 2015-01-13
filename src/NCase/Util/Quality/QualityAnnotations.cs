@@ -9,7 +9,7 @@
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace NTestCase.Util.Quality
+namespace NCase.Util.Quality
 {
     /// <summary>
     /// Indicates that the value of the marked element could be <c>null</c> sometimes,

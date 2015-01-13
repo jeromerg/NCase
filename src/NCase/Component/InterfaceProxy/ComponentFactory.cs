@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Castle.DynamicProxy;
-using NTestCase.Api.Dev;
+using NCase.Api.Dev;
 
-namespace NTestCase.Component.InterfaceProxy
+namespace NCase.Component.InterfaceProxy
 {
     /// <summary>in DI-Container</summary>
     public class ComponentFactory : IComponentFactory

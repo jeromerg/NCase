@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using System.Text;
-using NTestCase.Util.Visit;
+using NVisitor.Api;
+using NVisitor.Api.Marker;
 
-namespace NTestCase.Api.Dev.Dir
+namespace NCase.Api.Dev.Dir
 {
-    public class DumpDirector : Director<DumpDirector, INode<ITarget>>
+    public class DumpDirector : Director<INode<ITarget>, DumpDirector>
     {
         private const int INDENTATION_SPACES = 4;
         private int mCurrentIndentation;
 
         private readonly StringBuilder mStringBuilder = new StringBuilder();
 
-        public DumpDirector(IEnumerable<IVisitor<DumpDirector, INode<ITarget>>> visitors)
+        public DumpDirector(IEnumerable<IVisitor<INode<ITarget>, DumpDirector>> visitors)
             : base(visitors)
         {
         }

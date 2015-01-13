@@ -1,4 +1,4 @@
-namespace NTestCase.Api.Dev
+namespace NCase.Api.Dev
 {
     /// <summary>
     /// Marker interface, to mark classes, that identify a component and 

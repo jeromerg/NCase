@@ -1,8 +1,8 @@
 ﻿using Castle.DynamicProxy;
-using NTestCase.Base;
-using NTestCase.Util.Stacktrace;
+using NCase.Base;
+using NCase.Util.Stacktrace;
 
-namespace NTestCase.Component.InterfaceProxy
+namespace NCase.Component.InterfaceProxy
 {
     public class InterfaceProxyPropertyNode : NodeBase<ComponentAndMethodInfo>
     {

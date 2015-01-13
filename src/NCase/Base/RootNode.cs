@@ -1,6 +1,6 @@
-using NTestCase.Api.Dev;
+using NCase.Api.Dev;
 
-namespace NTestCase.Base
+namespace NCase.Base
 {
     public class RootNode : NodeBase<RootNode.RootNodeTarget>
     {

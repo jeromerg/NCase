@@ -39,6 +39,9 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="NVisitor">
+      <HintPath>..\packages\NVisitor.0.9.0.18\lib\net40-Client\NVisitor.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,22 +55,16 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Component\InterfaceProxy\InterfaceProxyPropertyNode.cs" />
-    <Compile Include="Util\Typ\TargetTypeInfo.cs" />
-    <Compile Include="Util\Typ\TargetTypeNotResolvedException.cs" />
-    <Compile Include="Util\Typ\TargetTypeStatus.cs" />
     <Compile Include="Base\ComponentAndMethodInfo.cs" />
-    <Compile Include="Util\Typ\TypeTopology.cs" />
     <Compile Include="Util\Stacktrace\InvocationAndFrame.cs" />
     <Compile Include="Api\Dev\INodeFactory.cs" />
     <Compile Include="Api\Dev\ITarget.cs" />
-    <Compile Include="Api\Use\TestCaseBuilder.cs" />
+    <Compile Include="Api\TestCaseBuilder.cs" />
     <Compile Include="Api\Dev\IComponentFactory.cs" />
     <Compile Include="Api\Dev\IBuilderStrategy.cs" />
     <Compile Include="BuilderStrategy\ImplicitBranchingBuilderStrategy.cs" />
     <Compile Include="Component\InterfaceProxy\ProxyInterceptor.cs" />
     <Compile Include="Component\InterfaceProxy\ComponentFactory.cs" />
-    <Compile Include="Util\Visit\IDirector.cs" />
-    <Compile Include="Util\Visit\IVisitor.cs" />
     <Compile Include="Api\Dev\Dir\DumpDirector.cs" />
     <Compile Include="Api\Dev\INode.cs" />
     <Compile Include="Util\Quality\QualityAnnotations.cs" />
@@ -79,7 +76,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\NodeBase.cs" />
-    <Compile Include="Util\Visit\Director.cs" />
     <Compile Include="Visit\Dump\DumpVisitors.cs" />
   </ItemGroup>
   <ItemGroup>

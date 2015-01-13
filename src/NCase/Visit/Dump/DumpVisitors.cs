@@ -1,15 +1,15 @@
 ﻿using System.Linq;
-using NTestCase.Api.Dev;
-using NTestCase.Api.Dev.Dir;
-using NTestCase.Base;
-using NTestCase.Component.InterfaceProxy;
-using NTestCase.Util.Visit;
+using NCase.Api.Dev;
+using NCase.Api.Dev.Dir;
+using NCase.Base;
+using NCase.Component.InterfaceProxy;
+using NVisitor.Api;
 
-namespace NTestCase.Visit.Dump
+namespace NCase.Visit.Dump
 {
-    public class DumpVisitors 
-        : IVisitor<DumpDirector, INode<ITarget>, RootNode>
-        , IVisitor<DumpDirector, INode<ITarget>, InterfaceProxyPropertyNode>
+    public class DumpVisitors
+        : IVisitor<INode<ITarget>, DumpDirector, RootNode>
+        , IVisitor<INode<ITarget>, DumpDirector, InterfaceProxyPropertyNode>
     {
         public void Visit(DumpDirector director, RootNode node)
         {

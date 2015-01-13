@@ -1,4 +1,4 @@
-﻿namespace NTestCase.Api.Dev
+﻿namespace NCase.Api.Dev
 {
     public interface IBuilderStrategy
     {

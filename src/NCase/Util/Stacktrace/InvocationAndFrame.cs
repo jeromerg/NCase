@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
-using NTestCase.Util.Quality;
+using NCase.Util.Quality;
 
-namespace NTestCase.Util.Stacktrace
+namespace NCase.Util.Stacktrace
 {
     public class InvocationAndFrame
     {

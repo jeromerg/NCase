@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using NTestCase.Api.Dev;
+using NCase.Api.Dev;
 
-namespace NTestCase.Base
+namespace NCase.Base
 {
     public abstract class NodeBase<TKey> : INode<TKey> 
         where TKey : ITarget

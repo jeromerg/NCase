@@ -1,6 +1,6 @@
 using Castle.DynamicProxy;
 
-namespace NTestCase.Api.Dev
+namespace NCase.Api.Dev
 {
     public interface INodeFactory
     {

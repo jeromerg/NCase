@@ -1,7 +1,7 @@
 using System.Reflection;
-using NTestCase.Api.Dev;
+using NCase.Api.Dev;
 
-namespace NTestCase.Base
+namespace NCase.Base
 {
     public class ComponentAndMethodInfo : ITarget
     {

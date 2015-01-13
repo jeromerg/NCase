@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using NTestCase.Util.Quality;
+using NCase.Util.Quality;
 
-namespace NTestCase.Api.Dev
+namespace NCase.Api.Dev
 {
     public interface INode<out TKey>
         where TKey : ITarget

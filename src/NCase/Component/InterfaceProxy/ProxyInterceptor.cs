@@ -1,7 +1,7 @@
 ﻿using Castle.DynamicProxy;
-using NTestCase.Api.Dev;
+using NCase.Api.Dev;
 
-namespace NTestCase.Component.InterfaceProxy
+namespace NCase.Component.InterfaceProxy
 {
     public class ProxyInterceptor : IInterceptor
     {

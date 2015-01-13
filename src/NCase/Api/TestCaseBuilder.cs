@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Reflection;
 using Autofac;
-using Autofac.Features.Variance;
 using Castle.DynamicProxy;
-using NTestCase.Api.Dev;
-using NTestCase.Base;
-using NTestCase.BuilderStrategy;
-using NTestCase.Util.Visit;
+using NCase.Api.Dev;
+using NCase.Base;
+using NCase.BuilderStrategy;
+using NVisitor.Api;
+using NVisitor.Api.Marker;
 
-namespace NTestCase.Api.Use
+namespace NCase.Api
 {
     public class TestCaseBuilder : TestCaseBuilder<ImplicitBranchingBuilderStrategy>
     {
@@ -47,7 +47,7 @@ namespace NTestCase.Api.Use
             // and register them, so that they can be injected into the directors
             builder.RegisterAssemblyTypes(executingAssembly)
                 .Where(t => typeof (IVisitor).IsAssignableFrom(t))
-                .AsClosedTypesOf(typeof (IVisitor</*TDir*/,/*TNod*/>));
+                .AsClosedTypesOf(typeof(IVisitor</*TFamily*/, /*TDirector*/>));
 
             mContainer = builder.Build();
 
