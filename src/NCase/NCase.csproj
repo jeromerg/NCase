@@ -7,8 +7,8 @@
     <ProjectGuid>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NTestCase</RootNamespace>
-    <AssemblyName>NTestCase</AssemblyName>
+    <RootNamespace>NCase</RootNamespace>
+    <AssemblyName>NCase</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
