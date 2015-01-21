@@ -1,5 +1,5 @@
 ﻿using NCase.Api;
-using NCase.Api.Dev.Dir;
+using NCase.Api.Dev.Director;
 using NUnit.Framework;
 
 namespace NCaseTest
@@ -15,11 +15,11 @@ namespace NCaseTest
         }
 
         [Test]
-        public void Test()
+        public void TestBuilderAndComponentAndDumpVisitor()
         {
             var testCaseBuilder = new CaseBuilder();
 
-            var o = testCaseBuilder.CreateComponent<ITestData>();
+            var o = testCaseBuilder.CreateCaseComponent<ITestData>();
 
             o.Name = "Jerome";
             {
@@ -35,27 +35,18 @@ namespace NCaseTest
                 }
             }
 
-            string dump = testCaseBuilder.VisitTestTree<DumpDirector>().ToString();
+            string dump = testCaseBuilder.VisitAst<DumpDirector>().ToString();
+
+            const string expected = @"ROOT
+    set_Name(Jerome)
+        set_Age(22)
+            set_City(Munich)
+            set_City(Berlin)
+        set_Age(30)
+            set_City(Munich)
+            set_City(Berlin)
+";
+            Assert.AreEqual(expected, dump);
         }
-
-
-        //interface IBaseInterface {}
-        //interface IBaseInterface<T, U> : IBaseInterface {}
-        //class DoubleClosedType : IBaseInterface<int, uint>, IBaseInterface<string, uint> { }
-
-        //[Test]
-        //public void TestInjectClassImplementingMultipleClosedTypes()
-        //{
-        //    var builder = new ContainerBuilder();
-
-        //    var executingAssembly = Assembly.GetExecutingAssembly();
-        //    builder.RegisterAssemblyTypes(executingAssembly)
-        //        .Where(t => typeof(IBaseInterface).IsAssignableFrom(t))
-        //        .AsClosedTypesOf(typeof(IBaseInterface<,>));
-
-        //    var container = builder.Build();
-
-        //    var visitors = container.Resolve<>();
-        //}
     }
 }

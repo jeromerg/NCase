@@ -36,7 +36,8 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core">
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="NVisitor">
@@ -54,29 +55,31 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Component\InterfaceProxy\InterfaceProxyPropertyNode.cs" />
-    <Compile Include="Base\ComponentAndMethodInfo.cs" />
-    <Compile Include="Util\Stacktrace\InvocationAndFrame.cs" />
-    <Compile Include="Api\Dev\INodeFactory.cs" />
-    <Compile Include="Api\Dev\ITarget.cs" />
+    <Compile Include="Api\Dev\Director\DevelopDirector.cs" />
+    <Compile Include="Api\CaseValueNotFoundException.cs" />
+    <Compile Include="Api\InvalidCaseRecordException.cs" />
+    <Compile Include="Core\InterfaceContrib\InterfacePropertyNode.cs" />
+    <Compile Include="Core\InterfaceContrib\IReplayInterceptor.cs" />
+    <Compile Include="Util\Castle\PropertyCallKey.cs" />
+    <Compile Include="Util\Castle\InvocationUtil.cs" />
+    <Compile Include="Core\Visitor\DevelopVisitors.cs" />
+    <Compile Include="Util\StackFrameUtil.cs" />
     <Compile Include="Api\CaseBuilder.cs" />
-    <Compile Include="Api\Dev\IComponentFactory.cs" />
-    <Compile Include="Api\Dev\IBuilderStrategy.cs" />
-    <Compile Include="BuilderStrategy\ImplicitBranchingBuilderStrategy.cs" />
-    <Compile Include="Component\InterfaceProxy\ProxyInterceptor.cs" />
-    <Compile Include="Component\InterfaceProxy\ComponentFactory.cs" />
-    <Compile Include="Api\Dev\Dir\DumpDirector.cs" />
+    <Compile Include="Api\Dev\IContribFactory.cs" />
+    <Compile Include="Api\Dev\AstNode.cs" />
+    <Compile Include="Core\InterfaceContrib\ProxyInterceptor.cs" />
+    <Compile Include="Core\InterfaceContrib\ContribFactory.cs" />
+    <Compile Include="Api\Dev\Director\DumpDirector.cs" />
     <Compile Include="Api\Dev\INode.cs" />
     <Compile Include="Util\Quality\QualityAnnotations.cs" />
-    <Compile Include="Base\RootNode.cs" />
+    <Compile Include="Api\Dev\RootNode.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Base\NodeBase.cs" />
-    <Compile Include="Visit\Dump\DumpVisitors.cs" />
+    <Compile Include="Core\Visitor\DumpVisitors.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

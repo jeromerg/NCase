@@ -3,16 +3,16 @@ using System.Text;
 using NVisitor.Api;
 using NVisitor.Api.Marker;
 
-namespace NCase.Api.Dev.Dir
+namespace NCase.Api.Dev.Director
 {
-    public class DumpDirector : Director<INode<ITarget>, DumpDirector>
+    public class DumpDirector : Director<INode, DumpDirector>
     {
         private const int INDENTATION_SPACES = 4;
         private int mCurrentIndentation;
 
         private readonly StringBuilder mStringBuilder = new StringBuilder();
 
-        public DumpDirector(IEnumerable<IVisitor<INode<ITarget>, DumpDirector>> visitors)
+        public DumpDirector(IEnumerable<IVisitor<INode, DumpDirector>> visitors)
             : base(visitors)
         {
         }
