@@ -4,7 +4,7 @@ using Castle.Core.Internal;
 using NCase.Api.Dev;
 using NCase.Api.Dev.Director;
 using NCase.Core.InterfaceContrib;
-using NVisitor.Api;
+using NVisitor.Api.Batch;
 
 namespace NCase.Core.Visitor
 {

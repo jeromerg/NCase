@@ -4,7 +4,7 @@ using System.Reflection;
 using Autofac;
 using Castle.DynamicProxy;
 using NCase.Api.Dev;
-using NVisitor.Api;
+using NVisitor.Api.Batch;
 using NVisitor.Api.Marker;
 
 namespace NCase.Api
@@ -33,16 +33,17 @@ namespace NCase.Api
                 .As<IContribFactory>()
                 .PreserveExistingDefaults();
 
-            // register visitor's directors 
+            // register visitor's directors. 
             builder.RegisterAssemblyTypes(executingAssembly)
-                .Where(t => typeof (IDirector).IsAssignableFrom(t))
-                .AsClosedTypesOf(typeof (IDirector< /*TNod*/>))
-                .InstancePerDependency();
+                .Where(t => typeof(IDirectorMarker).IsAssignableFrom(t))
+                .AsSelf()
+                .InstancePerDependency(); // Directors are stateful
 
-            // register visitors
+            // register visitors. 
             builder.RegisterAssemblyTypes(executingAssembly)
-                .Where(t => typeof (IVisitor).IsAssignableFrom(t))
-                .AsClosedTypesOf(typeof(IVisitor</*TFamily*/, /*TDirector*/>));
+                .Where(t => typeof(IVisitorMarker).IsAssignableFrom(t))
+                .AsImplementedInterfaces()
+                .SingleInstance(); // Visitors are stateless
 
             mContainer = builder.Build();
 
@@ -69,9 +70,11 @@ namespace NCase.Api
         public TDirector VisitAst<TDirector>()
             where TDirector : IDirector<INode>
         {
-            var director = mContainer.Resolve<TDirector>();
+            TDirector director = mContainer.Resolve<TDirector>();
             director.Visit(mAstNode);
             return director;
         }
+
+        public 
     }
 }

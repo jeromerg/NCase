@@ -40,8 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NVisitor">
-      <HintPath>..\packages\NVisitor.0.9.0.18\lib\net40-Client\NVisitor.dll</HintPath>
+    <Reference Include="NVisitor, Version=1.0.0.37, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NVisitor.1.0.0.37\lib\net40-Client\NVisitor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

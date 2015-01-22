@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using NCase.Api.Dev;
 using NCase.Api.Dev.Director;
-using NVisitor.Api;
+using NVisitor.Api.Batch;
 
 namespace NCase.Core.Visitor
 {

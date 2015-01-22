@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
-using NVisitor.Api;
-using NVisitor.Api.Marker;
+using NVisitor.Api.Batch;
 
 namespace NCase.Api.Dev.Director
 {
@@ -12,7 +11,7 @@ namespace NCase.Api.Dev.Director
 
         private readonly StringBuilder mStringBuilder = new StringBuilder();
 
-        public DumpDirector(IEnumerable<IVisitor<INode, DumpDirector>> visitors)
+        public DumpDirector(IEnumerable<IVisitorClass<INode, DumpDirector>> visitors)
             : base(visitors)
         {
         }
