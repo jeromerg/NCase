@@ -65,16 +65,15 @@ namespace NCase.Api
         /// Visits the case tree. Use `DumpDirector` to dump the case tree definition into string. Use 
         /// `DevelopDirector` to produce all elementary cases.
         /// </summary>
-        /// <typeparam name="TDirector">the visitor's director that must visit the case tree definition</typeparam>
+        /// <typeparam name="TDir">the visitor's director that must visit the case tree definition</typeparam>
         /// <returns></returns>
-        public TDirector VisitAst<TDirector>()
-            where TDirector : IDirector<INode>
+        public TDir VisitAst<TDir>()
+            where TDir : IDirector<INode, TDir>
         {
-            TDirector director = mContainer.Resolve<TDirector>();
+            TDir director = mContainer.Resolve<TDir>();
             director.Visit(mAstNode);
             return director;
         }
 
-        public 
     }
 }

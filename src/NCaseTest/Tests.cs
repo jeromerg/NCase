@@ -35,7 +35,7 @@ namespace NCaseTest
                 }
             }
 
-            string dump = testCaseBuilder.VisitAst<DumpDirector>().ToString();
+            var dumpVisit = testCaseBuilder.VisitAst<DumpDirector>();
 
             const string expected = @"ROOT
     set_Name(Jerome)
@@ -46,7 +46,7 @@ namespace NCaseTest
             set_City(Munich)
             set_City(Berlin)
 ";
-            Assert.AreEqual(expected, dump);
+            Assert.AreEqual(expected, dumpVisit.ToString());
         }
     }
 }
