@@ -2,7 +2,7 @@
 using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace NCase.Util.Castle
+namespace NDsl.Util.Castle
 {
     public class PropertyCallKey
     {

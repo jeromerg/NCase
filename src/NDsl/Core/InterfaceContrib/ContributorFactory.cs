@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 using Castle.DynamicProxy;
-using NCase.Api.Dev;
+using NDsl.Api.Dev;
 
-namespace NCase.Core.InterfaceContrib
+namespace NDsl.Core.InterfaceContrib
 {
     /// <summary>in DI-Container</summary>
-    public class ContribFactory : IContribFactory
+    public class ContributorFactory : IContributorFactory
     {
         private readonly ProxyGenerator mProxyGenerator;
 
-        public ContribFactory(ProxyGenerator proxyGenerator)
+        public ContributorFactory(ProxyGenerator proxyGenerator)
         {
             mProxyGenerator = proxyGenerator;
         }
@@ -20,9 +20,9 @@ namespace NCase.Core.InterfaceContrib
             return typeof(T).IsInterface;
         }
 
-        public T Create<T>(AstNode astNode, object[] arguments)
+        public T Create<T>(RootNode rootNode, object[] arguments)
         {
-            var interceptor = new ProxyInterceptor(astNode);
+            var interceptor = new ProxyInterceptor(rootNode);
             Type[] interfaces = typeof(T).GetInterfaces().Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport).ToArray();
             return (T)mProxyGenerator.CreateInterfaceProxyWithoutTarget(typeof(T),
                                                                         interfaces, 

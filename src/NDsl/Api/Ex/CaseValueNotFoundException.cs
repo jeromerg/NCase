@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using NCase.Util.Quality;
 
-namespace NCase.Api
+namespace NDsl.Api
 {
     public class CaseValueNotFoundException : Exception
     {

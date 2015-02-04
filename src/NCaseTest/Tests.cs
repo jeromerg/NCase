@@ -17,9 +17,9 @@ namespace NCaseTest
         [Test]
         public void TestBuilderAndComponentAndDumpVisitor()
         {
-            var testCaseBuilder = new CaseBuilder();
+            var dsl = new Dsl();
 
-            var o = testCaseBuilder.CreateCaseComponent<ITestData>();
+            var o = dsl.CreateContributor<ITestData>();
 
             o.Name = "Jerome";
             {
@@ -35,7 +35,7 @@ namespace NCaseTest
                 }
             }
 
-            var dumpVisit = testCaseBuilder.VisitAst<DumpDirector>();
+            var dumpVisit = dsl.VisitAst<DumpDirector>();
 
             const string expected = @"ROOT
     set_Name(Jerome)

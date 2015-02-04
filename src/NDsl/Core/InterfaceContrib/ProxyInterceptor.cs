@@ -1,25 +1,26 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Castle.DynamicProxy;
-using NCase.Api;
-using NCase.Api.Dev;
-using NCase.Util.Castle;
+using NDsl.Api;
+using NDsl.Api.Dev;
+using NDsl.Util.Castle;
 
-namespace NCase.Core.InterfaceContrib
+namespace NDsl.Core.InterfaceContrib
 {
     public class ProxyInterceptor : IInterceptor, IReplayInterceptor
     {
         private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues = new Dictionary<PropertyCallKey, object>(); 
-        private readonly AstNode mAstNode;
+        private readonly RootNode mRootNode;
 
-        public ProxyInterceptor(AstNode astNode)
+        // TODO: inject StackTraceUtil
+        public ProxyInterceptor(RootNode rootNode)
         {
-            mAstNode = astNode;
+            mRootNode = rootNode;
         }
 
         public void Intercept(IInvocation invocation)
         {
-            if (mAstNode.IsReplaying)
+            // TODO: retrieve stacktrace here (first point)
+            if (mRootNode.IsReplaying)
                 InterceptInReplayMode(invocation);
             else
                 InterceptInRecordingMode(invocation);
@@ -27,16 +28,16 @@ namespace NCase.Core.InterfaceContrib
 
         private void InterceptInRecordingMode(IInvocation invocation)
         {
-            PropertyCallKey propertyCallKey = InvocationUtil.SetterToPropertyCallKey(invocation);
+            PropertyCallKey propertyCallKey = InvocationUtil.GetCallKeyFromSetter(invocation);
             if (propertyCallKey == null)
                 throw new InvalidCaseRecordException("Invalid call to {0} in recording mode. Only property setter allowed", invocation.Method);
 
-            mAstNode.Roots.Last().Children.Add(new InterfacePropertyNode(invocation, propertyCallKey, this));
+            mRootNode.Children.Add(new InterfacePropertyNode(invocation, propertyCallKey, this));
         }
 
         private void InterceptInReplayMode(IInvocation invocation)
         {
-            PropertyCallKey propertyCallKey = InvocationUtil.GetterToPropertyCallKey(invocation);
+            PropertyCallKey propertyCallKey = InvocationUtil.GetCallKeyFromGetter(invocation);
             if (propertyCallKey == null)
                 throw new InvalidCaseRecordException("Invalid call to {0} in replay mode. Only property getter allowed", invocation.Method);
 
@@ -47,9 +48,9 @@ namespace NCase.Core.InterfaceContrib
             invocation.ReturnValue = value;
         }
 
-        public void Replay(PropertyCallKey propertyInfo, object value)
+        public void AddReplayValue(PropertyCallKey callKey, object value)
         {
-            mReplayPropertyValues[propertyInfo] = value;
+            mReplayPropertyValues[callKey] = value;
         }
     }
 }

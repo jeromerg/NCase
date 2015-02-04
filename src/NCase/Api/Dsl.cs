@@ -4,21 +4,22 @@ using System.Reflection;
 using Autofac;
 using Castle.DynamicProxy;
 using NCase.Api.Dev;
+using NDsl.Api.Dev;
 using NVisitor.Api.Batch;
 using NVisitor.Api.Marker;
 
 namespace NCase.Api
 {
     /// <summary>
-    /// CaseBuilder is the main class you need to use NCase. 
-    /// It provides the factory `TComponent CreateCaseComponent&lt;TComponent>(params object[] args)` to create the 
+    /// Dsl is the entry point of NDsl framework. 
+    /// It provides the factory `TComponent CreateContributor&lt;TComponent>(params object[] args)` to create the 
     /// case components and `TDirector VisitAst&lt;TDirector>()` to walk the case syntax tree with visitors.</summary>
-    public class CaseBuilder 
+    public class Dsl 
     {
         private readonly IContainer mContainer;
-        private readonly AstNode mAstNode = new AstNode();
+        private readonly RootNode mRootNode = new RootNode();
 
-        public CaseBuilder()
+        public Dsl()
         {
             var builder = new ContainerBuilder();
 
@@ -29,8 +30,8 @@ namespace NCase.Api
 
             // register factories of case-components (components contributing to defining of cases)
             builder.RegisterAssemblyTypes(executingAssembly)
-                .Where(t => typeof (IContribFactory).IsAssignableFrom(t))
-                .As<IContribFactory>()
+                .Where(t => typeof (IContributorFactory).IsAssignableFrom(t))
+                .As<IContributorFactory>()
                 .PreserveExistingDefaults();
 
             // register visitor's directors. 
@@ -50,15 +51,15 @@ namespace NCase.Api
         }
 
         /// <summary> Creates a case component, that you can use to define your cases </summary>
-        /// <typeparam name="TComponent">The type of component - core implementation currently only support interface</typeparam>
+        /// <typeparam name="T">The type of component - core implementation currently only support interface</typeparam>
         /// <param name="args">Parameters to pass to the constructor of the component - currently not supported</param>
         /// <returns>a case component, that you can use to define the case tree</returns>
-        public TComponent CreateCaseComponent<TComponent>(params object[] args)
+        public T CreateContributor<T>(params object[] args)
         {
             return mContainer
-                .Resolve<IEnumerable<IContribFactory>>()
-                .First(f => f.CanHandle<TComponent>())
-                .Create<TComponent>(mAstNode, args);
+                .Resolve<IEnumerable<IContributorFactory>>()
+                .First(f => f.CanHandle<T>())
+                .Create<T>(mRootNode, args);
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace NCase.Api
             where TDir : IDirector<INode, TDir>
         {
             TDir director = mContainer.Resolve<TDir>();
-            director.Visit(mAstNode);
+            director.Visit(mRootNode);
             return director;
         }
 

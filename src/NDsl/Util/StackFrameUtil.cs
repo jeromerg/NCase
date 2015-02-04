@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using NCase.Util.Quality;
 
-namespace NCase.Util
+namespace NDsl.Util
 {
+    // TODO MAKE NON STATIC AND ADD AS SINGLE INSTANCE INTO CONTAINER
     public static class StackFrameUtil 
     {
         private const string IN_MEMORY_MODULE_NAME = "<In Memory Module>";

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using NCase.Util;
 using NCase.Util.Quality;
+using NDsl.Util;
 using NUnit.Framework;
 
 namespace NCaseTest

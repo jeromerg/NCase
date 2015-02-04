@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using NCase.Api.Dev;
 using NCase.Api.Dev.Director;
+using NDsl.Api.Dev;
 using NVisitor.Api.Batch;
 
 namespace NCase.Core.Visitor
 {
     public class DevelopVisitors
-        : IVisitor<INode, DevelopDirector, RootNode>
+        : IVisitor<INode, DevelopDirector, CaseRootNode>
         , IVisitor<INode, DevelopDirector, INode>
     {
 
-        public void Visit(DevelopDirector director, RootNode node)
+        public void Visit(DevelopDirector director, CaseRootNode node)
         {
             if (director.FlattenCases != null)
                 throw new ArgumentException("DevelopDirector can only visit a single RootNode and the current director has already visited one");
@@ -19,7 +20,7 @@ namespace NCase.Core.Visitor
             director.FlattenCases = BuildFlattenCasesEnumerable(director, node);
         }
 
-        private IEnumerable<List<INode>> BuildFlattenCasesEnumerable(DevelopDirector director, RootNode node)
+        private IEnumerable<List<INode>> BuildFlattenCasesEnumerable(DevelopDirector director, CaseRootNode node)
         {
             if(node.Children.Count == 0)
                 yield break;

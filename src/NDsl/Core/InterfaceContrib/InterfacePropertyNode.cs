@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using Castle.DynamicProxy;
-using NCase.Api.Dev;
-using NCase.Util;
-using NCase.Util.Castle;
 using NCase.Util.Quality;
+using NDsl.Api.Dev;
+using NDsl.Util;
+using NDsl.Util.Castle;
 
-namespace NCase.Core.InterfaceContrib
+namespace NDsl.Core.InterfaceContrib
 {
     public class InterfacePropertyNode : INode
     {
@@ -40,7 +40,7 @@ namespace NCase.Core.InterfaceContrib
 
         public void Replay()
         {
-            mReplayInterceptor.Replay(mPropertyCallKey, mInvocation.GetArgumentValue(0));
+            mReplayInterceptor.AddReplayValue(mPropertyCallKey, mInvocation.GetArgumentValue(0));
         }
     }
 }

@@ -90,6 +90,10 @@
       <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
       <Name>NCase</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NDsl\NDsl.csproj">
+      <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
+      <Name>NDsl</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

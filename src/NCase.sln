@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase", "NCase\NCase.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCaseTest", "NCaseTest\NCaseTest.csproj", "{02C99571-1D56-4883-963B-62B747D6B08C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDsl", "NDsl\NDsl.csproj", "{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{02C99571-1D56-4883-963B-62B747D6B08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02C99571-1D56-4883-963B-62B747D6B08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02C99571-1D56-4883-963B-62B747D6B08C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,23 +3,24 @@ using System.Linq;
 using Castle.Core.Internal;
 using NCase.Api.Dev;
 using NCase.Api.Dev.Director;
-using NCase.Core.InterfaceContrib;
+using NDsl.Api.Dev;
+using NDsl.Core.InterfaceContrib;
 using NVisitor.Api.Batch;
 
 namespace NCase.Core.Visitor
 {
     public class DumpVisitors
-        : IVisitor<INode, DumpDirector, AstNode>
-        , IVisitor<INode, DumpDirector, RootNode>
+        : IVisitor<INode, DumpDirector, RootNode>
+        , IVisitor<INode, DumpDirector, CaseRootNode>
         , IVisitor<INode, DumpDirector, InterfacePropertyNode>
     {
-        public void Visit(DumpDirector director, AstNode node)
+        public void Visit(DumpDirector director, RootNode node)
         {
             director.AddText("AST");
-            VisitNextLevel(director, node.Roots);
+            VisitNextLevel(director, node.Children);
         }
 
-        public void Visit(DumpDirector director, RootNode node)
+        public void Visit(DumpDirector director, CaseRootNode node)
         {
             director.AddText("ROOT");
             VisitNextLevel(director, node.Children);

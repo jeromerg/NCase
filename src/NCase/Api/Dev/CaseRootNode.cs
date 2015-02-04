@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using NCase.Api.Dev;
+using NDsl.Api.Dev;
 
-namespace NCase.Core
+namespace NCase.Api.Dev
 {
-    public class RootNode : INode
+    public class CaseRootNode : INode
     {
         private readonly List<INode> mChildren = new List<INode>();
 
