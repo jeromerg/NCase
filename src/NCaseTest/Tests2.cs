@@ -1,10 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
-using NCase.Util;
-using NCase.Util.Quality;
 using NDsl.Util;
 using NUnit.Framework;
+using NVisitor.Common.Quality;
 
 namespace NCaseTest
 {
@@ -39,8 +37,8 @@ namespace NCaseTest
         [Test]
         public void Test2()
         {
-            //GetOuterStackFrame();
-            StackFrameUtil.GetOuterStackFrame();
+            //GetUserStackFrame();
+            new StackFrameUtil().GetUserStackFrame();
         }
 
         [CanBeNull]

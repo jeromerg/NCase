@@ -15,7 +15,7 @@ namespace NCase.Core.Visitor
         public void Visit(DevelopDirector director, CaseRootNode node)
         {
             if (director.FlattenCases != null)
-                throw new ArgumentException("DevelopDirector can only visit a single RootNode and the current director has already visited one");
+                throw new ArgumentException("DevelopDirector can only visit a single AstRoot and the current director has already visited one");
 
             director.FlattenCases = BuildFlattenCasesEnumerable(director, node);
         }

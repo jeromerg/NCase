@@ -10,11 +10,11 @@ using NVisitor.Api.Batch;
 namespace NCase.Core.Visitor
 {
     public class DumpVisitors
-        : IVisitor<INode, DumpDirector, RootNode>
+        : IVisitor<INode, DumpDirector, AstRoot>
         , IVisitor<INode, DumpDirector, CaseRootNode>
         , IVisitor<INode, DumpDirector, InterfacePropertyNode>
     {
-        public void Visit(DumpDirector director, RootNode node)
+        public void Visit(DumpDirector director, AstRoot node)
         {
             director.AddText("AST");
             VisitNextLevel(director, node.Children);
@@ -28,16 +28,7 @@ namespace NCase.Core.Visitor
 
         public void Visit(DumpDirector director, InterfacePropertyNode node)
         {
-            string methodName = node.Invocation.Method.Name;
-            string arguments = node.Invocation.Arguments
-                                .Aggregate("", (s, o) => s + ", " + o)
-                                .Trim(',', ' ');
-
-            director.AddText("{0}({1}), in {2}: line {3}", 
-                             methodName, 
-                             arguments, 
-                             node.StackFrame.GetFileName(),
-                             node.StackFrame.GetFileLineNumber());
+            director.AddText(node.CodeLocation.GetUserCodeInfo());
         }
 
         private static void VisitNextLevel(DumpDirector director, IEnumerable<INode> children)

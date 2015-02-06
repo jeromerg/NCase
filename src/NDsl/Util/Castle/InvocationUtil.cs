@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
-using NCase.Util.Quality;
+using NVisitor.Common.Quality;
 
 namespace NDsl.Util.Castle
 {

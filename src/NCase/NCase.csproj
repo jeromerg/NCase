@@ -66,7 +66,6 @@
     <Compile Include="Api\Dev\CaseRootNode.cs" />
     <Compile Include="Api\Dev\Director\DevelopDirector.cs" />
     <Compile Include="Core\Visitor\DevelopVisitors.cs" />
-    <Compile Include="Api\Dsl.cs" />
     <Compile Include="Api\Dev\Director\DumpDirector.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
