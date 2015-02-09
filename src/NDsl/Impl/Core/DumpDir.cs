@@ -1,19 +1,17 @@
-using System.Collections.Generic;
 using System.Text;
-using NDsl.Api.Dev;
+using NDsl.Api.Core;
 using NVisitor.Api.Batch;
 
-namespace NCase.Api.Dev.Director
+namespace NDsl.Impl.Core
 {
-    public class DumpDirector : Director<INode, DumpDirector>
+    public class DumpDir : Director<INode, IDumpDir>, IDumpDir
     {
         private const int INDENTATION_SPACES = 4;
         private int mCurrentIndentation;
 
         private readonly StringBuilder mStringBuilder = new StringBuilder();
 
-        public DumpDirector(IEnumerable<IVisitorClass<INode, DumpDirector>> visitors)
-            : base(visitors)
+        public DumpDir(IVisitMapper<INode, IDumpDir> visitMapper) : base(visitMapper)
         {
         }
 

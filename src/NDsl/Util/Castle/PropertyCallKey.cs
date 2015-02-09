@@ -15,6 +15,17 @@ namespace NDsl.Util.Castle
             mIndexParameters = invocation.Arguments.Take(propertyInfo.GetIndexParameters().Length).ToArray();
         }
 
+        public string PropertyName
+        {
+            get { return mPropertyName; }
+        }
+
+        public object[] IndexParameters
+        {
+            get { return mIndexParameters; }
+        }
+
+        #region Equals and GetHashCode
         protected bool Equals(PropertyCallKey other)
         {
             return string.Equals(mPropertyName, other.mPropertyName) && Equals(mIndexParameters, other.mIndexParameters);
@@ -35,5 +46,6 @@ namespace NDsl.Util.Castle
                 return ((mPropertyName != null ? mPropertyName.GetHashCode() : 0)*397) ^ (mIndexParameters != null ? mIndexParameters.GetHashCode() : 0);
             }
         }
+        #endregion
     }
 }
