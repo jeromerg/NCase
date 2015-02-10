@@ -34,12 +34,12 @@ namespace NDsl.Impl.RecPlay
             switch (mAstRoot.State)
             {
                 case AstState.Writing:
-                    InterceptInReplayMode(invocation);
+                    InterceptInRecordingMode(invocation);
                     break;
                 case AstState.Processing:
                     throw new DslInvalidStateException("Invocation of RecPlay Contributors can occur only in Writing or Reading state");
                 case AstState.Reading:
-                    InterceptInRecordingMode(invocation);
+                    InterceptInReplayMode(invocation);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -11,7 +11,7 @@ namespace NCase.Autofac
             builder.RegisterModule<NDsl.Autofac.RecPlayModule>();
             builder.RegisterType<Impl.Vis.ProduceCaseDir>().As<Api.Vis.IProduceCaseDir>().InstancePerDependency();
             builder.RegisterType<Impl.Vis.DumpVisitors>().AsImplementedInterfaces().InstancePerDependency();
-            builder.RegisterType<Impl.Vis.CaseProducerVisitors>().AsImplementedInterfaces().InstancePerDependency();
+            builder.RegisterType<Impl.Vis.ProduceCaseVisitors>().AsImplementedInterfaces().InstancePerDependency();
             builder.RegisterType<Impl.CaseSetNode>().As<Api.ICaseSetNode>();
             builder.RegisterType<Impl.CaseBuilder>().As<Api.ICaseBuilder>();
         }

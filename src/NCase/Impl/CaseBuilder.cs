@@ -45,7 +45,7 @@ namespace NCase.Impl
             return new CaseSet(caseSetNode);
         }
 
-        public IEnumerable<Pause> GetAllCases()
+        public IEnumerable<Pause> PlayAllCases()
         {
             mAstRoot.State = AstState.Reading;
             IProduceCaseDir produceCaseDir = mProduceCaseDirFactory();

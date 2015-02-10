@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
-using Autofac;
-using Castle.DynamicProxy;
+﻿using Autofac;
 using NCase.Api;
 using NCase.Autofac;
-using NDsl.Impl.Core;
-using NDsl.Impl.RecPlay;
 using NUnit.Framework;
-using NVisitor.Api.Lazy;
 
 namespace NCaseTest
 {
     [TestFixture]
     public class InterfacePropertyTests
     {
-        public interface ISimpleProperties
+        public interface ITestvalues
         {
             string Name { get; set; }
             int Age { get; set; }
@@ -28,10 +23,10 @@ namespace NCaseTest
             IContainer container = builder.Build();
             var caseBuilder = container.Resolve<ICaseBuilder>();
 
-            var o = caseBuilder.GetContributor<ISimpleProperties>("o");
+            var o = caseBuilder.GetContributor<ITestvalues>("o");
 
-            caseBuilder.CaseSet("Jerome's life");
-            o.Name = "Jerome";
+            caseBuilder.CaseSet("Environment");
+            o.Name = "Raoul";
             {
                 o.Age = 22;
                 {
@@ -40,12 +35,15 @@ namespace NCaseTest
                 }
                 o.Age = 30;
                 {
-                    o.City = "Munich";
-                    o.City = "Berlin";
+                    o.City = "Paris";
+                    o.City = "London";
                 }
             }
 
-            var pause = caseBuilder.GetAllCases();
+            foreach (var pause in caseBuilder.PlayAllCases())
+            {
+                
+            }
 
             const string expected = @"ROOT
     set_Name(Jerome)

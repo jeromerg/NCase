@@ -68,7 +68,7 @@
     <Compile Include="Api\ICaseSetNode.cs" />
     <Compile Include="Impl\Vis\ProduceCaseDir.cs" />
     <Compile Include="Api\Vis\IProduceCaseDir.cs" />
-    <Compile Include="Impl\Vis\CaseProducerVisitors.cs" />
+    <Compile Include="Impl\Vis\ProduceCaseVisitors.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
