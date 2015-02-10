@@ -33,13 +33,18 @@ namespace NDsl.Util.Castle
         public static PropertyInfo GetPropertyFromGetter(IInvocation invocation)
         {
             MethodInfo method = invocation.Method;
-            return invocation.Proxy.GetType().GetProperties().FirstOrDefault(p => p.GetGetMethod() == method);
+            return GetAllImplementedProperties(invocation.Proxy.GetType()).FirstOrDefault(p => p.GetGetMethod() == method);
         }
         [CanBeNull]
         public static PropertyInfo GetPropertyFromSetter(IInvocation invocation)
         {
             MethodInfo method = invocation.Method;
-            return GetAllImplementingAndExtendingTypes(invocation.Proxy.GetType()).SelectMany(t => t.GetProperties()).FirstOrDefault(p => p.GetSetMethod() == method);
+            return GetAllImplementedProperties(invocation.Proxy.GetType()).FirstOrDefault(p => p.GetSetMethod() == method);
+        }
+
+        private static IEnumerable<PropertyInfo> GetAllImplementedProperties(Type type)
+        {
+            return GetAllImplementingAndExtendingTypes(type).SelectMany(t => t.GetProperties());
         }
 
         private static IEnumerable<Type> GetAllImplementingAndExtendingTypes(Type type)

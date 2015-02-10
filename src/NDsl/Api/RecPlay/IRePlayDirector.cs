@@ -3,7 +3,7 @@ using NVisitor.Api.Batch;
 
 namespace NDsl.Api.RecPlay
 {
-    public interface IRePlayDir : IDirector<INode, IRePlayDir>
+    public interface IRePlayDirector : IDirector<INode, IRePlayDirector>
     {
         
     }

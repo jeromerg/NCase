@@ -1,7 +1,9 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using NCase.Api;
 using NCase.Autofac;
 using NUnit.Framework;
+using NVisitor.Api.Lazy;
 
 namespace NCaseTest
 {
@@ -25,46 +27,59 @@ namespace NCaseTest
 
             var o = caseBuilder.GetContributor<ITestvalues>("o");
 
-            caseBuilder.CaseSet("Environment");
-            o.Name = "Raoul";
+            caseBuilder.NewSet("Environment");
             {
-                o.Age = 22;
+                o.Name = "Raoul";
                 {
-                    o.City = "Munich";
-                    o.City = "Berlin";
+                    o.Age = 22;
+                    {
+                        o.City = "Munich";
+                        o.City = "Berlin";
+                    }
+                    o.Age = 30;
+                    {
+                        o.City = "Paris";
+                        o.City = "London";
+                    }
                 }
-                o.Age = 30;
+                o.Name = "Philip";
                 {
-                    o.City = "Paris";
-                    o.City = "London";
+                    o.Age = 34;
+                    {
+                        o.City = "Lyon";
+                    }
+
+                    IEnumerator<Pause> enumerator =
+                        caseBuilder.PlayAllCases().GetEnumerator();
+
+                    enumerator.MoveNext();
+                    Assert.AreEqual("Raoul", o.Name);
+                    Assert.AreEqual(22, o.Age);
+                    Assert.AreEqual("Munich", o.Age);
+
+                    enumerator.MoveNext();
+                    Assert.AreEqual("Raoul", o.Name);
+                    Assert.AreEqual(22, o.Age);
+                    Assert.AreEqual("Berlin", o.Age);
+
+                    enumerator.MoveNext();
+                    Assert.AreEqual("Raoul", o.Name);
+                    Assert.AreEqual(30, o.Age);
+                    Assert.AreEqual("Paris", o.Age);
+
+                    enumerator.MoveNext();
+                    Assert.AreEqual("Raoul", o.Name);
+                    Assert.AreEqual(30, o.Age);
+                    Assert.AreEqual("London", o.Age);
+
+                    enumerator.MoveNext();
+                    Assert.AreEqual("Philip", o.Name);
+                    Assert.AreEqual(34, o.Age);
+                    Assert.AreEqual("Lyon", o.Age);
+
                 }
+
             }
-
-            foreach (var pause in caseBuilder.PlayAllCases())
-            {
-                
-            }
-
-            const string expected = @"ROOT
-    set_Name(Jerome)
-        set_Age(22)
-            set_City(Munich)
-            set_City(Berlin)
-        set_Age(30)
-            set_City(Munich)
-            set_City(Berlin)
-";
-            //Assert.AreEqual(expected, dumpVisit.ToString());
-        }
-
-        public interface IIndexerProperties
-        {
-            string this[string name, int age, string city] { get; set; }
-        }
-
-        public interface IMethods
-        {
-            void Method();
         }
     }
 }

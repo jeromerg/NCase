@@ -1,15 +1,16 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
+using NVisitor.Common.Quality;
 
 namespace NDsl.Util.Castle
 {
     public class PropertyCallKey
     {
-        private readonly string mPropertyName;
-        private readonly object[] mIndexParameters;
+        [NotNull] private readonly string mPropertyName;
+        [NotNull] private readonly object[] mIndexParameters;
 
-        public PropertyCallKey(IInvocation invocation, PropertyInfo propertyInfo)
+        public PropertyCallKey([NotNull] IInvocation invocation, [NotNull] PropertyInfo propertyInfo)
         {
             mPropertyName = propertyInfo.Name;
             mIndexParameters = invocation.Arguments.Take(propertyInfo.GetIndexParameters().Length).ToArray();
@@ -26,9 +27,21 @@ namespace NDsl.Util.Castle
         }
 
         #region Equals and GetHashCode
-        protected bool Equals(PropertyCallKey other)
+        private bool Equals(PropertyCallKey other)
         {
-            return string.Equals(mPropertyName, other.mPropertyName) && Equals(mIndexParameters, other.mIndexParameters);
+            bool equal = string.Equals(mPropertyName, other.mPropertyName);
+            if (!equal)
+                return false;
+
+            if (mIndexParameters.Length != other.mIndexParameters.Length)
+                return false;
+
+            for (int i = 0; i < mIndexParameters.Length; i++)
+            {
+                if (!Equals(mIndexParameters[i], other.mIndexParameters[i]))
+                    return false;
+            }
+            return true;
         }
 
         public override bool Equals(object obj)
@@ -43,7 +56,8 @@ namespace NDsl.Util.Castle
         {
             unchecked
             {
-                return ((mPropertyName != null ? mPropertyName.GetHashCode() : 0)*397) ^ (mIndexParameters != null ? mIndexParameters.GetHashCode() : 0);
+                int i = (mPropertyName.GetHashCode() *397) ^ (1 + mIndexParameters.Length);
+                return mIndexParameters.Where(p => p != null).Aggregate(i, (agg, p) => agg ^ p.GetHashCode());
             }
         }
         #endregion

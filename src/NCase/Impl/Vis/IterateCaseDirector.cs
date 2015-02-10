@@ -5,11 +5,11 @@ using NVisitor.Api.Lazy;
 
 namespace NCase.Impl.Vis
 {
-    public class ProduceCaseDir : LazyDirector<INode, IProduceCaseDir>, IProduceCaseDir
+    public class IterateCaseDirector : LazyDirector<INode, IIterateCaseDirector>, IIterateCaseDirector
     {
         private readonly Stack<INode> mCurrentCase = new Stack<INode>();
 
-        public ProduceCaseDir(IEnumerable<ILazyVisitorClass<INode, IProduceCaseDir>> visitors)
+        public IterateCaseDirector(IEnumerable<ILazyVisitorClass<INode, IIterateCaseDirector>> visitors)
             : base(visitors)
         {
         }

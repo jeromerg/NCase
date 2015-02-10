@@ -8,35 +8,35 @@ using NVisitor.Api.Lazy;
 
 namespace NCase.Impl.Vis
 {
-    public class ProduceCaseVisitors
-        : ILazyVisitor<INode, IProduceCaseDir, IAstRoot>
-        , ILazyVisitor<INode, IProduceCaseDir, ICaseSetNode>
-        , ILazyVisitor<INode, IProduceCaseDir, INode>
-        , ILazyVisitor<INode, IProduceCaseDir, RecPlayInterfacePropertyNode>
+    public class IterateCaseVisitors
+        : ILazyVisitor<INode, IIterateCaseDirector, IAstRoot>
+        , ILazyVisitor<INode, IIterateCaseDirector, ICaseSetNode>
+        , ILazyVisitor<INode, IIterateCaseDirector, INode>
+        , ILazyVisitor<INode, IIterateCaseDirector, RecPlayInterfacePropertyNode>
     {
-        public IEnumerable<Pause> Visit(IProduceCaseDir director, IAstRoot node)
+        public IEnumerable<Pause> Visit(IIterateCaseDirector director, IAstRoot node)
         {
             return PushNodeVisitChildrenandPopNode(director, node.Children, node);
         }
 
-        public IEnumerable<Pause> Visit(IProduceCaseDir director, ICaseSetNode node)
+        public IEnumerable<Pause> Visit(IIterateCaseDirector director, ICaseSetNode node)
         {
             return PushNodeVisitChildrenandPopNode(director, node.Children, node);
         }
 
-        public IEnumerable<Pause> Visit(IProduceCaseDir director, INode node)
+        public IEnumerable<Pause> Visit(IIterateCaseDirector director, INode node)
         {
             // TODO
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Pause> Visit(IProduceCaseDir director, RecPlayInterfacePropertyNode node)
+        public IEnumerable<Pause> Visit(IIterateCaseDirector director, RecPlayInterfacePropertyNode node)
         {
             director.CurrentCase.Push(node);
             yield return Pause.Now;
         }
 
-        private static IEnumerable<Pause> PushNodeVisitChildrenandPopNode(IProduceCaseDir director, IEnumerable<INode> children, INode node)
+        private static IEnumerable<Pause> PushNodeVisitChildrenandPopNode(IIterateCaseDirector director, IEnumerable<INode> children, INode node)
         {
             director.CurrentCase.Push(node);
             try

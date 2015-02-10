@@ -56,7 +56,7 @@ namespace NDsl.Impl.RecPlay
             var node = new RecPlayInterfacePropertyNode(this, 
                                                         mContributorName, 
                                                         propertyCallKey, 
-                                                        invocation, 
+                                                        invocation.GetArgumentValue(propertyCallKey.IndexParameters.Length), 
                                                         codeLocation);
             mAstRoot.AddChild(node);
         }

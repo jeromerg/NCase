@@ -4,7 +4,7 @@ using NVisitor.Api.Lazy;
 
 namespace NCase.Api.Vis
 {
-    public interface IProduceCaseDir : ILazyDirector<INode, IProduceCaseDir>
+    public interface IIterateCaseDirector : ILazyDirector<INode, IIterateCaseDirector>
     {
         Stack<INode> CurrentCase { get; }
     }

@@ -3,7 +3,7 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Api.Core
 {
-    public interface IDumpDir : IDirector<INode, IDumpDir>
+    public interface IDumpDirector : IDirector<INode, IDumpDirector>
     {
         void Indent();
         void Dedent();

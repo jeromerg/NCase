@@ -13,33 +13,36 @@ namespace NCase.Impl
     public class CaseBuilder : ICaseBuilder
     {
         [NotNull] private readonly AstRoot mAstRoot = new AstRoot();
-        [NotNull] private readonly Func<IProduceCaseDir> mProduceCaseDirFactory;
-        [NotNull] private readonly IRePlayDir mRePlayDir;
+        [NotNull] private readonly Func<IIterateCaseDirector> mIterateCaseDirectorFactory;
+        [NotNull] private readonly IRePlayDirector mRePlayDirector;
         private readonly IRecPlayContributorFactory mRecPlayContributorFactory;
 
         public CaseBuilder(
-            [NotNull] Func<IProduceCaseDir> produceCaseDirFactory, 
-            [NotNull] IRePlayDir rePlayDir,  // stateless director
+            [NotNull] Func<IIterateCaseDirector> iterateCaseDirectorFactory, 
+            [NotNull] IRePlayDirector rePlayDirector,  // stateless director
             [NotNull] IRecPlayContributorFactory recPlayContributorFactory
             )
         {
-            if (produceCaseDirFactory == null) throw new ArgumentNullException("produceCaseDirFactory");
-            if (rePlayDir == null) throw new ArgumentNullException("rePlayDir");
+            if (iterateCaseDirectorFactory == null) throw new ArgumentNullException("iterateCaseDirectorFactory");
+            if (rePlayDirector == null) throw new ArgumentNullException("rePlayDirector");
             if (recPlayContributorFactory == null) throw new ArgumentNullException("recPlayContributorFactory");
 
-            mProduceCaseDirFactory = produceCaseDirFactory;
-            mRePlayDir = rePlayDir;
+            mIterateCaseDirectorFactory = iterateCaseDirectorFactory;
+            mRePlayDirector = rePlayDirector;
             mRecPlayContributorFactory = recPlayContributorFactory;
         }
 
-        public T GetContributor<T>(string name)
+        public T GetContributor<T>([NotNull] string name)
         {
+            if (name == null) throw new ArgumentNullException("name");
+
             return mRecPlayContributorFactory.CreateInterface<T>(mAstRoot, name);
         }
 
-        public CaseSet CaseSet(string name)
+        public CaseSet NewSet([NotNull] string name)
         {
             if (name == null) throw new ArgumentNullException("name");
+            
             var caseSetNode = new CaseSetNode(name);
             mAstRoot.AddChild(caseSetNode);
             return new CaseSet(caseSetNode);
@@ -47,20 +50,25 @@ namespace NCase.Impl
 
         public IEnumerable<Pause> PlayAllCases()
         {
+            mAstRoot.State = AstState.Processing;
+            
+
             mAstRoot.State = AstState.Reading;
-            IProduceCaseDir produceCaseDir = mProduceCaseDirFactory();
-            foreach (var pause in produceCaseDir.Visit(mAstRoot))
+
+            IIterateCaseDirector iterateCaseDirector = mIterateCaseDirectorFactory();
+            foreach (var pause in iterateCaseDirector.Visit(mAstRoot))
             {
                 // TODO: IMPROVE REPLAY BY INTRODUCING VALUE-CLEANING AFTER EACH REPLAY!
-                ReplayCase(produceCaseDir);
+                ReplayCase(iterateCaseDirector.CurrentCase);
                 yield return Pause.Now;
             } 
+
         }
 
-        private void ReplayCase(IProduceCaseDir produceCaseDir)
+        private void ReplayCase(IEnumerable<INode> nodes)
         {
-            foreach (var node in produceCaseDir.CurrentCase)
-                mRePlayDir.Visit(node);
+            foreach (var node in nodes)
+                mRePlayDirector.Visit(node);
         }
     }
 }

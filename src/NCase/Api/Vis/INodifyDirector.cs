@@ -3,7 +3,7 @@ using NVisitor.Api.Lazy;
 
 namespace NCase.Api.Vis
 {
-    public interface INodifyDir : ILazyDirector<INode, INodifyDir>
+    public interface INodifyDirector : ILazyDirector<INode, INodifyDirector>
     {
     }
 }

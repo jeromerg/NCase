@@ -6,12 +6,12 @@ using NVisitor.Api.Batch;
 namespace NDsl.Impl.RecPlay
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDir, IRecPlayInterfacePropertyNode>
+        : IVisitor<INode, IDumpDirector, IRecPlayInterfacePropertyNode>
     {
 
-        public void Visit(IDumpDir dir, IRecPlayInterfacePropertyNode node)
+        public void Visit(IDumpDirector director, IRecPlayInterfacePropertyNode node)
         {
-            dir.AddText("{0}.{1}{2} = {3} ({4})", 
+            director.AddText("{0}.{1}{2} = {3} ({4})", 
                 node.ContributorName,
                 node.PropertyCallKey.PropertyName,
                 BuildIndexesIfExist(node.PropertyCallKey),

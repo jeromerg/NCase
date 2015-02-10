@@ -4,14 +4,14 @@ using NVisitor.Api.Batch;
 
 namespace NDsl.Impl.Core
 {
-    public class DumpDir : Director<INode, IDumpDir>, IDumpDir
+    public class DumpDirector : Director<INode, IDumpDirector>, IDumpDirector
     {
         private const int INDENTATION_SPACES = 4;
         private int mCurrentIndentation;
 
         private readonly StringBuilder mStringBuilder = new StringBuilder();
 
-        public DumpDir(IVisitMapper<INode, IDumpDir> visitMapper) : base(visitMapper)
+        public DumpDirector(IVisitMapper<INode, IDumpDirector> visitMapper) : base(visitMapper)
         {
         }
 

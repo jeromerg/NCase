@@ -6,19 +6,19 @@ using NVisitor.Api.Batch;
 namespace NDsl.Impl.Core
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDir, IAstRoot>
+        : IVisitor<INode, IDumpDirector, IAstRoot>
     {
-        public void Visit(IDumpDir dir, IAstRoot node)
+        public void Visit(IDumpDirector director, IAstRoot node)
         {
-            dir.AddText("AST_ROOT");
-            VisitNextLevel(dir, node.Children);
+            director.AddText("AST_ROOT");
+            VisitNextLevel(director, node.Children);
         }
 
-        private static void VisitNextLevel(IDumpDir dir, IEnumerable<INode> children)
+        private static void VisitNextLevel(IDumpDirector director, IEnumerable<INode> children)
         {
-            dir.Indent();
-            children.ForEach(c => dir.Visit(c));
-            dir.Dedent();
+            director.Indent();
+            children.ForEach(c => director.Visit(c));
+            director.Dedent();
         }
     }
 }

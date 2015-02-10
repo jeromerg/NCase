@@ -5,15 +5,15 @@ using NVisitor.Api.Batch;
 namespace NDsl.Impl.RecPlay
 {
     public class PlayVisitors 
-        : IVisitor<INode, IRePlayDir, INode>
-        , IVisitor<INode, IRePlayDir, IRecPlayInterfacePropertyNode>
+        : IVisitor<INode, IRePlayDirector, INode>
+        , IVisitor<INode, IRePlayDirector, IRecPlayInterfacePropertyNode>
     {
-        public void Visit(IRePlayDir director, INode node)
+        public void Visit(IRePlayDirector director, INode node)
         {
             // default behavior: do nothing
         }
 
-        public void Visit(IRePlayDir director, IRecPlayInterfacePropertyNode node)
+        public void Visit(IRePlayDirector director, IRecPlayInterfacePropertyNode node)
         {
             node.Replay();
         }

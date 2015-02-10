@@ -7,19 +7,19 @@ using NVisitor.Api.Batch;
 namespace NCase.Impl.Vis
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDir, ICaseSetNode>
+        : IVisitor<INode, IDumpDirector, ICaseSetNode>
     {
-        public void Visit(IDumpDir dir, ICaseSetNode node)
+        public void Visit(IDumpDirector director, ICaseSetNode node)
         {
-            dir.AddText("CASE_ROOT");
-            VisitNextLevel(dir, node.Children);
+            director.AddText("CASE_ROOT");
+            VisitNextLevel(director, node.Children);
         }
 
-        private static void VisitNextLevel(IDumpDir dir, IEnumerable<INode> children)
+        private static void VisitNextLevel(IDumpDirector director, IEnumerable<INode> children)
         {
-            dir.Indent();
-            children.ForEach(c => dir.Visit(c));
-            dir.Dedent();
+            director.Indent();
+            children.ForEach(c => director.Visit(c));
+            director.Dedent();
         }
     }
 }

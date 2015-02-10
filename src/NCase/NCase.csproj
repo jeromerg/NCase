@@ -61,14 +61,14 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Api\CaseSet.cs" />
-    <Compile Include="Api\Vis\INodifyDir.cs" />
+    <Compile Include="Api\Vis\INodifyDirector.cs" />
     <Compile Include="Impl\CaseBuilder.cs" />
     <Compile Include="Api\ICaseBuilder.cs" />
     <Compile Include="Impl\CaseSetNode.cs" />
     <Compile Include="Api\ICaseSetNode.cs" />
-    <Compile Include="Impl\Vis\ProduceCaseDir.cs" />
-    <Compile Include="Api\Vis\IProduceCaseDir.cs" />
-    <Compile Include="Impl\Vis\ProduceCaseVisitors.cs" />
+    <Compile Include="Impl\Vis\IterateCaseDirector.cs" />
+    <Compile Include="Api\Vis\IIterateCaseDirector.cs" />
+    <Compile Include="Impl\Vis\IterateCaseVisitors.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -58,11 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Core\AstState.cs" />
-    <Compile Include="Api\Core\IDumpDir.cs" />
-    <Compile Include="Api\RecPlay\IRePlayDir.cs" />
+    <Compile Include="Api\Core\IDumpDirector.cs" />
+    <Compile Include="Api\RecPlay\IRePlayDirector.cs" />
     <Compile Include="Api\RecPlay\IRecPlayInterfacePropertyNode.cs" />
     <Compile Include="Impl\RecPlay\PlayVisitors.cs" />
-    <Compile Include="Impl\RecPlay\RePlayDir.cs" />
+    <Compile Include="Impl\RecPlay\RePlayDirector.cs" />
     <Compile Include="Impl\Core\Util\CodeLocation.cs" />
     <Compile Include="Api\Core\DslInvalidStateException.cs" />
     <Compile Include="Api\RecPlay\IRecPlayContributorFactory.cs" />
@@ -71,7 +71,7 @@
     <Compile Include="Impl\Core\AstRoot.cs" />
     <Compile Include="Api\Core\INode.cs" />
     <Compile Include="Api\Core\InvalidCaseRecordException.cs" />
-    <Compile Include="Impl\Core\DumpDir.cs" />
+    <Compile Include="Impl\Core\DumpDirector.cs" />
     <Compile Include="Impl\Core\DumpVisitors.cs" />
     <Compile Include="Impl\RecPlay\RecPlayContributorFactory.cs" />
     <Compile Include="Impl\RecPlay\RecPlayInterfacePropertyNode.cs" />
