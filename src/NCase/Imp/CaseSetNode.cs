@@ -17,6 +17,6 @@ namespace NCase.Impl
             mCaseSetName = caseSetName;
         }
 
-        public IList<INode> Children { get { return mChildren; } } 
+        public IEnumerable<INode> Children { get { return mChildren; } } 
     }
 }

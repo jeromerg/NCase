@@ -59,33 +59,34 @@
   <ItemGroup>
     <Compile Include="Api\Core\AstState.cs" />
     <Compile Include="Api\Core\IDumpDirector.cs" />
+    <Compile Include="Api\Core\INodeWithChildren.cs" />
     <Compile Include="Api\RecPlay\IRePlayDirector.cs" />
     <Compile Include="Api\RecPlay\IRecPlayInterfacePropertyNode.cs" />
-    <Compile Include="Impl\RecPlay\PlayVisitors.cs" />
-    <Compile Include="Impl\RecPlay\RePlayDirector.cs" />
-    <Compile Include="Impl\Core\Util\CodeLocation.cs" />
+    <Compile Include="Imp\RecPlay\PlayVisitors.cs" />
+    <Compile Include="Imp\RecPlay\RePlayDirector.cs" />
+    <Compile Include="Imp\Core\Util\CodeLocation.cs" />
     <Compile Include="Api\Core\DslInvalidStateException.cs" />
     <Compile Include="Api\RecPlay\IRecPlayContributorFactory.cs" />
     <Compile Include="Api\Core\IAstRoot.cs" />
     <Compile Include="Api\Core\CaseValueNotFoundException.cs" />
-    <Compile Include="Impl\Core\AstRoot.cs" />
+    <Compile Include="Imp\Core\AstRoot.cs" />
     <Compile Include="Api\Core\INode.cs" />
     <Compile Include="Api\Core\InvalidCaseRecordException.cs" />
-    <Compile Include="Impl\Core\DumpDirector.cs" />
-    <Compile Include="Impl\Core\DumpVisitors.cs" />
-    <Compile Include="Impl\RecPlay\RecPlayContributorFactory.cs" />
-    <Compile Include="Impl\RecPlay\RecPlayInterfacePropertyNode.cs" />
-    <Compile Include="Impl\RecPlay\IRecPlayInterfaceInterceptor.cs" />
-    <Compile Include="Impl\RecPlay\RecPlayInterfaceInterceptor.cs" />
-    <Compile Include="Impl\RecPlay\DumpVisitors.cs" />
+    <Compile Include="Imp\Core\DumpDirector.cs" />
+    <Compile Include="Imp\Core\DumpVisitors.cs" />
+    <Compile Include="Imp\RecPlay\RecPlayContributorFactory.cs" />
+    <Compile Include="Imp\RecPlay\RecPlayInterfacePropertyNode.cs" />
+    <Compile Include="Imp\RecPlay\IRecPlayInterfaceInterceptor.cs" />
+    <Compile Include="Imp\RecPlay\RecPlayInterfaceInterceptor.cs" />
+    <Compile Include="Imp\RecPlay\DumpVisitors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Castle\InvocationUtil.cs" />
     <Compile Include="Util\Castle\PropertyCallKey.cs" />
     <Compile Include="Api\Core\Util\ICodeLocation.cs" />
     <Compile Include="Api\Core\Util\ICodeLocationUtil.cs" />
     <Compile Include="Api\Core\Util\IStackFrameUtil.cs" />
-    <Compile Include="Impl\Core\Util\CodeLocationUtil.cs" />
-    <Compile Include="Impl\Core\Util\StackFrameUtil.cs" />
+    <Compile Include="Imp\Core\Util\CodeLocationUtil.cs" />
+    <Compile Include="Imp\Core\Util\StackFrameUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

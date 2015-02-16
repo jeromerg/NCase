@@ -3,7 +3,7 @@ using NDsl.Api.Core;
 
 namespace NCase.Api
 {
-    public interface ICaseSetNode : INode
+    public interface ICaseTreeNode : INode
     {
         IList<INode> Children { get; }
     }

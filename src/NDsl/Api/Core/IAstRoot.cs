@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using NVisitor.Common.Quality;
+﻿using NVisitor.Common.Quality;
 
 namespace NDsl.Api.Core
 {
-    public interface IAstRoot : INode
+    public interface IAstRoot : INodeWithChildren
     {
         AstState State { get; set; }
-
-        /// <summary>NotNull and Contains at least one element</summary>
-        IEnumerable<INode> Children { get; }
 
         void AddChild([NotNull] INode child);
     }
