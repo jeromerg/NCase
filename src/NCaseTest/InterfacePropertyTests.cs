@@ -27,7 +27,7 @@ namespace NCaseTest
 
             var o = caseBuilder.GetContributor<ITestvalues>("o");
 
-            caseBuilder.NewSet("Environment");
+            caseBuilder.CreateSet("Environment");
             {
                 o.Name = "Raoul";
                 {

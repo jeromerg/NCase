@@ -26,7 +26,7 @@ namespace NDsl.Impl.RecPlay
 
         public T CreateInterface<T>(IAstRoot astRoot, string contributorName)
         {
-            var interceptor = new RecPlayInterfaceInterceptor(astRoot, contributorName, mCodeLocationUtil);
+            var interceptor = new RecPlay(astRoot, contributorName, mCodeLocationUtil);
             
             Type[] interfaces = typeof (T).GetInterfaces()
                 .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport).ToArray();

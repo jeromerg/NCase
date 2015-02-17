@@ -13,19 +13,20 @@ namespace NCase.Impl
     public class CaseBuilder : ICaseBuilder
     {
         [NotNull] private readonly AstRoot mAstRoot = new AstRoot();
+        
         [NotNull] private readonly Func<IIterateCaseDirector> mIterateCaseDirectorFactory;
         [NotNull] private readonly IRePlayDirector mRePlayDirector;
-        private readonly IRecPlayContributorFactory mRecPlayContributorFactory;
+        [NotNull] private readonly IRecPlayContributorFactory mRecPlayContributorFactory;
 
         public CaseBuilder(
-            [NotNull] Func<IIterateCaseDirector> iterateCaseDirectorFactory, 
-            [NotNull] IRePlayDirector rePlayDirector,  // stateless director
-            [NotNull] IRecPlayContributorFactory recPlayContributorFactory
+            [NotNull] IRecPlayContributorFactory recPlayContributorFactory,
+            [NotNull] IRePlayDirector rePlayDirector,  // stateless director, no need for factory
+            [NotNull] Func<IIterateCaseDirector> iterateCaseDirectorFactory
             )
         {
-            if (iterateCaseDirectorFactory == null) throw new ArgumentNullException("iterateCaseDirectorFactory");
-            if (rePlayDirector == null) throw new ArgumentNullException("rePlayDirector");
             if (recPlayContributorFactory == null) throw new ArgumentNullException("recPlayContributorFactory");
+            if (rePlayDirector == null) throw new ArgumentNullException("rePlayDirector");
+            if (iterateCaseDirectorFactory == null) throw new ArgumentNullException("iterateCaseDirectorFactory");
 
             mIterateCaseDirectorFactory = iterateCaseDirectorFactory;
             mRePlayDirector = rePlayDirector;
@@ -39,19 +40,18 @@ namespace NCase.Impl
             return mRecPlayContributorFactory.CreateInterface<T>(mAstRoot, name);
         }
 
-        public CaseSet NewSet([NotNull] string name)
+        public CaseSet CreateSet([NotNull] string name)
         {
             if (name == null) throw new ArgumentNullException("name");
             
-            var caseSetNode = new CaseSetNode(name);
-            mAstRoot.AddChild(caseSetNode);
-            return new CaseSet(caseSetNode);
+            return new CaseSet(mAstRoot, name);
         }
 
         public IEnumerable<Pause> PlayAllCases()
         {
             mAstRoot.State = AstState.Processing;
             
+               
 
             mAstRoot.State = AstState.Reading;
 

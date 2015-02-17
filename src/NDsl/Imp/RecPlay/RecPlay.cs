@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using Castle.DynamicProxy;
 using NDsl.Api.Core;
 using NDsl.Api.Core.Util;
+using NDsl.Imp.Core.Token;
 using NDsl.Util.Castle;
 using NVisitor.Common.Quality;
 
 namespace NDsl.Impl.RecPlay
 {
-    public class RecPlayInterfaceInterceptor : IInterceptor, IRecPlayInterfaceInterceptor
+    public class RecPlay : IInterceptor, IRecPlayInterfaceInterceptor
     {
         [NotNull] private readonly IAstRoot mAstRoot;
         private readonly string mContributorName;
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues = new Dictionary<PropertyCallKey, object>();
 
-        public RecPlayInterfaceInterceptor(
+        public RecPlay(
             [NotNull] IAstRoot astRoot, 
             [NotNull] string contributorName,
             [NotNull] ICodeLocationUtil codeLocationUtil)
@@ -36,11 +37,14 @@ namespace NDsl.Impl.RecPlay
                 case AstState.Writing:
                     InterceptInRecordingMode(invocation);
                     break;
+
                 case AstState.Processing:
                     throw new DslInvalidStateException("Invocation of RecPlay Contributors can occur only in Writing or Reading state");
+                
                 case AstState.Reading:
                     InterceptInReplayMode(invocation);
                     break;
+                
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -49,16 +53,8 @@ namespace NDsl.Impl.RecPlay
         private void InterceptInRecordingMode(IInvocation invocation)
         {
             ICodeLocation codeLocation = mCodeLocationUtil.GetUserCodeLocation();
-            PropertyCallKey propertyCallKey = InvocationUtil.GetCallKeyFromSetter(invocation);
-            if (propertyCallKey == null)
-                throw new InvalidCaseRecordException("Invalid call to {0} in recording mode. Only property setter allowed", invocation.Method);
-
-            var node = new RecPlayInterfacePropertyNode(this, 
-                                                        mContributorName, 
-                                                        propertyCallKey, 
-                                                        invocation.GetArgumentValue(propertyCallKey.IndexParameters.Length), 
-                                                        codeLocation);
-            mAstRoot.AddChild(node);
+            var token = new InvocationToken<RecPlay>(this, new InvocationRecord(mContributorName, invocation, codeLocation));
+            mAstRoot.AddChild(token);
         }
 
         private void InterceptInReplayMode(IInvocation invocation)

@@ -6,7 +6,7 @@ namespace NCase.Api
 {
     public interface ICaseBuilder
     {
-        [NotNull] CaseSet NewSet([NotNull] string name);
+        [NotNull] CaseSet CreateSet([NotNull] string name);
         [NotNull] T GetContributor<T>(string name);
         [NotNull] IEnumerable<Pause> PlayAllCases();
     }

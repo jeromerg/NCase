@@ -7,10 +7,10 @@ namespace NDsl.Impl.Core.Util
 {
     public class CodeLocation : ICodeLocation
     {
-        [NotNull]
+        [CanBeNull]
         private readonly StackFrame mStackFrame;
 
-        public CodeLocation([NotNull] StackFrame stackFrame)
+        public CodeLocation([CanBeNull] StackFrame stackFrame)
         {
             if (stackFrame == null) throw new ArgumentNullException("stackFrame");
             mStackFrame = stackFrame;
@@ -18,8 +18,12 @@ namespace NDsl.Impl.Core.Util
 
         public string GetUserCodeInfo()
         {
+            if (mStackFrame == null)
+                return "no information";
+
             // TODO Format string a.o. so that Resharper StackTrace functionality works!
             return mStackFrame.ToString();
+            
         }
     }
 }
