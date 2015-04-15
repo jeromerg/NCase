@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Castle.Core.Internal;
-using NCase.Api;
+using NCase.Api.Nod;
 using NDsl.Api.Core;
 using NVisitor.Api.Batch;
 
-namespace NCase.Impl.Vis
+namespace NCase.Imp.Vis
 {
     public class DumpVisitors
         : IVisitor<INode, IDumpDirector, ICaseSetNode>

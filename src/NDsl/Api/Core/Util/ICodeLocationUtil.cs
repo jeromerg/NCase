@@ -5,6 +5,6 @@ namespace NDsl.Api.Core.Util
     public interface ICodeLocationUtil
     {
         [NotNull]
-        ICodeLocation GetUserCodeLocation();
+        ICodeLocation GetCurrentUserCodeLocation();
     }
 }

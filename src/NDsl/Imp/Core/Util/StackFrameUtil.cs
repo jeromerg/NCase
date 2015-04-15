@@ -3,9 +3,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using NDsl.Api.Core.Util;
-using NVisitor.Common.Quality;
 
-namespace NDsl.Impl.Core.Util
+namespace NDsl.Imp.Core.Util
 {
     public class StackFrameUtil : IStackFrameUtil
     {
@@ -25,7 +24,6 @@ namespace NDsl.Impl.Core.Util
                 mExcludedAssemblies.AddRange(GetAssemblyAndReferenced(assembly));
         }
 
-        [CanBeNull]
         public StackFrame GetUserStackFrame()
         {
             StackFrame[] stackFrames = new StackTrace(true).GetFrames();

@@ -6,7 +6,7 @@ using NDsl.Api.Core.Util;
 using NDsl.Api.RecPlay;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Impl.RecPlay
+namespace NDsl.Imp.RecPlay
 {
     public class RecPlayContributorFactory : IRecPlayContributorFactory
     {
@@ -24,9 +24,9 @@ namespace NDsl.Impl.RecPlay
             mCodeLocationUtil = codeLocationUtil;
         }
 
-        public T CreateInterface<T>(IAstRoot astRoot, string contributorName)
+        public T CreateInterface<T>(ITokenWriter tokenWriter, string contributorName)
         {
-            var interceptor = new RecPlay(astRoot, contributorName, mCodeLocationUtil);
+            var interceptor = new Imp.RecPlay.RecPlay(tokenWriter, contributorName, mCodeLocationUtil);
             
             Type[] interfaces = typeof (T).GetInterfaces()
                 .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport).ToArray();

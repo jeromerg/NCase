@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace NDsl.Api.Core
+namespace NDsl.Api.Core.Ex
 {
     public class DslInvalidStateException : Exception
     {

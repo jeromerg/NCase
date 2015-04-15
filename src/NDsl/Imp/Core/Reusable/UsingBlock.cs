@@ -3,28 +3,28 @@ using NDsl.Api.Core;
 using NDsl.Imp.Core.Token;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Imp.Core.Semantic
+namespace NDsl.Imp.Core.Reusable
 {
     public class SemanticalBlockDisposable<T> : IDisposable
     {
         [NotNull]
-        private readonly IAstRoot mAstRoot;
-        private readonly T mParent;
+        private readonly ITokenWriter mTokenWriter;
+        private readonly T mSemanticalParent;
 
-        public SemanticalBlockDisposable([NotNull] IAstRoot astRoot, [NotNull] T parent)
+        public SemanticalBlockDisposable([NotNull] ITokenWriter tokenWriter, [NotNull] T semanticalParent)
         {
-            if (astRoot == null) throw new ArgumentNullException("astRoot");
-            if (parent == null) throw new ArgumentNullException("parent");
+            if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
+            if (semanticalParent == null) throw new ArgumentNullException("semanticalParent");
 
-            mAstRoot = astRoot;
-            mParent = parent;
+            mTokenWriter = tokenWriter;
+            mSemanticalParent = semanticalParent;
 
-            mAstRoot.AddChild(new BeginToken<T>(mParent));
+            mTokenWriter.Append(new BeginToken<T>(mSemanticalParent));
         }
 
         public void Dispose()
         {
-            mAstRoot.AddChild(new EndToken<T>(mParent));
+            mTokenWriter.Append(new EndToken<T>(mSemanticalParent));
         }
     }
 }

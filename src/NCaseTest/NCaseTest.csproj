@@ -53,9 +53,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.47, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NVisitor, Version=1.1.0.51, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NVisitor.1.1.0.47\lib\net40-Client\NVisitor.dll</HintPath>
+      <HintPath>..\packages\NVisitor.1.1.0.51\lib\net40-Client\NVisitor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

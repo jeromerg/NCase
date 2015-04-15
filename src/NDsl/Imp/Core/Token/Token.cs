@@ -2,7 +2,7 @@
 
 namespace NDsl.Imp.Core.Token
 {
-    public class Token<TSemanticalOwner> : INode
+    public class Token<TSemanticalOwner> : IToken
     {
     }
 }

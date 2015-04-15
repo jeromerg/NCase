@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using NDsl.Api.Core;
 using NDsl.Api.Core.Util;
-using NDsl.Impl.Core;
-using NDsl.Impl.Core.Util;
+using NDsl.Imp.Core;
+using NDsl.Imp.Core.Util;
 using NVisitor.Api.Batch;
 
 namespace NDsl.Autofac
@@ -14,7 +14,7 @@ namespace NDsl.Autofac
             base.Load(builder);
             builder.RegisterType<StackFrameUtil>().As<IStackFrameUtil>();
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
-            builder.RegisterType<AstRoot>().As<IAstRoot>();
+            builder.RegisterType<TokenStream>().As<ITokenWriter>();
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
             builder.RegisterGeneric(typeof(VisitMapper<,>)).AsSelf().As(typeof(IVisitMapper<,>));
         }

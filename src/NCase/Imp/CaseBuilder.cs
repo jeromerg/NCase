@@ -4,62 +4,68 @@ using NCase.Api;
 using NCase.Api.Vis;
 using NDsl.Api.Core;
 using NDsl.Api.RecPlay;
-using NDsl.Impl.Core;
+using NDsl.Imp.Core;
 using NVisitor.Api.Lazy;
 using NVisitor.Common.Quality;
 
-namespace NCase.Impl
+namespace NCase.Imp
 {
     public class CaseBuilder : ICaseBuilder
     {
-        [NotNull] private readonly AstRoot mAstRoot = new AstRoot();
+        [NotNull] private readonly TokenStream mTokenStream = new TokenStream();
         
-        [NotNull] private readonly Func<IIterateCaseDirector> mIterateCaseDirectorFactory;
+        [NotNull] private readonly Func<ICaseGeneratorDirector> mCaseGeneratorFactory;
         [NotNull] private readonly IRePlayDirector mRePlayDirector;
+        private readonly IParserDirector mParserDirector;
         [NotNull] private readonly IRecPlayContributorFactory mRecPlayContributorFactory;
 
         public CaseBuilder(
             [NotNull] IRecPlayContributorFactory recPlayContributorFactory,
             [NotNull] IRePlayDirector rePlayDirector,  // stateless director, no need for factory
-            [NotNull] Func<IIterateCaseDirector> iterateCaseDirectorFactory
+            [NotNull] IParserDirector parserDirector,
+            [NotNull] Func<ICaseGeneratorDirector> caseGeneratorFactory
             )
         {
             if (recPlayContributorFactory == null) throw new ArgumentNullException("recPlayContributorFactory");
             if (rePlayDirector == null) throw new ArgumentNullException("rePlayDirector");
-            if (iterateCaseDirectorFactory == null) throw new ArgumentNullException("iterateCaseDirectorFactory");
+            if (parserDirector == null) throw new ArgumentNullException("parserDirector");
+            if (caseGeneratorFactory == null) throw new ArgumentNullException("caseGeneratorFactory");
 
-            mIterateCaseDirectorFactory = iterateCaseDirectorFactory;
+            mCaseGeneratorFactory = caseGeneratorFactory;
             mRePlayDirector = rePlayDirector;
+            mParserDirector = parserDirector;
             mRecPlayContributorFactory = recPlayContributorFactory;
         }
 
-        public T GetContributor<T>([NotNull] string name)
+        public T GetContributor<T>(string name)
         {
             if (name == null) throw new ArgumentNullException("name");
 
-            return mRecPlayContributorFactory.CreateInterface<T>(mAstRoot, name);
+            return mRecPlayContributorFactory.CreateInterface<T>(mTokenStream, name);
         }
 
-        public CaseSet CreateSet([NotNull] string name)
+        public CaseSet CreateSet(string name)
         {
             if (name == null) throw new ArgumentNullException("name");
             
-            return new CaseSet(mAstRoot, name);
+            return new CaseSet(mTokenStream, name);
         }
 
-        public IEnumerable<Pause> PlayAllCases()
+        public IEnumerable<Pause> GetAllCases()
         {
-            mAstRoot.State = AstState.Processing;
-            
-               
+            foreach (var token in mTokenStream.Tokens)
+            {
+                mParserDirector.Visit(token);
+            }
 
-            mAstRoot.State = AstState.Reading;
+            // TODO continue dev here!
+            mTokenStream.State = StreamState.Reading;
 
-            IIterateCaseDirector iterateCaseDirector = mIterateCaseDirectorFactory();
-            foreach (var pause in iterateCaseDirector.Visit(mAstRoot))
+            ICaseGeneratorDirector caseGeneratorDirector = mCaseGeneratorFactory();
+            foreach (var pause in caseGeneratorDirector.Visit(mTokenStream))
             {
                 // TODO: IMPROVE REPLAY BY INTRODUCING VALUE-CLEANING AFTER EACH REPLAY!
-                ReplayCase(iterateCaseDirector.CurrentCase);
+                ReplayCase(caseGeneratorDirector.CurrentCase);
                 yield return Pause.Now;
             } 
 

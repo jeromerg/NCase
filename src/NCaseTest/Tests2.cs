@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-using NDsl.Impl.Core;
-using NDsl.Impl.Core.Util;
+using NDsl.Imp.Core.Util;
 using NDsl.Util;
 using NUnit.Framework;
 using NVisitor.Common.Quality;

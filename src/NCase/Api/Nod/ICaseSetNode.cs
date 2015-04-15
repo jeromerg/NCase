@@ -1,8 +1,9 @@
 using NDsl.Api.Core;
 
-namespace NCase.Api
+namespace NCase.Api.Nod
 {
-    public interface ICaseSetNode : INodeWithChildren
+    public interface ICaseSetNode : IExtendableNode
     {
+        CaseSet CaseSetName { get; }
     }
 }

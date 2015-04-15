@@ -2,7 +2,7 @@ using NDsl.Api.Core;
 using NDsl.Api.RecPlay;
 using NVisitor.Api.Batch;
 
-namespace NDsl.Impl.RecPlay
+namespace NDsl.Imp.RecPlay
 {
     public class RePlayDirector : Director<INode, IRePlayDirector>, IRePlayDirector
     {

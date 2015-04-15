@@ -1,6 +1,6 @@
 using NDsl.Util.Castle;
 
-namespace NDsl.Impl.RecPlay
+namespace NDsl.Imp.RecPlay
 {
     public interface IRecPlayInterfaceInterceptor
     {

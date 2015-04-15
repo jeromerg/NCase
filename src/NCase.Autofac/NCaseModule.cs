@@ -1,4 +1,8 @@
 ﻿using Autofac;
+using NCase.Api.Nod;
+using NCase.Imp;
+using NCase.Imp.Nod;
+using NCase.Imp.Vis;
 
 namespace NCase.Autofac
 {
@@ -9,11 +13,11 @@ namespace NCase.Autofac
             base.Load(builder);
             builder.RegisterModule<NDsl.Autofac.CoreModule>();
             builder.RegisterModule<NDsl.Autofac.RecPlayModule>();
-            builder.RegisterType<Impl.Vis.IterateCaseDirector>().As<Api.Vis.IIterateCaseDirector>().InstancePerDependency();
-            builder.RegisterType<Impl.Vis.DumpVisitors>().AsImplementedInterfaces().InstancePerDependency();
-            builder.RegisterType<Impl.Vis.IterateCaseVisitors>().AsImplementedInterfaces().InstancePerDependency();
-            builder.RegisterType<Impl.CaseSetNode>().As<Api.ICaseSetNode>();
-            builder.RegisterType<Impl.CaseBuilder>().As<Api.ICaseBuilder>();
+            builder.RegisterType<CaseGeneratorDirector>().As<Api.Vis.ICaseGeneratorDirector>().InstancePerDependency();
+            builder.RegisterType<DumpVisitors>().AsImplementedInterfaces().InstancePerDependency();
+            builder.RegisterType<CaseGeneratorVisitors>().AsImplementedInterfaces().InstancePerDependency();
+            builder.RegisterType<CaseSetNode>().As<ICaseSetNode>();
+            builder.RegisterType<CaseBuilder>().As<Api.ICaseBuilder>();
         }
     }
 }

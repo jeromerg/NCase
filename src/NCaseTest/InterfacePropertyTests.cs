@@ -50,7 +50,7 @@ namespace NCaseTest
                     }
 
                     IEnumerator<Pause> enumerator =
-                        caseBuilder.PlayAllCases().GetEnumerator();
+                        caseBuilder.GetAllCases().GetEnumerator();
 
                     enumerator.MoveNext();
                     Assert.AreEqual("Raoul", o.Name);

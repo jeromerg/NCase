@@ -1,6 +1,7 @@
 ﻿using System;
 using NDsl.Api.Core;
-using NDsl.Imp.Core.Semantic;
+using NDsl.Api.Core.Ex;
+using NDsl.Imp.Core.Reusable;
 using NDsl.Imp.Core.Token;
 using NVisitor.Common.Quality;
 
@@ -8,32 +9,34 @@ namespace NCase.Api
 {
     public class CaseSet
     {
-        [NotNull] private readonly IAstRoot mAstRoot;
+        [NotNull] private readonly ITokenWriter mTokenWriter;
         [NotNull] private readonly string mCaseSetName;
 
         private bool mIsDefined;
 
-        public CaseSet([NotNull] IAstRoot astRoot, [NotNull] string caseSetName) 
+        /// <exception cref="ArgumentNullException">The value of 'tokenWriter'/'caseSetName' cannot be null. </exception>
+        public CaseSet([NotNull] ITokenWriter tokenWriter, [NotNull] string caseSetName) 
         {
-            if (astRoot == null) throw new ArgumentNullException("astRoot");
+            if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
             if (caseSetName == null) throw new ArgumentNullException("caseSetName");
 
-            mAstRoot = astRoot;
+            mTokenWriter = tokenWriter;
             mCaseSetName = caseSetName;
         }
 
+        /// <exception cref="InvalidSyntaxException">Case set has already been defined</exception>
         public IDisposable Define()
         {
             if (mIsDefined)
-                throw new InvaliSyntaxException("Case set {0} has already been defined", mCaseSetName);
+                throw new InvalidSyntaxException("Case set {0} has already been defined", mCaseSetName);
 
             mIsDefined = true;
-            return new SemanticalBlockDisposable<CaseSet>(mAstRoot, this);
+            return new SemanticalBlockDisposable<CaseSet>(mTokenWriter, this);
         }
 
         public void Ref()
         {
-            mAstRoot.AddChild(new RefToken<CaseSet>(this));
+            mTokenWriter.Append(new RefToken<CaseSet>(this));
         }
 
     }

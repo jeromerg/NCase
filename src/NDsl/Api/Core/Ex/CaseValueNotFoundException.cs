@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Api.Core
+namespace NDsl.Api.Core.Ex
 {
     public class CaseValueNotFoundException : Exception
     {

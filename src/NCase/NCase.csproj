@@ -44,9 +44,9 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.47, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NVisitor, Version=1.1.0.51, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NVisitor.1.1.0.47\lib\net40-Client\NVisitor.dll</HintPath>
+      <HintPath>..\packages\NVisitor.1.1.0.51\lib\net40-Client\NVisitor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,15 +61,17 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Api\CaseSet.cs" />
-    <Compile Include="Api\Nod\ICaseTreeNode.cs" />
-    <Compile Include="Api\Vis\INodifyDirector.cs" />
+    <Compile Include="Api\Nod\IPropertyCallNode.cs" />
+    <Compile Include="Api\Vis\IParserDirector.cs" />
     <Compile Include="Imp\CaseBuilder.cs" />
     <Compile Include="Api\ICaseBuilder.cs" />
-    <Compile Include="Imp\CaseSetNode.cs" />
+    <Compile Include="Imp\Nod\CaseSetNode.cs" />
     <Compile Include="Api\Nod\ICaseSetNode.cs" />
-    <Compile Include="Imp\Vis\IterateCaseDirector.cs" />
-    <Compile Include="Api\Vis\IIterateCaseDirector.cs" />
-    <Compile Include="Imp\Vis\IterateCaseVisitors.cs" />
+    <Compile Include="Imp\Vis\ParserDirector.cs" />
+    <Compile Include="Imp\Vis\CaseGeneratorDirector.cs" />
+    <Compile Include="Api\Vis\ICaseGeneratorDirector.cs" />
+    <Compile Include="Imp\Vis\CaseGeneratorVisitors.cs" />
+    <Compile Include="Imp\Vis\ParserVisitors.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,7 +101,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Imp\Nod\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

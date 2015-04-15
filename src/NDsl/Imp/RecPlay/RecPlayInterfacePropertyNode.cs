@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using NDsl.Api.Core;
 using NDsl.Api.Core.Util;
 using NDsl.Api.RecPlay;
+using NDsl.Imp.Core.Token;
 using NDsl.Util.Castle;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Impl.RecPlay
+namespace NDsl.Imp.RecPlay
 {
     public class RecPlayInterfacePropertyNode : IRecPlayInterfacePropertyNode
     {
@@ -12,21 +15,26 @@ namespace NDsl.Impl.RecPlay
         
         [NotNull] private readonly string mContributorName;
         [NotNull] private readonly PropertyCallKey mPropertyCallKey;
-        [CanBeNull] private readonly object mValue;
+        [CanBeNull] private readonly object mPropertyValue;
         [NotNull] private readonly ICodeLocation mCodeLocation;
 
-        public RecPlayInterfacePropertyNode([NotNull] IRecPlayInterfaceInterceptor parentInterceptor, [NotNull] string contributorName, [NotNull] PropertyCallKey propertyCallKey, [CanBeNull] object value, [NotNull] ICodeLocation codeLocation)
+        public RecPlayInterfacePropertyNode([NotNull] IRecPlayInterfaceInterceptor parentInterceptor, [NotNull] string contributorName, [NotNull] PropertyCallKey propertyCallKey, [CanBeNull] object propertyValue, [NotNull] ICodeLocation codeLocation)
         {
             if (parentInterceptor == null) throw new ArgumentNullException("parentInterceptor");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
             if (propertyCallKey == null) throw new ArgumentNullException("propertyCallKey");
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
-            mValue = value;
+            mPropertyValue = propertyValue;
             mContributorName = contributorName;
             mParentInterceptor = parentInterceptor;
             mCodeLocation = codeLocation;
             mPropertyCallKey = propertyCallKey;
+        }
+
+        public RecPlayInterfacePropertyNode(RecPlay parentInterceptor, IInvocationRecord invocationRecord)
+        {
+            throw new NotImplementedException();
         }
 
         public string ContributorName
@@ -39,9 +47,9 @@ namespace NDsl.Impl.RecPlay
             get { return mPropertyCallKey; }
         }
 
-        public object Value
+        public object PropertyValue
         {
-            get { return mValue; }
+            get { return mPropertyValue; }
         }
 
         public ICodeLocation CodeLocation
@@ -49,9 +57,14 @@ namespace NDsl.Impl.RecPlay
             get { return mCodeLocation; }
         }
 
+        public IEnumerable<INode> Children
+        {
+            get { yield break; }
+        }
+
         public void Replay()
         {
-            mParentInterceptor.AddReplayPropertyValue(mPropertyCallKey, mValue);
+            mParentInterceptor.AddReplayPropertyValue(mPropertyCallKey, mPropertyValue);
         }
     }
 }

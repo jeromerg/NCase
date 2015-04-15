@@ -2,17 +2,17 @@
 using System.Runtime.Serialization;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Api.Core
+namespace NDsl.Api.Core.Ex
 {
-    public class InvaliSyntaxException : Exception
+    public class InvalidSyntaxException : Exception
     {
         [StringFormatMethod("args")]
-        public InvaliSyntaxException(string format, params object[] args) 
+        public InvalidSyntaxException(string format, params object[] args) 
             : base(string.Format(format, args))
         {
         }
 
-        protected InvaliSyntaxException(SerializationInfo info, StreamingContext context)
+        protected InvalidSyntaxException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

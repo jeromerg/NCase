@@ -3,14 +3,14 @@ using Castle.Core.Internal;
 using NDsl.Api.Core;
 using NVisitor.Api.Batch;
 
-namespace NDsl.Impl.Core
+namespace NDsl.Imp.Core
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDirector, IAstRoot>
+        : IVisitor<INode, IDumpDirector, INode>
     {
-        public void Visit(IDumpDirector director, IAstRoot node)
+        public void Visit(IDumpDirector director, INode node)
         {
-            director.AddText("AST_ROOT");
+            director.AddText("{0}: {1}", node.GetType().Name, node);
             VisitNextLevel(director, node.Children);
         }
 

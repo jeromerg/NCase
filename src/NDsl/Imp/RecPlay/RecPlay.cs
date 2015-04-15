@@ -2,46 +2,65 @@
 using System.Collections.Generic;
 using Castle.DynamicProxy;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Util;
 using NDsl.Imp.Core.Token;
 using NDsl.Util.Castle;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Impl.RecPlay
+namespace NDsl.Imp.RecPlay
 {
     public class RecPlay : IInterceptor, IRecPlayInterfaceInterceptor
     {
-        [NotNull] private readonly IAstRoot mAstRoot;
-        private readonly string mContributorName;
+        #region public enum
+        public enum Mode { Frozen, Recording, Playing }
+        #endregion
+
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+        
+        [NotNull] private readonly ITokenWriter mTokenWriter;
+        [NotNull] private readonly string mContributorName;
         [NotNull] private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues = new Dictionary<PropertyCallKey, object>();
 
+        private Mode mMode;
+
         public RecPlay(
-            [NotNull] IAstRoot astRoot, 
+            [NotNull] ITokenWriter tokenWriter, 
             [NotNull] string contributorName,
             [NotNull] ICodeLocationUtil codeLocationUtil)
         {
-            if (astRoot == null) throw new ArgumentNullException("astRoot");
-            if (contributorName == null) throw new ArgumentNullException("contributorName");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
+            if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
+            if (contributorName == null) throw new ArgumentNullException("contributorName");
 
-            mAstRoot = astRoot;
-            mContributorName = contributorName;
             mCodeLocationUtil = codeLocationUtil;
+            mContributorName = contributorName;
+            mTokenWriter = tokenWriter;
+        }
+
+        public void SetMode(Mode mode)
+        {
+            mMode = mode;
+        }
+
+        [NotNull]
+        public string ContributorName
+        {
+            get { return mContributorName; }
         }
 
         public void Intercept(IInvocation invocation)
         {
-            switch (mAstRoot.State)
+            switch (mMode)
             {
-                case AstState.Writing:
+                case Mode.Recording:
                     InterceptInRecordingMode(invocation);
                     break;
 
-                case AstState.Processing:
+                case Mode.Frozen:
                     throw new DslInvalidStateException("Invocation of RecPlay Contributors can occur only in Writing or Reading state");
                 
-                case AstState.Reading:
+                case Mode.Playing:
                     InterceptInReplayMode(invocation);
                     break;
                 
@@ -50,16 +69,22 @@ namespace NDsl.Impl.RecPlay
             }
         }
 
+        public void AddReplayPropertyValue(PropertyCallKey callKey, object value)
+        {
+            mReplayPropertyValues[callKey] = value;
+        }
+
         private void InterceptInRecordingMode(IInvocation invocation)
         {
-            ICodeLocation codeLocation = mCodeLocationUtil.GetUserCodeLocation();
-            var token = new InvocationToken<RecPlay>(this, new InvocationRecord(mContributorName, invocation, codeLocation));
-            mAstRoot.AddChild(token);
+            ICodeLocation codeLocation = mCodeLocationUtil.GetCurrentUserCodeLocation();
+            var invocationRecord = new InvocationRecord(mContributorName, invocation, codeLocation);
+            var token = new InvocationToken<RecPlay>(this, invocationRecord);
+            mTokenWriter.Append(token);
         }
 
         private void InterceptInReplayMode(IInvocation invocation)
         {
-            PropertyCallKey propertyCallKey = InvocationUtil.GetCallKeyFromGetter(invocation);
+            PropertyCallKey propertyCallKey = InvocationUtil.TryGetPropertyCallKeyFromGetter(invocation);
             if (propertyCallKey == null)
                 throw new InvalidCaseRecordException("Invalid call to {0} in replay mode. Only property getter allowed", invocation.Method);
 
@@ -68,11 +93,6 @@ namespace NDsl.Impl.RecPlay
                 throw new CaseValueNotFoundException("Call to {0} cannot be replayed as it has not been recorded", invocation.Method);
 
             invocation.ReturnValue = value;
-        }
-
-        public void AddReplayPropertyValue(PropertyCallKey callKey, object value)
-        {
-            mReplayPropertyValues[callKey] = value;
         }
     }
 }

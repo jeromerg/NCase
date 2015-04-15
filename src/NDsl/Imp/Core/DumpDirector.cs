@@ -2,7 +2,7 @@ using System.Text;
 using NDsl.Api.Core;
 using NVisitor.Api.Batch;
 
-namespace NDsl.Impl.Core
+namespace NDsl.Imp.Core
 {
     public class DumpDirector : Director<INode, IDumpDirector>, IDumpDirector
     {

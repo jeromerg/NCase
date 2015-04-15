@@ -12,7 +12,9 @@ namespace NDsl.Imp.Core.Token
         [NotNull] private readonly ICodeLocation mCodeLocation;
 
         public InvocationRecord(
-            [NotNull] string invocationTargetName, [NotNull] IInvocation invocation, [NotNull] ICodeLocation codeLocation)
+            [NotNull] string invocationTargetName, 
+            [NotNull] IInvocation invocation, 
+            [NotNull] ICodeLocation codeLocation)
         {
             if (invocationTargetName == null) throw new ArgumentNullException("invocationTargetName");
             if (invocation == null) throw new ArgumentNullException("invocation");

@@ -2,7 +2,7 @@
 using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Impl.Core.Util
+namespace NDsl.Imp.Core.Util
 {
     public class CodeLocationUtil : ICodeLocationUtil
     {
@@ -14,7 +14,7 @@ namespace NDsl.Impl.Core.Util
             mStackFrameUtil = stackFrameUtil;
         }
 
-        public ICodeLocation GetUserCodeLocation()
+        public ICodeLocation GetCurrentUserCodeLocation()
         {
             return new CodeLocation(mStackFrameUtil.GetUserStackFrame());
         }

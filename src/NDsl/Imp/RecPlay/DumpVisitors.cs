@@ -3,7 +3,7 @@ using NDsl.Api.RecPlay;
 using NDsl.Util.Castle;
 using NVisitor.Api.Batch;
 
-namespace NDsl.Impl.RecPlay
+namespace NDsl.Imp.RecPlay
 {
     public class DumpVisitors
         : IVisitor<INode, IDumpDirector, IRecPlayInterfacePropertyNode>
@@ -15,7 +15,7 @@ namespace NDsl.Impl.RecPlay
                 node.ContributorName,
                 node.PropertyCallKey.PropertyName,
                 BuildIndexesIfExist(node.PropertyCallKey),
-                node.Value,
+                node.PropertyValue,
                 node.CodeLocation.GetUserCodeInfo());
         }
 

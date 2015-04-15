@@ -4,6 +4,6 @@ namespace NDsl.Api.RecPlay
 {
     public interface IRecPlayContributorFactory
     {
-        T CreateInterface<T>(IAstRoot astRoot, string contributorName);
+        T CreateInterface<T>(ITokenWriter tokenWriter, string contributorName);
     }
 }

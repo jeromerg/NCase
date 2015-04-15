@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Castle.DynamicProxy;
+using NDsl.Imp.RecPlay;
 
 namespace NDsl.Autofac
 {
@@ -9,11 +10,11 @@ namespace NDsl.Autofac
         {
             builder.RegisterModule<CoreModule>();
             builder.RegisterInstance(new ProxyGenerator());
-            builder.RegisterType<Impl.RecPlay.RecPlayContributorFactory>().As<Api.RecPlay.IRecPlayContributorFactory>();
-            builder.RegisterType<Impl.RecPlay.RePlayDirector>().As<Api.RecPlay.IRePlayDirector>();
-            builder.RegisterType<Impl.RecPlay.RecPlayInterfacePropertyNode>().As<Api.RecPlay.IRecPlayInterfacePropertyNode>();
-            builder.RegisterType<Impl.RecPlay.DumpVisitors>().AsImplementedInterfaces();
-            builder.RegisterType<Impl.RecPlay.PlayVisitors>().AsImplementedInterfaces();
+            builder.RegisterType<RecPlayContributorFactory>().As<Api.RecPlay.IRecPlayContributorFactory>();
+            builder.RegisterType<RePlayDirector>().As<Api.RecPlay.IRePlayDirector>();
+            builder.RegisterType<RecPlayInterfacePropertyNode>().As<Api.RecPlay.IRecPlayInterfacePropertyNode>();
+            builder.RegisterType<DumpVisitors>().AsImplementedInterfaces();
+            builder.RegisterType<PlayVisitors>().AsImplementedInterfaces();
         }
     }
 }

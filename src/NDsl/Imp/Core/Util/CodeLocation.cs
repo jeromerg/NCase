@@ -3,7 +3,7 @@ using System.Diagnostics;
 using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Impl.Core.Util
+namespace NDsl.Imp.Core.Util
 {
     public class CodeLocation : ICodeLocation
     {
