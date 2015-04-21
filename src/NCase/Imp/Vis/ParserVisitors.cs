@@ -74,7 +74,9 @@ namespace NCase.Imp.Vis
                         argumentValue,
                         codeLocation);
 
-                    parentToAddTo.AddChild(new CaseBranchNode(codeLocation, newNode));
+                    var caseBranchNode = new CaseBranchNode(codeLocation, newNode);
+
+                    parentToAddTo.AddChild(caseBranchNode);
                 }
             }
         }
