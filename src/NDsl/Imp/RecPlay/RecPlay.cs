@@ -13,7 +13,7 @@ namespace NDsl.Imp.RecPlay
     public class RecPlay : IInterceptor, IRecPlayInterfaceInterceptor
     {
         #region public enum
-        public enum Mode { Frozen, Recording, Playing }
+        public enum Mode { Recording, Playing }
         #endregion
 
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
@@ -57,9 +57,6 @@ namespace NDsl.Imp.RecPlay
                     InterceptInRecordingMode(invocation);
                     break;
 
-                case Mode.Frozen:
-                    throw new DslInvalidStateException("Invocation of RecPlay Contributors can occur only in Writing or Reading state");
-                
                 case Mode.Playing:
                     InterceptInReplayMode(invocation);
                     break;
@@ -72,6 +69,11 @@ namespace NDsl.Imp.RecPlay
         public void AddReplayPropertyValue(PropertyCallKey callKey, object value)
         {
             mReplayPropertyValues[callKey] = value;
+        }
+
+        public void RemoveReplayPropertyValue(PropertyCallKey callKey)
+        {
+            mReplayPropertyValues.Remove(callKey);
         }
 
         private void InterceptInRecordingMode(IInvocation invocation)

@@ -25,5 +25,10 @@ namespace NDsl.Imp.Core.Util
             return mStackFrame.ToString();
             
         }
+
+        public override string ToString()
+        {
+            return GetUserCodeInfo();
+        }
     }
 }

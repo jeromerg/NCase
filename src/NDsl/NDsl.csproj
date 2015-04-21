@@ -63,7 +63,6 @@
     <Compile Include="Api\Core\IExtendableNode.cs" />
     <Compile Include="Api\Core\IToken.cs" />
     <Compile Include="Api\Core\ITokenReader.cs" />
-    <Compile Include="Api\RecPlay\IRePlayDirector.cs" />
     <Compile Include="Api\RecPlay\IRecPlayInterfacePropertyNode.cs" />
     <Compile Include="Imp\Core\Reusable\UsingBlock.cs" />
     <Compile Include="Api\Core\ICodeLocatedObject.cs" />
@@ -75,8 +74,6 @@
     <Compile Include="Imp\Core\Token\OwnedToken.cs" />
     <Compile Include="Imp\Core\Token\EndToken.cs" />
     <Compile Include="Imp\Core\Token\Token.cs" />
-    <Compile Include="Imp\RecPlay\PlayVisitors.cs" />
-    <Compile Include="Imp\RecPlay\RePlayDirector.cs" />
     <Compile Include="Imp\Core\Util\CodeLocation.cs" />
     <Compile Include="Api\Core\Ex\DslInvalidStateException.cs" />
     <Compile Include="Api\RecPlay\IRecPlayContributorFactory.cs" />

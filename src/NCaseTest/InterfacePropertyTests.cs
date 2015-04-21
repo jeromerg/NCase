@@ -27,7 +27,8 @@ namespace NCaseTest
 
             var o = caseBuilder.GetContributor<ITestvalues>("o");
 
-            caseBuilder.CreateSet("Environment");
+            CaseSet caseSet = caseBuilder.CreateSet("Environment");
+            using (caseSet.Define())
             {
                 o.Name = "Raoul";
                 {
@@ -48,38 +49,35 @@ namespace NCaseTest
                     {
                         o.City = "Lyon";
                     }
-
-                    IEnumerator<Pause> enumerator =
-                        caseBuilder.GetAllCases().GetEnumerator();
-
-                    enumerator.MoveNext();
-                    Assert.AreEqual("Raoul", o.Name);
-                    Assert.AreEqual(22, o.Age);
-                    Assert.AreEqual("Munich", o.Age);
-
-                    enumerator.MoveNext();
-                    Assert.AreEqual("Raoul", o.Name);
-                    Assert.AreEqual(22, o.Age);
-                    Assert.AreEqual("Berlin", o.Age);
-
-                    enumerator.MoveNext();
-                    Assert.AreEqual("Raoul", o.Name);
-                    Assert.AreEqual(30, o.Age);
-                    Assert.AreEqual("Paris", o.Age);
-
-                    enumerator.MoveNext();
-                    Assert.AreEqual("Raoul", o.Name);
-                    Assert.AreEqual(30, o.Age);
-                    Assert.AreEqual("London", o.Age);
-
-                    enumerator.MoveNext();
-                    Assert.AreEqual("Philip", o.Name);
-                    Assert.AreEqual(34, o.Age);
-                    Assert.AreEqual("Lyon", o.Age);
-
                 }
-
             }
+            IEnumerator<Pause> enumerator = caseBuilder.GetAllCases(caseSet).GetEnumerator();
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Raoul", o.Name);
+            Assert.AreEqual(22, o.Age);
+            Assert.AreEqual("Munich", o.City);
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Raoul", o.Name);
+            Assert.AreEqual(22, o.Age);
+            Assert.AreEqual("Berlin", o.City);
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Raoul", o.Name);
+            Assert.AreEqual(30, o.Age);
+            Assert.AreEqual("Paris", o.City);
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Raoul", o.Name);
+            Assert.AreEqual(30, o.Age);
+            Assert.AreEqual("London", o.City);
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Philip", o.Name);
+            Assert.AreEqual(34, o.Age);
+            Assert.AreEqual("Lyon", o.City);
         }
     }
 }
+

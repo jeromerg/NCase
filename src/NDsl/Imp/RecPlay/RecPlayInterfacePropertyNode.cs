@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using NDsl.Api.Core;
 using NDsl.Api.Core.Util;
 using NDsl.Api.RecPlay;
-using NDsl.Imp.Core.Token;
 using NDsl.Util.Castle;
 using NVisitor.Common.Quality;
 
@@ -18,6 +17,8 @@ namespace NDsl.Imp.RecPlay
         [CanBeNull] private readonly object mPropertyValue;
         [NotNull] private readonly ICodeLocation mCodeLocation;
 
+        private bool mIsReplay;
+
         public RecPlayInterfacePropertyNode([NotNull] IRecPlayInterfaceInterceptor parentInterceptor, [NotNull] string contributorName, [NotNull] PropertyCallKey propertyCallKey, [CanBeNull] object propertyValue, [NotNull] ICodeLocation codeLocation)
         {
             if (parentInterceptor == null) throw new ArgumentNullException("parentInterceptor");
@@ -30,11 +31,6 @@ namespace NDsl.Imp.RecPlay
             mParentInterceptor = parentInterceptor;
             mCodeLocation = codeLocation;
             mPropertyCallKey = propertyCallKey;
-        }
-
-        public RecPlayInterfacePropertyNode(RecPlay parentInterceptor, IInvocationRecord invocationRecord)
-        {
-            throw new NotImplementedException();
         }
 
         public string ContributorName
@@ -62,9 +58,27 @@ namespace NDsl.Imp.RecPlay
             get { yield break; }
         }
 
-        public void Replay()
+        public bool IsReplay
         {
-            mParentInterceptor.AddReplayPropertyValue(mPropertyCallKey, mPropertyValue);
+            get { return mIsReplay; }
+            set
+            {
+                if (mIsReplay == value)
+                    return;
+
+                mIsReplay = value;
+
+                if (value)
+                {
+                    mParentInterceptor.SetMode(RecPlay.Mode.Playing);
+                    mParentInterceptor.AddReplayPropertyValue(mPropertyCallKey, mPropertyValue);
+                }
+                else
+                {
+                    mParentInterceptor.SetMode(RecPlay.Mode.Recording);
+                    mParentInterceptor.RemoveReplayPropertyValue(mPropertyCallKey);
+                }
+            }
         }
     }
 }

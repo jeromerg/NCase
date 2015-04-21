@@ -1,8 +1,9 @@
 ﻿using Autofac;
-using NCase.Api.Nod;
+using NCase.Api;
+using NCase.Api.Vis;
 using NCase.Imp;
-using NCase.Imp.Nod;
 using NCase.Imp.Vis;
+using NDsl.Autofac;
 
 namespace NCase.Autofac
 {
@@ -11,13 +12,23 @@ namespace NCase.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterModule<NDsl.Autofac.CoreModule>();
-            builder.RegisterModule<NDsl.Autofac.RecPlayModule>();
-            builder.RegisterType<CaseGeneratorDirector>().As<Api.Vis.ICaseGeneratorDirector>().InstancePerDependency();
-            builder.RegisterType<DumpVisitors>().AsImplementedInterfaces().InstancePerDependency();
-            builder.RegisterType<CaseGeneratorVisitors>().AsImplementedInterfaces().InstancePerDependency();
-            builder.RegisterType<CaseSetNode>().As<ICaseSetNode>();
-            builder.RegisterType<CaseBuilder>().As<Api.ICaseBuilder>();
+
+            // modules
+            builder.RegisterModule<CoreModule>();            
+            builder.RegisterModule<RecPlayModule>();
+            
+            // directors
+            builder.RegisterType<CaseGeneratorDirector>() .As<ICaseGeneratorDirector>().InstancePerDependency();
+            builder.RegisterType<ParserDirector>()        .As<IParserDirector>()       .InstancePerDependency();
+            builder.RegisterType<ReplayDirector>()        .As<IReplayDirector>()       .InstancePerDependency();
+
+            // visitors
+            builder.RegisterType<CaseGeneratorVisitors>() .AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ParserVisitors>()        .AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ReplayVisitors>()        .AsImplementedInterfaces().SingleInstance();
+
+            // case builder 
+            builder.RegisterType<CaseBuilder>().As<ICaseBuilder>().InstancePerDependency();
         }
     }
 }

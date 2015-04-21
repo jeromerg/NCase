@@ -8,6 +8,6 @@ namespace NCase.Api
     {
         [NotNull] CaseSet CreateSet([NotNull] string name);
         [NotNull] T GetContributor<T>([NotNull] string name);
-        [NotNull] IEnumerable<Pause> GetAllCases();
+        [NotNull] IEnumerable<Pause> GetAllCases(CaseSet caseSet);
     }
 }

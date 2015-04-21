@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using NCase.Api;
 using NCase.Api.Vis;
-using NDsl.Api.Core;
 using NDsl.Api.RecPlay;
 using NDsl.Imp.Core;
 using NVisitor.Api.Lazy;
@@ -15,13 +14,13 @@ namespace NCase.Imp
         [NotNull] private readonly TokenStream mTokenStream = new TokenStream();
         
         [NotNull] private readonly Func<ICaseGeneratorDirector> mCaseGeneratorFactory;
-        [NotNull] private readonly IRePlayDirector mRePlayDirector;
+        [NotNull] private readonly IReplayDirector mRePlayDirector;
         private readonly IParserDirector mParserDirector;
         [NotNull] private readonly IRecPlayContributorFactory mRecPlayContributorFactory;
 
         public CaseBuilder(
             [NotNull] IRecPlayContributorFactory recPlayContributorFactory,
-            [NotNull] IRePlayDirector rePlayDirector,  // stateless director, no need for factory
+            [NotNull] IReplayDirector rePlayDirector,  // stateless director, no need for factory
             [NotNull] IParserDirector parserDirector,
             [NotNull] Func<ICaseGeneratorDirector> caseGeneratorFactory
             )
@@ -51,30 +50,30 @@ namespace NCase.Imp
             return new CaseSet(mTokenStream, name);
         }
 
-        public IEnumerable<Pause> GetAllCases()
+        public IEnumerable<Pause> GetAllCases(CaseSet caseSet)
         {
+            // build the caseSet trees => fills the AllCaseSets dictionary
             foreach (var token in mTokenStream.Tokens)
-            {
                 mParserDirector.Visit(token);
-            }
-
-            // TODO continue dev here!
-            mTokenStream.State = StreamState.Reading;
 
             ICaseGeneratorDirector caseGeneratorDirector = mCaseGeneratorFactory();
-            foreach (var pause in caseGeneratorDirector.Visit(mTokenStream))
+            foreach (var pause in caseGeneratorDirector.Visit(mParserDirector.AllCaseSets[caseSet]))
             {
-                // TODO: IMPROVE REPLAY BY INTRODUCING VALUE-CLEANING AFTER EACH REPLAY!
-                ReplayCase(caseGeneratorDirector.CurrentCase);
-                yield return Pause.Now;
+
+                mRePlayDirector.IsReplay = true;
+                foreach (var node in caseGeneratorDirector.CurrentCase)
+                    mRePlayDirector.Visit(node);
+
+                // enable caller to something after having replayed case
+                yield return Pause.Now; 
+
+                mRePlayDirector.IsReplay = false;
+                foreach (var node in caseGeneratorDirector.CurrentCase)
+                    mRePlayDirector.Visit(node);
+
             } 
 
         }
 
-        private void ReplayCase(IEnumerable<INode> nodes)
-        {
-            foreach (var node in nodes)
-                mRePlayDirector.Visit(node);
-        }
     }
 }
