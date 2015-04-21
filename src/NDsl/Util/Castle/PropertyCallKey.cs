@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
 using NVisitor.Common.Quality;
@@ -7,13 +8,30 @@ namespace NDsl.Util.Castle
 {
     public class PropertyCallKey
     {
+        [NotNull] private readonly object mOwningProxy;
         [NotNull] private readonly string mPropertyName;
         [NotNull] private readonly object[] mIndexParameters;
 
         public PropertyCallKey([NotNull] IInvocation invocation, [NotNull] PropertyInfo propertyInfo)
         {
+            if (invocation == null)
+                throw new ArgumentNullException("invocation");
+            
+            if (propertyInfo == null)
+                throw new ArgumentNullException("propertyInfo");
+            
+            if (invocation.Proxy == null)
+                throw new ArgumentNullException("invocation.Proxy");
+
+            mOwningProxy = invocation.Proxy;
             mPropertyName = propertyInfo.Name;
             mIndexParameters = invocation.Arguments.Take(propertyInfo.GetIndexParameters().Length).ToArray();
+        }
+
+        [NotNull]
+        public object OwningProxy
+        {
+            get { return mOwningProxy; }
         }
 
         public string PropertyName
@@ -29,7 +47,11 @@ namespace NDsl.Util.Castle
         #region Equals and GetHashCode
         private bool Equals(PropertyCallKey other)
         {
-            bool equal = string.Equals(mPropertyName, other.mPropertyName);
+            bool equal = string.Equals(mOwningProxy, other.mOwningProxy);
+            if (!equal)
+                return false;
+
+            equal = string.Equals(mPropertyName, other.mPropertyName);
             if (!equal)
                 return false;
 
