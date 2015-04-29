@@ -17,14 +17,16 @@ namespace NCase.Autofac
             builder.RegisterModule<CoreModule>();            
             builder.RegisterModule<RecPlayModule>();
             
-            // directors
-            builder.RegisterType<CaseGeneratorDirector>() .As<ICaseGeneratorDirector>().InstancePerDependency();
+            // Parser (visit IToken flat-list and produces INode AST)
             builder.RegisterType<ParserDirector>()        .As<IParserDirector>()       .InstancePerDependency();
-            builder.RegisterType<ReplayDirector>()        .As<IReplayDirector>()       .InstancePerDependency();
-
-            // visitors
-            builder.RegisterType<CaseGeneratorVisitors>() .AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<ParserVisitors>()        .AsImplementedInterfaces().SingleInstance();
+            
+            // Cases generator (lazily visit INode AST and construct all cases one by one)
+            builder.RegisterType<CaseGeneratorDirector>() .As<ICaseGeneratorDirector>().InstancePerDependency();
+            builder.RegisterType<CaseGeneratorVisitors>() .AsImplementedInterfaces().SingleInstance();
+
+            // Replay visitors (visit the INode in a case-set and prepare for replay, i.e. load responses into the interceptors)
+            builder.RegisterType<ReplayDirector>()        .As<IReplayDirector>()       .InstancePerDependency();
             builder.RegisterType<ReplayVisitors>()        .AsImplementedInterfaces().SingleInstance();
 
             // case builder 
