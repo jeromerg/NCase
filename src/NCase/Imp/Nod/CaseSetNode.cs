@@ -9,10 +9,10 @@ namespace NCase.Imp.Nod
 {
     public class CaseSetNode : ICaseSetNode
     {
-        private readonly CaseSet mCaseSetName;
+        private readonly TreeCaseSet mCaseSetName;
         private readonly List<INode> mChildren = new List<INode>();
 
-        public CaseSetNode([NotNull] CaseSet caseSetName)
+        public CaseSetNode([NotNull] TreeCaseSet caseSetName)
         {
             if (caseSetName == null) throw new ArgumentNullException("caseSetName");
             mCaseSetName = caseSetName;
@@ -28,7 +28,7 @@ namespace NCase.Imp.Nod
             mChildren.Add(child);
         }
 
-        public CaseSet CaseSetName
+        public ICaseSet CaseSet
         {
             get { return mCaseSetName; }
         }

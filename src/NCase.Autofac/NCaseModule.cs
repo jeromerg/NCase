@@ -4,6 +4,7 @@ using NCase.Api.Vis;
 using NCase.Imp;
 using NCase.Imp.Vis;
 using NDsl.Autofac;
+using NDsl.Imp.Core;
 
 namespace NCase.Autofac
 {
@@ -17,17 +18,23 @@ namespace NCase.Autofac
             builder.RegisterModule<CoreModule>();            
             builder.RegisterModule<RecPlayModule>();
             
-            // directors
-            builder.RegisterType<CaseGeneratorDirector>() .As<ICaseGeneratorDirector>().InstancePerDependency();
-            builder.RegisterType<ParserDirector>()        .As<IParserDirector>()       .InstancePerDependency();
-            builder.RegisterType<ReplayDirector>()        .As<IReplayDirector>()       .InstancePerDependency();
+            // Case sets
+            builder.RegisterType<TreeCaseSet.Factory>().AsImplementedInterfaces().InstancePerDependency();
 
-            // visitors
-            builder.RegisterType<CaseGeneratorVisitors>() .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ParserVisitors>()        .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ReplayVisitors>()        .AsImplementedInterfaces().SingleInstance();
+            // Parser
+            builder.RegisterType<ParserDirector>().As<IParserDirector>().InstancePerDependency();
+            builder.RegisterType<ParserVisitors>().AsImplementedInterfaces().SingleInstance();
+
+            // Case Generator
+            builder.RegisterType<CaseGeneratorDirector>().As<ICaseGeneratorDirector>().InstancePerDependency();
+            builder.RegisterType<CaseGeneratorVisitors>().AsImplementedInterfaces().SingleInstance();
+
+            // Replay
+            builder.RegisterType<ReplayDirector>().As<IReplayDirector>().InstancePerDependency();
+            builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // case builder 
+            builder.RegisterType<TokenStream>().As<ITokenReaderWriter>();
             builder.RegisterType<CaseBuilder>().As<ICaseBuilder>().InstancePerDependency();
         }
     }

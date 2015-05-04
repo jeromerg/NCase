@@ -5,7 +5,7 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.Core
 {
-    public class TokenStream : ITokenWriter, ITokenReader
+    public class TokenStream : ITokenReaderWriter
     {
         private readonly Queue<IToken> mTokens = new Queue<IToken>();
         

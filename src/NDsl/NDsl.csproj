@@ -64,6 +64,7 @@
     <Compile Include="Api\Core\IToken.cs" />
     <Compile Include="Api\Core\ITokenReader.cs" />
     <Compile Include="Api\RecPlay\IRecPlayInterfacePropertyNode.cs" />
+    <Compile Include="Api\Core\ITokenReaderWriter.cs" />
     <Compile Include="Imp\Core\Reusable\UsingBlock.cs" />
     <Compile Include="Api\Core\ICodeLocatedObject.cs" />
     <Compile Include="Imp\Core\Token\RefToken.cs" />

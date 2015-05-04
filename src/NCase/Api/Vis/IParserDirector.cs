@@ -7,7 +7,7 @@ namespace NCase.Api.Vis
 {
     public interface IParserDirector : IDirector<IToken, IParserDirector>
     {
-        Dictionary<CaseSet, ICaseSetNode> AllCaseSets { get; }
+        Dictionary<ICaseSet, ICaseSetNode> AllCaseSets { get; }
         ICaseSetNode CurrentCaseSetNode { get; set; }
     }
 }

@@ -4,6 +4,6 @@ namespace NCase.Api.Nod
 {
     public interface ICaseSetNode : IExtendableNode
     {
-        CaseSet CaseSetName { get; }
+        ICaseSet CaseSet { get; }
     }
 }

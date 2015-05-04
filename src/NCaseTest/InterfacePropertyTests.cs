@@ -27,7 +27,7 @@ namespace NCaseTest
 
             var o = caseBuilder.GetContributor<ITestvalues>("o");
 
-            CaseSet caseSet = caseBuilder.CreateSet("Environment");
+            ITreeCaseSet caseSet = caseBuilder.CreateSet<ITreeCaseSet>("Environment");
             using (caseSet.Define())
             {
                 o.Name = "Raoul";
@@ -95,7 +95,7 @@ namespace NCaseTest
             var m = caseBuilder.GetContributor<ITestvalues>("man");
             var w = caseBuilder.GetContributor<ITestvalues>("woman");
 
-            CaseSet caseSet = caseBuilder.CreateSet("children");
+            ITreeCaseSet caseSet = caseBuilder.CreateSet<ITreeCaseSet>("children");
             using (caseSet.Define())
             {
                 {
@@ -147,6 +147,7 @@ namespace NCaseTest
             Assert.AreEqual(5, w.Age);
 
         }
+
     }
 }
 

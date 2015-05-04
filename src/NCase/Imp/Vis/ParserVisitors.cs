@@ -17,31 +17,30 @@ using NVisitor.Api.Batch;
 namespace NCase.Imp.Vis
 {
     public class ParserVisitors
-        : IVisitor<IToken, IParserDirector, BeginToken<CaseSet>>
-        , IVisitor<IToken, IParserDirector, EndToken<CaseSet>>
+        : IVisitor<IToken, IParserDirector, BeginToken<TreeCaseSet>>
+        , IVisitor<IToken, IParserDirector, EndToken<TreeCaseSet>>
         , IVisitor<IToken, IParserDirector, InvocationToken<RecPlay>>
+        , IVisitor<IToken, IParserDirector, RefToken<TreeCaseSet>>
     {
-        public void Visit(IParserDirector dir, BeginToken<CaseSet> token)
+        public void Visit(IParserDirector dir, BeginToken<TreeCaseSet> token)
         {
             var newCaseSetNode = new CaseSetNode(token.Owner);
             dir.AllCaseSets.Add(token.Owner, newCaseSetNode);
             dir.CurrentCaseSetNode = newCaseSetNode;
         }
 
-        public void Visit(IParserDirector dir, EndToken<CaseSet> token)
+        public void Visit(IParserDirector dir, EndToken<TreeCaseSet> token)
         {
             dir.CurrentCaseSetNode = null;
         }
 
         public void Visit(IParserDirector dir, InvocationToken<RecPlay> token)
         {
-            // TODO: DEMETER
             ICodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
 
             if (dir.CurrentCaseSetNode == null)
             {
-                // TODO: DEMETER
                 throw new InvalidSyntaxException("Call must be performed within CaseSet definition block: {0}",
                     codeLocation.GetUserCodeInfo());
             }
@@ -81,6 +80,11 @@ namespace NCase.Imp.Vis
             }
         }
 
+        public void Visit(IParserDirector dir, RefToken<TreeCaseSet> node)
+        {
+            //TODO JRG HERE CONTINUE dir.CurrentCaseSetNode 
+        }
+
         private static INode FindRecursivelyPlaceInTreeToAddPropertyCall(INode parent, INode node, PropertyCallKey propertyCallKey)
         {
             // TODO: GENERALIZE RECURSION CHECK SO THAT IT DISPLATCHES CHECK TO ANOTHER VISITOR, TO ENABLE
@@ -114,6 +118,17 @@ namespace NCase.Imp.Vis
 
             // elsewhere recursion
             return FindRecursivelyPlaceInTreeToAddPropertyCall(node, lastChild, propertyCallKey);
+        }
+
+        private static INode FindRecursivelyCurrentLeaf(INode node)
+        {
+            // end of case definition: Add property-call to the end of this case definition
+            INode lastChild = node.Children.LastOrDefault();
+            if (lastChild == null)
+                return node;
+
+            // elsewhere recursion
+            return FindRecursivelyCurrentLeaf(lastChild);
         }
 
         private static string GetUserCodeInfoOrToString(INode node)

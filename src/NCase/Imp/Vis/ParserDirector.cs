@@ -9,16 +9,16 @@ namespace NCase.Imp.Vis
 {
     public class ParserDirector : Director<IToken, IParserDirector>, IParserDirector
     {
-        private readonly Dictionary<CaseSet, ICaseSetNode> mAllCaseSets;
+        private readonly Dictionary<ICaseSet, ICaseSetNode> mAllCaseSets;
         private ICaseSetNode mCurrentCaseSetNode;
 
         public ParserDirector(IVisitMapper<IToken, IParserDirector> visitMapper) 
             : base(visitMapper)
         {
-            mAllCaseSets = new Dictionary<CaseSet, ICaseSetNode>();
+            mAllCaseSets = new Dictionary<ICaseSet, ICaseSetNode>();
         }
 
-        public Dictionary<CaseSet, ICaseSetNode> AllCaseSets
+        public Dictionary<ICaseSet, ICaseSetNode> AllCaseSets
         {
             get { return mAllCaseSets; }
         }

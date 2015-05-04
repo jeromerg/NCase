@@ -6,8 +6,8 @@ namespace NCase.Api
 {
     public interface ICaseBuilder
     {
-        [NotNull] CaseSet CreateSet([NotNull] string name);
+        [NotNull] T CreateSet<T>([NotNull] string name) where T : ICaseSet;
         [NotNull] T GetContributor<T>([NotNull] string name);
-        [NotNull] IEnumerable<Pause> GetAllCases(CaseSet caseSet);
+        [NotNull] IEnumerable<Pause> GetAllCases(ICaseSet caseSet);
     }
 }
