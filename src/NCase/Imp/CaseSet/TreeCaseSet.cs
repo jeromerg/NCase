@@ -8,7 +8,7 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Api
 {
-    public class TreeCaseSet : ITreeCaseSet
+    public class TreeCaseSet : ITree
     {
         [NotNull] private readonly ITokenWriter mTokenWriter;
         [NotNull] private readonly string mCaseSetName;
@@ -26,9 +26,9 @@ namespace NCase.Api
             mCaseSetName = caseSetName;
         }
 
-        public class Factory : ICaseSetFactory<ITreeCaseSet>
+        public class Factory : ICaseSetFactory<ITree>
         {
-            public ITreeCaseSet Create(ITokenWriter tokenWriter, string name)
+            public ITree Create(ITokenWriter tokenWriter, string name)
             {
                 return new TreeCaseSet(tokenWriter, name);
             }

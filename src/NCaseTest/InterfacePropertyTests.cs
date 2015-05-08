@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Autofac;
 using NCase.Api;
 using NCase.Autofac;
 using NUnit.Framework;
@@ -10,7 +9,7 @@ namespace NCaseTest
     [TestFixture]
     public class InterfacePropertyTests
     {
-        public interface ITestvalues
+        public interface IMyTestvalues
         {
             string Name { get; set; }
             int Age { get; set; }
@@ -20,24 +19,29 @@ namespace NCaseTest
         [Test]
         public void Test_Properties_1Contrib()
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<NCaseModule>();
-            IContainer container = builder.Build();
-            var caseBuilder = container.Resolve<ICaseBuilder>();
+            // Create a new builder
+            var caseBuilder = Case.GetBuilder();
 
-            var o = caseBuilder.GetContributor<ITestvalues>("o");
+            // create a case contributor
+            var o = caseBuilder.GetContributor<IMyTestvalues>("o");
+            
+            // initialize a new case set of type ITree
+            var tree = caseBuilder.CreateSet<ITree>("Environment");
 
-            ITreeCaseSet caseSet = caseBuilder.CreateSet<ITreeCaseSet>("Environment");
-            using (caseSet.Define())
+            // define the content of the tree
+            using (tree.Define())
             {
                 o.Name = "Raoul";
                 {
                     o.Age = 22;
                     {
+
                         o.City = "Munich";
-                        o.City = "Berlin";
-                    }
-                    o.Age = 30;
+                        o.City = "Berlin"; // successive use of a property results in a case fork
+                    
+                    } // bracket have no syntax meaning, they just ease the automatic formatting
+
+                    o.Age = 30; 
                     {
                         o.City = "Paris";
                         o.City = "London";
@@ -51,7 +55,9 @@ namespace NCaseTest
                     }
                 }
             }
-            IEnumerator<Pause> enumerator = caseBuilder.GetAllCases(caseSet).GetEnumerator();
+
+            // Then you can iterate through the cases defined by the tree, by calling GetAllCases() 
+            IEnumerator<Pause> enumerator = caseBuilder.GetAllCases(tree).GetEnumerator();
 
             // case 1
             enumerator.MoveNext();
@@ -87,15 +93,14 @@ namespace NCaseTest
         [Test]
         public void Test_Properties_2Contribs()
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<NCaseModule>();
-            IContainer container = builder.Build();
-            var caseBuilder = container.Resolve<ICaseBuilder>();
+            // Create a new builder
+            var caseBuilder = Case.GetBuilder();
 
-            var m = caseBuilder.GetContributor<ITestvalues>("man");
-            var w = caseBuilder.GetContributor<ITestvalues>("woman");
+            // you can use multiple contributors, contributing to the definition of cases
+            var m = caseBuilder.GetContributor<IMyTestvalues>("man");
+            var w = caseBuilder.GetContributor<IMyTestvalues>("woman");
 
-            ITreeCaseSet caseSet = caseBuilder.CreateSet<ITreeCaseSet>("children");
+            ITree caseSet = caseBuilder.CreateSet<ITree>("children");
             using (caseSet.Define())
             {
                 {
