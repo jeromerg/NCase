@@ -62,17 +62,20 @@
     </Compile>
     <Compile Include="Api\CaseSet\ICaseSetFactory.cs" />
     <Compile Include="Api\CaseSet\ITree.cs" />
+    <Compile Include="Api\Vis\ITreeCaseSetInsertChildDirector.cs" />
     <Compile Include="Imp\CaseSet\TreeCaseSet.cs" />
     <Compile Include="Api\CaseSet\ICaseSet.cs" />
     <Compile Include="Imp\Nod\CaseBranchNode.cs" />
     <Compile Include="Api\Nod\ICaseBranchNode.cs" />
     <Compile Include="Api\Vis\IReplayDirector.cs" />
     <Compile Include="Api\Vis\IParserDirector.cs" />
+    <Compile Include="Imp\Vis\TreeCaseSetInsertChildDirector.cs" />
+    <Compile Include="Imp\Vis\TreeCaseSetParentFinderVisitors.cs" />
     <Compile Include="Imp\Vis\ReplayVisitors.cs" />
     <Compile Include="Imp\Vis\ReplayDirector.cs" />
     <Compile Include="Imp\CaseBuilder.cs" />
     <Compile Include="Api\ICaseBuilder.cs" />
-    <Compile Include="Imp\Nod\CaseSetNode.cs" />
+    <Compile Include="Imp\Nod\TreeCaseSetNode.cs" />
     <Compile Include="Api\Nod\ICaseSetNode.cs" />
     <Compile Include="Imp\Vis\ParserDirector.cs" />
     <Compile Include="Imp\Vis\CaseGeneratorDirector.cs" />

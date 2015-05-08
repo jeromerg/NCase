@@ -58,7 +58,7 @@ namespace NCaseTest
 
             // Then you can iterate through the cases defined by the tree, by calling GetAllCases() 
             IEnumerator<Pause> enumerator = caseBuilder.GetAllCases(tree).GetEnumerator();
-
+            
             // case 1
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);

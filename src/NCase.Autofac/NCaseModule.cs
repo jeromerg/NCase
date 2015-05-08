@@ -25,6 +25,9 @@ namespace NCase.Autofac
             builder.RegisterType<ParserDirector>().As<IParserDirector>().InstancePerDependency();
             builder.RegisterType<ParserVisitors>().AsImplementedInterfaces().SingleInstance();
 
+            builder.RegisterType<TreeCaseSetInsertChildDirector>().As<ITreeCaseSetInsertChildDirector>().InstancePerDependency();
+            builder.RegisterType<TreeCaseSetInsertChildVisitors>().AsImplementedInterfaces().SingleInstance();
+
             // Case Generator
             builder.RegisterType<CaseGeneratorDirector>().As<ICaseGeneratorDirector>().InstancePerDependency();
             builder.RegisterType<CaseGeneratorVisitors>().AsImplementedInterfaces().SingleInstance();

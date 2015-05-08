@@ -2,7 +2,7 @@
 
 namespace NDsl.Api.Core
 {
-    public interface ICodeLocatedObject
+    public interface ILocated
     {
         ICodeLocation CodeLocation { get; }
     }

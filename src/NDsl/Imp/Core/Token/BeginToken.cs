@@ -1,9 +1,14 @@
-﻿using NVisitor.Common.Quality;
+﻿using NDsl.Api.Core.Util;
+using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.Core.Token
 {
     public class BeginToken<T> : OwnedToken<T>
     {
-        public BeginToken([NotNull] T semanticalOwner) : base(semanticalOwner) { }
+        public BeginToken([NotNull] T semanticalOwner, ICodeLocation codeLocation)
+            : base(semanticalOwner, codeLocation)
+        {
+            
+        }
     }
 }

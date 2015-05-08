@@ -19,10 +19,10 @@ namespace NCase.Imp
         [NotNull] private readonly Func<ICaseGeneratorDirector> mCaseGeneratorFactory;
         [NotNull] private readonly IReplayDirector mRePlayDirector;
         [NotNull] private readonly IParserDirector mParserDirector;
-        [NotNull] private readonly IRecPlayContributorFactory mRecPlayContributorFactory;
+        [NotNull] private readonly IInterfaceRecPlayContributorFactory mInterfaceRecPlayContributorFactory;
 
         public CaseBuilder(
-            [NotNull] IRecPlayContributorFactory recPlayContributorFactory,
+            [NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
             [NotNull] IReplayDirector rePlayDirector,  // stateless director, no need for factory
             [NotNull] IParserDirector parserDirector,
             [NotNull] Func<ICaseGeneratorDirector> caseGeneratorFactory,
@@ -30,7 +30,7 @@ namespace NCase.Imp
             [NotNull] IEnumerable<ICaseSetFactory> caseSetFactories
             )
         {
-            if (recPlayContributorFactory == null) throw new ArgumentNullException("recPlayContributorFactory");
+            if (interfaceRecPlayContributorFactory == null) throw new ArgumentNullException("interfaceRecPlayContributorFactory");
             if (rePlayDirector == null) throw new ArgumentNullException("rePlayDirector");
             if (parserDirector == null) throw new ArgumentNullException("parserDirector");
             if (caseGeneratorFactory == null) throw new ArgumentNullException("caseGeneratorFactory");
@@ -42,7 +42,7 @@ namespace NCase.Imp
             mCaseSetFactories = caseSetFactories.ToDictionary(f => GetCaseSetType(f));
             mRePlayDirector = rePlayDirector;
             mParserDirector = parserDirector;
-            mRecPlayContributorFactory = recPlayContributorFactory;
+            mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
         }
 
         private Type GetCaseSetType(ICaseSetFactory caseSetFactory)
@@ -60,7 +60,7 @@ namespace NCase.Imp
         {
             if (name == null) throw new ArgumentNullException("name");
 
-            return mRecPlayContributorFactory.CreateInterface<T>(mTokenStream, name);
+            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(mTokenStream, name);
         }
 
         public T CreateSet<T>(string name) where T : ICaseSet

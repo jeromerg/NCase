@@ -11,8 +11,8 @@ namespace NDsl.Autofac
         {
             builder.RegisterModule<CoreModule>();
             builder.RegisterInstance(new ProxyGenerator());
-            builder.RegisterType<RecPlayContributorFactory>().As<IRecPlayContributorFactory>();
-            builder.RegisterType<RecPlayInterfacePropertyNode>().As<IRecPlayInterfacePropertyNode>();
+            builder.RegisterType<InterfaceRecPlayContributorFactory>().As<IInterfaceRecPlayContributorFactory>();
+            builder.RegisterType<InterfaceRecPlayNode>().As<IInterfaceRecPlayNode>();
             builder.RegisterType<DumpVisitors>().AsImplementedInterfaces();
         }
     }

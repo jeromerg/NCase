@@ -4,7 +4,7 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.Core.Token
 {
-    public interface IInvocationRecord : ICodeLocatedObject
+    public interface IInvocationRecord : ILocated
     {
         [NotNull]
         IInvocation Invocation { get; }

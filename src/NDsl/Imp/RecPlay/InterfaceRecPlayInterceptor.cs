@@ -10,7 +10,7 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.RecPlay
 {
-    public class RecPlay : IInterceptor, IRecPlayInterfaceInterceptor
+    public class InterfaceRecPlayInterceptor : IInterceptor, IInterfaceRecPlayInterceptor
     {
         #region public enum
         public enum Mode { Recording, Playing }
@@ -24,7 +24,7 @@ namespace NDsl.Imp.RecPlay
 
         private Mode mMode;
 
-        public RecPlay(
+        public InterfaceRecPlayInterceptor(
             [NotNull] ITokenWriter tokenWriter, 
             [NotNull] string contributorName,
             [NotNull] ICodeLocationUtil codeLocationUtil)
@@ -80,7 +80,7 @@ namespace NDsl.Imp.RecPlay
         {
             ICodeLocation codeLocation = mCodeLocationUtil.GetCurrentUserCodeLocation();
             var invocationRecord = new InvocationRecord(mContributorName, invocation, codeLocation);
-            var token = new InvocationToken<RecPlay>(this, invocationRecord);
+            var token = new InvocationToken<InterfaceRecPlayInterceptor>(this, invocationRecord, codeLocation);
             mTokenWriter.Append(token);
         }
 

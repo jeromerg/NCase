@@ -8,9 +8,9 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.RecPlay
 {
-    public class RecPlayInterfacePropertyNode : IRecPlayInterfacePropertyNode
+    public class InterfaceRecPlayNode : IInterfaceRecPlayNode
     {
-        [NotNull] private readonly IRecPlayInterfaceInterceptor mParentInterceptor;
+        [NotNull] private readonly IInterfaceRecPlayInterceptor mParentInterceptor;
         
         [NotNull] private readonly string mContributorName;
         [NotNull] private readonly PropertyCallKey mPropertyCallKey;
@@ -19,7 +19,7 @@ namespace NDsl.Imp.RecPlay
 
         private bool mIsReplay;
 
-        public RecPlayInterfacePropertyNode([NotNull] IRecPlayInterfaceInterceptor parentInterceptor, [NotNull] string contributorName, [NotNull] PropertyCallKey propertyCallKey, [CanBeNull] object propertyValue, [NotNull] ICodeLocation codeLocation)
+        public InterfaceRecPlayNode([NotNull] IInterfaceRecPlayInterceptor parentInterceptor, [NotNull] string contributorName, [NotNull] PropertyCallKey propertyCallKey, [CanBeNull] object propertyValue, [NotNull] ICodeLocation codeLocation)
         {
             if (parentInterceptor == null) throw new ArgumentNullException("parentInterceptor");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
@@ -70,15 +70,20 @@ namespace NDsl.Imp.RecPlay
 
                 if (value)
                 {
-                    mParentInterceptor.SetMode(RecPlay.Mode.Playing);
+                    mParentInterceptor.SetMode(InterfaceRecPlayInterceptor.Mode.Playing);
                     mParentInterceptor.AddReplayPropertyValue(mPropertyCallKey, mPropertyValue);
                 }
                 else
                 {
-                    mParentInterceptor.SetMode(RecPlay.Mode.Recording);
+                    mParentInterceptor.SetMode(InterfaceRecPlayInterceptor.Mode.Recording);
                     mParentInterceptor.RemoveReplayPropertyValue(mPropertyCallKey);
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("ContributorName: {0}, PropertyCallKey: {1}, PropertyValue: {2}", mContributorName, mPropertyCallKey, mPropertyValue);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.Core.Token
@@ -8,7 +9,8 @@ namespace NDsl.Imp.Core.Token
         [NotNull]
         private readonly TSemanticalOwner mOwner;
 
-        public OwnedToken([NotNull] TSemanticalOwner owner)
+        public OwnedToken([NotNull] TSemanticalOwner owner, [NotNull] ICodeLocation codeLocation) 
+            : base(codeLocation)
         {
             if (owner == null) throw new ArgumentNullException("owner");
             mOwner = owner;

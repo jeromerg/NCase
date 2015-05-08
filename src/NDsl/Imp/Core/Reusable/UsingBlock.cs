@@ -1,5 +1,6 @@
 ﻿using System;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Util;
 using NDsl.Imp.Core.Token;
 using NVisitor.Common.Quality;
 
@@ -7,24 +8,29 @@ namespace NDsl.Imp.Core.Reusable
 {
     public class SemanticalBlockDisposable<T> : IDisposable
     {
-        [NotNull]
-        private readonly ITokenWriter mTokenWriter;
-        private readonly T mSemanticalParent;
+        [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+        [NotNull] private readonly ITokenWriter mTokenWriter;
+        [NotNull] private readonly T mSemanticalParent;
 
-        public SemanticalBlockDisposable([NotNull] ITokenWriter tokenWriter, [NotNull] T semanticalParent)
+        public SemanticalBlockDisposable(
+            [NotNull] ICodeLocationUtil codeLocationUtil,
+            [NotNull] ITokenWriter tokenWriter, 
+            [NotNull] T semanticalParent)
         {
+            if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
             if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
             if (semanticalParent == null) throw new ArgumentNullException("semanticalParent");
 
+            mCodeLocationUtil = codeLocationUtil;
             mTokenWriter = tokenWriter;
             mSemanticalParent = semanticalParent;
 
-            mTokenWriter.Append(new BeginToken<T>(mSemanticalParent));
+            mTokenWriter.Append(new BeginToken<T>(mSemanticalParent, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
         public void Dispose()
         {
-            mTokenWriter.Append(new EndToken<T>(mSemanticalParent));
+            mTokenWriter.Append(new EndToken<T>(mSemanticalParent, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
     }
 }

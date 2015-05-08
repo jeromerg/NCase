@@ -8,12 +8,12 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.RecPlay
 {
-    public class RecPlayContributorFactory : IRecPlayContributorFactory
+    public class InterfaceRecPlayContributorFactory : IInterfaceRecPlayContributorFactory
     {
         [NotNull] private readonly ProxyGenerator mProxyGenerator;
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-        public RecPlayContributorFactory(
+        public InterfaceRecPlayContributorFactory(
             [NotNull] ProxyGenerator proxyGenerator, 
             [NotNull] ICodeLocationUtil codeLocationUtil)
         {
@@ -24,9 +24,9 @@ namespace NDsl.Imp.RecPlay
             mCodeLocationUtil = codeLocationUtil;
         }
 
-        public T CreateInterface<T>(ITokenWriter tokenWriter, string contributorName)
+        public T CreateContributor<T>(ITokenWriter tokenWriter, string contributorName)
         {
-            var interceptor = new RecPlay(tokenWriter, contributorName, mCodeLocationUtil);
+            var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationUtil);
             
             Type[] interfaces = typeof (T).GetInterfaces()
                 .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport).ToArray();

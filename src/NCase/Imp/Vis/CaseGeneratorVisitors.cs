@@ -24,10 +24,10 @@ namespace NCase.Imp.Vis
             {
                 // it's a leaf, so it is also a case: 
                 // then give hand to calling foreach in order to process the case
-                if (!node.SubLevels.Any())
+                if (!node.SubBranches.Any())
                     yield return Pause.Now;
                 else                    
-                    foreach (INode child in node.SubLevels)
+                    foreach (INode child in node.SubBranches)
                         foreach (Pause pause in director.Visit(child))
                             yield return pause;
             }

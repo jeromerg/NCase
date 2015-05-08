@@ -1,4 +1,5 @@
 ﻿using System;
+using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.Core.Token
@@ -8,9 +9,10 @@ namespace NDsl.Imp.Core.Token
         [NotNull] private readonly IInvocationRecord mInvocationRecord;
 
         public InvocationToken(
-            [NotNull] T semanticalOwner,
-            [NotNull] IInvocationRecord invocationRecord) 
-            : base(semanticalOwner)
+            [NotNull] T semanticalOwner, 
+            [NotNull] IInvocationRecord invocationRecord, 
+            ICodeLocation codeLocation) 
+            : base(semanticalOwner, codeLocation)
         {
             if (invocationRecord == null) throw new ArgumentNullException("invocationRecord");
 

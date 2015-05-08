@@ -8,14 +8,14 @@ namespace NCase.Imp.Vis
 {
     public class ReplayVisitors
         : IVisitor<INode, IReplayDirector, INode>
-        , IVisitor<INode, IReplayDirector, IRecPlayInterfacePropertyNode>
+        , IVisitor<INode, IReplayDirector, IInterfaceRecPlayNode>
     {
         public void Visit(IReplayDirector dir, INode node)
         {
             node.Children.ForEach(c => dir.Visit(c));
         }
 
-        public void Visit(IReplayDirector dir, IRecPlayInterfacePropertyNode node)
+        public void Visit(IReplayDirector dir, IInterfaceRecPlayNode node)
         {
             node.IsReplay = dir.IsReplay;
             node.Children.ForEach(c => dir.Visit(c));

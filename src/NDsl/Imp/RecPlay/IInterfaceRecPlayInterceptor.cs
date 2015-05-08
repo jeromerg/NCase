@@ -2,10 +2,10 @@ using NDsl.Util.Castle;
 
 namespace NDsl.Imp.RecPlay
 {
-    public interface IRecPlayInterfaceInterceptor
+    public interface IInterfaceRecPlayInterceptor
     {
         void AddReplayPropertyValue(PropertyCallKey callKey, object value);
         void RemoveReplayPropertyValue(PropertyCallKey callKey);
-        void SetMode(RecPlay.Mode mode);
+        void SetMode(InterfaceRecPlayInterceptor.Mode mode);
     }
 }

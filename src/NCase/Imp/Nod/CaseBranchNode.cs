@@ -11,14 +11,11 @@ namespace NCase.Imp.Nod
     public class CaseBranchNode : ICaseBranchNode
     {
         [NotNull] private readonly List<INode> mChildren;
-        [NotNull] private readonly ICodeLocation mCodeLocation;
 
-        public CaseBranchNode([NotNull] ICodeLocation codeLocation, [NotNull] INode caseFactAtThisLevel)
+        public CaseBranchNode([NotNull] INode caseFactAtThisLevel)
         {
-            if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             if (caseFactAtThisLevel == null) throw new ArgumentNullException("caseFactAtThisLevel");
 
-            mCodeLocation = codeLocation;
             mChildren = new List<INode> {caseFactAtThisLevel};
         }
 
@@ -37,14 +34,19 @@ namespace NCase.Imp.Nod
             get { return mChildren[0]; }
         }
 
-        public IEnumerable<INode> SubLevels
+        public IEnumerable<INode> SubBranches
         {
             get { return mChildren.Skip(1); }
         }
 
         public ICodeLocation CodeLocation
         {
-            get { return mCodeLocation; }
+            get { return CaseFact.CodeLocation; }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("CaseFact: {0}, SubBranches: {1}", CaseFact, SubBranches.Count());
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace NDsl.Api.Core
 {
-    public interface IToken
+    public interface IToken : ILocated
     {
     }
 }

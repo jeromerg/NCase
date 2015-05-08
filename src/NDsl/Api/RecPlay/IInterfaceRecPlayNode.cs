@@ -5,7 +5,7 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Api.RecPlay
 {
-    public interface IRecPlayInterfacePropertyNode : INode
+    public interface IInterfaceRecPlayNode : INode
     {
         [CanBeNull] object PropertyValue { get; }
         [NotNull] ICodeLocation CodeLocation { get; }
