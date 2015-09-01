@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RefTests.cs" />
     <Compile Include="Tests2.cs" />
     <Compile Include="InterfacePropertyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
