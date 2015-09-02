@@ -6,7 +6,7 @@ namespace NCase.Api.Vis
 {
     public interface ITreeCaseSetInsertChildDirector : IDirector<INode, ITreeCaseSetInsertChildDirector>
     {
-        void InitializeCurrentParentCandidate(INode candidate);
-        INode CurrentParentCandidate { get; }
+        void InitializeCurrentParentCandidate(ITreeCaseSetNode candidate);
+        ITreeCaseSetNode Root { get; }
     }
 }

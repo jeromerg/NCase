@@ -62,7 +62,7 @@
     <Compile Include="Api\Core\Nod\IRefNode.cs" />
     <Compile Include="Api\Core\Nod\RefNode.cs" />
     <Compile Include="Api\Core\Vis\IDumpDirector.cs" />
-    <Compile Include="Api\Core\Nod\IExtendableNode.cs" />
+    <Compile Include="Api\Core\Nod\ITreeCaseSetNode.cs" />
     <Compile Include="Api\Core\Tok\IToken.cs" />
     <Compile Include="Api\Core\ITokenReader.cs" />
     <Compile Include="Api\RecPlay\IInterfaceRecPlayNode.cs" />

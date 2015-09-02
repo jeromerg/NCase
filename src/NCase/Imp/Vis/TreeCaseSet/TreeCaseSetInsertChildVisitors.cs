@@ -24,9 +24,9 @@ namespace NCase.Imp.Vis.TreeCaseSet
 
         public void Visit(ITreeCaseSetInsertChildDirector director, IInterfaceRecPlayNode node)
         {
-            INode parent = FindPlaceInTreeToAddPropertyCall(director.CurrentParentCandidate, director.CurrentParentCandidate.Children.LastOrDefault(), node);
+            INode parent = FindPlaceInTreeToAddPropertyCall(director.Root, director.Root.Children.LastOrDefault(), node);
 
-            var parentToAddTo = parent as IExtendableNode;
+            var parentToAddTo = parent as ITreeCaseSetNode;
             if (parentToAddTo == null)
             {
                 throw new InvalidCaseRecordException("Can not attach case record to parent.\nCase record: {0}\nParent: {1}",
@@ -35,14 +35,14 @@ namespace NCase.Imp.Vis.TreeCaseSet
 
             // wrap node into CaseBranchNode and add it to parent
             var caseBranchNode = new CaseBranchNode(node);
-            parentToAddTo.AddChild(caseBranchNode);
+            parentToAddTo.PlaceNextChild(caseBranchNode);
 
         }
 
         public void Visit(ITreeCaseSetInsertChildDirector director, IRefNode<ICaseSetNode> nodeToAdd)
         {
-            IExtendableNode lastLeaf = FindLastLeafRecursive(director.CurrentParentCandidate);
-            lastLeaf.AddChild(nodeToAdd);
+            ITreeCaseSetNode lastLeaf = FindLastLeafRecursive(director.Root);
+            lastLeaf.PlaceNextChild(nodeToAdd);
         }
 
         private INode FindPlaceInTreeToAddPropertyCall(INode parentCandidate, INode siblingCandidate, IInterfaceRecPlayNode node)
@@ -65,7 +65,7 @@ namespace NCase.Imp.Vis.TreeCaseSet
             return FindPlaceInTreeToAddPropertyCall(branch, branch.SubBranches.LastOrDefault(), node);
         }
 
-        private IExtendableNode FindLastLeafRecursive(INode node)
+        private ITreeCaseSetNode FindLastLeafRecursive(INode node)
         {
             var caseBranchNode = node as ICaseBranchNode;
             if (caseBranchNode != null)
@@ -77,8 +77,8 @@ namespace NCase.Imp.Vis.TreeCaseSet
                 return FindLastLeafRecursive(child);
             }
 
-            if(node is IExtendableNode)
-                return (IExtendableNode) node;
+            if(node is ITreeCaseSetNode)
+                return (ITreeCaseSetNode) node;
             
             throw new InvalidSyntaxException("Current node of type {0} is not extendable", node.GetType().FullName);
         }

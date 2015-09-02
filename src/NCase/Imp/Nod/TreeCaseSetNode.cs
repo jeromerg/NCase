@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using NCase.Api;
 using NCase.Api.Nod;
 using NCase.Api.Vis;
-using NDsl.Api.Core;
 using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
@@ -41,7 +40,7 @@ namespace NCase.Imp.Nod
             get { return mCodeLocation; }
         }
 
-        public void AddChild(INode child)
+        public void PlaceNextChild(INode child)
         {
             mInsertChildDirector.InitializeCurrentParentCandidate(this);
             mInsertChildDirector.Visit(child);

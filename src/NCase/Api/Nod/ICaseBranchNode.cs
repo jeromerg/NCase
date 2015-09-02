@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using NDsl.Api.Core;
 using NDsl.Api.Core.Nod;
 
 namespace NCase.Api.Nod
 {
-    public interface ICaseBranchNode : IExtendableNode, ILocated
+    public interface ICaseBranchNode : INode
     {
         INode Fact { get; }
-        IEnumerable<INode> SubBranches { get; }
+        IEnumerable<ICaseBranchNode> SubBranches { get; }
     }
 }

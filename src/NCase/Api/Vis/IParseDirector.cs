@@ -12,6 +12,6 @@ namespace NCase.Api.Vis
     {
         Dictionary<ICaseSet, ICaseSetNode> AllCaseSets { get; }
         // TODO: GENERALIZE TO ANY CASE SET TYPE
-        IExtendableNode CurrentCaseSetNode { get; set; }
+        ITreeCaseSetNode CurrentCaseSetNode { get; set; }
     }
 }

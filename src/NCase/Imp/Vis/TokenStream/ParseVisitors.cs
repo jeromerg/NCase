@@ -69,7 +69,7 @@ namespace NCase.Imp.Vis.TokenStream
                 argumentValue,
                 codeLocation);
 
-            dir.CurrentCaseSetNode.InsertChild(newNode);
+            dir.CurrentCaseSetNode.PlaceNextChild(newNode);
         }
 
         public void Visit(IParseDirector dir, RefToken<Api.TreeCaseSet> token)
@@ -85,7 +85,7 @@ namespace NCase.Imp.Vis.TokenStream
             ICaseSetNode referredCaseSetNode = dir.AllCaseSets[token.Owner];
             var newNode = new RefNode<ICaseSetNode>(referredCaseSetNode, codeLocation);
 
-            dir.CurrentCaseSetNode.InsertChild(newNode);
+            dir.CurrentCaseSetNode.PlaceNextChild(newNode);
         }
     }
 }

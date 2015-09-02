@@ -2,7 +2,6 @@
 using NCase.Api;
 using NCase.Api.Vis;
 using NCase.Imp;
-using NCase.Imp.Vis;
 using NCase.Imp.Vis.CaseSets;
 using NCase.Imp.Vis.TokenStream;
 using NCase.Imp.Vis.TreeCaseSet;
