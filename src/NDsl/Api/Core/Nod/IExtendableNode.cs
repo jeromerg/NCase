@@ -1,4 +1,4 @@
-namespace NDsl.Api.Core
+namespace NDsl.Api.Core.Nod
 {
     public interface IExtendableNode : INode
     {

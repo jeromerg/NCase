@@ -1,10 +1,9 @@
 ﻿using System;
-using NDsl.Api.Core;
+using NDsl.Api.Core.Tok;
 using NDsl.Api.Core.Util;
-using NDsl.Imp.Core.Token;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Imp.Core.Reusable
+namespace NDsl.Api.Core
 {
     public class SemanticalBlockDisposable<T> : IDisposable
     {

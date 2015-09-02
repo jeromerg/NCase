@@ -1,7 +1,7 @@
 ﻿using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Imp.Core.Token
+namespace NDsl.Api.Core.Tok
 {
     public class RefToken<T> : OwnedToken<T>
     {

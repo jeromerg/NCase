@@ -1,8 +1,7 @@
 ﻿using Castle.DynamicProxy;
-using NDsl.Api.Core;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Imp.Core.Token
+namespace NDsl.Api.Core.Tok
 {
     public interface IInvocationRecord : ILocated
     {

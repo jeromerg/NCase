@@ -1,6 +1,4 @@
-﻿using NDsl.Api.Core;
-
-namespace NDsl.Imp.Core
+﻿namespace NDsl.Api.Core
 {
     public interface ITokenReaderWriter : ITokenWriter, ITokenReader { }
 }

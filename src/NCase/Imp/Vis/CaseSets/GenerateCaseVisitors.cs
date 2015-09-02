@@ -3,6 +3,7 @@ using System.Linq;
 using NCase.Api.Nod;
 using NCase.Api.Vis;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Nod;
 using NVisitor.Api.Lazy;
 
 namespace NCase.Imp.Vis.CaseSets
@@ -10,6 +11,7 @@ namespace NCase.Imp.Vis.CaseSets
     public class GenerateCaseVisitors
         : ILazyVisitor<INode, IGenerateCaseDirector, ICaseSetNode>
         , ILazyVisitor<INode, IGenerateCaseDirector, ICaseBranchNode>
+        , ILazyVisitor<INode, IGenerateCaseDirector, IRefNode<ICaseSetNode>>
     {
         public IEnumerable<Pause> Visit(IGenerateCaseDirector director, ICaseSetNode node)
         {
@@ -20,7 +22,7 @@ namespace NCase.Imp.Vis.CaseSets
 
         public IEnumerable<Pause> Visit(IGenerateCaseDirector director, ICaseBranchNode node)
         {
-            using (director.Push(node.CaseFact))
+            using (director.Push(node.Fact))
             {
                 // it's a leaf, so it is also a case: 
                 // then give hand to calling foreach in order to process the case
@@ -29,8 +31,14 @@ namespace NCase.Imp.Vis.CaseSets
                 else                    
                     foreach (INode child in node.SubBranches)
                         foreach (Pause pause in director.Visit(child))
-                            yield return pause;
+                            yield return Pause.Now;
             }
+        }
+
+        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, IRefNode<ICaseSetNode> node)
+        {
+            foreach(Pause pause in director.Visit(node.Reference))
+                yield return Pause.Now;
         }
 
     }

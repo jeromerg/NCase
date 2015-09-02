@@ -2,9 +2,8 @@
 using NCase.Api.CaseSet;
 using NDsl.Api.Core;
 using NDsl.Api.Core.Ex;
+using NDsl.Api.Core.Tok;
 using NDsl.Api.Core.Util;
-using NDsl.Imp.Core.Reusable;
-using NDsl.Imp.Core.Token;
 using NVisitor.Common.Quality;
 
 namespace NCase.Api

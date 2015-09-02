@@ -1,11 +1,13 @@
 using System;
 using Castle.DynamicProxy;
+using NCase.Api.Nod;
 using NCase.Api.Vis;
 using NCase.Imp.Nod;
 using NDsl.Api.Core;
 using NDsl.Api.Core.Ex;
+using NDsl.Api.Core.Nod;
+using NDsl.Api.Core.Tok;
 using NDsl.Api.Core.Util;
-using NDsl.Imp.Core.Token;
 using NDsl.Imp.RecPlay;
 using NDsl.Util.Castle;
 using NVisitor.Api.Batch;
@@ -70,9 +72,20 @@ namespace NCase.Imp.Vis.TokenStream
             dir.CurrentCaseSetNode.InsertChild(newNode);
         }
 
-        public void Visit(IParseDirector dir, RefToken<Api.TreeCaseSet> node)
+        public void Visit(IParseDirector dir, RefToken<Api.TreeCaseSet> token)
         {
-            //TODO JRG HERE CONTINUE dir.CurrentCaseSetNode 
+            ICodeLocation codeLocation = token.CodeLocation;
+
+            if (dir.CurrentCaseSetNode == null)
+            {
+                throw new InvalidSyntaxException("Call must be performed within CaseSet definition block: {0}",
+                    codeLocation.GetUserCodeInfo());
+            }
+
+            ICaseSetNode referredCaseSetNode = dir.AllCaseSets[token.Owner];
+            var newNode = new RefNode<ICaseSetNode>(referredCaseSetNode, codeLocation);
+
+            dir.CurrentCaseSetNode.InsertChild(newNode);
         }
     }
 }

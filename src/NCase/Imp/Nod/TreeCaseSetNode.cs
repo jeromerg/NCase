@@ -4,6 +4,7 @@ using NCase.Api;
 using NCase.Api.Nod;
 using NCase.Api.Vis;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
 
@@ -42,6 +43,12 @@ namespace NCase.Imp.Nod
 
         public void AddChild(INode child)
         {
+            mInsertChildDirector.InitializeCurrentParentCandidate(this);
+            mInsertChildDirector.Visit(child);
+        }
+
+        public void RawAddChild(INode child)
+        {
             mChildren.Add(child);
         }
 
@@ -49,12 +56,5 @@ namespace NCase.Imp.Nod
         {
             get { return mCaseSet; }
         }
-
-        public void InsertChild(INode newNode)
-        {
-            mInsertChildDirector.InitializeRoot(this);
-            mInsertChildDirector.Visit(newNode);
-        }
-
     }
 }

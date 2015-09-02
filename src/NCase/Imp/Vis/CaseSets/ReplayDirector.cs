@@ -1,5 +1,6 @@
 using NCase.Api.Vis;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Nod;
 using NVisitor.Api.Batch;
 
 namespace NCase.Imp.Vis.CaseSets

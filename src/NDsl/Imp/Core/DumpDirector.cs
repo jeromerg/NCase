@@ -1,5 +1,7 @@
 using System.Text;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Nod;
+using NDsl.Api.Core.Vis;
 using NVisitor.Api.Batch;
 
 namespace NDsl.Imp.Core

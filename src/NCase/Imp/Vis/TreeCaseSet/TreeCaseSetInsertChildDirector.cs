@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NCase.Api.Vis;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Nod;
 using NVisitor.Api.Batch;
 
 namespace NCase.Imp.Vis.TreeCaseSet
@@ -9,21 +10,21 @@ namespace NCase.Imp.Vis.TreeCaseSet
         : Director<INode, ITreeCaseSetInsertChildDirector>
         , ITreeCaseSetInsertChildDirector
     {
-        private INode mRoot;
+        private INode mCurrentParentCandidate;
 
         public TreeCaseSetInsertChildDirector(IEnumerable<IVisitorClass<INode, ITreeCaseSetInsertChildDirector>> visitors)
             : base(visitors)
         {
         }
 
-        public void InitializeRoot(INode root)
+        public void InitializeCurrentParentCandidate(INode candidate)
         {
-            mRoot = root;
+            mCurrentParentCandidate = candidate;
         }
 
-        public INode Root
+        public INode CurrentParentCandidate
         {
-            get { return mRoot; }
+            get { return mCurrentParentCandidate; }
         }
     }
 }

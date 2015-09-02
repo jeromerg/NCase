@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NCase.Api.Nod;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
 
@@ -12,11 +13,11 @@ namespace NCase.Imp.Nod
     {
         [NotNull] private readonly List<INode> mChildren;
 
-        public CaseBranchNode([NotNull] INode caseFactAtThisLevel)
+        public CaseBranchNode([NotNull] INode fact)
         {
-            if (caseFactAtThisLevel == null) throw new ArgumentNullException("caseFactAtThisLevel");
+            if (fact == null) throw new ArgumentNullException("fact");
 
-            mChildren = new List<INode> {caseFactAtThisLevel};
+            mChildren = new List<INode> {fact};
         }
 
         public IEnumerable<INode> Children
@@ -29,7 +30,7 @@ namespace NCase.Imp.Nod
             mChildren.Add(child);
         }
 
-        public INode CaseFact
+        public INode Fact
         {
             get { return mChildren[0]; }
         }
@@ -41,12 +42,12 @@ namespace NCase.Imp.Nod
 
         public ICodeLocation CodeLocation
         {
-            get { return CaseFact.CodeLocation; }
+            get { return Fact.CodeLocation; }
         }
 
         public override string ToString()
         {
-            return string.Format("CaseFact: {0}, SubBranches: {1}", CaseFact, SubBranches.Count());
+            return string.Format("Fact: {0}, SubBranches: {1}", Fact, SubBranches.Count());
         }
     }
 }

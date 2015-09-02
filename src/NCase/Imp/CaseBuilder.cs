@@ -4,6 +4,7 @@ using System.Linq;
 using NCase.Api;
 using NCase.Api.CaseSet;
 using NCase.Api.Vis;
+using NDsl.Api.Core;
 using NDsl.Api.RecPlay;
 using NDsl.Imp.Core;
 using NVisitor.Api.Lazy;

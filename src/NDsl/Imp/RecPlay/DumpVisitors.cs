@@ -1,4 +1,6 @@
 ﻿using NDsl.Api.Core;
+using NDsl.Api.Core.Nod;
+using NDsl.Api.Core.Vis;
 using NDsl.Api.RecPlay;
 using NDsl.Util.Castle;
 using NVisitor.Api.Batch;

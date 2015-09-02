@@ -1,7 +1,8 @@
-﻿using NVisitor.Api.Batch;
+﻿using NDsl.Api.Core.Nod;
+using NVisitor.Api.Batch;
 using NVisitor.Common.Quality;
 
-namespace NDsl.Api.Core
+namespace NDsl.Api.Core.Vis
 {
     public interface IDumpDirector : IDirector<INode, IDumpDirector>
     {
