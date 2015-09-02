@@ -3,7 +3,7 @@ using NCase.Api.Vis;
 using NDsl.Api.Core;
 using NVisitor.Api.Batch;
 
-namespace NCase.Imp.Vis
+namespace NCase.Imp.Vis.TreeCaseSet
 {
     public class TreeCaseSetInsertChildDirector 
         : Director<INode, ITreeCaseSetInsertChildDirector>

@@ -5,7 +5,7 @@ using NVisitor.Api.Batch;
 
 namespace NCase.Api.Vis
 {
-    public interface IParserDirector : IDirector<IToken, IParserDirector>
+    public interface IParseDirector : IDirector<IToken, IParseDirector>
     {
         Dictionary<ICaseSet, ICaseSetNode> AllCaseSets { get; }
         ICaseSetNode CurrentCaseSetNode { get; set; }

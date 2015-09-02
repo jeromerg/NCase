@@ -5,7 +5,7 @@ using NVisitor.Api.Lazy;
 
 namespace NCase.Api.Vis
 {
-    public interface ICaseGeneratorDirector : ILazyDirector<INode, ICaseGeneratorDirector>
+    public interface IGenerateCaseDirector : ILazyDirector<INode, IGenerateCaseDirector>
     {
         // TODO MAKE Type Safer Push: accept only specific contract of nodes that can replay!
         IDisposable Push(INode node);

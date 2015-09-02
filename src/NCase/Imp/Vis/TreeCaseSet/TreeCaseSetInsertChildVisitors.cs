@@ -8,7 +8,7 @@ using NDsl.Api.Core.Ex;
 using NDsl.Api.RecPlay;
 using NVisitor.Api.Batch;
 
-namespace NCase.Imp.Vis
+namespace NCase.Imp.Vis.TreeCaseSet
 {
     public class TreeCaseSetInsertChildVisitors
         : IVisitor<INode, ITreeCaseSetInsertChildDirector, INode>

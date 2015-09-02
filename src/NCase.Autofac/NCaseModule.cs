@@ -3,6 +3,9 @@ using NCase.Api;
 using NCase.Api.Vis;
 using NCase.Imp;
 using NCase.Imp.Vis;
+using NCase.Imp.Vis.CaseSets;
+using NCase.Imp.Vis.TokenStream;
+using NCase.Imp.Vis.TreeCaseSet;
 using NDsl.Autofac;
 using NDsl.Imp.Core;
 
@@ -22,15 +25,15 @@ namespace NCase.Autofac
             builder.RegisterType<TreeCaseSet.Factory>().AsImplementedInterfaces().InstancePerDependency();
 
             // Parser
-            builder.RegisterType<ParserDirector>().As<IParserDirector>().InstancePerDependency();
-            builder.RegisterType<ParserVisitors>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency();
+            builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
 
             builder.RegisterType<TreeCaseSetInsertChildDirector>().As<ITreeCaseSetInsertChildDirector>().InstancePerDependency();
             builder.RegisterType<TreeCaseSetInsertChildVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Case Generator
-            builder.RegisterType<CaseGeneratorDirector>().As<ICaseGeneratorDirector>().InstancePerDependency();
-            builder.RegisterType<CaseGeneratorVisitors>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<GenerateCaseDirector>().As<IGenerateCaseDirector>().InstancePerDependency();
+            builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Replay
             builder.RegisterType<ReplayDirector>().As<IReplayDirector>().InstancePerDependency();

@@ -5,20 +5,20 @@ using NCase.Api.Vis;
 using NDsl.Api.Core;
 using NVisitor.Api.Lazy;
 
-namespace NCase.Imp.Vis
+namespace NCase.Imp.Vis.CaseSets
 {
-    public class CaseGeneratorVisitors
-        : ILazyVisitor<INode, ICaseGeneratorDirector, ICaseSetNode>
-        , ILazyVisitor<INode, ICaseGeneratorDirector, ICaseBranchNode>
+    public class GenerateCaseVisitors
+        : ILazyVisitor<INode, IGenerateCaseDirector, ICaseSetNode>
+        , ILazyVisitor<INode, IGenerateCaseDirector, ICaseBranchNode>
     {
-        public IEnumerable<Pause> Visit(ICaseGeneratorDirector director, ICaseSetNode node)
+        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, ICaseSetNode node)
         {
             foreach (INode child in node.Children)
                 foreach (Pause pause in director.Visit(child))
                     yield return pause;
         }
 
-        public IEnumerable<Pause> Visit(ICaseGeneratorDirector director, ICaseBranchNode node)
+        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, ICaseBranchNode node)
         {
             using (director.Push(node.CaseFact))
             {

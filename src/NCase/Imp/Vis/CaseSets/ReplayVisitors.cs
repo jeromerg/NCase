@@ -4,7 +4,7 @@ using NDsl.Api.Core;
 using NDsl.Api.RecPlay;
 using NVisitor.Api.Batch;
 
-namespace NCase.Imp.Vis
+namespace NCase.Imp.Vis.CaseSets
 {
     public class ReplayVisitors
         : IVisitor<INode, IReplayDirector, INode>

@@ -1,7 +1,8 @@
+using NCase.Api.Vis;
 using NDsl.Api.Core;
 using NVisitor.Api.Batch;
 
-namespace NCase.Api.Vis
+namespace NCase.Imp.Vis.CaseSets
 {
     public class ReplayDirector : Director<INode, IReplayDirector>, IReplayDirector
     {

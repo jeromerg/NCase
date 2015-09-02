@@ -6,13 +6,13 @@ using NDsl.Util;
 using NVisitor.Api.Lazy;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Vis
+namespace NCase.Imp.Vis.CaseSets
 {
-    public class CaseGeneratorDirector : LazyDirector<INode, ICaseGeneratorDirector>, ICaseGeneratorDirector
+    public class GenerateCaseDirector : LazyDirector<INode, IGenerateCaseDirector>, IGenerateCaseDirector
     {
         private readonly Stack<INode> mCurrentCase = new Stack<INode>();
 
-        public CaseGeneratorDirector(IEnumerable<ILazyVisitorClass<INode, ICaseGeneratorDirector>> visitors)
+        public GenerateCaseDirector(IEnumerable<ILazyVisitorClass<INode, IGenerateCaseDirector>> visitors)
             : base(visitors)
         {
         }

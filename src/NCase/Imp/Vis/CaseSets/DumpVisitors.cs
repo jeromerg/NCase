@@ -4,7 +4,7 @@ using NCase.Api.Nod;
 using NDsl.Api.Core;
 using NVisitor.Api.Batch;
 
-namespace NCase.Imp.Vis
+namespace NCase.Imp.Vis.CaseSets
 {
     public class DumpVisitors
         : IVisitor<INode, IDumpDirector, ICaseSetNode>

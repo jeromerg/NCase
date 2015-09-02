@@ -68,27 +68,27 @@
     <Compile Include="Imp\Nod\CaseBranchNode.cs" />
     <Compile Include="Api\Nod\ICaseBranchNode.cs" />
     <Compile Include="Api\Vis\IReplayDirector.cs" />
-    <Compile Include="Api\Vis\IParserDirector.cs" />
-    <Compile Include="Imp\Vis\TreeCaseSetInsertChildDirector.cs" />
-    <Compile Include="Imp\Vis\TreeCaseSetParentFinderVisitors.cs" />
-    <Compile Include="Imp\Vis\ReplayVisitors.cs" />
-    <Compile Include="Imp\Vis\ReplayDirector.cs" />
+    <Compile Include="Api\Vis\IParseDirector.cs" />
+    <Compile Include="Imp\Vis\TreeCaseSet\TreeCaseSetInsertChildDirector.cs" />
+    <Compile Include="Imp\Vis\TreeCaseSet\TreeCaseSetInsertChildVisitors.cs" />
+    <Compile Include="Imp\Vis\CaseSets\ReplayVisitors.cs" />
+    <Compile Include="Imp\Vis\CaseSets\ReplayDirector.cs" />
     <Compile Include="Imp\CaseBuilder.cs" />
     <Compile Include="Api\ICaseBuilder.cs" />
     <Compile Include="Imp\Nod\TreeCaseSetNode.cs" />
     <Compile Include="Api\Nod\ICaseSetNode.cs" />
-    <Compile Include="Imp\Vis\ParserDirector.cs" />
-    <Compile Include="Imp\Vis\CaseGeneratorDirector.cs" />
-    <Compile Include="Api\Vis\ICaseGeneratorDirector.cs" />
-    <Compile Include="Imp\Vis\CaseGeneratorVisitors.cs" />
-    <Compile Include="Imp\Vis\ParserVisitors.cs" />
+    <Compile Include="Imp\Vis\TokenStream\ParseDirector.cs" />
+    <Compile Include="Imp\Vis\CaseSets\GenerateCaseDirector.cs" />
+    <Compile Include="Api\Vis\IGenerateCaseDirector.cs" />
+    <Compile Include="Imp\Vis\CaseSets\GenerateCaseVisitors.cs" />
+    <Compile Include="Imp\Vis\TokenStream\ParseVisitors.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Imp\Vis\DumpVisitors.cs" />
+    <Compile Include="Imp\Vis\CaseSets\DumpVisitors.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -16,23 +16,23 @@ namespace NCase.Imp
         [NotNull] private readonly ITokenReaderWriter mTokenStream;
         [NotNull] private readonly Dictionary<Type, ICaseSetFactory> mCaseSetFactories;
 
-        [NotNull] private readonly Func<ICaseGeneratorDirector> mCaseGeneratorFactory;
+        [NotNull] private readonly Func<IGenerateCaseDirector> mCaseGeneratorFactory;
         [NotNull] private readonly IReplayDirector mRePlayDirector;
-        [NotNull] private readonly IParserDirector mParserDirector;
+        [NotNull] private readonly IParseDirector mParseDirector;
         [NotNull] private readonly IInterfaceRecPlayContributorFactory mInterfaceRecPlayContributorFactory;
 
         public CaseBuilder(
             [NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
             [NotNull] IReplayDirector rePlayDirector,  // stateless director, no need for factory
-            [NotNull] IParserDirector parserDirector,
-            [NotNull] Func<ICaseGeneratorDirector> caseGeneratorFactory,
+            [NotNull] IParseDirector parseDirector,
+            [NotNull] Func<IGenerateCaseDirector> caseGeneratorFactory,
             [NotNull] ITokenReaderWriter tokenStream,
             [NotNull] IEnumerable<ICaseSetFactory> caseSetFactories
             )
         {
             if (interfaceRecPlayContributorFactory == null) throw new ArgumentNullException("interfaceRecPlayContributorFactory");
             if (rePlayDirector == null) throw new ArgumentNullException("rePlayDirector");
-            if (parserDirector == null) throw new ArgumentNullException("parserDirector");
+            if (parseDirector == null) throw new ArgumentNullException("parseDirector");
             if (caseGeneratorFactory == null) throw new ArgumentNullException("caseGeneratorFactory");
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");
             if (caseSetFactories == null) throw new ArgumentNullException("caseSetFactories");
@@ -41,7 +41,7 @@ namespace NCase.Imp
             mTokenStream = tokenStream;
             mCaseSetFactories = caseSetFactories.ToDictionary(f => GetCaseSetType(f));
             mRePlayDirector = rePlayDirector;
-            mParserDirector = parserDirector;
+            mParseDirector = parseDirector;
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
         }
 
@@ -80,23 +80,25 @@ namespace NCase.Imp
 
         public IEnumerable<Pause> GetAllCases(ICaseSet caseSet)
         {
-            // build the caseSet trees => fills the AllCaseSets dictionary
+            // PARSE
             foreach (var token in mTokenStream.Tokens)
-                mParserDirector.Visit(token);
+                mParseDirector.Visit(token);
 
-            ICaseGeneratorDirector caseGeneratorDirector = mCaseGeneratorFactory();
-            foreach (var pause in caseGeneratorDirector.Visit(mParserDirector.AllCaseSets[caseSet]))
+            // GENERATE CASES
+            IGenerateCaseDirector generateCaseDirector = mCaseGeneratorFactory();
+            foreach (var pause in generateCaseDirector.Visit(mParseDirector.AllCaseSets[caseSet]))
             {
 
+                // REPLAY CASE
                 mRePlayDirector.IsReplay = true;
-                foreach (var node in caseGeneratorDirector.CurrentCase)
+                foreach (var node in generateCaseDirector.CurrentCase)
                     mRePlayDirector.Visit(node);
 
                 // enable caller to something after having replayed case
                 yield return Pause.Now; 
 
                 mRePlayDirector.IsReplay = false;
-                foreach (var node in caseGeneratorDirector.CurrentCase)
+                foreach (var node in generateCaseDirector.CurrentCase)
                     mRePlayDirector.Visit(node);
 
             } 

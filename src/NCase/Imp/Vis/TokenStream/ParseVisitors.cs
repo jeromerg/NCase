@@ -1,50 +1,46 @@
 using System;
-using System.Linq;
 using Castle.DynamicProxy;
-using NCase.Api;
-using NCase.Api.Nod;
 using NCase.Api.Vis;
 using NCase.Imp.Nod;
 using NDsl.Api.Core;
 using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Util;
-using NDsl.Api.RecPlay;
 using NDsl.Imp.Core.Token;
 using NDsl.Imp.RecPlay;
 using NDsl.Util.Castle;
 using NVisitor.Api.Batch;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Vis
+namespace NCase.Imp.Vis.TokenStream
 {
-    public class ParserVisitors
-        : IVisitor<IToken, IParserDirector, BeginToken<TreeCaseSet>>
-        , IVisitor<IToken, IParserDirector, EndToken<TreeCaseSet>>
-        , IVisitor<IToken, IParserDirector, InvocationToken<InterfaceRecPlayInterceptor>>
-        , IVisitor<IToken, IParserDirector, RefToken<TreeCaseSet>>
+    public class ParseVisitors
+        : IVisitor<IToken, IParseDirector, BeginToken<Api.TreeCaseSet>>
+        , IVisitor<IToken, IParseDirector, EndToken<Api.TreeCaseSet>>
+        , IVisitor<IToken, IParseDirector, InvocationToken<InterfaceRecPlayInterceptor>>
+        , IVisitor<IToken, IParseDirector, RefToken<Api.TreeCaseSet>>
     {
         [NotNull] private readonly ITreeCaseSetInsertChildDirector mInsertChildDirector;
 
-        public ParserVisitors([NotNull] ITreeCaseSetInsertChildDirector insertChildDirector)
+        public ParseVisitors([NotNull] ITreeCaseSetInsertChildDirector insertChildDirector)
         {
             if (insertChildDirector == null) throw new ArgumentNullException("insertChildDirector");
             mInsertChildDirector = insertChildDirector;
         }
 
 
-        public void Visit(IParserDirector dir, BeginToken<TreeCaseSet> token)
+        public void Visit(IParseDirector dir, BeginToken<Api.TreeCaseSet> token)
         {
             var newCaseSetNode = new TreeCaseSetNode(token.Owner, token.CodeLocation, mInsertChildDirector);
             dir.AllCaseSets.Add(token.Owner, newCaseSetNode);
             dir.CurrentCaseSetNode = newCaseSetNode;
         }
 
-        public void Visit(IParserDirector dir, EndToken<TreeCaseSet> token)
+        public void Visit(IParseDirector dir, EndToken<Api.TreeCaseSet> token)
         {
             dir.CurrentCaseSetNode = null;
         }
 
-        public void Visit(IParserDirector dir, InvocationToken<InterfaceRecPlayInterceptor> token)
+        public void Visit(IParseDirector dir, InvocationToken<InterfaceRecPlayInterceptor> token)
         {
             ICodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
@@ -74,7 +70,7 @@ namespace NCase.Imp.Vis
             dir.CurrentCaseSetNode.InsertChild(newNode);
         }
 
-        public void Visit(IParserDirector dir, RefToken<TreeCaseSet> node)
+        public void Visit(IParseDirector dir, RefToken<Api.TreeCaseSet> node)
         {
             //TODO JRG HERE CONTINUE dir.CurrentCaseSetNode 
         }
