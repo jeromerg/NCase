@@ -10,8 +10,8 @@ namespace NCase.Api.Vis
 {
     public interface IParseDirector : IDirector<IToken, IParseDirector>
     {
-        Dictionary<ICaseSet, ICaseSetNode> AllCaseSets { get; }
+        Dictionary<ICaseSet, ICaseTreeSetNode> AllCaseSets { get; }
         // TODO: GENERALIZE TO ANY CASE SET TYPE
-        ITreeCaseSetNode CurrentCaseSetNode { get; set; }
+        ICaseTreeSetNode CurrentSetNode { get; set; }
     }
 }

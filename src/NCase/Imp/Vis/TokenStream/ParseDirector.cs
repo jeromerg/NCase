@@ -11,24 +11,24 @@ namespace NCase.Imp.Vis.TokenStream
 {
     public class ParseDirector : Director<IToken, IParseDirector>, IParseDirector
     {
-        private readonly Dictionary<ICaseSet, ICaseSetNode> mAllCaseSets;
-        private ITreeCaseSetNode mCurrentCaseSetNode;
+        private readonly Dictionary<ICaseSet, ICaseTreeSetNode> mAllCaseSets;
+        private ICaseTreeSetNode mCurrentSetNode;
 
         public ParseDirector(IVisitMapper<IToken, IParseDirector> visitMapper) 
             : base(visitMapper)
         {
-            mAllCaseSets = new Dictionary<ICaseSet, ICaseSetNode>();
+            mAllCaseSets = new Dictionary<ICaseSet, ICaseTreeSetNode>();
         }
 
-        public Dictionary<ICaseSet, ICaseSetNode> AllCaseSets
+        public Dictionary<ICaseSet, ICaseTreeSetNode> AllCaseSets
         {
             get { return mAllCaseSets; }
         }
 
-        public ITreeCaseSetNode CurrentCaseSetNode
+        public ICaseTreeSetNode CurrentSetNode
         {
-            get { return mCurrentCaseSetNode; }
-            set { mCurrentCaseSetNode = value; }
+            get { return mCurrentSetNode; }
+            set { mCurrentSetNode = value; }
         }
     }
 }

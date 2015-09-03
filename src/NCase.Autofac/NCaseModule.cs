@@ -28,8 +28,8 @@ namespace NCase.Autofac
             builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency();
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
 
-            builder.RegisterType<TreeCaseSetInsertChildDirector>().As<ITreeCaseSetInsertChildDirector>().InstancePerDependency();
-            builder.RegisterType<TreeCaseSetInsertChildVisitors>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<GetBranchingKeyDirector>().As<IGetBranchingKeyDirector>().InstancePerDependency();
+            builder.RegisterType<GetBranchingKeyVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Case Generator
             builder.RegisterType<GenerateCaseDirector>().As<IGenerateCaseDirector>().InstancePerDependency();

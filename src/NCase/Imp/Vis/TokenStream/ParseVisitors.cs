@@ -21,25 +21,25 @@ namespace NCase.Imp.Vis.TokenStream
         , IVisitor<IToken, IParseDirector, InvocationToken<InterfaceRecPlayInterceptor>>
         , IVisitor<IToken, IParseDirector, RefToken<Api.TreeCaseSet>>
     {
-        [NotNull] private readonly ITreeCaseSetInsertChildDirector mInsertChildDirector;
+        [NotNull] private readonly IGetBranchingKeyDirector mGetBranchingKeyDirector;
 
-        public ParseVisitors([NotNull] ITreeCaseSetInsertChildDirector insertChildDirector)
+        public ParseVisitors([NotNull] IGetBranchingKeyDirector getBranchingKeyDirector)
         {
-            if (insertChildDirector == null) throw new ArgumentNullException("insertChildDirector");
-            mInsertChildDirector = insertChildDirector;
+            if (getBranchingKeyDirector == null) throw new ArgumentNullException("getBranchingKeyDirector");
+            mGetBranchingKeyDirector = getBranchingKeyDirector;
         }
 
 
         public void Visit(IParseDirector dir, BeginToken<Api.TreeCaseSet> token)
         {
-            var newCaseSetNode = new TreeCaseSetNode(token.Owner, token.CodeLocation, mInsertChildDirector);
+            var newCaseSetNode = new CaseTreeSetNode(token.Owner, token.CodeLocation, mGetBranchingKeyDirector);
             dir.AllCaseSets.Add(token.Owner, newCaseSetNode);
-            dir.CurrentCaseSetNode = newCaseSetNode;
+            dir.CurrentSetNode = newCaseSetNode;
         }
 
         public void Visit(IParseDirector dir, EndToken<Api.TreeCaseSet> token)
         {
-            dir.CurrentCaseSetNode = null;
+            dir.CurrentSetNode = null;
         }
 
         public void Visit(IParseDirector dir, InvocationToken<InterfaceRecPlayInterceptor> token)
@@ -47,7 +47,7 @@ namespace NCase.Imp.Vis.TokenStream
             ICodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
 
-            if (dir.CurrentCaseSetNode == null)
+            if (dir.CurrentSetNode == null)
             {
                 throw new InvalidSyntaxException("Call must be performed within CaseSet definition block: {0}",
                     codeLocation.GetUserCodeInfo());
@@ -69,23 +69,23 @@ namespace NCase.Imp.Vis.TokenStream
                 argumentValue,
                 codeLocation);
 
-            dir.CurrentCaseSetNode.PlaceNextChild(newNode);
+            dir.CurrentSetNode.PlaceNextNode(newNode);
         }
 
         public void Visit(IParseDirector dir, RefToken<Api.TreeCaseSet> token)
         {
             ICodeLocation codeLocation = token.CodeLocation;
 
-            if (dir.CurrentCaseSetNode == null)
+            if (dir.CurrentSetNode == null)
             {
                 throw new InvalidSyntaxException("Call must be performed within CaseSet definition block: {0}",
                     codeLocation.GetUserCodeInfo());
             }
 
-            ICaseSetNode referredCaseSetNode = dir.AllCaseSets[token.Owner];
-            var newNode = new RefNode<ICaseSetNode>(referredCaseSetNode, codeLocation);
+            ICaseTreeSetNode referredSetNode = dir.AllCaseSets[token.Owner];
+            var newNode = new RefNode<ICaseTreeSetNode>(referredSetNode, codeLocation);
 
-            dir.CurrentCaseSetNode.PlaceNextChild(newNode);
+            dir.CurrentSetNode.PlaceNextNode(newNode);
         }
     }
 }
