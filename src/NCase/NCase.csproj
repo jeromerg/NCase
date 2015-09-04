@@ -62,23 +62,19 @@
     </Compile>
     <Compile Include="Api\CaseSet\ICaseSetFactory.cs" />
     <Compile Include="Api\CaseSet\ITree.cs" />
-    <Compile Include="Api\Nod\ICaseTreeSetNode.cs" />
     <Compile Include="Api\Vis\IGetBranchingKeyDirector.cs" />
     <Compile Include="Imp\CaseSet\TreeCaseSet.cs" />
     <Compile Include="Api\CaseSet\ICaseSet.cs" />
-    <Compile Include="Imp\Nod\ICaseTreeNodeAbstract.cs" />
-    <Compile Include="Imp\Nod\CaseTreeBranchNode.cs" />
-    <Compile Include="Api\Nod\ICaseTreeBranchNode.cs" />
+    <Compile Include="Imp\Nod\ICaseTreeNode.cs" />
     <Compile Include="Api\Vis\IReplayDirector.cs" />
     <Compile Include="Api\Vis\IParseDirector.cs" />
-    <Compile Include="Imp\Nod\CaseTreeNodeAbstract.cs" />
+    <Compile Include="Imp\Nod\CaseTreeNode.cs" />
     <Compile Include="Imp\Vis\TreeCaseSet\GetBranchingKeyDirector.cs" />
     <Compile Include="Imp\Vis\TreeCaseSet\GetBranchingKeyVisitors.cs" />
     <Compile Include="Imp\Vis\CaseSets\ReplayVisitors.cs" />
     <Compile Include="Imp\Vis\CaseSets\ReplayDirector.cs" />
     <Compile Include="Imp\CaseBuilder.cs" />
     <Compile Include="Api\ICaseBuilder.cs" />
-    <Compile Include="Imp\Nod\CaseTreeSetNode.cs" />
     <Compile Include="Imp\Vis\TokenStream\ParseDirector.cs" />
     <Compile Include="Imp\Vis\CaseSets\GenerateCaseDirector.cs" />
     <Compile Include="Api\Vis\IGenerateCaseDirector.cs" />
@@ -112,7 +108,9 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Api\Nod\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

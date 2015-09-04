@@ -8,8 +8,7 @@ namespace NCase.Api.Vis
         /// <summary>
         /// if two nodes have the same branching key, then they will be put as children of
         /// the same parent node, resulting in a branching (new case).
-        /// If BranchingKey is null after visiting the node, then the CaseTreeSetNode.PlaceNextNode() algorithm
-        /// will throw an InvalidSyntaxException
+        /// If BranchingKey is set to null then the node is an end node, that can not contribute to branching the tree
         /// </summary>
         object BranchingKey { get; set; }
     }

@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using NCase.Api;
-using NCase.Api.Nod;
 using NCase.Api.Vis;
-using NDsl.Api.Core;
-using NDsl.Api.Core.Nod;
+using NCase.Imp.Nod;
 using NDsl.Api.Core.Tok;
 using NVisitor.Api.Batch;
 
@@ -11,21 +9,21 @@ namespace NCase.Imp.Vis.TokenStream
 {
     public class ParseDirector : Director<IToken, IParseDirector>, IParseDirector
     {
-        private readonly Dictionary<ICaseSet, ICaseTreeSetNode> mAllCaseSets;
-        private ICaseTreeSetNode mCurrentSetNode;
+        private readonly Dictionary<ICaseSet, ICaseTreeNode> mAllCaseSets;
+        private ICaseTreeNode mCurrentSetNode;
 
         public ParseDirector(IVisitMapper<IToken, IParseDirector> visitMapper) 
             : base(visitMapper)
         {
-            mAllCaseSets = new Dictionary<ICaseSet, ICaseTreeSetNode>();
+            mAllCaseSets = new Dictionary<ICaseSet, ICaseTreeNode>();
         }
 
-        public Dictionary<ICaseSet, ICaseTreeSetNode> AllCaseSets
+        public Dictionary<ICaseSet, ICaseTreeNode> AllCaseSets
         {
             get { return mAllCaseSets; }
         }
 
-        public ICaseTreeSetNode CurrentSetNode
+        public ICaseTreeNode CurrentSetNode
         {
             get { return mCurrentSetNode; }
             set { mCurrentSetNode = value; }

@@ -1,9 +1,7 @@
 using System;
 using Castle.DynamicProxy;
-using NCase.Api.Nod;
 using NCase.Api.Vis;
 using NCase.Imp.Nod;
-using NDsl.Api.Core;
 using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Tok;
@@ -32,7 +30,12 @@ namespace NCase.Imp.Vis.TokenStream
 
         public void Visit(IParseDirector dir, BeginToken<Api.TreeCaseSet> token)
         {
-            var newCaseSetNode = new CaseTreeSetNode(token.Owner, token.CodeLocation, mGetBranchingKeyDirector);
+            var newCaseSetNode = new CaseTreeNode(
+                token.CodeLocation, 
+                mGetBranchingKeyDirector, 
+                token.Owner, 
+                null /*root without associated fact*/);
+            
             dir.AllCaseSets.Add(token.Owner, newCaseSetNode);
             dir.CurrentSetNode = newCaseSetNode;
         }
@@ -82,8 +85,8 @@ namespace NCase.Imp.Vis.TokenStream
                     codeLocation.GetUserCodeInfo());
             }
 
-            ICaseTreeSetNode referredSetNode = dir.AllCaseSets[token.Owner];
-            var newNode = new RefNode<ICaseTreeSetNode>(referredSetNode, codeLocation);
+            ICaseTreeNode referredSetNode = dir.AllCaseSets[token.Owner];
+            var newNode = new RefNode<ICaseTreeNode>(referredSetNode, codeLocation);
 
             dir.CurrentSetNode.PlaceNextNode(newNode);
         }
