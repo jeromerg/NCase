@@ -61,6 +61,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Api\CaseSet\ICaseSetFactory.cs" />
+    <Compile Include="Api\CaseSet\ICardinalProduct.cs" />
     <Compile Include="Api\CaseSet\ITree.cs" />
     <Compile Include="Api\Vis\IGetBranchingKeyDirector.cs" />
     <Compile Include="Imp\CaseSet\TreeCaseSet.cs" />

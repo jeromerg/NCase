@@ -7,7 +7,7 @@ using NVisitor.Api.Lazy;
 namespace NCaseTest
 {
     [TestFixture]
-    public class InterfacePropertyTests
+    public class TreeTests
     {
         public interface IMyTestvalues
         {
@@ -152,6 +152,59 @@ namespace NCaseTest
             Assert.AreEqual(5, w.Age);
 
         }
+
+        [Test]
+        public void TestTreeWithRef()
+        {
+            // Create a new builder
+            var caseBuilder = Case.GetBuilder();
+
+            // create a case contributor
+            var o = caseBuilder.GetContributor<IMyTestvalues>("o");
+
+            // define a first set of cases
+            var ages = caseBuilder.CreateSet<ITree>("age_set");
+            using (ages.Define())
+            {
+                o.Age = 20;
+                o.Age = 25;
+            }
+
+            // transplant the first set into a second one
+            var names = caseBuilder.CreateSet<ITree>("person_set");
+            using (names.Define())
+            {
+                o.Name = "Raoul";
+                {
+                    ages.Ref();
+                }
+                o.Name = "Philip";
+                {
+                    ages.Ref();
+                }
+            }
+
+            // Then you can iterate through the cases defined by the tree, by calling GetAllCases() 
+            IEnumerator<Pause> enumerator = caseBuilder.GetAllCases(names).GetEnumerator();
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Raoul", o.Name);
+            Assert.AreEqual(20, o.Age);
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Raoul", o.Name);
+            Assert.AreEqual(25, o.Age);
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Philip", o.Name);
+            Assert.AreEqual(20, o.Age);
+
+            enumerator.MoveNext();
+            Assert.AreEqual("Philip", o.Name);
+            Assert.AreEqual(25, o.Age);
+
+        }
+
 
     }
 }
