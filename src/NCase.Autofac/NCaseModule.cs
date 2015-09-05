@@ -1,12 +1,7 @@
 ﻿using Autofac;
 using NCase.Api;
-using NCase.Api.Vis;
 using NCase.Imp;
-using NCase.Imp.Vis.CaseSets;
-using NCase.Imp.Vis.TokenStream;
-using NCase.Imp.Vis.TreeCaseSet;
 using NDsl.Api.Core;
-using NDsl.Autofac;
 using NDsl.Imp.Core;
 
 namespace NCase.Autofac
@@ -18,29 +13,12 @@ namespace NCase.Autofac
             base.Load(builder);
 
             // modules
-            builder.RegisterModule<CoreModule>();            
-            builder.RegisterModule<RecPlayModule>();
-            
-            // Case sets
-            builder.RegisterType<TreeCaseSet.Factory>().AsImplementedInterfaces().InstancePerDependency();
-
-            // Parser
-            builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency();
-            builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
-
-            builder.RegisterType<GetBranchingKeyDirector>().As<IGetBranchingKeyDirector>().InstancePerDependency();
-            builder.RegisterType<GetBranchingKeyVisitors>().AsImplementedInterfaces().SingleInstance();
-
-            // Case Generator
-            builder.RegisterType<GenerateCaseDirector>().As<IGenerateCaseDirector>().InstancePerDependency();
-            builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
-
-            // Replay
-            builder.RegisterType<ReplayDirector>().As<IReplayDirector>().InstancePerDependency();
-            builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
-
+            builder.RegisterModule<NCaseCoreModule>();
+            builder.RegisterModule<NCaseInterfaceRecPlayModule>(); 
+            builder.RegisterModule<NCaseTreeModule>(); 
+            builder.RegisterModule<NCaseProdModule>(); 
+                       
             // case builder 
-            builder.RegisterType<TokenStream>().As<ITokenReaderWriter>();
             builder.RegisterType<CaseBuilder>().As<ICaseBuilder>().InstancePerDependency();
         }
     }

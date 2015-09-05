@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NCase.Api;
-using NCase.Api.CaseSet;
-using NCase.Api.Vis;
+using NCase.Api.Dev;
 using NDsl.Api.Core;
 using NDsl.Api.RecPlay;
 using NDsl.Imp.Core;
@@ -70,11 +69,11 @@ namespace NCase.Imp
 
             ICaseSetFactory caseSetFactory;
             if(!mCaseSetFactories.TryGetValue(typeof(T), out caseSetFactory))
-                throw new ArgumentException(@"No factory found for case set type {0}", typeof(T).Name);
+                throw new ArgumentException(string.Format(@"No factory found for case set type {0}", typeof(T).Name));
 
             var genericCaseSetFactory = caseSetFactory as ICaseSetFactory<ICaseSet>;
             if(genericCaseSetFactory == null)
-                throw new ArgumentException(@"Factory for case set type {0} does not implement ICaseSetFactory<{0}>", typeof(T).Name);
+                throw new ArgumentException(string.Format(@"Factory for case set type {0} does not implement ICaseSetFactory<{0}>", typeof(T).Name));
 
             return (T) genericCaseSetFactory.Create(mTokenStream, name);
         }

@@ -1,0 +1,58 @@
+﻿using System;
+using NCase.Api;
+using NDsl.Api.Core;
+using NDsl.Api.Core.Ex;
+using NDsl.Api.Core.Tok;
+using NDsl.Api.Core.Util;
+using NVisitor.Common.Quality;
+
+namespace NCase.Imp.Prod
+{
+    public class ProductCaseSet : ICardinalProduct
+    {
+        [NotNull]
+        private readonly ICodeLocationUtil mCodeLocationUtil;
+        [NotNull]
+        private readonly ITokenWriter mTokenWriter;
+        [NotNull]
+        private readonly string mCaseSetName;
+
+        private bool mIsDefined;
+
+        #region Ctor and Factory
+
+        /// <exception cref="ArgumentNullException">The value of 'tokenWriter'/'caseSetName' cannot be null. </exception>
+        public ProductCaseSet(
+            [NotNull] ITokenWriter tokenWriter,
+            [NotNull] string caseSetName,
+            [NotNull] ICodeLocationUtil codeLocationUtil)
+        {
+            if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
+            if (caseSetName == null) throw new ArgumentNullException("caseSetName");
+            if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
+
+            mTokenWriter = tokenWriter;
+            mCaseSetName = caseSetName;
+            mCodeLocationUtil = codeLocationUtil;
+        }
+
+        #endregion
+
+        /// <exception cref="InvalidSyntaxException">Case set has already been defined</exception>
+        public IDisposable Define()
+        {
+            if (mIsDefined)
+                throw new InvalidSyntaxException("Case set {0} has already been defined", mCaseSetName);
+
+            mIsDefined = true;
+
+            return new SemanticalBlockDisposable<ProductCaseSet>(mCodeLocationUtil, mTokenWriter, this);
+        }
+
+        public void Ref()
+        {
+            mTokenWriter.Append(new RefToken<ProductCaseSet>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+        }
+
+    }
+}
