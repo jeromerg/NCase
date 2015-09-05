@@ -34,7 +34,7 @@ namespace NGitVersion.Model
         public string Product { get { return "NCase"; } }
         public string Copyright { get { return "Apache License 2.0"; } }
         public string Major { get { return "0"; } }
-        public string Minor { get { return "0"; } }
+        public string Minor { get { return "2"; } }
         public string Build { get { return "0"; } }
 
         public string Revision { get { return mRevision.Value; } }

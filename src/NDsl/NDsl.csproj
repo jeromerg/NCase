@@ -60,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Api\Core\Ex\InvalidSyntaxException.cs" />
     <Compile Include="Api\Core\Nod\IRefNode.cs" />
     <Compile Include="Api\Core\Nod\RefNode.cs" />
@@ -106,9 +109,15 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Version\src\NGitVersion\NGitVersion.csproj">
+      <Project>{badb59fb-1a14-42af-b314-152c4787f437}</Project>
+      <Name>NGitVersion</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

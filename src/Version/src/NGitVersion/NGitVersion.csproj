@@ -53,11 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generated\GlobalAssemblyInfo.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="NGitVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Resource\Readme.md" />
-    <None Include="Templates\GlobalNativeAssemblyInfo.h.stg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -65,7 +65,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Templates\GlobalAssemblyInfo.cpp.stg" />
     <None Include="Templates\GlobalAssemblyInfo.cs.stg" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -75,9 +74,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Generated\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
