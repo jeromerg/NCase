@@ -1,4 +1,4 @@
-using NCase.Api.Dev;
+using NCase.Api.Dev.Core.CaseSet;
 
 namespace NCase.Api
 {

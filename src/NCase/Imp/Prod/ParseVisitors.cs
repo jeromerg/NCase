@@ -1,18 +1,19 @@
 using System;
 using NCase.Api.Dev;
-using NCase.Imp.Core;
+using NCase.Api.Dev.Core.CaseSet;
+using NCase.Api.Dev.Core.Parse;
+using NCase.Api.Dev.Prod;
 using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Tok;
-using NVisitor.Api.Batch;
 using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Prod
 {
     public class ParseVisitors
-        : IVisitor<IToken, IParseDirector, BeginToken<ProdCaseSet>>
-        , IVisitor<IToken, IParseDirector, EndToken<ProdCaseSet>>
-        , IVisitor<IToken, IParseDirector, RefToken<ProdCaseSet>>
+        : IParserVisitor<BeginToken<ProdCaseSet>>
+        , IParserVisitor<EndToken<ProdCaseSet>>
+        , IParserVisitor<RefToken<ProdCaseSet>>
     {
         [NotNull] private readonly IGetBranchingKeyDirector mGetBranchingKeyDirector;
 

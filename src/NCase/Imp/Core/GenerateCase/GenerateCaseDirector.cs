@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using NCase.Api.Dev;
+using NCase.Api.Dev.Core.GenerateCase;
 using NDsl.Api.Core.Nod;
 using NDsl.Util;
 using NVisitor.Api.Lazy;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Core
+namespace NCase.Imp.Core.GenerateCase
 {
     public class GenerateCaseDirector : LazyDirector<INode, IGenerateCaseDirector>, IGenerateCaseDirector
     {

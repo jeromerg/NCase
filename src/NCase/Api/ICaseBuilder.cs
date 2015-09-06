@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using NCase.Api.Dev;
+using NCase.Api.Dev.Core.CaseSet;
 using NVisitor.Api.Lazy;
 using NVisitor.Common.Quality;
 

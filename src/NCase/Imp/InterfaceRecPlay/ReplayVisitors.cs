@@ -1,13 +1,11 @@
 ﻿using Castle.Core.Internal;
-using NCase.Api.Dev;
-using NDsl.Api.Core.Nod;
+using NCase.Api.Dev.Core.Replay;
 using NDsl.Api.RecPlay;
-using NVisitor.Api.Batch;
 
 namespace NCase.Imp.InterfaceRecPlay
 {
     public class ReplayVisitors
-        : IVisitor<INode, IReplayDirector, IInterfaceRecPlayNode>
+        : IReplayVisitor<IInterfaceRecPlayNode>
     {
         public void Visit(IReplayDirector dir, IInterfaceRecPlayNode node)
         {

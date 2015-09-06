@@ -17,9 +17,9 @@ Example `ITree`
     - Autofac: `builder.RegisterType<TreeCaseSetFactory>().AsImplementedInterfaces().SingleInstance()`
 
 - Implement a new parser visitor foreach token that are inserted by `TreeCaseSet`: 
-    - `IVisitor<IToken, IParseDirector, BeginToken<CaseSet.TreeCaseSet>>`
-    - `IVisitor<IToken, IParseDirector, EndToken<CaseSet.TreeCaseSet>>`
-    - `IVisitor<IToken, IParseDirector, RefToken<CaseSet.TreeCaseSet>>`
+    - `IParserVisitor<BeginToken<CaseSet.TreeCaseSet>>`
+    - `IParserVisitor<EndToken<CaseSet.TreeCaseSet>>`
+    - `IParserVisitor<RefToken<CaseSet.TreeCaseSet>>`
 
 
 - Add interface `ICaseTreeNode : ICaseSetNode`

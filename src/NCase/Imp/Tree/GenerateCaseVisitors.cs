@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using NCase.Api.Dev;
+using NCase.Api.Dev.Core.GenerateCase;
+using NCase.Api.Dev.Tree;
 using NDsl.Api.Core.Nod;
 using NVisitor.Api.Lazy;
 
 namespace NCase.Imp.Tree
 {
     public class GenerateCaseVisitors
-        : ILazyVisitor<INode, IGenerateCaseDirector, ITreeNode>
-        , ILazyVisitor<INode, IGenerateCaseDirector, IRefNode<ITreeNode>>
+        : IGenerateCaseVisitor<ITreeNode>
+        , IGenerateCaseVisitor<IRefNode<ITreeNode>>
     {
         public IEnumerable<Pause> Visit(IGenerateCaseDirector director, ITreeNode node)
         {

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using NCase.Api.Dev;
-using NDsl.Api.Core.Nod;
+using NCase.Api.Dev.Core.GenerateCase;
 using NDsl.Api.RecPlay;
 using NVisitor.Api.Lazy;
 
 namespace NCase.Imp.InterfaceRecPlay
 {
     public class GenerateCaseVisitors
-        : ILazyVisitor<INode, IGenerateCaseDirector, IInterfaceRecPlayNode>
+        : IGenerateCaseVisitor<IInterfaceRecPlayNode>
     {
         public IEnumerable<Pause> Visit(IGenerateCaseDirector director, IInterfaceRecPlayNode node)
         {

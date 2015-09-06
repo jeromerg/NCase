@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NCase.Api;
-using NCase.Api.Dev;
+using NCase.Api.Dev.Core.CaseSet;
+using NCase.Api.Dev.Core.GenerateCase;
+using NCase.Api.Dev.Core.Parse;
+using NCase.Api.Dev.Core.Replay;
 using NDsl.Api.Core;
 using NDsl.Api.RecPlay;
-using NDsl.Imp.Core;
 using NVisitor.Api.Lazy;
 using NVisitor.Common.Quality;
 

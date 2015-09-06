@@ -1,19 +1,20 @@
 using System;
 using NCase.Api.Dev;
-using NCase.Imp.Core;
+using NCase.Api.Dev.Core.CaseSet;
+using NCase.Api.Dev.Core.Parse;
+using NCase.Api.Dev.Tree;
 using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Tok;
 using NDsl.Api.Core.Util;
-using NVisitor.Api.Batch;
 using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Tree
 {
     public class ParseVisitors
-        : IVisitor<IToken, IParseDirector, BeginToken<TreeCaseSet>>
-        , IVisitor<IToken, IParseDirector, EndToken<TreeCaseSet>>
-        , IVisitor<IToken, IParseDirector, RefToken<TreeCaseSet>>
+        : IParserVisitor<BeginToken<TreeCaseSet>>
+        , IParserVisitor<EndToken<TreeCaseSet>>
+        , IParserVisitor<RefToken<TreeCaseSet>>
     {
         [NotNull] private readonly IGetBranchingKeyDirector mGetBranchingKeyDirector;
 

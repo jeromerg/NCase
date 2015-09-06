@@ -1,7 +1,7 @@
 using System;
 using NDsl.Api.Core.Ex;
 
-namespace NCase.Api.Dev
+namespace NCase.Api.Dev.Core.CaseSet
 {
     public interface ICaseSet
     {

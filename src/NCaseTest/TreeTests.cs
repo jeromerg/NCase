@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using NCase.Api;
 using NCase.Autofac;
 using NUnit.Framework;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NDsl.Api.Core.Nod;
 using NVisitor.Api.Lazy;
 
-namespace NCase.Api.Dev
+namespace NCase.Api.Dev.Core.GenerateCase
 {
     public interface IGenerateCaseDirector : ILazyDirector<INode, IGenerateCaseDirector>
     {

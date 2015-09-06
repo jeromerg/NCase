@@ -1,8 +1,7 @@
-using NCase.Api.Dev;
 using NDsl.Api.Core.Nod;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Core
+namespace NCase.Api.Dev.Core.CaseSet
 {
     public interface ICaseSetNode : INode
     {

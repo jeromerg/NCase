@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using NCase.Api;
-using NCase.Imp.Core;
+using NCase.Api.Dev.Core.CaseSet;
 using NDsl.Api.Core.Nod;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Tree
+namespace NCase.Api.Dev.Tree
 {
     public interface ITreeNode : ICaseSetNode<ITree>
     {

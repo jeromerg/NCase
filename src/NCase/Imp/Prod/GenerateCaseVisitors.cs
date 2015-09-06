@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NCase.Api.Dev;
-using NCase.Imp.Core;
+using NCase.Api.Dev.Core.GenerateCase;
+using NCase.Api.Dev.Prod;
 using NDsl.Api.Core.Nod;
 using NVisitor.Api.Lazy;
 
 namespace NCase.Imp.Prod
 {
     public class GenerateCaseVisitors
-        : ILazyVisitor<INode, IGenerateCaseDirector, IProdNode>
-        , ILazyVisitor<INode, IGenerateCaseDirector, IRefNode<IProdNode>>
-        , ILazyVisitor<INode, IGenerateCaseDirector, ProdDimNode>
+        : IGenerateCaseVisitor<IProdNode>
+        , IGenerateCaseVisitor<IRefNode<IProdNode>>
+        , IGenerateCaseVisitor<ProdDimNode>
     {
         public IEnumerable<Pause> Visit(IGenerateCaseDirector dir, IProdNode node)
         {

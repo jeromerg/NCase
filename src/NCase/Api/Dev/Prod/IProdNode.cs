@@ -1,7 +1,6 @@
-using NCase.Api;
-using NCase.Imp.Core;
+using NCase.Api.Dev.Core.CaseSet;
 
-namespace NCase.Imp.Prod
+namespace NCase.Api.Dev.Prod
 {
     public interface IProdNode : ICaseSetNode<IProd>
     {

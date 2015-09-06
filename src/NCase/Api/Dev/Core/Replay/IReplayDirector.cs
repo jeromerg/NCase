@@ -1,7 +1,7 @@
 using NDsl.Api.Core.Nod;
 using NVisitor.Api.Batch;
 
-namespace NCase.Api.Dev
+namespace NCase.Api.Dev.Core.Replay
 {
     public interface IReplayDirector : IDirector<INode, IReplayDirector>
     {

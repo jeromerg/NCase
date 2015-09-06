@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using NCase.Imp.Core;
-using NCase.Imp.Tree;
+using NCase.Api.Dev.Core.CaseSet;
 using NDsl.Api.Core.Tok;
 using NVisitor.Api.Batch;
 
-namespace NCase.Api.Dev
+namespace NCase.Api.Dev.Core.Parse
 {
     public interface IParseDirector : IDirector<IToken, IParseDirector>
     {

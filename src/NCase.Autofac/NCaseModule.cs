@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using NCase.Api;
 using NCase.Imp;
-using NDsl.Api.Core;
-using NDsl.Imp.Core;
 
 namespace NCase.Autofac
 {

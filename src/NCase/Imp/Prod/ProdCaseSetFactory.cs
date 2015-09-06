@@ -1,6 +1,6 @@
 ﻿using System;
 using NCase.Api;
-using NCase.Api.Dev;
+using NCase.Api.Dev.Core.CaseSet;
 using NDsl.Api.Core;
 using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;

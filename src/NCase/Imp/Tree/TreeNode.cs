@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NCase.Api;
 using NCase.Api.Dev;
+using NCase.Api.Dev.Tree;
 using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Util;

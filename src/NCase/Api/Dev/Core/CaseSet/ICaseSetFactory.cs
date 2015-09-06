@@ -1,6 +1,6 @@
 ﻿using NDsl.Api.Core;
 
-namespace NCase.Api.Dev
+namespace NCase.Api.Dev.Core.CaseSet
 {
     public interface ICaseSetFactory
     {

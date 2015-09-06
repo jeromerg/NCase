@@ -1,16 +1,15 @@
 using Castle.DynamicProxy;
-using NCase.Api.Dev;
+using NCase.Api.Dev.Core.Parse;
 using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Tok;
 using NDsl.Api.Core.Util;
 using NDsl.Imp.RecPlay;
 using NDsl.Util.Castle;
-using NVisitor.Api.Batch;
 
 namespace NCase.Imp.InterfaceRecPlay
 {
     public class ParseVisitors
-        : IVisitor<IToken, IParseDirector, InvocationToken<InterfaceRecPlayInterceptor>>
+        : IParserVisitor<InvocationToken<InterfaceRecPlayInterceptor>>
     {
         public void Visit(IParseDirector dir, InvocationToken<InterfaceRecPlayInterceptor> token)
         {
