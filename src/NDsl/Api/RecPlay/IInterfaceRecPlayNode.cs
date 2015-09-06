@@ -8,7 +8,6 @@ namespace NDsl.Api.RecPlay
     public interface IInterfaceRecPlayNode : INode
     {
         [CanBeNull] object PropertyValue { get; }
-        [NotNull] ICodeLocation CodeLocation { get; }
         [NotNull] PropertyCallKey PropertyCallKey { get; }
         string ContributorName { get; }
 

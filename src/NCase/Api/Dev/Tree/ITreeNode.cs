@@ -10,6 +10,5 @@ namespace NCase.Api.Dev.Tree
         [CanBeNull] INode Fact { get; }
 
         IEnumerable<INode> Branches { get; }
-        void PlaceNextNode([NotNull] INode child);
     }
 }
