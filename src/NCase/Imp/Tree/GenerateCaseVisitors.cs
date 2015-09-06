@@ -8,34 +8,38 @@ using NVisitor.Api.Lazy;
 namespace NCase.Imp.Tree
 {
     public class GenerateCaseVisitors
-        : ILazyVisitor<INode, IGenerateCaseDirector, ICaseTreeNode>
-        , ILazyVisitor<INode, IGenerateCaseDirector, IRefNode<ICaseTreeNode>>
+        : ILazyVisitor<INode, IGenerateCaseDirector, ITreeNode>
+        , ILazyVisitor<INode, IGenerateCaseDirector, IRefNode<ITreeNode>>
     {
-        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, ICaseTreeNode node)
+        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, ITreeNode node)
         {
-            IDisposable popHandle = null;
-            if (node.Fact != null) 
-                popHandle = director.Push(node.Fact);
-
-            try
+            if (node.Fact != null)
             {
-                // it's a leaf, so it is also a case: 
-                // then give hand to calling foreach in order to process the case
-                if (!node.Branches.Any())
-                    yield return Pause.Now;
-                else
-                    foreach (INode branch in node.Branches)
-                        foreach (Pause pause in director.Visit(branch))
-                            yield return Pause.Now;
+                foreach (var pause in director.Visit(node.Fact)) // fact comes first
+                    foreach (Pause pause1 in VisitTreeNodeChildren(director, node))
+                        yield return Pause.Now;
             }
-            finally
+            else
             {
-                if(popHandle != null)
-                    popHandle.Dispose();
+                foreach (Pause pause in VisitTreeNodeChildren(director, node))
+                    yield return Pause.Now;
             }
         }
 
-        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, IRefNode<ICaseTreeNode> node)
+        private IEnumerable<Pause> VisitTreeNodeChildren(IGenerateCaseDirector director, ITreeNode node)
+        {
+            // it's a leaf, so it is also a case: 
+            // then give hand to calling foreach in order to process the case
+            if (!node.Branches.Any())
+                yield return Pause.Now;
+            else
+                foreach (INode branch in node.Branches)
+                    foreach (Pause pause in director.Visit(branch))
+                        yield return Pause.Now;
+
+        }
+
+        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, IRefNode<ITreeNode> node)
         {
             foreach(Pause pause in director.Visit(node.Reference))
                 yield return Pause.Now;

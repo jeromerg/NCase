@@ -1,28 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NCase.Api;
 using NCase.Api.Dev;
-using NCase.Imp.Tree;
 using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Prod
+namespace NCase.Imp.Tree
 {
-    public class ProductNode : IProductNode
+    public class TreeNode : ITreeNode
     {
         [NotNull] private readonly ICodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mBranches = new List<INode>();
         [NotNull] private readonly IGetBranchingKeyDirector mGetBranchingKeyDirector;
 
-        [CanBeNull] private readonly ProductCaseSet mCaseSet;
+        [CanBeNull] private readonly TreeCaseSet mCaseSet;
         [CanBeNull] private readonly INode mFact;
 
-        public ProductNode(
+        public TreeNode(
             [NotNull] ICodeLocation codeLocation, 
             [NotNull] IGetBranchingKeyDirector getBranchingKeyDirector,
-            [CanBeNull] ProductCaseSet caseSet,
+            [CanBeNull] TreeCaseSet caseSet,
             [CanBeNull] INode fact)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
@@ -51,7 +51,7 @@ namespace NCase.Imp.Prod
             get { return mCodeLocation; }
         }
 
-        public ICaseSet CaseSet
+        public ITree CaseSet
         {
             get { return mCaseSet; }
         }
@@ -72,7 +72,7 @@ namespace NCase.Imp.Prod
             object childBranchingKey = GetBranchingKey(child);
             INode nodeToAdd = (childBranchingKey == null)
                 ? child
-                : new CaseTreeNode(child.CodeLocation, mGetBranchingKeyDirector, null, child);
+                : new TreeNode(child.CodeLocation, mGetBranchingKeyDirector, null, child);
 
             INode lastBranch = mBranches.LastOrDefault();
 
@@ -83,7 +83,7 @@ namespace NCase.Imp.Prod
                 return;
             }
 
-            ICaseTreeNode lastBranchAsTreeNode = lastBranch as ICaseTreeNode;
+            ITreeNode lastBranchAsTreeNode = lastBranch as ITreeNode;
             if (lastBranchAsTreeNode == null)
                 throw new InvalidSyntaxException("Last branch is an end branch and therefore cannot accept any child: {0}", lastBranch.CodeLocation);
 

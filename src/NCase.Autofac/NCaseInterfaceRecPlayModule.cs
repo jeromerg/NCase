@@ -19,6 +19,8 @@ namespace NCase.Autofac
             // Replay
             builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
+            // Case Generator
+            builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

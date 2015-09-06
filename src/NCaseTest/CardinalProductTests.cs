@@ -24,7 +24,7 @@ namespace NCaseTest
             // create a case contributor
             var o = caseBuilder.GetContributor<IMyTestvalues>("o");
             
-            var allPersonsAllAges = caseBuilder.CreateSet<ICardinalProduct>("allPersonsAllAges");
+            var allPersonsAllAges = caseBuilder.CreateSet<IProd>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {
@@ -109,7 +109,7 @@ namespace NCaseTest
                 o.Age = 30;
             }
 
-            var allPersonsAllAges = caseBuilder.CreateSet<ICardinalProduct>("allPersonsAllAges");
+            var allPersonsAllAges = caseBuilder.CreateSet<IProd>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {

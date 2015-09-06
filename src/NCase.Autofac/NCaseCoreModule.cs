@@ -1,10 +1,10 @@
-﻿using Autofac;
-using NDsl.Api.Core;
+﻿using System.Reflection;
+using Autofac;
+using Castle.DynamicProxy;
 using NDsl.Autofac;
-using NDsl.Imp.Core;
-using NCase.Api;
 using NCase.Api.Dev;
 using NCase.Imp.Core;
+using Module = Autofac.Module;
 
 namespace NCase.Autofac
 {
@@ -13,9 +13,11 @@ namespace NCase.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
+            builder.RegisterInstance(new ProxyGenerator());
+
             // NDsl
-            builder.RegisterModule<NDslCoreModule>();            
+            builder.RegisterModule(new NDslCoreModule(new[] { Assembly.GetExecutingAssembly() }));            
             builder.RegisterModule<NDslRecPlayModule>();
 
             // Parser

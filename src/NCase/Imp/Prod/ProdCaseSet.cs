@@ -8,7 +8,7 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Prod
 {
-    public class ProductCaseSet : ICardinalProduct
+    public class ProdCaseSet : IProd
     {
         [NotNull]
         private readonly ICodeLocationUtil mCodeLocationUtil;
@@ -22,7 +22,7 @@ namespace NCase.Imp.Prod
         #region Ctor and Factory
 
         /// <exception cref="ArgumentNullException">The value of 'tokenWriter'/'caseSetName' cannot be null. </exception>
-        public ProductCaseSet(
+        public ProdCaseSet(
             [NotNull] ITokenWriter tokenWriter,
             [NotNull] string caseSetName,
             [NotNull] ICodeLocationUtil codeLocationUtil)
@@ -46,12 +46,12 @@ namespace NCase.Imp.Prod
 
             mIsDefined = true;
 
-            return new SemanticalBlockDisposable<ProductCaseSet>(mCodeLocationUtil, mTokenWriter, this);
+            return new SemanticalBlockDisposable<ProdCaseSet>(mCodeLocationUtil, mTokenWriter, this);
         }
 
         public void Ref()
         {
-            mTokenWriter.Append(new RefToken<ProductCaseSet>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenWriter.Append(new RefToken<ProdCaseSet>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
     }

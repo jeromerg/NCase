@@ -7,7 +7,6 @@ namespace NCase.Api.Dev
     {
         /// <exception cref="InvalidSyntaxException">Case set has already been defined</exception>
         IDisposable Define();
-
         void Ref();
     }
 }

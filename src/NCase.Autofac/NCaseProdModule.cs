@@ -11,11 +11,14 @@ namespace NCase.Autofac
             base.Load(builder);
 
             // Case sets
-            builder.RegisterType<ProductCaseSetFactory>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ProdCaseSetFactory>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
 
+            // Branching
+            builder.RegisterType<GetBranchingKeyVisitors>().AsImplementedInterfaces().SingleInstance();
+            
             // Case Generator
             builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
 

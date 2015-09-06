@@ -7,9 +7,9 @@ using NVisitor.Api.Batch;
 namespace NCase.Imp.Tree
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDirector, ICaseTreeNode>
+        : IVisitor<INode, IDumpDirector, ITreeNode>
     {
-        public void Visit(IDumpDirector dir, ICaseTreeNode node)
+        public void Visit(IDumpDirector dir, ITreeNode node)
         {
             dir.AddText("TreeNode: {0}", node);
             VisitNextLevel(dir, node.Children);

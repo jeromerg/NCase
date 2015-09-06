@@ -1,5 +1,6 @@
 using System;
 using NCase.Api.Dev;
+using NCase.Imp.Core;
 using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Tok;
@@ -25,35 +26,41 @@ namespace NCase.Imp.Tree
         #region ITree related nodes
         public void Visit(IParseDirector dir, BeginToken<TreeCaseSet> token)
         {
-            var newCaseSetNode = new CaseTreeNode(
+            var newCaseSetNode = new TreeNode(
                 token.CodeLocation, 
                 mGetBranchingKeyDirector, 
                 token.Owner, 
                 null /*root without associated fact*/);
             
             dir.AllCaseSets.Add(token.Owner, newCaseSetNode);
-            dir.CurrentSetNode = newCaseSetNode;
+            dir.CurrentCaseSet = newCaseSetNode;
         }
 
         public void Visit(IParseDirector dir, EndToken<TreeCaseSet> token)
         {
-            dir.CurrentSetNode = null;
+            dir.CurrentCaseSet = null;
         }
 
         public void Visit(IParseDirector dir, RefToken<TreeCaseSet> token)
         {
             ICodeLocation codeLocation = token.CodeLocation;
 
-            if (dir.CurrentSetNode == null)
+            if (dir.CurrentCaseSet == null)
             {
                 throw new InvalidSyntaxException("Call must be performed within CaseSet definition block: {0}",
                     codeLocation.GetUserCodeInfo());
             }
 
-            ICaseTreeNode referredSetNode = dir.AllCaseSets[token.Owner];
-            var newNode = new RefNode<ICaseTreeNode>(referredSetNode, codeLocation);
+            ICaseSetNode<ICaseSet> referredSetNode;
+            if (!dir.AllCaseSets.TryGetValue(token.Owner, out referredSetNode))
+                throw new InvalidSyntaxException("Trying to reference a ITree that has not been defined yet: {0}", token);
 
-            dir.CurrentSetNode.PlaceNextNode(newNode);
+            if (!(referredSetNode is ITreeNode))
+                throw new ArgumentException("RefToken<TreeCaseSet> does not reference a ITreeNode. It should never happen");
+
+            var newNode = new RefNode<ITreeNode>((ITreeNode) referredSetNode, codeLocation);
+
+            dir.CurrentCaseSet.PlaceNextNode(newNode);
         }
         #endregion
     }

@@ -1,14 +1,13 @@
 using System.Collections.Generic;
-using NCase.Api.Dev;
+using NCase.Api;
 using NCase.Imp.Core;
 using NDsl.Api.Core.Nod;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Prod
+namespace NCase.Imp.Tree
 {
-    public interface IProductNode : ICaseSetNode
+    public interface ITreeNode : ICaseSetNode<ITree>
     {
-        [CanBeNull] ICaseSet CaseSet { get; }
         [CanBeNull] INode Fact { get; }
 
         IEnumerable<INode> Branches { get; }

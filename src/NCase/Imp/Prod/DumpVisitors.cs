@@ -7,9 +7,9 @@ using NVisitor.Api.Batch;
 namespace NCase.Imp.Prod
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDirector, IProductNode>
+        : IVisitor<INode, IDumpDirector, IProdNode>
     {
-        public void Visit(IDumpDirector dir, IProductNode node)
+        public void Visit(IDumpDirector dir, IProdNode node)
         {
             dir.AddText("CardinalProduct: {0}", node);
             VisitNextLevel(dir, node.Children);

@@ -17,7 +17,7 @@ namespace NCase.Imp.InterfaceRecPlay
             ICodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
 
-            if (dir.CurrentSetNode == null)
+            if (dir.CurrentCaseSet == null)
             {
                 throw new InvalidSyntaxException("Call must be performed within CaseSet definition block: {0}",
                     codeLocation.GetUserCodeInfo());
@@ -39,7 +39,7 @@ namespace NCase.Imp.InterfaceRecPlay
                 argumentValue,
                 codeLocation);
 
-            dir.CurrentSetNode.PlaceNextNode(newNode);
+            dir.CurrentCaseSet.PlaceNextNode(newNode);
         }
     }
 }
