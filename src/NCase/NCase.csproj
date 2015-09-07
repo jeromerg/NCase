@@ -75,12 +75,6 @@
       <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
       <Name>NDsl.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Version\src\NGitVersion\NGitVersion.csproj">
-      <Project>{badb59fb-1a14-42af-b314-152c4787f437}</Project>
-      <Name>NGitVersion</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
