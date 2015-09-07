@@ -4,17 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</ProjectGuid>
+    <ProjectGuid>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NCase</RootNamespace>
     <AssemblyName>NCase</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\NCase.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,17 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging, Version=3.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.3.2.0\lib\net40\Common.Logging.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Common.Logging.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.Core.3.2.0\lib\net40\Common.Logging.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="NVisitor, Version=1.1.0.55, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NVisitor.1.1.0.55\lib\net40-Client\NVisitor.dll</HintPath>
@@ -62,67 +54,26 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Api\Dev\Core\CaseSet\ICaseSetFactory.cs" />
-    <Compile Include="Api\Dev\Core\GenerateCase\IGenerateCaseVisitor.cs" />
-    <Compile Include="Api\Dev\Core\Parse\IParserVisitor.cs" />
-    <Compile Include="Api\Dev\Core\Replay\IReplayVisitor.cs" />
-    <Compile Include="Api\IProd.cs" />
-    <Compile Include="Api\ITree.cs" />
-    <Compile Include="Api\Dev\IGetBranchingKeyDirector.cs" />
-    <Compile Include="Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
-    <Compile Include="Imp\InterfaceRecPlay\GetBranchingKeyVisitors.cs" />
-    <Compile Include="Imp\Prod\GetBranchingKeyVisitors.cs" />
-    <Compile Include="Imp\Prod\ProdCaseSet.cs" />
-    <Compile Include="Imp\Prod\DumpVisitors.cs" />
-    <Compile Include="Imp\Prod\GenerateCaseVisitors.cs" />
-    <Compile Include="Imp\Prod\ParseVisitors.cs" />
-    <Compile Include="Imp\InterfaceRecPlay\ParseVisitors.cs" />
-    <Compile Include="Imp\InterfaceRecPlay\ReplayVisitors.cs" />
-    <Compile Include="Imp\Prod\ProdDimNode.cs" />
-    <Compile Include="Imp\Tree\DumpVisitors.cs" />
-    <Compile Include="Imp\Tree\GenerateCaseVisitors.cs" />
-    <Compile Include="Imp\Tree\ParseVisitors.cs" />
-    <Compile Include="Imp\Tree\TreeCaseSet.cs" />
-    <Compile Include="Api\Dev\Core\CaseSet\ICaseSet.cs" />
-    <Compile Include="Imp\Prod\ProdCaseSetFactory.cs" />
-    <Compile Include="Imp\Tree\TreeCaseSetFactory.cs" />
-    <Compile Include="Imp\Prod\ProdNode.cs" />
-    <Compile Include="Api\Dev\Core\CaseSet\ICaseSetNode.cs" />
-    <Compile Include="Api\Dev\Prod\IProdNode.cs" />
-    <Compile Include="Api\Dev\Tree\ITreeNode.cs" />
-    <Compile Include="Api\Dev\Core\Replay\IReplayDirector.cs" />
-    <Compile Include="Api\Dev\Core\Parse\IParseDirector.cs" />
-    <Compile Include="Imp\Tree\TreeNode.cs" />
-    <Compile Include="Imp\Core\GetBranchingKeyDirector.cs" />
-    <Compile Include="Imp\Core\Replay\ReplayDirector.cs" />
-    <Compile Include="Imp\CaseBuilder.cs" />
-    <Compile Include="Api\ICaseBuilder.cs" />
-    <Compile Include="Imp\Core\Parse\ParseDirector.cs" />
-    <Compile Include="Imp\Core\GenerateCase\GenerateCaseDirector.cs" />
-    <Compile Include="Api\Dev\Core\GenerateCase\IGenerateCaseDirector.cs" />
-    <Compile Include="Imp\Core\GetBranchingKeyVisitors.cs" />
-    <Compile Include="Imp\Core\Replay\ReplayVisitors.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Case.cs" />
+    <Compile Include="NCaseCoreModule.cs" />
+    <Compile Include="NCaseInterfaceRecPlayModule.cs" />
+    <Compile Include="NCaseTreeModule.cs" />
+    <Compile Include="NCaseProdModule.cs" />
+    <Compile Include="NCaseModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="_Doc\doc.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\NCase.Core\NCase.Core.csproj">
+      <Project>{27c500d5-5781-47c9-8f64-fced56fddbbd}</Project>
+      <Name>NCase.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NDsl\NDsl.csproj">
-      <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
+      <Project>{FD488CB0-EFEB-4E14-86D8-220D378A716F}</Project>
       <Name>NDsl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
+      <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
+      <Name>NDsl.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Version\src\NGitVersion\NGitVersion.csproj">
       <Project>{badb59fb-1a14-42af-b314-152c4787f437}</Project>
@@ -130,9 +81,11 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

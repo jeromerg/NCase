@@ -80,17 +80,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NCase.Autofac\NCase.Autofac.csproj">
-      <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
-      <Name>NCase.Autofac</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NCase\NCase.csproj">
-      <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
+      <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
       <Name>NCase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NDsl\NDsl.csproj">
+    <ProjectReference Include="..\NCase.Core\NCase.Core.csproj">
+      <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
+      <Name>NCase.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
-      <Name>NDsl</Name>
+      <Name>NDsl.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

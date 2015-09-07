@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NCase.Autofac")]
-[assembly: AssemblyDescription("NCase end-user-assembly. Generates use cases, test cases from compact C# embedded language")]
+[assembly: AssemblyTitle("NDsl.Core")]
+[assembly: AssemblyDescription("NDsl Core implementation")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -13,4 +13,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ffd0114c-1c67-4d5f-a5a4-f5b200af11e7")]
+[assembly: Guid("86d78931-f5f2-4039-b2b8-43931280f4be")]

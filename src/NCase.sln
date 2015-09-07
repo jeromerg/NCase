@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGitVersion", "Version\src\NGitVersion\NGitVersion.csproj", "{BADB59FB-1A14-42AF-B314-152C4787F437}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase", "NCase\NCase.csproj", "{27C500D5-5781-47C9-8F64-FCED56FDDBBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Core", "NCase.Core\NCase.Core.csproj", "{27C500D5-5781-47C9-8F64-FCED56FDDBBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCaseTest", "NCaseTest\NCaseTest.csproj", "{02C99571-1D56-4883-963B-62B747D6B08C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDsl", "NDsl\NDsl.csproj", "{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDsl.Core", "NDsl.Core\NDsl.Core.csproj", "{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDsl.Autofac", "NDsl.Autofac\NDsl.Autofac.csproj", "{FD488CB0-EFEB-4E14-86D8-220D378A716F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDsl", "NDsl\NDsl.csproj", "{FD488CB0-EFEB-4E14-86D8-220D378A716F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Autofac", "NCase.Autofac\NCase.Autofac.csproj", "{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase", "NCase\NCase.csproj", "{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

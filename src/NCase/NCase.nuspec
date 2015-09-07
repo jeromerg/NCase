@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package >
-  
+
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
@@ -13,11 +13,11 @@
     <description>$description$</description>
     <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
     <copyright>Apache License Version 2.0</copyright>
-    <tags>Generate all cases with C# compact embedded language</tags>
+    <tags>Compact DSL language, used to generate test cases within C# application/ unit tests</tags>
   </metadata>
-  
+
   <files>
     <file target='readme.txt' src='readme-for-nuget.txt' />
   </files>
-  
+
 </package>
