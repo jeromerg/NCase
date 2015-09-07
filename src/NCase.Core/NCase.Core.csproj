@@ -128,6 +128,7 @@
       <Project>{badb59fb-1a14-42af-b314-152c4787f437}</Project>
       <Name>NGitVersion</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
