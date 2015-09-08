@@ -5,9 +5,9 @@ Status:
 
 # NCase *[Pre-Alpha !! Under Construction]*
 
-Case Builder for .Net: generates all cases from a tree of cases. Multiple sets of cases can be combined together with operators like the cardinal product operator, the pair-wise operator...
+Case Builder for .Net: generates all cases from various case set definitions. Multiple sets of cases can be combined together with operators like the cardinal product operator.
 
-Here is an example (see unit test to get the code):
+Here is an example (see unit test to get the code).
 
 ### Generating cases from a tree
 
@@ -44,21 +44,23 @@ foreach (Pause pause in builder.GetAllCases(tree))
 // Germany | Female | 45
 ```
 
-First you get a builder, the swiss-knife of NCase.
+First you need a case-builder. A case-builder is the swiss knife of NCase. You get it by calling `Case.GetBuilder()`.
 
-In order to generate cases, you need variables. In NCase, variables are called contributors, as they contribute to the construction of the cases. So you ask the builder to provide a contributor of type `IPerson`. `IPerson` is a locally defined interface that contains three properties: `Country`, `Age`, `Gender`. `GetContributor<IPerson>()` returns a dynamic proxy of `IPerson`, that will have the ability to record/replay similarly to mock in mocking frameworks.
+In order to generate cases, you need variables. In NCase, variables are called contributors, as they contribute to the construction of the cases. You call `builder.GetContributor<IPerson>()` and you get a contributor of type `IPerson`. `IPerson` is a locally defined interface that contains three properties: `Country`, `Age`, `Gender`. Under the hood, the instance is a dynamic proxy of `IPerson`, which will have the ability to record/replay assignments similarly to mocks do in mocking frameworks.
 
-Now you need to define a set of cases. In this example we want to define it via a tree, where each level corresponds to one property. So we create a set of type `ITree`. This is the most simple case-set currently. NCase has been designed from the ground up to enable adding easily new types of case-set and new operators... So new sets will come soon... You define the tree within a using block.
+Next you need to choose the kind of case-set you want to define. In this example we want to define a tree. You call `builder.CreateSet<ITree>("anything")` and you get an instance of `ITree` tree. `anything` is a simple display name used as a label of the tree.
 
-That's it! You can come back to the swiss-knife and ask him to generate the cases one by one. You call the `GetAllCases()` method, that parses, transforms the tree definition and finally generates the cases one by one. Actually, it doesn't generate anything, as `GetAllCases()` returns a dummy instance of type `Pause`. It plays the case, by setting the properties to the expected values, so that you can call them during the pause...
+Now you need to define the content of the tree. You call `using(tree.Define())` and you place the definition of the tree within the using block. The `ITree` case-set expects a well-defined syntax: here we only assign values to contributor's properties. Every time that a property is assigned, it extends the current case with a new fact (the assignment). If the property was already defined on the way up to the root, then if performs a branching of the tree at the level where the last assignment was performed. As a result the assignement of a property are all siblings in the tree. In the example, we use indentation to highlight the tree structure.
+
+That's it! You can now generate the cases one by one. For that purpose, you call `builder.GetAllCases(tree)` and iterate the enumerable. At each iteration the builder replays a case, sets the properties to the expected values and gives you the hand. In the foreach loop you can read the contributor properties and use them for whatever you need...
 
 Enjoy! (But warning! It is a pre-alpha development)
 
-### Generating cases from a cardinal product
+### Generating cases with the cardinal product operator
 
 When you need to generate cases, you quite often need first to generate all combinations between two sets... it is the so called cardinal product.
 
-The most simple way to generate a cardinal product is by using the `IProd` case-set:
+To generate the cases of a cardinal product, you use `IProd`, another case-set, as following:
 
 ```C#
 var allCombinations = builder.CreateSet<IProd>("allCombinations");
@@ -100,12 +102,4 @@ foreach (Pause pause in builder.GetAllCases(allCombinations))
 //    Germany | Other  | 10
 ```
 
-## Roadmap Pre-Alpha
-- Support method-call of existing instance (of interface, or virtual method)
-- Support indexed Items property
-- Improve tracing capability
-- re-factor some places missing visitors
-- Unit test for all success and failing cases
-- Improve debug information
-- Implement alternative syntax based on operator-override
-- think about NCase as alternative to mocking?
+Again, `IProd` expects a well-defined syntax. Here we use it in combination with contributor's assignments. Each property build a set of assignments. And the `IProd` performs the cardinal product between all these sets pairwise.
