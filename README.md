@@ -3,9 +3,11 @@ Status:
 [![Build status](https://ci.appveyor.com/api/projects/status/5t819acpeymgqdoh/branch/master?svg=true)](https://ci.appveyor.com/project/jeromerg/ncase/branch/master)  [![NuGet](https://img.shields.io/nuget/dt/NCase.svg)]()
 
 
-# NCase *[Pre-Alpha !! Under Construction]*
+# NCase *(Pre-Alpha !!)*
 
-Case Builder for .Net: generates all cases from a tree of cases. Multiple sets of cases can be combined together with operators like the cardinal product operator, the pair-wise operator...
+NCase allows you to define compactly one or more sets of cases directly on C# objects. As you iterate the cases, the objects are re-set in the state defined by the case, so that you can use them freely to perform further actions.
+
+A typical usage is then to inject the cases into a parametrized test. On a system under test (SUT) with a few inputs (dimensions) you quickly reach a few dozen of cases to test (i.e. 3 dimensions with 4 values generate 4 x 4 x 4 = 64 test cases). 64 unit tests are hard to write and to maintain. That's why test frameworks like NUnit support parametrized tests. But even parametrized are hard to maintain, because you have to define all cases one by one. That's where NCase comes to rescue: you can simplify the cases definition by using trees. You can combine multiple set of cases together and easily generate the cartesian product of them.
 
 Here is an example (see unit test to get the code):
 
@@ -54,11 +56,11 @@ That's it! You can come back to the swiss-knife and ask him to generate the case
 
 Enjoy! (But warning! It is a pre-alpha development)
 
-### Generating cases from a cardinal product
+### Generating all combinations of cases
 
-When you need to generate cases, you quite often need first to generate all combinations between two sets... it is the so called cardinal product.
+When you need to generate cases, you quite often need first to generate all combinations between two sets, the so called cartesian product of both sets.
 
-The most simple way to generate a cardinal product is by using the `IProd` case-set:
+The most simple way to generate a cartesian product is by using the `IProd` case-set:
 
 ```C#
 var allCombinations = builder.CreateSet<IProd>("allCombinations");
