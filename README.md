@@ -35,7 +35,7 @@ using (tree.Define())
 }
 
 foreach (Pause pause in builder.GetAllCases(tree))
-    Console.WriteLine("{0,-7} | {1, -6} | {2,2}", p.Country, p.Age, p.Gender);
+    Console.WriteLine("{0,-7} | {1,2} | {2,-6}", p.Country, p.Age, p.Gender);
 
 // Console:
 // France  |  0 | Female
@@ -48,7 +48,19 @@ foreach (Pause pause in builder.GetAllCases(tree))
 
 First you call `Case.GetBuilder()` to get a builder, the swiss-knife of NCase.
 
-Then you call `builder.GetContributor<IPerson>()` in order to get a contributor of type `IPerson`. A contributor is a variable that will contribute to the construction of the cases. `IPerson` is a locally defined interface that contains three properties: `Country`, `Age`, `Gender`. Under the hood, you get a dynamic proxy of `IPerson`, which will have the ability to record/replay assignments similarly to mocks do in mocking frameworks.
+Then you call `builder.GetContributor<IPerson>()` in order to get a contributor of type `IPerson`. A contributor is a variable that will contribute to the construction of the cases. `IPerson` is a locally defined interface that contains three properties:
+
+```C#
+public enum Gender {  Female, Male, Other }
+public interface IPerson
+{
+    string Country { get; set; }
+    int    Age     { get; set; }
+    Gender Gender  { get; set; }
+}
+```
+
+Under the hood, you get a dynamic proxy of `IPerson`, which will have the ability to record/replay assignments similarly as mocks do in mocking frameworks.
 
 Then you call `builder.CreateSet<ITree>("anything")` in order to create a set of type `ITree`. `ITree` enables you to define the cases via a tree structure. Each path from a leaf to the root represents a case.
 
@@ -81,7 +93,7 @@ using (allCombinations.Define())
 }
 
 foreach (Pause pause in builder.GetAllCases(allCombinations))
-    Console.WriteLine("{0,-7} | {1, -6} | {2,2}", p.Country, p.Gender, p.Age);
+    Console.WriteLine("{0,-7} | {1,2} | {2, -6}", p.Country, p.Age, p.Gender);
 
 // Console:
 //    France  |  0 | Female
@@ -107,6 +119,7 @@ foreach (Pause pause in builder.GetAllCases(allCombinations))
 `IProd` expects a well-defined syntax. The assignment to a property are grouped together. `IProd` performs the cartesian product between all these these groups.
 
 ## Roadmap Pre-Alpha
+- Hide NVisitor namespace in API
 - Dev: Refactor AddChild() by using `PairVisitor`
 - Documentation: add doc about References
 - Improve dump functionality
@@ -116,6 +129,6 @@ foreach (Pause pause in builder.GetAllCases(allCombinations))
 - Support permutation set
 - Support pairwise permutation set
 - Documentation: show how to use permutation with method-call of existing instance
-- Improve tracing capability
 - Improve Unit test coverage
+- Improve tracing capability
 - Implement alternative syntax based on operator-override

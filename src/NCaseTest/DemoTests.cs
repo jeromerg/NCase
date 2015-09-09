@@ -44,7 +44,7 @@ namespace NCaseTest
 
 
             foreach (Pause pause in builder.GetAllCases(tree))
-                Console.WriteLine("{0,-7} | {1, -6} | {2,2}", p.Country, p.Gender, p.Age);
+                Console.WriteLine("{0,-7} | {1,2} | {2,-6}", p.Country, p.Age, p.Gender);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace NCaseTest
             }
 
             foreach (Pause pause in builder.GetAllCases(allCombinations))
-                Console.WriteLine("{0,-7} | {1, -6} | {2,2}", p.Country, p.Gender, p.Age);
+                Console.WriteLine("{0,-7} | {1,2} | {2, -6}", p.Country, p.Age, p.Gender);
         }
 
     }
