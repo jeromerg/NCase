@@ -5,9 +5,9 @@ Status:
 
 # NCase *(Pre-Alpha !!)*
 
-NCase allows you to define compactly one or more sets of cases directly on C# objects. As you iterate the cases, the objects are re-set in the state defined by the case, so that you can use them freely to perform further actions.
+NCase allows you to define compactly one or more sets of cases directly in C#. While you iterate the set of cases, each case is written into C# objects. You can freely use them to perform any further actions.
 
-A typical usage is then to inject the cases into a parametrized test. On a system under test (SUT) with a few inputs (dimensions) you quickly reach a few dozen of cases to test (i.e. 3 dimensions with 4 values generate 4 x 4 x 4 = 64 test cases). 64 unit tests are hard to write and to maintain. That's why test frameworks like NUnit support parametrized tests. But even parametrized are hard to maintain, because you have to define all cases one by one. That's where NCase comes to rescue: you can simplify the cases definition by using trees. You can combine multiple set of cases together and easily generate the cartesian product of them.
+A typical usage is to inject the cases into a parametrized test. On a system under test (SUT) with a few inputs (dimensions) you quickly reach a few dozen of cases to test (i.e. 3 dimensions with 4 values generate 4 x 4 x 4 = 64 test cases). 64 unit tests are hard to write and to maintain. That's why test frameworks like NUnit support parametrized tests. But even parametrized are hard to maintain, because you have to define all cases one by one, repeating almost everything from one case to the other. That's where NCase comes to rescue: you can simplify the cases definition by using trees. You can combine multiple set of cases together and easily generate the cartesian product of them.
 
 Here is an example (see unit test to get the code):
 
@@ -35,30 +35,32 @@ using (tree.Define())
 }
 
 foreach (Pause pause in builder.GetAllCases(tree))
-    Console.WriteLine("{0,-7} | {1, -6} | {2,2}", p.Country, p.Gender, p.Age);
+    Console.WriteLine("{0,-7} | {1, -6} | {2,2}", p.Country, p.Age, p.Gender);
 
 // Console:
-// France  | Female |  0
-// France  | Male   |  0
-// France  | Male   | 60
-// France  | Other  | 60
-// Germany | Male   | 10
-// Germany | Female | 45
+// France  |  0 | Female
+// France  |  0 | Male   
+// France  | 60 | Male   
+// France  | 60 | Other  
+// Germany | 10 | Male   
+// Germany | 45 | Female
 ```
 
-First you get a builder, the swiss-knife of NCase.
+First you call `Case.GetBuilder()` to get a builder, the swiss-knife of NCase.
 
-In order to generate cases, you need variables. In NCase, variables are called contributors, as they contribute to the construction of the cases. So you ask the builder to provide a contributor of type `IPerson`. `IPerson` is a locally defined interface that contains three properties: `Country`, `Age`, `Gender`. `GetContributor<IPerson>()` returns a dynamic proxy of `IPerson`, that will have the ability to record/replay similarly to mock in mocking frameworks.
+Then you call `builder.GetContributor<IPerson>()` in order to get a contributor of type `IPerson`. A contributor is a variable that will contribute to the construction of the cases. `IPerson` is a locally defined interface that contains three properties: `Country`, `Age`, `Gender`. Under the hood, you get a dynamic proxy of `IPerson`, which will have the ability to record/replay assignments similarly to mocks do in mocking frameworks.
 
-Now you need to define a set of cases. In this example we want to define it via a tree, where each level corresponds to one property. So we create a set of type `ITree`. This is the most simple case-set currently. NCase has been designed from the ground up to enable adding easily new types of case-set and new operators... So new sets will come soon... You define the tree within a using block.
+Then you call `builder.CreateSet<ITree>("anything")` in order to create a set of type `ITree`. `ITree` enables you to define the cases via a tree structure. Each path from a leaf to the root represents a case.
 
-That's it! You can come back to the swiss-knife and ask him to generate the cases one by one. You call the `GetAllCases()` method, that parses, transforms the tree definition and finally generates the cases one by one. Actually, it doesn't generate anything, as `GetAllCases()` returns a dummy instance of type `Pause`. It plays the case, by setting the properties to the expected values, so that you can call them during the pause...
+Once you have created the `person` and the `tree`, you call `using (tree.Define())` and write the definition of the tree within the using block. The `ITree` case-set expects a well-defined syntax. Every time that a property of `tree` is assigned, it extends the current case with a new fact (the assignment itself). If the property was already defined on the way up to the root, then if performs a branching of the tree at the level where the last assignment was performed. As a result the assignment of a property are all siblings in the tree. In the example, we use indentation to highlight the tree structure.
+
+That's it! You can now generate the cases one by one. For that purpose, you call `builder.GetAllCases(tree)` and iterate the returned enumerable. At each iteration the builder replays a single case, by settings the properties to the expected values. So you can read the properties and use them for whatever you need...
 
 Enjoy! (But warning! It is a pre-alpha development)
 
 ### Generating all combinations of cases
 
-When you need to generate cases, you quite often need first to generate all combinations between two sets, the so called cartesian product of both sets.
+When you need to generate cases, you quite often need first to generate all combinations between two sets, the so called cartesian product of two sets.
 
 The most simple way to generate a cartesian product is by using the `IProd` case-set:
 
@@ -82,32 +84,38 @@ foreach (Pause pause in builder.GetAllCases(allCombinations))
     Console.WriteLine("{0,-7} | {1, -6} | {2,2}", p.Country, p.Gender, p.Age);
 
 // Console:
-//    France  | Female |  0
-//    France  | Male   |  0
-//    France  | Other  |  0
-//    France  | Female | 60
-//    France  | Male   | 60
-//    France  | Other  | 60
-//    France  | Female | 10
-//    France  | Male   | 10
-//    France  | Other  | 10
-//    Germany | Female |  0
-//    Germany | Male   |  0
-//    Germany | Other  |  0
-//    Germany | Female | 60
-//    Germany | Male   | 60
-//    Germany | Other  | 60
-//    Germany | Female | 10
-//    Germany | Male   | 10
-//    Germany | Other  | 10
+//    France  |  0 | Female
+//    France  |  0 | Male   
+//    France  |  0 | Other  
+//    France  | 60 | Female
+//    France  | 60 | Male   
+//    France  | 60 | Other  
+//    France  | 10 | Female
+//    France  | 10 | Male   
+//    France  | 10 | Other  
+//    Germany |  0 | Female
+//    Germany |  0 | Male   
+//    Germany |  0 | Other  
+//    Germany | 60 | Female
+//    Germany | 60 | Male   
+//    Germany | 60 | Other  
+//    Germany | 10 | Female
+//    Germany | 10 | Male   
+//    Germany | 10 | Other  
 ```
 
+`IProd` expects a well-defined syntax. The assignment to a property are grouped together. `IProd` performs the cartesian product between all these these groups.
+
 ## Roadmap Pre-Alpha
+- Dev: Refactor AddChild() by using `PairVisitor`
+- Documentation: add doc about References
+- Improve dump functionality
+- Documentation: show Dump functionality
+- Implement pairwise set (similar to cartesian product)
 - Support method-call of existing instance (of interface, or virtual method)
-- Support indexed Items property
+- Support permutation set
+- Support pairwise permutation set
+- Documentation: show how to use permutation with method-call of existing instance
 - Improve tracing capability
-- re-factor some places missing visitors
-- Unit test for all success and failing cases
-- Improve debug information
+- Improve Unit test coverage
 - Implement alternative syntax based on operator-override
-- think about NCase as alternative to mocking?
