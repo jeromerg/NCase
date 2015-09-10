@@ -3,132 +3,215 @@ Status:
 [![Build status](https://ci.appveyor.com/api/projects/status/5t819acpeymgqdoh/branch/master?svg=true)](https://ci.appveyor.com/project/jeromerg/ncase/branch/master)  [![NuGet](https://img.shields.io/nuget/dt/NCase.svg)]()
 
 
-# NCase *(Pre-Alpha !!)*
+NCase *(Pre-Alpha !!)*
+======================
 
-NCase allows you to define compactly one or more sets of cases directly in C#. While you iterate the set of cases, each case is written into C# objects. You can freely use them to perform any further actions.
+NCase allows you to define compact and readable test cases in C#.
 
-A typical usage is to inject the cases into a parametrized test. On a system under test (SUT) with a few inputs (dimensions) you quickly reach a few dozen of cases to test (i.e. 3 dimensions with 4 values generate 4 x 4 x 4 = 64 test cases). 64 unit tests are hard to write and to maintain. That's why test frameworks like NUnit support parametrized tests. But even parametrized are hard to maintain, because you have to define all cases one by one, repeating almost everything from one case to the other. That's where NCase comes to rescue: you can simplify the cases definition by using trees. You can combine multiple set of cases together and easily generate the cartesian product of them.
+When you write tests, you quickly reach a few dozen of combinations to test. 3 parameters having 4 remarkable states and you already have 64 test cases to test. That's why test frameworks like NUnit support parametrized tests. But even parametrized tests are hard to maintain. The tabular syntax used to define test parameters lacks of readability. That's where NCase comes to rescue: it provides several compact and readable syntaxes to write test cases. NCase use a record/replay mechanism of C# statements, so that you can directly use NCase in your C# code or unit tests.
 
-Here is an example (see unit test to get the code):
+Currently NCase supports following features:
+- `ITree`: allows you to define test cases with a simplified tree syntax
+- `IProd`: allows you to perform the cartesian product between multiple test dimensions
+- Reference: allows you to inject test cases into other test cases, allowing to mix many `ITree` and `IProd` sets together, as well as to re-use test combinations
+- Record/replay is supported on interface properties, including indexed properties
 
-### Generating cases from a tree
+Let's see with an example how it works...
+
+Example 1: Generating test cases from a tree
+--------------------------------------------
+
+All examples are from the [demo tests][demoTests].
+
+Let's say, you want to test a function accepting or rejecting money transfer depending on:
+- The balance of the source account in US Dollar
+- The amount of the transfer 
+- The currency of the transfer
+
+So you want to create a few test cases testing the critical situations. Here is how you do it with NCase:
 
 ```C#
 ICaseBuilder builder = Case.GetBuilder();
-IPerson p = builder.GetContributor<IPerson>("p");
+ITransfer t = builder.GetContributor<ITransfer>("t");
 
-ITree tree = builder.CreateSet<ITree>("tree");            
-using (tree.Define())
+ITree allTransfers = builder.CreateSet<ITree>("transfers");
+using (allTransfers.Define())
 {
-    p.Country = "France";
-        p.Age = 0;
-            p.Gender = Gender.Female;
-            p.Gender = Gender.Male;
-        p.Age = 60;
-            p.Gender = Gender.Male;
-            p.Gender = Gender.Other;
-    p.Country = "Germany";
-        p.Age = 10;
-            p.Gender = Gender.Male;
-        p.Age = 45;
-            p.Gender = Gender.Female;
+    t.Currency = Curr.USD;
+        t.BalanceUsd = 100.00;
+            t.Amount =   0.01;  t.Accepted = true;
+            t.Amount = 100.00;  t.Accepted = true;
+            t.Amount = 100.01;  t.Accepted = false;
+        t.BalanceUsd =    0.0;
+            t.Amount =   0.01;  t.Accepted = false;
+    t.Currency = Curr.EUR;
+        t.BalanceUsd =   0.00;
+            t.Amount =   0.01;  t.Accepted = false;
+    t.Currency = Curr.EUR;
+        t.BalanceUsd = 100.00;
+            t.Amount =   0.01;  t.Accepted = true;
+            t.Amount =  89.39;  t.Accepted = true;
+            t.Amount =  89.40;  t.Accepted = false;
 }
 
-foreach (Pause pause in builder.GetAllCases(tree))
-    Console.WriteLine("{0,-7} | {1,2} | {2,-6}", p.Country, p.Age, p.Gender);
+Console.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
+Console.WriteLine("---------|-------------|--------|---------");
+foreach (Pause pause in builder.GetAllCases(allTransfers))
+{
+    Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}", 
+                      t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
+}
 
-// Console:
-// France  |  0 | Female
-// France  |  0 | Male   
-// France  | 60 | Male   
-// France  | 60 | Other  
-// Germany | 10 | Male   
-// Germany | 45 | Female
+// Console Output: 
+// CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
+// ---------|-------------|--------|---------
+//      USD |      100,00 | 000,01 | True    
+//      USD |      100,00 | 100,00 | True    
+//      USD |      100,00 | 100,01 | False   
+//      USD |      000,00 | 000,01 | False   
+//      EUR |      000,00 | 000,01 | False   
+//      EUR |      100,00 | 000,01 | True    
+//      EUR |      100,00 | 089,39 | True    
+//      EUR |      100,00 | 089,40 | False   
 ```
 
 First you call `Case.GetBuilder()` to get a builder, the swiss-knife of NCase.
 
-Then you call `builder.GetContributor<IPerson>()` in order to get a contributor of type `IPerson`. A contributor is a variable that will contribute to the construction of the cases. `IPerson` is a locally defined interface that contains three properties:
+Then you call `builder.GetContributor<ITransfer>()` in order to get a contributor of type `ITransfer`. A contributor is a variable that will contribute to the construction of the test cases. `ITransfer` is a locally defined interface that contains four properties:
 
 ```C#
-public enum Gender {  Female, Male, Other }
-public interface IPerson
+public enum Curr {  EUR, USD, YEN }
+public interface ITransfer
 {
-    string Country { get; set; }
-    int    Age     { get; set; }
-    Gender Gender  { get; set; }
+    Curr Currency { get; set; }       // currency of the transfer
+    double Amount { get; set; }       // amount of the transfer
+    double BalanceUsd { get; set; }   // the balance of the customer account in USD
+    bool Accepted { get; set; }       // Expected result of the function under test
 }
 ```
 
-Under the hood, you get a dynamic proxy of `IPerson`, which will have the ability to record/replay assignments similarly as mocks do in mocking frameworks.
+Under the hood, you get a dynamic proxy of `ITransfer`, which will have the ability to record/replay assignments as mocks do in mocking frameworks.
 
-Then you call `builder.CreateSet<ITree>("anything")` in order to create a set of type `ITree`. `ITree` enables you to define the cases via a tree structure. Each path from a leaf to the root represents a case.
+Then you call `builder.CreateSet<ITree>("anything")` in order to create a set of type `ITree`. `ITree` enables you to define the test cases with a tree structure. Each a single test case is represented by the path between a leaf and the root. `"anything"` is simply a display name for the tree.
 
-Once you have created the `person` and the `tree`, you call `using (tree.Define())` and write the definition of the tree within the using block. The `ITree` case-set expects a well-defined syntax. Every time that a property of `tree` is assigned, it extends the current case with a new fact (the assignment itself). If the property was already defined on the way up to the root, then if performs a branching of the tree at the level where the last assignment was performed. As a result the assignment of a property are all siblings in the tree. In the example, we use indentation to highlight the tree structure.
+Once you have created the `ITree` instance, you call `using (tree.Define())` and define the tree within the using block. The `ITree` set expects a well-defined syntax: Every time that a contributor's property is assigned, it extends the current case with a new fact (the assignment itself). If the property was already defined on the way up to the root, then if performs a branching of the tree at the level where the last assignment was performed. As a result the assignment of a property are all siblings in the tree. In the example, we use indentation to highlight the tree structure.
 
-That's it! You can now generate the cases one by one. For that purpose, you call `builder.GetAllCases(tree)` and iterate the returned enumerable. At each iteration the builder replays a single case, by settings the properties to the expected values. So you can read the properties and use them for whatever you need...
+You can now generate the cases one by one. For that purpose, you call `builder.GetAllCases(tree)` and iterate the returned enumerable. At each iteration, the builder replays a test case, by settings the contributor's properties back to the expected values... So that you can read the properties and use them for whatever you need...
 
-Enjoy! (But warning! It is a pre-alpha development)
+Example 2: Generating all combinations (cartesian product)
+--------------------------------------
 
-### Generating all combinations of cases
+If you want to systematically test all the combinations of different parameters, then you need `IProd`. `IProd` performs the cartesian product of all dimensions it finds in its definition. 
 
-When you need to generate cases, you quite often need first to generate all combinations between two sets, the so called cartesian product of two sets.
-
-The most simple way to generate a cartesian product is by using the `IProd` case-set:
-
+For the purpose of this test, we add two properties to the `ITransfer` interface as following:
 ```C#
-var allCombinations = builder.CreateSet<IProd>("allCombinations");
-using (allCombinations.Define())
+public enum Card { Visa, Mastercard, Maestro }
+public interface ITransfer
 {
-    p.Country = "France";
-    p.Country = "Germany";
-
-    p.Age = 0;
-    p.Age = 60;
-    p.Age = 10;
-
-    p.Gender = Gender.Female;
-    p.Gender = Gender.Male;
-    p.Gender = Gender.Other;
+    (...)
+    string DestBank { get; set; }  // The name of the destination bank
+    Card Card { get; set; }        // the card type used to perform the payment
 }
-
-foreach (Pause pause in builder.GetAllCases(allCombinations))
-    Console.WriteLine("{0,-7} | {1,2} | {2, -6}", p.Country, p.Age, p.Gender);
-
-// Console:
-//    France  |  0 | Female
-//    France  |  0 | Male   
-//    France  |  0 | Other  
-//    France  | 60 | Female
-//    France  | 60 | Male   
-//    France  | 60 | Other  
-//    France  | 10 | Female
-//    France  | 10 | Male   
-//    France  | 10 | Other  
-//    Germany |  0 | Female
-//    Germany |  0 | Male   
-//    Germany |  0 | Other  
-//    Germany | 60 | Female
-//    Germany | 60 | Male   
-//    Germany | 60 | Other  
-//    Germany | 10 | Female
-//    Germany | 10 | Male   
-//    Germany | 10 | Other  
 ```
 
-`IProd` expects a well-defined syntax. The assignment to a property are grouped together. `IProd` performs the cartesian product between all these these groups.
+Now we combine a few banks with all types of credit cards:
 
-## Roadmap Pre-Alpha
-- Hide NVisitor namespace in API
-- Dev: Refactor AddChild() by using `PairVisitor`
-- Documentation: add doc about References
-- Improve dump functionality
-- Documentation: show Dump functionality
-- Implement pairwise set (similar to cartesian product)
-- Support method-call of existing instance (of interface, or virtual method)
-- Support permutation set
-- Support pairwise permutation set
-- Documentation: show how to use permutation with method-call of existing instance
-- Improve Unit test coverage
-- Improve tracing capability
-- Implement alternative syntax based on operator-override
+```C#
+IProd cardsAndBanks = builder.CreateSet<IProd>("cardsAndBank");
+using (cardsAndBanks.Define())
+{
+    t.DestBank = "HSBC";
+    t.DestBank = "Unicredit";
+    t.DestBank = "Bank of China";
+
+    t.Card = Card.Visa;
+    t.Card = Card.Mastercard;
+    t.Card = Card.Maestro;
+}
+
+Console.WriteLine("DEST_BANK     | CARD       ");
+Console.WriteLine("--------------|------------");
+foreach (Pause pause in builder.GetAllCases(cardsAndBanks))
+{
+    Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
+}
+
+// DEST_BANK     | CARD       
+// --------------|------------
+// HSBC          | Visa      
+// HSBC          | Mastercard
+// HSBC          | Maestro   
+// Unicredit     | Visa      
+// Unicredit     | Mastercard
+// Unicredit     | Maestro   
+// Bank of China | Visa      
+// Bank of China | Mastercard
+// Bank of China | Maestro   
+```
+
+`IProd` expects a well-defined syntax. All assignments to a contributor's property are grouped together. `IProd` performs the cartesian product between all these these groups.
+
+Example 3: References to set of cases
+--------------------------
+
+In Example 1, we defined a few tests: based on the balance of the account, the amount to transfer and the transfer currency, we tested whether the transfer function under test accepts or reject the transfer. 
+
+In example 2, we defined a possible environment with 3 different banks and all possible credit cards. If you want to ensure that the destination bank `DestBank` and the credit card `Card` don't impact the asserts of the first test, then you can combine the two sets together with the cartesian product. NCase allows you to reuse the test cases by references, as following:
+
+```C# 
+IProd transferForAllcardsAndBanks = builder.CreateSet<IProd>("transferForAllcardsAndBanks");
+using (transferForAllcardsAndBanks.Define())
+{
+    transfers.Ref();
+    cardsAndBanks.Ref();
+}
+``` 
+
+You get now 72 test cases, testing the same money transfer defined in *Example 1*, in all environments defined in *Example 2*!
+
+To have fun, you can print out all cases:
+
+```C#
+Console.WriteLine("DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
+Console.WriteLine("--------------|------------|----------|-------------|--------|---------");
+foreach (Pause pause in builder.GetAllCases(transferForAllcardsAndBanks))
+{
+    Console.WriteLine("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}", 
+        t.DestBank, t.Card, t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
+}
+
+// Console Output:
+//
+// DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
+// --------------|------------|----------|-------------|--------|---------
+// HSBC          | Visa       |      USD |      100,00 | 000,01 | True    
+// HSBC          | Mastercard |      USD |      100,00 | 000,01 | True    
+// HSBC          | Maestro    |      USD |      100,00 | 000,01 | True    
+// Unicredit     | Visa       |      USD |      100,00 | 000,01 | True    
+// Unicredit     | Mastercard |      USD |      100,00 | 000,01 | True    
+// Unicredit     | Maestro    |      USD |      100,00 | 000,01 | True    
+//
+//
+//                 ... 78 test cases ...
+//
+//
+// Bank of China | Visa       |      EUR |      100,00 | 089,40 | False   
+// Bank of China | Mastercard |      EUR |      100,00 | 089,40 | False   
+// Bank of China | Maestro    |      EUR |      100,00 | 089,40 | False  
+```
+
+Refactoring with multiple contributors
+--------------------------------------
+
+... under construction ...
+
+Coming features
+---------------
+
+- Support record/replay on class instances, including properties and methods
+- `IPairwise` case set: allows you to generate only the pairwise combinations between multiple test dimensions
+- `IPermutation` case set: allows you to generate all permutations within a set of actions
+- `IPairwisePermutation` case set: allows you to generate permutations to ensure that any pair of action A1 and A2 is tested in both order (A1, A2) and (A2, A1)
+- Improved tree syntax to support free tree structure
+
+[demoTests]: https://github.com/jeromerg/NCase/blob/master/src/NCaseTest/DemoTests.cs

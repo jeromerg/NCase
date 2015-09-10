@@ -70,8 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardinalProductTests.cs" />
-    <Compile Include="RefTests.cs" />
-    <Compile Include="Tests2.cs" />
     <Compile Include="DemoTests.cs" />
     <Compile Include="TreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

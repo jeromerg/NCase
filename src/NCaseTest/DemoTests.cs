@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using NCase.Api;
 using NCase.Autofac;
 using NUnit.Framework;
@@ -10,66 +9,231 @@ namespace NCaseTest
     [TestFixture]
     public class DemoTests
     {
-        public enum Gender {  Male, Female, Other }
-
-        public interface IPerson
+        public enum Curr {  EUR, USD, YEN }
+        public enum Card { Visa, Mastercard, Maestro }
+        public interface ITransfer
         {
-            string Country { get; set; }
-            int Age { get; set; }
-            Gender Gender { get; set; }
+            Curr Currency { get; set; }
+            double Amount { get; set; }
+            double BalanceUsd { get; set; }
+            bool Accepted { get; set; }
+
+            string DestBank { get; set; }
+            Card Card { get; set; }
         }
 
         [Test]
-        public void SimpleTree()
+        public void SimpleTreeTest()
         {
             ICaseBuilder builder = Case.GetBuilder();
-            IPerson p = builder.GetContributor<IPerson>("p");
+            ITransfer t = builder.GetContributor<ITransfer>("t");
             
-            ITree tree = builder.CreateSet<ITree>("tree");            
-            using (tree.Define())
+            ITree allTransfers = builder.CreateSet<ITree>("transfers");
+            using (allTransfers.Define())
             {
-                p.Country = "France";
-                    p.Age = 0;
-                        p.Gender = Gender.Female;
-                        p.Gender = Gender.Male;
-                    p.Age = 60;
-                        p.Gender = Gender.Male;
-                        p.Gender = Gender.Other;
-                p.Country = "Germany";
-                    p.Age = 10;
-                        p.Gender = Gender.Male;
-                    p.Age = 45;
-                        p.Gender = Gender.Female;
+                t.Currency = Curr.USD;
+                    t.BalanceUsd = 100.00;
+                        t.Amount =   0.01;  t.Accepted = true;
+                        t.Amount = 100.00;  t.Accepted = true;
+                        t.Amount = 100.01;  t.Accepted = false;
+                    t.BalanceUsd =    0.0;
+                        t.Amount =   0.01;  t.Accepted = false;
+                t.Currency = Curr.EUR;
+                    t.BalanceUsd =   0.00;
+                        t.Amount =   0.01;  t.Accepted = false;
+                t.Currency = Curr.EUR;
+                    t.BalanceUsd = 100.00;
+                        t.Amount =   0.01;  t.Accepted = true;
+                        t.Amount =  89.39;  t.Accepted = true;
+                        t.Amount =  89.40;  t.Accepted = false;
             }
 
+            Console.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
+            Console.WriteLine("---------|-------------|--------|---------");
+            foreach (Pause pause in builder.GetAllCases(allTransfers))
+            {
+                Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}", 
+                                  t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
+            }
 
-            foreach (Pause pause in builder.GetAllCases(tree))
-                Console.WriteLine("{0,-7} | {1,2} | {2,-6}", p.Country, p.Age, p.Gender);
+            // Console Output: 
+            // CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
+            // ---------|-------------|--------|---------
+            //      USD |      100,00 | 000,01 | True    
+            //      USD |      100,00 | 100,00 | True    
+            //      USD |      100,00 | 100,01 | False   
+            //      USD |      000,00 | 000,01 | False   
+            //      EUR |      000,00 | 000,01 | False   
+            //      EUR |      100,00 | 000,01 | True    
+            //      EUR |      100,00 | 089,39 | True    
+            //      EUR |      100,00 | 089,40 | False   
         }
 
         [Test]
-        public void SimpleCardinalProduct()
+        public void SimpleCartesianProductTest()
         {
             ICaseBuilder builder = Case.GetBuilder();
-            IPerson p = builder.GetContributor<IPerson>("p");
+            ITransfer t = builder.GetContributor<ITransfer>("t");
 
-            var allCombinations = builder.CreateSet<IProd>("allCombinations");
-            using (allCombinations.Define())
+            IProd cardsAndBanks = builder.CreateSet<IProd>("cardsAndBank");
+            using (cardsAndBanks.Define())
             {
-                p.Country = "France";
-                p.Country = "Germany";
-                
-                p.Age = 0;
-                p.Age = 60;
-                p.Age = 10;
-                
-                p.Gender = Gender.Female;
-                p.Gender = Gender.Male;
-                p.Gender = Gender.Other;
+                t.DestBank = "HSBC";
+                t.DestBank = "Unicredit";
+                t.DestBank = "Bank of China";
+
+                t.Card = Card.Visa;
+                t.Card = Card.Mastercard;
+                t.Card = Card.Maestro;
             }
 
-            foreach (Pause pause in builder.GetAllCases(allCombinations))
-                Console.WriteLine("{0,-7} | {1,2} | {2, -6}", p.Country, p.Age, p.Gender);
+            Console.WriteLine("DEST_BANK     | CARD       ");
+            Console.WriteLine("--------------|------------");
+            foreach (Pause pause in builder.GetAllCases(cardsAndBanks))
+            {
+                Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
+            }
+
+            // DEST_BANK     | CARD       
+            // --------------|------------
+            // HSBC          | Visa      
+            // HSBC          | Mastercard
+            // HSBC          | Maestro   
+            // Unicredit     | Visa      
+            // Unicredit     | Mastercard
+            // Unicredit     | Maestro   
+            // Bank of China | Visa      
+            // Bank of China | Mastercard
+            // Bank of China | Maestro   
+        }
+
+        [Test]
+        public void ReferenceTest()
+        {
+            ICaseBuilder builder = Case.GetBuilder();
+            ITransfer t = builder.GetContributor<ITransfer>("t");
+
+            ITree transfers = builder.CreateSet<ITree>("transfers");
+            using (transfers.Define())
+            {
+                t.Currency = Curr.USD;
+                    t.BalanceUsd = 100.00;
+                        t.Amount =   0.01;  t.Accepted = true;
+                        t.Amount = 100.00;  t.Accepted = true;
+                        t.Amount = 100.01;  t.Accepted = false;
+                    t.BalanceUsd =    0.0;
+                        t.Amount =   0.01;  t.Accepted = false;
+                t.Currency = Curr.EUR;
+                    t.BalanceUsd =   0.00;
+                        t.Amount =   0.01;  t.Accepted = false;
+                t.Currency = Curr.EUR;
+                    t.BalanceUsd = 100.00;
+                        t.Amount =   0.01;  t.Accepted = true;
+                        t.Amount =  89.39;  t.Accepted = true;
+                        t.Amount =  89.40;  t.Accepted = false;
+            }
+
+            IProd cardsAndBanks = builder.CreateSet<IProd>("cardsAndBank");
+            using (cardsAndBanks.Define())
+            {
+                t.DestBank = "HSBC";
+                t.DestBank = "Unicredit";
+                t.DestBank = "Bank of China";
+
+                t.Card = Card.Visa;
+                t.Card = Card.Mastercard;
+                t.Card = Card.Maestro;
+            }
+
+            IProd transferForAllcardsAndBanks = builder.CreateSet<IProd>("transferForAllcardsAndBanks");
+            using (transferForAllcardsAndBanks.Define())
+            {
+                transfers.Ref();
+                cardsAndBanks.Ref();
+            }
+
+            Console.WriteLine("DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
+            Console.WriteLine("--------------|------------|----------|-------------|--------|---------");
+            foreach (Pause pause in builder.GetAllCases(transferForAllcardsAndBanks))
+            {
+                Console.WriteLine("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}", 
+                    t.DestBank, t.Card, t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
+            }
+
+            // DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
+            // --------------|------------|----------|-------------|--------|---------
+            // HSBC          | Visa       |      USD |      100,00 | 000,01 | True    
+            // HSBC          | Mastercard |      USD |      100,00 | 000,01 | True    
+            // HSBC          | Maestro    |      USD |      100,00 | 000,01 | True    
+            // Unicredit     | Visa       |      USD |      100,00 | 000,01 | True    
+            // Unicredit     | Mastercard |      USD |      100,00 | 000,01 | True    
+            // Unicredit     | Maestro    |      USD |      100,00 | 000,01 | True    
+            // Bank of China | Visa       |      USD |      100,00 | 000,01 | True    
+            // Bank of China | Mastercard |      USD |      100,00 | 000,01 | True    
+            // Bank of China | Maestro    |      USD |      100,00 | 000,01 | True    
+            // HSBC          | Visa       |      USD |      100,00 | 100,00 | True    
+            // HSBC          | Mastercard |      USD |      100,00 | 100,00 | True    
+            // HSBC          | Maestro    |      USD |      100,00 | 100,00 | True    
+            // Unicredit     | Visa       |      USD |      100,00 | 100,00 | True    
+            // Unicredit     | Mastercard |      USD |      100,00 | 100,00 | True    
+            // Unicredit     | Maestro    |      USD |      100,00 | 100,00 | True    
+            // Bank of China | Visa       |      USD |      100,00 | 100,00 | True    
+            // Bank of China | Mastercard |      USD |      100,00 | 100,00 | True    
+            // Bank of China | Maestro    |      USD |      100,00 | 100,00 | True    
+            // HSBC          | Visa       |      USD |      100,00 | 100,01 | False   
+            // HSBC          | Mastercard |      USD |      100,00 | 100,01 | False   
+            // HSBC          | Maestro    |      USD |      100,00 | 100,01 | False   
+            // Unicredit     | Visa       |      USD |      100,00 | 100,01 | False   
+            // Unicredit     | Mastercard |      USD |      100,00 | 100,01 | False   
+            // Unicredit     | Maestro    |      USD |      100,00 | 100,01 | False   
+            // Bank of China | Visa       |      USD |      100,00 | 100,01 | False   
+            // Bank of China | Mastercard |      USD |      100,00 | 100,01 | False   
+            // Bank of China | Maestro    |      USD |      100,00 | 100,01 | False   
+            // HSBC          | Visa       |      USD |      000,00 | 000,01 | False   
+            // HSBC          | Mastercard |      USD |      000,00 | 000,01 | False   
+            // HSBC          | Maestro    |      USD |      000,00 | 000,01 | False   
+            // Unicredit     | Visa       |      USD |      000,00 | 000,01 | False   
+            // Unicredit     | Mastercard |      USD |      000,00 | 000,01 | False   
+            // Unicredit     | Maestro    |      USD |      000,00 | 000,01 | False   
+            // Bank of China | Visa       |      USD |      000,00 | 000,01 | False   
+            // Bank of China | Mastercard |      USD |      000,00 | 000,01 | False   
+            // Bank of China | Maestro    |      USD |      000,00 | 000,01 | False   
+            // HSBC          | Visa       |      EUR |      000,00 | 000,01 | False   
+            // HSBC          | Mastercard |      EUR |      000,00 | 000,01 | False   
+            // HSBC          | Maestro    |      EUR |      000,00 | 000,01 | False   
+            // Unicredit     | Visa       |      EUR |      000,00 | 000,01 | False   
+            // Unicredit     | Mastercard |      EUR |      000,00 | 000,01 | False   
+            // Unicredit     | Maestro    |      EUR |      000,00 | 000,01 | False   
+            // Bank of China | Visa       |      EUR |      000,00 | 000,01 | False   
+            // Bank of China | Mastercard |      EUR |      000,00 | 000,01 | False   
+            // Bank of China | Maestro    |      EUR |      000,00 | 000,01 | False   
+            // HSBC          | Visa       |      EUR |      100,00 | 000,01 | True    
+            // HSBC          | Mastercard |      EUR |      100,00 | 000,01 | True    
+            // HSBC          | Maestro    |      EUR |      100,00 | 000,01 | True    
+            // Unicredit     | Visa       |      EUR |      100,00 | 000,01 | True    
+            // Unicredit     | Mastercard |      EUR |      100,00 | 000,01 | True    
+            // Unicredit     | Maestro    |      EUR |      100,00 | 000,01 | True    
+            // Bank of China | Visa       |      EUR |      100,00 | 000,01 | True    
+            // Bank of China | Mastercard |      EUR |      100,00 | 000,01 | True    
+            // Bank of China | Maestro    |      EUR |      100,00 | 000,01 | True    
+            // HSBC          | Visa       |      EUR |      100,00 | 089,39 | True    
+            // HSBC          | Mastercard |      EUR |      100,00 | 089,39 | True    
+            // HSBC          | Maestro    |      EUR |      100,00 | 089,39 | True    
+            // Unicredit     | Visa       |      EUR |      100,00 | 089,39 | True    
+            // Unicredit     | Mastercard |      EUR |      100,00 | 089,39 | True    
+            // Unicredit     | Maestro    |      EUR |      100,00 | 089,39 | True    
+            // Bank of China | Visa       |      EUR |      100,00 | 089,39 | True    
+            // Bank of China | Mastercard |      EUR |      100,00 | 089,39 | True    
+            // Bank of China | Maestro    |      EUR |      100,00 | 089,39 | True    
+            // HSBC          | Visa       |      EUR |      100,00 | 089,40 | False   
+            // HSBC          | Mastercard |      EUR |      100,00 | 089,40 | False   
+            // HSBC          | Maestro    |      EUR |      100,00 | 089,40 | False   
+            // Unicredit     | Visa       |      EUR |      100,00 | 089,40 | False   
+            // Unicredit     | Mastercard |      EUR |      100,00 | 089,40 | False   
+            // Unicredit     | Maestro    |      EUR |      100,00 | 089,40 | False   
+            // Bank of China | Visa       |      EUR |      100,00 | 089,40 | False   
+            // Bank of China | Mastercard |      EUR |      100,00 | 089,40 | False   
+            // Bank of China | Maestro    |      EUR |      100,00 | 089,40 | False  
         }
 
     }
