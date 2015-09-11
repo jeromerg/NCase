@@ -9,7 +9,7 @@ namespace NCaseTest
     [TestFixture]
     public class DemoTests
     {
-        public enum Curr {  EUR, USD, YEN }
+        public enum Curr { EUR, USD, YEN }
         public enum Card { Visa, Mastercard, Maestro }
         public interface ITransfer
         {
@@ -27,22 +27,22 @@ namespace NCaseTest
         {
             ICaseBuilder builder = Case.GetBuilder();
             ITransfer t = builder.GetContributor<ITransfer>("t");
-            
-            ITree allTransfers = builder.CreateSet<ITree>("transfers");
-            using (allTransfers.Define())
+
+            ITree transfers = builder.CreateSet<ITree>("transfers");
+            using (transfers.Define())
             {
                 t.Currency = Curr.USD;
                     t.BalanceUsd = 100.00;
                         t.Amount =   0.01;  t.Accepted = true;
                         t.Amount = 100.00;  t.Accepted = true;
                         t.Amount = 100.01;  t.Accepted = false;
-                    t.BalanceUsd =    0.0;
+                    t.BalanceUsd =   0.00;  
                         t.Amount =   0.01;  t.Accepted = false;
-                t.Currency = Curr.EUR;
-                    t.BalanceUsd =   0.00;
+                t.Currency = Curr.YEN;      
+                    t.BalanceUsd =   0.00;  
                         t.Amount =   0.01;  t.Accepted = false;
-                t.Currency = Curr.EUR;
-                    t.BalanceUsd = 100.00;
+                t.Currency = Curr.EUR;      
+                    t.BalanceUsd = 100.00;  
                         t.Amount =   0.01;  t.Accepted = true;
                         t.Amount =  89.39;  t.Accepted = true;
                         t.Amount =  89.40;  t.Accepted = false;
@@ -50,10 +50,13 @@ namespace NCaseTest
 
             Console.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
             Console.WriteLine("---------|-------------|--------|---------");
-            foreach (Pause pause in builder.GetAllCases(allTransfers))
+            foreach (Pause pause in builder.GetAllCases(transfers))
             {
-                Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}", 
-                                  t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
+                Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}",
+                    t.Currency,
+                    t.BalanceUsd,
+                    t.Amount,
+                    t.Accepted);
             }
 
             // Console Output: 
@@ -63,10 +66,10 @@ namespace NCaseTest
             //      USD |      100,00 | 100,00 | True    
             //      USD |      100,00 | 100,01 | False   
             //      USD |      000,00 | 000,01 | False   
-            //      EUR |      000,00 | 000,01 | False   
+            //      YEN |      000,00 | 000,01 | False   
             //      EUR |      100,00 | 000,01 | True    
             //      EUR |      100,00 | 089,39 | True    
-            //      EUR |      100,00 | 089,40 | False   
+            //      EUR |      100,00 | 089,40 | False           
         }
 
         [Test]
@@ -93,7 +96,7 @@ namespace NCaseTest
             {
                 Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
             }
-
+            // Console Output:
             // DEST_BANK     | CARD       
             // --------------|------------
             // HSBC          | Visa      
@@ -121,13 +124,13 @@ namespace NCaseTest
                         t.Amount =   0.01;  t.Accepted = true;
                         t.Amount = 100.00;  t.Accepted = true;
                         t.Amount = 100.01;  t.Accepted = false;
-                    t.BalanceUsd =    0.0;
+                    t.BalanceUsd =   0.00;  
                         t.Amount =   0.01;  t.Accepted = false;
-                t.Currency = Curr.EUR;
-                    t.BalanceUsd =   0.00;
+                t.Currency = Curr.YEN;      
+                    t.BalanceUsd =   0.00;  
                         t.Amount =   0.01;  t.Accepted = false;
-                t.Currency = Curr.EUR;
-                    t.BalanceUsd = 100.00;
+                t.Currency = Curr.EUR;      
+                    t.BalanceUsd = 100.00;  
                         t.Amount =   0.01;  t.Accepted = true;
                         t.Amount =  89.39;  t.Accepted = true;
                         t.Amount =  89.40;  t.Accepted = false;
@@ -156,10 +159,12 @@ namespace NCaseTest
             Console.WriteLine("--------------|------------|----------|-------------|--------|---------");
             foreach (Pause pause in builder.GetAllCases(transferForAllcardsAndBanks))
             {
-                Console.WriteLine("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}", 
+                Console.WriteLine("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}",
                     t.DestBank, t.Card, t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
             }
 
+            // Console Output:
+            //
             // DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
             // --------------|------------|----------|-------------|--------|---------
             // HSBC          | Visa       |      USD |      100,00 | 000,01 | True    
@@ -198,15 +203,15 @@ namespace NCaseTest
             // Bank of China | Visa       |      USD |      000,00 | 000,01 | False   
             // Bank of China | Mastercard |      USD |      000,00 | 000,01 | False   
             // Bank of China | Maestro    |      USD |      000,00 | 000,01 | False   
-            // HSBC          | Visa       |      EUR |      000,00 | 000,01 | False   
-            // HSBC          | Mastercard |      EUR |      000,00 | 000,01 | False   
-            // HSBC          | Maestro    |      EUR |      000,00 | 000,01 | False   
-            // Unicredit     | Visa       |      EUR |      000,00 | 000,01 | False   
-            // Unicredit     | Mastercard |      EUR |      000,00 | 000,01 | False   
-            // Unicredit     | Maestro    |      EUR |      000,00 | 000,01 | False   
-            // Bank of China | Visa       |      EUR |      000,00 | 000,01 | False   
-            // Bank of China | Mastercard |      EUR |      000,00 | 000,01 | False   
-            // Bank of China | Maestro    |      EUR |      000,00 | 000,01 | False   
+            // HSBC          | Visa       |      YEN |      000,00 | 000,01 | False   
+            // HSBC          | Mastercard |      YEN |      000,00 | 000,01 | False   
+            // HSBC          | Maestro    |      YEN |      000,00 | 000,01 | False   
+            // Unicredit     | Visa       |      YEN |      000,00 | 000,01 | False   
+            // Unicredit     | Mastercard |      YEN |      000,00 | 000,01 | False   
+            // Unicredit     | Maestro    |      YEN |      000,00 | 000,01 | False   
+            // Bank of China | Visa       |      YEN |      000,00 | 000,01 | False   
+            // Bank of China | Mastercard |      YEN |      000,00 | 000,01 | False   
+            // Bank of China | Maestro    |      YEN |      000,00 | 000,01 | False   
             // HSBC          | Visa       |      EUR |      100,00 | 000,01 | True    
             // HSBC          | Mastercard |      EUR |      100,00 | 000,01 | True    
             // HSBC          | Maestro    |      EUR |      100,00 | 000,01 | True    
@@ -233,7 +238,8 @@ namespace NCaseTest
             // Unicredit     | Maestro    |      EUR |      100,00 | 089,40 | False   
             // Bank of China | Visa       |      EUR |      100,00 | 089,40 | False   
             // Bank of China | Mastercard |      EUR |      100,00 | 089,40 | False   
-            // Bank of China | Maestro    |      EUR |      100,00 | 089,40 | False  
+            // Bank of China | Maestro    |      EUR |      100,00 | 089,40 | False   
+
         }
 
     }
