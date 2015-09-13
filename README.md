@@ -23,7 +23,7 @@ Example 1: Generating test cases from a tree
 
 All examples are from the [demo tests][demoTests].
 
-Let's say, you want to test a routine performing money transfer, having for input: account balance in USD, currency and amount to transfer. You declare an interface `ITransfer`, which contain the parameters for a single test case:
+Let's say, you want to test a routine performing money transfer. The routine has 3 input: the account balance in USD, the currency and the amount to transfer. So first, you declare an interface `ITransfer`, which contain the parameters for a single test case, as following:
 
 ```C#
 public enum Curr {  EUR, USD, YEN }
@@ -68,11 +68,11 @@ First you call `Case.GetBuilder()` to get a builder, the swiss-knife of NCase.
 
 Then you call `builder.GetContributor<ITransfer>()` in order to get a contributor of type `ITransfer`. A contributor is a variable that will contribute to the construction of the test cases. Under the hood, you get a dynamic proxy of type `ITransfer`, which will have the ability to record/replay assignments in the same way as mocks do in mocking frameworks.
 
-Then you call `builder.CreateSet<ITree>("anything")` in order to create a set of test cases of type `ITree`. `ITree` enables you to define the test cases with a tree structure. Each single test case is represented by the path between a leaf and the root. `"anything"` is simply a display name for the tree.
+Then you call `builder.CreateSet<ITree>("treeName")` in order to create a set of test cases of type `ITree`. `ITree` enables you to define the test cases with a tree structure. Each single test case is represented by the path between a leaf and the root. `"treeName"` is simply a display name for the tree.
 
-Once you have created the `ITree` instance, you call `using (tree.Define())` and define the tree within the using block. The `ITree` set expects a well-defined syntax: Every time that a contributor's property is assigned, it extends the current case with a new fact (the assignment itself). If the property was already defined on the way up to the root, then if performs a branching of the tree at the level where the last assignment was performed. As a result the assignment of a property are all siblings in the tree. In the example, we use indentation to highlight the tree structure.
+Once you have created the `ITree` instance, you call `using (tree.Define())` and define the tree within the using block. The `ITree` set expects a well-defined syntax: Every time that a contributor's property is assigned, it extends the current test case with a new fact (the assignment itself). However, if the property was already defined on the way up to the root, then if performs a branching of the tree at the level where the last assignment was performed. As a result the assignment of a property are all siblings in the tree. In the example, we use indentation to highlight the tree structure.
 
-You can now generate the cases one by one, by calling `builder.GetAllCases(tree)` and iterate the returned enumerable: 
+You can now generate the cases one by one, by calling `builder.GetAllCases(tree)` and iterating the returned enumerable: 
 ```C#
 foreach (Pause pause in builder.GetAllCases(allTransfers))
     Console.WriteLine("{0} | {1} | {2} | {3}", t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
@@ -80,7 +80,7 @@ foreach (Pause pause in builder.GetAllCases(allTransfers))
 
 At each iteration, the builder replays a test case, by settings the contributor's properties back to the expected values... So that you can use them for whatever you need... 
 
-The console lists all test cases (with additional formatting): 
+The console shows all test cases, here with additional formatting: 
 ```
 CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
 ---------|-------------|--------|---------
@@ -109,7 +109,7 @@ Or equivalently inject the values into a parametrized test.
 Example 2: Generating all combinations (cartesian product)
 --------------------------------------
 
-If you want to get all combinations between different parameters, then you need `IProd`. `IProd` performs the cartesian product of all dimensions it finds in its definition. 
+If you want to get all combinations between different parameters, then you need the `IProd` set. `IProd` performs the cartesian product of all dimensions it finds in its definition. 
 
 For the purpose of this test, we add two properties to `ITransfer` as following:
 ```C#
@@ -122,7 +122,7 @@ public interface ITransfer
 }
 ```
 
-Now, you can generate all combinations between a set of bank and the set of cards, as following:
+Now, you can define all combinations between a set of bank and the set of cards, as following:
 
 ```C#
 IProd cardsAndBanks = builder.CreateSet<IProd>("cardsAndBank");
@@ -138,7 +138,7 @@ using (cardsAndBanks.Define())
 }
 ```
 
-`IProd` expects a well-defined syntax. All contiguous assignments to a contributor's property are grouped together. `IProd` performs the cartesian product between all these these groups.
+`IProd` expects a well-defined syntax. All contiguous assignments to a contributor's property are grouped together. `IProd` performs the cartesian product between all these groups.
 
 Again, you can generate all test cases and print them out:
 
@@ -147,7 +147,7 @@ foreach (Pause pause in builder.GetAllCases(cardsAndBanks))
     Console.WriteLine("{0} | {1}", t.DestBank, t.Card);
 ```
 
-The console lists all combinations (with additional formatting): 
+The console shows all test cases, here with additional formatting: 
 ```
 DEST_BANK     | CARD       
 --------------|------------
@@ -165,11 +165,11 @@ Bank of China | Maestro
 Example 3: References to set of cases
 --------------------------
 
-NCase allows you to inject existing test cases by reference. You can for example produce the cartesian product between the test cases of *Example 1*, and those of *Example 2*, as following:
+NCase allows you to inject existing test cases by reference into other test cases. You can for example define the cartesian product between the test cases of *Example 1*, and *Example 2*, as following:
 
 ```C# 
-IProd transferForAllcardsAndBanks = builder.CreateSet<IProd>("transferForAllcardsAndBanks");
-using (transferForAllcardsAndBanks.Define())
+IProd allTransfers = builder.CreateSet<IProd>("allTranfers");
+using (allTransfers.Define())
 {
     transfers.Ref();
     cardsAndBanks.Ref();
@@ -179,14 +179,14 @@ using (transferForAllcardsAndBanks.Define())
 You get now 72 test cases, which you can print out into the console:
 
 ```C#
-foreach (Pause pause in builder.GetAllCases(transferForAllcardsAndBanks))
+foreach (Pause pause in builder.GetAllCases(allTransfers))
 {
     Console.WriteLine("{0} | {1} | {2} | {3} | {4} | {5}", 
         t.DestBank, t.Card, t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
 }
 ```
 
-The console lists all test cases (with additional formatting): 
+The console shows all test cases, here with additional formatting: 
 ```
 DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
 --------------|------------|----------|-------------|--------|---------
@@ -206,15 +206,17 @@ Bank of China | Mastercard |      EUR |      100,00 | 089,40 | False
 Bank of China | Maestro    |      EUR |      100,00 | 089,40 | False  
 ```
 
-Assuming that the destination bank and the card don't impact the `Accepted` asserts, you can keep the same code to test the system under test:
+Assuming that the destination bank and the card is required by the routine under test, but don't impact the `Accepted` asserts, you can re-write the test:
 
 ```C#
-foreach (Pause pause in builder.GetAllCases(transferForAllcardsAndBanks))
+foreach (Pause pause in builder.GetAllCases(allTransfers))
 {
     bool accepted = _sut.PerformTransfer(t.BalanceUsd, t.Currency, t.Amount, t.Card, t.DestBank);
 	Assert.AreEqual(t.Accepted, accepted);
 }
 ```
+
+And now you perform 78 tests of `PerformTransfer(...)` and keep the best overview over each tests individually.
 
 Refactoring with multiple contributors
 --------------------------------------
