@@ -148,8 +148,8 @@ namespace NCaseTest
                 t.Card = Card.Maestro;
             }
 
-            IProd transferForAllcardsAndBanks = builder.CreateSet<IProd>("transferForAllcardsAndBanks");
-            using (transferForAllcardsAndBanks.Define())
+            IProd transfersForAllcardsAndBanks = builder.CreateSet<IProd>("transferForAllcardsAndBanks");
+            using (transfersForAllcardsAndBanks.Define())
             {
                 transfers.Ref();
                 cardsAndBanks.Ref();
@@ -157,7 +157,7 @@ namespace NCaseTest
 
             Console.WriteLine("DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
             Console.WriteLine("--------------|------------|----------|-------------|--------|---------");
-            foreach (Pause pause in builder.GetAllCases(transferForAllcardsAndBanks))
+            foreach (Pause pause in builder.GetAllCases(transfersForAllcardsAndBanks))
             {
                 Console.WriteLine("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}",
                     t.DestBank, t.Card, t.Currency, t.BalanceUsd, t.Amount, t.Accepted);

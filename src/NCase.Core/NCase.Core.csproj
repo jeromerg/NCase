@@ -38,16 +38,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging, Version=3.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.3.2.0\lib\net40\Common.Logging.dll</HintPath>
+    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.57\lib\net40-Client\NGitVersion.exe</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Common.Logging.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.Core.3.2.0\lib\net40\Common.Logging.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.55, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.55\lib\net40-Client\NVisitor.dll</HintPath>
+    <Reference Include="NVisitor, Version=1.1.0.57, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.57\lib\net40-Client\NVisitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,11 +60,14 @@
     </Compile>
     <Compile Include="Api\Dev\Core\CaseSet\ICaseSetFactory.cs" />
     <Compile Include="Api\Dev\Core\GenerateCase\IGenerateCaseVisitor.cs" />
-    <Compile Include="Api\Dev\Core\Parse\IParserVisitor.cs" />
+    <Compile Include="Api\Dev\Core\Parse\IAddChildDirector.cs" />
+    <Compile Include="Api\Dev\Core\Parse\IAddChildVisitor.cs" />
+    <Compile Include="Api\Dev\Core\Parse\IParseVisitor.cs" />
     <Compile Include="Api\Dev\Core\Replay\IReplayVisitor.cs" />
     <Compile Include="Api\IProd.cs" />
     <Compile Include="Api\ITree.cs" />
     <Compile Include="Api\Dev\IGetBranchingKeyDirector.cs" />
+    <Compile Include="Imp\Core\Parse\AddChildDirector.cs" />
     <Compile Include="Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
     <Compile Include="Imp\InterfaceRecPlay\GetBranchingKeyVisitors.cs" />
     <Compile Include="Imp\Prod\GetBranchingKeyVisitors.cs" />
@@ -81,6 +80,7 @@
     <Compile Include="Imp\Prod\ProdDimNode.cs" />
     <Compile Include="Imp\Tree\DumpVisitors.cs" />
     <Compile Include="Imp\Tree\GenerateCaseVisitors.cs" />
+    <Compile Include="Imp\Tree\AddChildVisitors.cs" />
     <Compile Include="Imp\Tree\ParseVisitors.cs" />
     <Compile Include="Imp\Tree\TreeCaseSet.cs" />
     <Compile Include="Api\Dev\Core\CaseSet\ICaseSet.cs" />
@@ -111,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="_Doc\doc.md" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -125,7 +124,9 @@
       <Name>NDsl.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resource\Assembly.cpp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

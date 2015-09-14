@@ -7,6 +7,8 @@ using NCase.Api.Dev.Core.GenerateCase;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Core.Replay;
 using NDsl.Api.Core;
+using NDsl.Api.Core.Nod;
+using NDsl.Api.Core.Util;
 using NDsl.Api.RecPlay;
 using NVisitor.Api.Lazy;
 using NVisitor.Common.Quality;
@@ -15,6 +17,7 @@ namespace NCase.Imp
 {
     public class CaseBuilder : ICaseBuilder
     {
+        [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly ITokenReaderWriter mTokenStream;
         [NotNull] private readonly Dictionary<Type, ICaseSetFactory> mCaseSetFactories;
 
@@ -24,14 +27,15 @@ namespace NCase.Imp
         [NotNull] private readonly IInterfaceRecPlayContributorFactory mInterfaceRecPlayContributorFactory;
 
         public CaseBuilder(
+            [NotNull] ICodeLocationUtil codeLocationUtil,
             [NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
             [NotNull] IReplayDirector rePlayDirector,  // stateless director, no need for factory
             [NotNull] IParseDirector parseDirector,
             [NotNull] Func<IGenerateCaseDirector> caseGeneratorFactory,
             [NotNull] ITokenReaderWriter tokenStream,
-            [NotNull] IEnumerable<ICaseSetFactory> caseSetFactories
-            )
+            [NotNull] IEnumerable<ICaseSetFactory> caseSetFactories)
         {
+            if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
             if (interfaceRecPlayContributorFactory == null) throw new ArgumentNullException("interfaceRecPlayContributorFactory");
             if (rePlayDirector == null) throw new ArgumentNullException("rePlayDirector");
             if (parseDirector == null) throw new ArgumentNullException("parseDirector");
@@ -41,6 +45,7 @@ namespace NCase.Imp
 
             mCaseGeneratorFactory = caseGeneratorFactory;
             mTokenStream = tokenStream;
+            mCodeLocationUtil = codeLocationUtil;
             mCaseSetFactories = caseSetFactories.ToDictionary(f => GetCaseSetType(f));
             mRePlayDirector = rePlayDirector;
             mParseDirector = parseDirector;
@@ -88,7 +93,7 @@ namespace NCase.Imp
 
             // GENERATE CASES
             IGenerateCaseDirector generateCaseDirector = mCaseGeneratorFactory();
-            foreach (var pause in generateCaseDirector.Visit(mParseDirector.AllCaseSets[caseSet]))
+            foreach (var pause in generateCaseDirector.Visit(mParseDirector.GetReference<INode>(caseSet, mCodeLocationUtil.GetCurrentUserCodeLocation())))
             {
 
                 // REPLAY CASE

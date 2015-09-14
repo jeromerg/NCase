@@ -10,12 +10,9 @@ namespace NCase.Imp.Prod
 {
     public class ProdCaseSet : IProd
     {
-        [NotNull]
-        private readonly ICodeLocationUtil mCodeLocationUtil;
-        [NotNull]
-        private readonly ITokenWriter mTokenWriter;
-        [NotNull]
-        private readonly string mCaseSetName;
+        [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+        [NotNull] private readonly ITokenWriter mTokenWriter;
+        [NotNull] private readonly string mCaseSetName;
 
         private bool mIsDefined;
 
@@ -42,7 +39,10 @@ namespace NCase.Imp.Prod
         public IDisposable Define()
         {
             if (mIsDefined)
-                throw new InvalidSyntaxException("Case set {0} has already been defined", mCaseSetName);
+            {
+                throw new InvalidSyntaxException(mCodeLocationUtil.GetCurrentUserCodeLocation(),
+                                                 "Case set {0} has already been defined", mCaseSetName);
+            }
 
             mIsDefined = true;
 

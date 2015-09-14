@@ -69,11 +69,13 @@ namespace NCase.Imp.Tree
 
         public void PlaceNextNode(INode child)
         {
+            ICodeLocation codeLocation = child.CodeLocation;
+
             // prepare node to add
             object childBranchingKey = GetBranchingKey(child);
             INode nodeToAdd = (childBranchingKey == null)
                 ? child
-                : new TreeNode(child.CodeLocation, mGetBranchingKeyDirector, null, child);
+                : new TreeNode(codeLocation, mGetBranchingKeyDirector, null, child);
 
             INode lastBranch = mBranches.LastOrDefault();
 
@@ -86,9 +88,12 @@ namespace NCase.Imp.Tree
 
             ITreeNode lastBranchAsTreeNode = lastBranch as ITreeNode;
             if (lastBranchAsTreeNode == null)
-                throw new InvalidSyntaxException("Last branch is an end branch and therefore cannot accept any child: {0}", lastBranch.CodeLocation);
+            {
+                throw new InvalidSyntaxException(codeLocation,
+                    "Last branch is an end branch and therefore cannot accept any child");
+            }
 
-            // No Fact, no risk, then recurse
+            // No Fact, don't think about branching, simply recurse
             if (lastBranchAsTreeNode.Fact == null)
             {
                 lastBranchAsTreeNode.PlaceNextNode(child);
@@ -98,8 +103,8 @@ namespace NCase.Imp.Tree
             object branchBranchingKey = GetBranchingKey(lastBranchAsTreeNode.Fact);
             if (branchBranchingKey == null)
             {
-                throw new InvalidSyntaxException("Cannot place the node\n\t{0} under the following node, that doesn't accept children\n\t{1}",
-                    child.CodeLocation, lastBranchAsTreeNode.CodeLocation);
+                throw new InvalidSyntaxException(codeLocation,
+                    "Current node cannot be added to following parent node:", lastBranchAsTreeNode.CodeLocation);
             }
 
             if (Equals(childBranchingKey, branchBranchingKey))

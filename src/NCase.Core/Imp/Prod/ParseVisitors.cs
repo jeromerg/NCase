@@ -1,9 +1,7 @@
 using System;
 using NCase.Api.Dev;
-using NCase.Api.Dev.Core.CaseSet;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Prod;
-using NDsl.Api.Core.Ex;
 using NDsl.Api.Core.Nod;
 using NDsl.Api.Core.Tok;
 using NVisitor.Common.Quality;
@@ -11,9 +9,9 @@ using NVisitor.Common.Quality;
 namespace NCase.Imp.Prod
 {
     public class ParseVisitors
-        : IParserVisitor<BeginToken<ProdCaseSet>>
-        , IParserVisitor<EndToken<ProdCaseSet>>
-        , IParserVisitor<RefToken<ProdCaseSet>>
+        : IParseVisitor<BeginToken<ProdCaseSet>>
+        , IParseVisitor<EndToken<ProdCaseSet>>
+        , IParseVisitor<RefToken<ProdCaseSet>>
     {
         [NotNull] private readonly IGetBranchingKeyDirector mGetBranchingKeyDirector;
 
@@ -30,33 +28,22 @@ namespace NCase.Imp.Prod
                 mGetBranchingKeyDirector, 
                 token.Owner);
 
-            dir.AllCaseSets.Add(token.Owner, newCaseSetNode);
-            dir.CurrentCaseSet = newCaseSetNode;
+            dir.AddReference(token.Owner, newCaseSetNode);
+            dir.PushScope(newCaseSetNode);
         }
 
         public void Visit(IParseDirector dir, EndToken<ProdCaseSet> token)
         {
-            dir.CurrentCaseSet = null;
+            dir.PopScope();
         }
 
         public void Visit(IParseDirector dir, RefToken<ProdCaseSet> token)
         {
-            if (dir.CurrentCaseSet == null)
-            {
-                throw new InvalidSyntaxException("Call must be performed within CaseSet definition block: {0}",
-                    token.CodeLocation.GetUserCodeInfo());
-            }
+            IProdNode referredSetNode = dir.GetReference<IProdNode>(token.Owner, token.CodeLocation);
 
-            ICaseSetNode<ICaseSet> referredSetNode;
-            if(!dir.AllCaseSets.TryGetValue(token.Owner, out referredSetNode))
-                throw new InvalidSyntaxException("Trying to reference a IProd that has not been defined yet: {0}", token);
+            var newNode = new RefNode<IProdNode>(referredSetNode, token.CodeLocation);
 
-            if(! (referredSetNode is IProdNode))
-                throw new ArgumentException("RefToken<ProdCaseSet> does not reference a IProdNode. It should never happen");
-
-            var newNode = new RefNode<IProdNode>((IProdNode)referredSetNode, token.CodeLocation);
-
-            dir.CurrentCaseSet.PlaceNextNode(newNode);
+            dir.AddChildToScope(newNode);
         }
     }
 }

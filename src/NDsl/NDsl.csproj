@@ -39,16 +39,12 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Common.Logging, Version=3.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.3.2.0\lib\net40\Common.Logging.dll</HintPath>
+    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.57\lib\net40-Client\NGitVersion.exe</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Common.Logging.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Logging.Core.3.2.0\lib\net40\Common.Logging.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.55, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.55\lib\net40-Client\NVisitor.dll</HintPath>
+    <Reference Include="NVisitor, Version=1.1.0.57, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.57\lib\net40-Client\NVisitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -75,6 +71,9 @@
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
       <Name>NDsl.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Assembly.cpp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

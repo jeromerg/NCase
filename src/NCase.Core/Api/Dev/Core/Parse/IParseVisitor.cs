@@ -3,7 +3,7 @@ using NVisitor.Api.Batch;
 
 namespace NCase.Api.Dev.Core.Parse
 {
-    public interface IParserVisitor<TToken> : IVisitor<IToken, IParseDirector, TToken>
+    public interface IParseVisitor<TToken> : IVisitor<IToken, IParseDirector, TToken>
         where TToken : IToken
     {
     }

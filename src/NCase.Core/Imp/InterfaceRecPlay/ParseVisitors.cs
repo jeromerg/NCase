@@ -9,24 +9,18 @@ using NDsl.Util.Castle;
 namespace NCase.Imp.InterfaceRecPlay
 {
     public class ParseVisitors
-        : IParserVisitor<InvocationToken<InterfaceRecPlayInterceptor>>
+        : IParseVisitor<InvocationToken<InterfaceRecPlayInterceptor>>
     {
         public void Visit(IParseDirector dir, InvocationToken<InterfaceRecPlayInterceptor> token)
         {
             ICodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
 
-            if (dir.CurrentCaseSet == null)
-            {
-                throw new InvalidSyntaxException("Call must be performed within CaseSet definition block: {0}",
-                    codeLocation.GetUserCodeInfo());
-            }
-
             PropertyCallKey setterCallKey = InvocationUtil.TryGetPropertyCallKeyFromSetter(invocation);
             if (setterCallKey == null)
             {
-                throw new InvalidSyntaxException("While you build the cases, you can only call property setters on interface contributors: {0}",
-                    codeLocation.GetUserCodeInfo());
+                throw new InvalidSyntaxException(token.CodeLocation,
+                    "While definining test cases, you can only call property setters on interface contributors");
             }
 
             object argumentValue = invocation.GetArgumentValue(invocation.Arguments.Length - 1);
@@ -38,7 +32,7 @@ namespace NCase.Imp.InterfaceRecPlay
                 argumentValue,
                 codeLocation);
 
-            dir.CurrentCaseSet.PlaceNextNode(newNode);
+            dir.AddChildToScope(newNode);
         }
     }
 }

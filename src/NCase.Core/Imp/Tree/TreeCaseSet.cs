@@ -39,7 +39,10 @@ namespace NCase.Imp.Tree
         public IDisposable Define()
         {
             if (mIsDefined)
-                throw new InvalidSyntaxException("Case set {0} has already been defined", mCaseSetName);
+            {
+                throw new InvalidSyntaxException(mCodeLocationUtil.GetCurrentUserCodeLocation(),
+                                                 "Case set {0} has already been defined", mCaseSetName);
+            }
 
             mIsDefined = true;
 
