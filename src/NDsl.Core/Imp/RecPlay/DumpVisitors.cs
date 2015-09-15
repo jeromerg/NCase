@@ -2,12 +2,12 @@
 using NDsl.Api.Dev.Core.Vis;
 using NDsl.Api.Dev.RecPlay;
 using NDsl.Util.Castle;
-using NVisitor.Api.Batch;
+using NVisitor.Api.Action;
 
 namespace NDsl.Imp.RecPlay
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDirector, IInterfaceRecPlayNode>
+        : IActionVisitor<INode, IDumpDirector, IInterfaceRecPlayNode>
     {
 
         public void Visit(IDumpDirector director, IInterfaceRecPlayNode node)

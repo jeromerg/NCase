@@ -1,18 +1,18 @@
 using System.Text;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Vis;
-using NVisitor.Api.Batch;
+using NVisitor.Api.Action;
 
 namespace NDsl.Imp.Core
 {
-    public class DumpDirector : Director<INode, IDumpDirector>, IDumpDirector
+    public class DumpDirector : ActionDirector<INode, IDumpDirector>, IDumpDirector
     {
         private const int INDENTATION_SPACES = 4;
         private int mCurrentIndentation;
 
         private readonly StringBuilder mStringBuilder = new StringBuilder();
 
-        public DumpDirector(IVisitMapper<INode, IDumpDirector> visitMapper) : base(visitMapper)
+        public DumpDirector(IActionVisitMapper<INode, IDumpDirector> visitMapper) : base(visitMapper)
         {
         }
 

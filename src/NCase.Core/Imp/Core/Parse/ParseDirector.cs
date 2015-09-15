@@ -4,18 +4,18 @@ using NDsl.Api.Dev.Core.Ex;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Tok;
 using NDsl.Api.Dev.Core.Util;
-using NVisitor.Api.Batch;
+using NVisitor.Api.Action;
 using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Core.Parse
 {
-    public class ParseDirector : Director<IToken, IParseDirector>, IParseDirector
+    public class ParseDirector : ActionDirector<IToken, IParseDirector>, IParseDirector
     {
         private readonly IAddChildDirector mAddChildDirector;
         private readonly Dictionary<object, INode> mReferences = new Dictionary<object, INode>();
         [CanBeNull] private INode mCurrentScope;
 
-        public ParseDirector(IVisitMapper<IToken, IParseDirector> visitMapper, IAddChildDirector addChildDirector) 
+        public ParseDirector(IActionVisitMapper<IToken, IParseDirector> visitMapper, IAddChildDirector addChildDirector) 
             : base(visitMapper)
         {
             mAddChildDirector = addChildDirector;

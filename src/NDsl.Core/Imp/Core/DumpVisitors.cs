@@ -2,12 +2,12 @@
 using Castle.Core.Internal;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Vis;
-using NVisitor.Api.Batch;
+using NVisitor.Api.Action;
 
 namespace NDsl.Imp.Core
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDirector, INode>
+        : IActionVisitor<INode, IDumpDirector, INode>
     {
         public void Visit(IDumpDirector director, INode node)
         {

@@ -1,12 +1,12 @@
 using NCase.Api.Dev.Core.Parse;
 using NDsl.Api.Dev.Core.Nod;
-using NVisitor.Api.PairBatch;
+using NVisitor.Api.ActionPair;
 
 namespace NCase.Imp.Core.Parse
 {
-    public class AddChildDirector : PairDirector<INode, INode, IAddChildDirector>, IAddChildDirector
+    public class AddChildDirector : ActionPairDirector<INode, INode, IAddChildDirector>, IAddChildDirector
     {
-        public AddChildDirector(IPairVisitMapper<INode, INode, IAddChildDirector> visitMapper) 
+        public AddChildDirector(IActionPairVisitMapper<INode, INode, IAddChildDirector> visitMapper) 
             : base(visitMapper)
         {
         }

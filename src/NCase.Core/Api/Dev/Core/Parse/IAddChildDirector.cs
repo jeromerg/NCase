@@ -1,9 +1,9 @@
 using NDsl.Api.Dev.Core.Nod;
-using NVisitor.Api.PairBatch;
+using NVisitor.Api.ActionPair;
 
 namespace NCase.Api.Dev.Core.Parse
 {
-    public interface IAddChildDirector : IPairDirector<INode, INode, IAddChildDirector>
+    public interface IAddChildDirector : IActionPairDirector<INode, INode, IAddChildDirector>
     {
     }
 }

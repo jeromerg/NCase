@@ -3,12 +3,12 @@ using Castle.Core.Internal;
 using NCase.Api.Dev.Pairwise;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Vis;
-using NVisitor.Api.Batch;
+using NVisitor.Api.Action;
 
 namespace NCase.Imp.Pairwise
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDirector, IPairwiseNode>
+        : IActionVisitor<INode, IDumpDirector, IPairwiseNode>
     {
         public void Visit(IDumpDirector dir, IPairwiseNode node)
         {

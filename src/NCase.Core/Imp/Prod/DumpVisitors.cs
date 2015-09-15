@@ -3,12 +3,12 @@ using Castle.Core.Internal;
 using NCase.Api.Dev.Prod;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Vis;
-using NVisitor.Api.Batch;
+using NVisitor.Api.Action;
 
 namespace NCase.Imp.Prod
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDirector, IProdNode>
+        : IActionVisitor<INode, IDumpDirector, IProdNode>
     {
         public void Visit(IDumpDirector dir, IProdNode node)
         {

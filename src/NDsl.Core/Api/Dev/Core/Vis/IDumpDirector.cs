@@ -1,10 +1,10 @@
 ﻿using NDsl.Api.Dev.Core.Nod;
-using NVisitor.Api.Batch;
+using NVisitor.Api.Action;
 using NVisitor.Common.Quality;
 
 namespace NDsl.Api.Dev.Core.Vis
 {
-    public interface IDumpDirector : IDirector<INode, IDumpDirector>
+    public interface IDumpDirector : IActionDirector<INode, IDumpDirector>
     {
         void Indent();
         void Dedent();

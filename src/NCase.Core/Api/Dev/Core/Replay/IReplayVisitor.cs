@@ -1,9 +1,9 @@
 using NDsl.Api.Dev.Core.Nod;
-using NVisitor.Api.Batch;
+using NVisitor.Api.Action;
 
 namespace NCase.Api.Dev.Core.Replay
 {
-    public interface IReplayVisitor<TNod> : IVisitor<INode, IReplayDirector, TNod> 
+    public interface IReplayVisitor<TNod> : IActionVisitor<INode, IReplayDirector, TNod> 
         where TNod : INode
     {
     }
