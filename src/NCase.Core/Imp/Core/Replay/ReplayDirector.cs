@@ -1,5 +1,5 @@
 using NCase.Api.Dev.Core.Replay;
-using NDsl.Api.Core.Nod;
+using NDsl.Api.Dev.Core.Nod;
 using NVisitor.Api.Batch;
 
 namespace NCase.Imp.Core.Replay

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using NDsl.Api.Core;
-using NDsl.Api.Core.Tok;
+using NDsl.Api.Dev.Core;
+using NDsl.Api.Dev.Core.Tok;
 using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.Core

@@ -1,8 +1,8 @@
 ﻿using System;
 using NCase.Api;
 using NCase.Api.Dev.Core.CaseSet;
-using NDsl.Api.Core;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core;
+using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Tree

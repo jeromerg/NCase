@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using NCase.Api.Dev.Core.CaseSet;
-using NDsl.Api.Core.Nod;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core.Nod;
+using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Prod
@@ -38,7 +38,7 @@ namespace NCase.Imp.Prod
             }
         }
 
-        public void PlaceNextNode(INode child)
+        public void PlaceNextValue(INode child)
         {
             mChildren.Add(child);
         }

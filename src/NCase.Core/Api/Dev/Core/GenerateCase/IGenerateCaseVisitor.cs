@@ -1,4 +1,4 @@
-using NDsl.Api.Core.Nod;
+using NDsl.Api.Dev.Core.Nod;
 using NVisitor.Api.Lazy;
 
 namespace NCase.Api.Dev.Core.GenerateCase

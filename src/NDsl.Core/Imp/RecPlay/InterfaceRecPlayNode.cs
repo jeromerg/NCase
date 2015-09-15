@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using NDsl.Api.Core.Nod;
-using NDsl.Api.Core.Util;
-using NDsl.Api.RecPlay;
+using NDsl.Api.Dev.Core.Nod;
+using NDsl.Api.Dev.Core.Util;
+using NDsl.Api.Dev.RecPlay;
 using NDsl.Util.Castle;
 using NVisitor.Common.Quality;
 

@@ -1,12 +1,9 @@
-using System;
-using NCase.Api.Dev;
 using NCase.Api.Dev.Core.CaseSet;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Tree;
-using NDsl.Api.Core.Nod;
-using NDsl.Api.Core.Tok;
-using NDsl.Api.Core.Util;
-using NVisitor.Common.Quality;
+using NDsl.Api.Dev.Core.Nod;
+using NDsl.Api.Dev.Core.Tok;
+using NDsl.Api.Dev.Core.Util;
 
 namespace NCase.Imp.Tree
 {
@@ -15,20 +12,10 @@ namespace NCase.Imp.Tree
         , IParseVisitor<EndToken<TreeCaseSet>>
         , IParseVisitor<RefToken<TreeCaseSet>>
     {
-        [NotNull] private readonly IGetBranchingKeyDirector mGetBranchingKeyDirector;
-
-        public ParseVisitors([NotNull] IGetBranchingKeyDirector getBranchingKeyDirector)
-        {
-            if (getBranchingKeyDirector == null) throw new ArgumentNullException("getBranchingKeyDirector");
-            mGetBranchingKeyDirector = getBranchingKeyDirector;
-        }
-
-        #region ITree related nodes
         public void Visit(IParseDirector dir, BeginToken<TreeCaseSet> token)
         {
             var newCaseSetNode = new TreeNode(
                 token.CodeLocation, 
-                mGetBranchingKeyDirector, 
                 token.Owner, 
                 null /*root without associated fact*/);
             
@@ -51,6 +38,5 @@ namespace NCase.Imp.Tree
 
             dir.AddChildToScope(newNode);
         }
-        #endregion
     }
 }

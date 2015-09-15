@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
 using Autofac;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core.Util;
 using NDsl.Imp.Core;
 using NDsl.Imp.Core.Util;
 using NVisitor.Api.Batch;
+using NVisitor.Api.PairBatch;
 using Module = Autofac.Module;
 
-namespace NDsl.Autofac
+namespace NDsl
 {
     public class NDslCoreModule : Module
     {
@@ -29,6 +30,7 @@ namespace NDsl.Autofac
             builder.RegisterType<TokenStream>().AsImplementedInterfaces();
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
             builder.RegisterGeneric(typeof(VisitMapper<,>)).AsSelf().As(typeof(IVisitMapper<,>));
+            builder.RegisterGeneric(typeof(PairVisitMapper<,,>)).AsSelf().As(typeof(IPairVisitMapper<,,>));
         }
     }
 }

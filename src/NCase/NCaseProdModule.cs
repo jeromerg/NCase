@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using NCase.Imp.Prod;
 
-namespace NCase.Autofac
+namespace NCase
 {
     /// <summary> Requires NCaseCoreModule </summary>
     public class NCaseProdModule : Module
@@ -15,9 +15,7 @@ namespace NCase.Autofac
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
-
-            // Branching
-            builder.RegisterType<GetBranchingKeyVisitors>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<AddChildVisitors>().AsImplementedInterfaces().SingleInstance();
             
             // Case Generator
             builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();

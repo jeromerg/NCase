@@ -1,8 +1,8 @@
 using Castle.DynamicProxy;
 using NCase.Api.Dev.Core.Parse;
-using NDsl.Api.Core.Ex;
-using NDsl.Api.Core.Tok;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core.Ex;
+using NDsl.Api.Dev.Core.Tok;
+using NDsl.Api.Dev.Core.Util;
 using NDsl.Imp.RecPlay;
 using NDsl.Util.Castle;
 

@@ -66,11 +66,8 @@
     <Compile Include="Api\Dev\Core\Replay\IReplayVisitor.cs" />
     <Compile Include="Api\IProd.cs" />
     <Compile Include="Api\ITree.cs" />
-    <Compile Include="Api\Dev\IGetBranchingKeyDirector.cs" />
     <Compile Include="Imp\Core\Parse\AddChildDirector.cs" />
     <Compile Include="Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
-    <Compile Include="Imp\InterfaceRecPlay\GetBranchingKeyVisitors.cs" />
-    <Compile Include="Imp\Prod\GetBranchingKeyVisitors.cs" />
     <Compile Include="Imp\Prod\ProdCaseSet.cs" />
     <Compile Include="Imp\Prod\DumpVisitors.cs" />
     <Compile Include="Imp\Prod\GenerateCaseVisitors.cs" />
@@ -78,6 +75,7 @@
     <Compile Include="Imp\InterfaceRecPlay\ParseVisitors.cs" />
     <Compile Include="Imp\InterfaceRecPlay\ReplayVisitors.cs" />
     <Compile Include="Imp\Prod\ProdDimNode.cs" />
+    <Compile Include="Imp\Prod\AddChildVisitors.cs" />
     <Compile Include="Imp\Tree\DumpVisitors.cs" />
     <Compile Include="Imp\Tree\GenerateCaseVisitors.cs" />
     <Compile Include="Imp\Tree\AddChildVisitors.cs" />
@@ -93,14 +91,12 @@
     <Compile Include="Api\Dev\Core\Replay\IReplayDirector.cs" />
     <Compile Include="Api\Dev\Core\Parse\IParseDirector.cs" />
     <Compile Include="Imp\Tree\TreeNode.cs" />
-    <Compile Include="Imp\Core\GetBranchingKeyDirector.cs" />
     <Compile Include="Imp\Core\Replay\ReplayDirector.cs" />
     <Compile Include="Imp\CaseBuilder.cs" />
     <Compile Include="Api\ICaseBuilder.cs" />
     <Compile Include="Imp\Core\Parse\ParseDirector.cs" />
     <Compile Include="Imp\Core\GenerateCase\GenerateCaseDirector.cs" />
     <Compile Include="Api\Dev\Core\GenerateCase\IGenerateCaseDirector.cs" />
-    <Compile Include="Imp\Core\GetBranchingKeyVisitors.cs" />
     <Compile Include="Imp\Core\Replay\ReplayVisitors.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,6 +1,6 @@
-using NDsl.Api.Core.Nod;
-using NDsl.Api.Core.Tok;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core.Nod;
+using NDsl.Api.Dev.Core.Tok;
+using NDsl.Api.Dev.Core.Util;
 using NVisitor.Api.Batch;
 
 namespace NCase.Api.Dev.Core.Parse

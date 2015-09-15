@@ -2,7 +2,7 @@
 using System.Linq;
 using NCase.Api.Dev.Core.GenerateCase;
 using NCase.Api.Dev.Prod;
-using NDsl.Api.Core.Nod;
+using NDsl.Api.Dev.Core.Nod;
 using NVisitor.Api.Lazy;
 
 namespace NCase.Imp.Prod

@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using NCase.Api;
 
-namespace NCase.Autofac
+namespace NCase
 {
     public static class Case
     {

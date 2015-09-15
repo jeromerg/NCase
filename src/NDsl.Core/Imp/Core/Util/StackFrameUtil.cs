@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core.Util;
 
 namespace NDsl.Imp.Core.Util
 {

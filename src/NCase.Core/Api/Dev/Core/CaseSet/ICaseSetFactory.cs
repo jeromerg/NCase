@@ -1,4 +1,4 @@
-﻿using NDsl.Api.Core;
+﻿using NDsl.Api.Dev.Core;
 
 namespace NCase.Api.Dev.Core.CaseSet
 {

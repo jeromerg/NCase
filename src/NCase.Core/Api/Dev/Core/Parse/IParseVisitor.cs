@@ -1,4 +1,4 @@
-﻿using NDsl.Api.Core.Tok;
+﻿using NDsl.Api.Dev.Core.Tok;
 using NVisitor.Api.Batch;
 
 namespace NCase.Api.Dev.Core.Parse

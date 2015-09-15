@@ -6,10 +6,10 @@ using NCase.Api.Dev.Core.CaseSet;
 using NCase.Api.Dev.Core.GenerateCase;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Core.Replay;
-using NDsl.Api.Core;
-using NDsl.Api.Core.Nod;
-using NDsl.Api.Core.Util;
-using NDsl.Api.RecPlay;
+using NDsl.Api.Dev.Core;
+using NDsl.Api.Dev.Core.Nod;
+using NDsl.Api.Dev.Core.Util;
+using NDsl.Api.Dev.RecPlay;
 using NVisitor.Api.Lazy;
 using NVisitor.Common.Quality;
 

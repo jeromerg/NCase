@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NCase.Api.Dev.Core.GenerateCase;
-using NDsl.Api.RecPlay;
+using NDsl.Api.Dev.RecPlay;
 using NVisitor.Api.Lazy;
 
 namespace NCase.Imp.InterfaceRecPlay

@@ -2,7 +2,7 @@
 using NCase.Api;
 using NCase.Imp;
 
-namespace NCase.Autofac
+namespace NCase
 {
     public class NCaseModule : Module
     {

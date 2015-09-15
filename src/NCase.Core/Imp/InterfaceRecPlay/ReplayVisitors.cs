@@ -1,6 +1,6 @@
 ﻿using Castle.Core.Internal;
 using NCase.Api.Dev.Core.Replay;
-using NDsl.Api.RecPlay;
+using NDsl.Api.Dev.RecPlay;
 
 namespace NCase.Imp.InterfaceRecPlay
 {

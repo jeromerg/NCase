@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Castle.DynamicProxy;
-using NDsl.Api.Core;
-using NDsl.Api.Core.Ex;
-using NDsl.Api.Core.Tok;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core;
+using NDsl.Api.Dev.Core.Ex;
+using NDsl.Api.Dev.Core.Tok;
+using NDsl.Api.Dev.Core.Util;
 using NDsl.Util.Castle;
 using NVisitor.Common.Quality;
 

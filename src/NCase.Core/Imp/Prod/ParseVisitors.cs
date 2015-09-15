@@ -2,8 +2,8 @@ using System;
 using NCase.Api.Dev;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Prod;
-using NDsl.Api.Core.Nod;
-using NDsl.Api.Core.Tok;
+using NDsl.Api.Dev.Core.Nod;
+using NDsl.Api.Dev.Core.Tok;
 using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Prod
@@ -13,20 +13,10 @@ namespace NCase.Imp.Prod
         , IParseVisitor<EndToken<ProdCaseSet>>
         , IParseVisitor<RefToken<ProdCaseSet>>
     {
-        [NotNull] private readonly IGetBranchingKeyDirector mGetBranchingKeyDirector;
-
-        public ParseVisitors([NotNull] IGetBranchingKeyDirector getBranchingKeyDirector)
-        {
-            if (getBranchingKeyDirector == null) throw new ArgumentNullException("getBranchingKeyDirector");
-            mGetBranchingKeyDirector = getBranchingKeyDirector;
-        }
 
         public void Visit(IParseDirector dir, BeginToken<ProdCaseSet> token)
         {
-            var newCaseSetNode = new ProdNode(
-                token.CodeLocation, 
-                mGetBranchingKeyDirector, 
-                token.Owner);
+            var newCaseSetNode = new ProdNode(token.CodeLocation, token.Owner);
 
             dir.AddReference(token.Owner, newCaseSetNode);
             dir.PushScope(newCaseSetNode);

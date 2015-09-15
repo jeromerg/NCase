@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Castle.DynamicProxy;
-using NDsl.Api.Core;
-using NDsl.Api.Core.Util;
-using NDsl.Api.RecPlay;
+using NDsl.Api.Dev.Core;
+using NDsl.Api.Dev.Core.Util;
+using NDsl.Api.Dev.RecPlay;
 using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.RecPlay

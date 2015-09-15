@@ -1,6 +1,6 @@
 ﻿using System;
+using NCase;
 using NCase.Api;
-using NCase.Autofac;
 using NUnit.Framework;
 using NVisitor.Api.Lazy;
 

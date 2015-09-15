@@ -1,5 +1,5 @@
 ﻿using System;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
 namespace NDsl.Imp.Core.Util

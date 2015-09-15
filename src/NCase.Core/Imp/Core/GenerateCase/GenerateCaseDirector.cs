@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NCase.Api.Dev.Core.GenerateCase;
-using NDsl.Api.Core.Nod;
+using NDsl.Api.Dev.Core.Nod;
 using NDsl.Util;
 using NVisitor.Api.Lazy;
 using NVisitor.Common.Quality;

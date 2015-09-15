@@ -1,5 +1,5 @@
 using System;
-using NDsl.Api.Core.Ex;
+using NDsl.Api.Dev.Core.Ex;
 
 namespace NCase.Api.Dev.Core.CaseSet
 {

@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using NCase.Imp.InterfaceRecPlay;
 
-namespace NCase.Autofac
+namespace NCase
 {
     /// <summary> Requires NCaseCoreModule </summary>
     public class NCaseInterfaceRecPlayModule : Module
@@ -12,9 +12,7 @@ namespace NCase.Autofac
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
-
-            // Branching
-            builder.RegisterType<GetBranchingKeyVisitors>().AsImplementedInterfaces().SingleInstance();
+            // remark: AddChild visitors are located in Parse and Tree modules
 
             // Replay
             builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using NCase.Api.Dev.Core.Parse;
-using NDsl.Api.Core.Ex;
-using NDsl.Api.Core.Nod;
-using NDsl.Api.Core.Tok;
-using NDsl.Api.Core.Util;
+using NDsl.Api.Dev.Core.Ex;
+using NDsl.Api.Dev.Core.Nod;
+using NDsl.Api.Dev.Core.Tok;
+using NDsl.Api.Dev.Core.Util;
 using NVisitor.Api.Batch;
 using NVisitor.Common.Quality;
 

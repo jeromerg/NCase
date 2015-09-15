@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using NDsl.Api.RecPlay;
+using NDsl.Api.Dev.RecPlay;
 using NDsl.Imp.RecPlay;
 
-namespace NDsl.Autofac
+namespace NDsl
 {
     public class NDslRecPlayModule : Module
     {

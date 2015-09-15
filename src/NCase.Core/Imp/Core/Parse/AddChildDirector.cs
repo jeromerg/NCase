@@ -1,5 +1,5 @@
 using NCase.Api.Dev.Core.Parse;
-using NDsl.Api.Core.Nod;
+using NDsl.Api.Dev.Core.Nod;
 using NVisitor.Api.PairBatch;
 
 namespace NCase.Imp.Core.Parse

@@ -1,5 +1,4 @@
-using NDsl.Api.Core.Nod;
-using NVisitor.Common.Quality;
+using NDsl.Api.Dev.Core.Nod;
 
 namespace NCase.Api.Dev.Core.CaseSet
 {
