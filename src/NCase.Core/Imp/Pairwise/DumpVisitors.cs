@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using Castle.Core.Internal;
-using NCase.Api.Dev.Prod;
+using NCase.Api.Dev.Pairwise;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Vis;
 using NVisitor.Api.Batch;
 
-namespace NCase.Imp.Prod
+namespace NCase.Imp.Pairwise
 {
     public class DumpVisitors
-        : IVisitor<INode, IDumpDirector, IProdNode>
+        : IVisitor<INode, IDumpDirector, IPairwiseNode>
     {
-        public void Visit(IDumpDirector dir, IProdNode node)
+        public void Visit(IDumpDirector dir, IPairwiseNode node)
         {
-            dir.AddText("CartesianProduct: {0}", node);
+            dir.AddText("Pairwise: {0}", node);
             VisitNextLevel(dir, node.Children);
         }
 

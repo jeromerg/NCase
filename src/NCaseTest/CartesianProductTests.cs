@@ -7,7 +7,7 @@ using NVisitor.Api.Lazy;
 namespace NCaseTest
 {
     [TestFixture]
-    public class CardinalProductTests
+    public class CartesianProductTests
     {
         public interface IMyTestvalues
         {
@@ -16,7 +16,7 @@ namespace NCaseTest
         }
 
         [Test]
-        public void Test_CardinalProduct()
+        public void Test_CartesianProduct()
         {
             // Create a new builder
             var caseBuilder = Case.GetBuilder();
@@ -83,7 +83,7 @@ namespace NCaseTest
         }
 
         [Test]
-        public void Test_CardinalProduct_with_ref()
+        public void Test_CartesianProduct_with_ref()
         {
             // Create a new builder
             var caseBuilder = Case.GetBuilder();

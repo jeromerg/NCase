@@ -61,6 +61,7 @@
     <Compile Include="Case.cs" />
     <Compile Include="NCaseCoreModule.cs" />
     <Compile Include="NCaseInterfaceRecPlayModule.cs" />
+    <Compile Include="NCasePairwiseModule.cs" />
     <Compile Include="NCaseTreeModule.cs" />
     <Compile Include="NCaseProdModule.cs" />
     <Compile Include="NCaseModule.cs" />

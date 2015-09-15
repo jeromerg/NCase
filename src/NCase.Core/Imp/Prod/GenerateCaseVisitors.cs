@@ -19,11 +19,11 @@ namespace NCase.Imp.Prod
             if(operands.Count == 0)
                 yield break;
 
-            foreach (var pause in ProduceCardinalProductRecursively(dir, operands, 0))
+            foreach (var pause in ProduceCartesianProductRecursively(dir, operands, 0))
                 yield return Pause.Now;
         }
 
-        private IEnumerable<Pause> ProduceCardinalProductRecursively(IGenerateCaseDirector dir, List<INode> operands, int operandIndex)
+        private IEnumerable<Pause> ProduceCartesianProductRecursively(IGenerateCaseDirector dir, List<INode> operands, int operandIndex)
         {
             bool isLastOperand = operandIndex == operands.Count - 1;
             INode currentOperand = operands[operandIndex];
@@ -37,7 +37,7 @@ namespace NCase.Imp.Prod
                 else
                 {
                     // continue recursion
-                    foreach (var pause1 in ProduceCardinalProductRecursively(dir, operands, operandIndex + 1))
+                    foreach (var pause1 in ProduceCartesianProductRecursively(dir, operands, operandIndex + 1))
                         yield return Pause.Now;
                 }
             }
