@@ -5,6 +5,10 @@ using NDsl.Imp.Core;
 using NDsl.Imp.Core.Util;
 using NVisitor.Api.Action;
 using NVisitor.Api.ActionPair;
+using NVisitor.Api.Func;
+using NVisitor.Api.FuncPair;
+using NVisitor.Api.FuncPayload;
+using NVisitor.Api.FuncPayloadPair;
 using Module = Autofac.Module;
 
 namespace NDsl
@@ -31,6 +35,10 @@ namespace NDsl
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
             builder.RegisterGeneric(typeof(ActionVisitMapper<,>)).AsSelf().As(typeof(IActionVisitMapper<,>));
             builder.RegisterGeneric(typeof(ActionPairVisitMapper<,,>)).AsSelf().As(typeof(IActionPairVisitMapper<,,>));
+            builder.RegisterGeneric(typeof(FuncVisitMapper<,,>)).AsSelf().As(typeof(IFuncVisitMapper<,,>));
+            builder.RegisterGeneric(typeof(FuncPairVisitMapper<,,,>)).AsSelf().As(typeof(IFuncPairVisitMapper<,,,>));
+            builder.RegisterGeneric(typeof(FuncPayloadVisitMapper<,,,>)).AsSelf().As(typeof(IFuncPayloadVisitMapper<,,,>));
+            builder.RegisterGeneric(typeof(FuncPayloadPairVisitMapper<,,,,>)).AsSelf().As(typeof(IFuncPayloadPairVisitMapper<,,,,>));
         }
     }
 }

@@ -1,16 +1,10 @@
-using System;
 using System.Collections.Generic;
 using NDsl.Api.Dev.Core.Nod;
-using NVisitor.Api.Lazy;
+using NVisitor.Api.Func;
 
 namespace NCase.Api.Dev.Core.GenerateCase
 {
-    public interface IGenerateCaseDirector : ILazyDirector<INode, IGenerateCaseDirector>
+    public interface IGenerateCaseDirector : IFuncDirector<INode, IGenerateCaseDirector, IEnumerable<List<INode>>>
     {
-        // TODO MAKE Type Safer Push: accept only specific contract of nodes that can replay!
-        IDisposable Push(INode node);
-
-        // TODO MAKE Type Safer Push: accept only specific contract of nodes that can replay!
-        IEnumerable<INode> CurrentCase { get; }
     }
 }

@@ -1,33 +1,15 @@
-using System;
 using System.Collections.Generic;
 using NCase.Api.Dev.Core.GenerateCase;
 using NDsl.Api.Dev.Core.Nod;
-using NDsl.Util;
-using NVisitor.Api.Lazy;
-using NVisitor.Common.Quality;
+using NVisitor.Api.Func;
 
 namespace NCase.Imp.Core.GenerateCase
 {
-    public class GenerateCaseDirector : LazyDirector<INode, IGenerateCaseDirector>, IGenerateCaseDirector
+    public class GenerateCaseDirector : FuncDirector<INode, IGenerateCaseDirector, IEnumerable<List<INode>>>, IGenerateCaseDirector
     {
-        private readonly Stack<INode> mCurrentCase = new Stack<INode>();
-
-        public GenerateCaseDirector(IEnumerable<ILazyVisitorClass<INode, IGenerateCaseDirector>> visitors)
+        public GenerateCaseDirector(IEnumerable<IFuncVisitorClass<INode, IGenerateCaseDirector, IEnumerable<List<INode>>>> visitors)
             : base(visitors)
         {
-        }
-
-        [NotNull]
-        public IDisposable Push([NotNull] INode node)
-        {
-            mCurrentCase.Push(node);
-            return new Disposable(() => mCurrentCase.Pop());
-        }
-
-        [NotNull]
-        public IEnumerable<INode> CurrentCase
-        {
-            get { return mCurrentCase; }
         }
     }
 }

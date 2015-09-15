@@ -12,7 +12,7 @@ namespace NCase.Imp.Pairwise
         , IGenerateCaseVisitor<IRefNode<IPairwiseNode>>
         , IGenerateCaseVisitor<PairwiseDimNode>
     {
-        public IEnumerable<Pause> Visit(IGenerateCaseDirector dir, IPairwiseNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector dir, IPairwiseNode node)
         {
             List<INode> operands = node.Children.ToList();
 
@@ -21,17 +21,16 @@ namespace NCase.Imp.Pairwise
 
         }
 
-        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, IRefNode<IPairwiseNode> node)
+        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector director, IRefNode<IPairwiseNode> node)
         {
-            foreach (Pause pause in director.Visit(node.Reference))
-                yield return Pause.Now;
+            return director.Visit(node.Reference);
         }
 
-        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, PairwiseDimNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector director, PairwiseDimNode node)
         {
             foreach(var child in node.Children)
-                foreach (var pause in director.Visit(child))
-                    yield return Pause.Now;
+                foreach (List<INode> nodes in director.Visit(child))
+                    yield return nodes;
         }
     }
 }

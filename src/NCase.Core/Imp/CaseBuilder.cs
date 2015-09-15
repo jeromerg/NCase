@@ -93,19 +93,19 @@ namespace NCase.Imp
 
             // GENERATE CASES
             IGenerateCaseDirector generateCaseDirector = mCaseGeneratorFactory();
-            foreach (var pause in generateCaseDirector.Visit(mParseDirector.GetReference<INode>(caseSet, mCodeLocationUtil.GetCurrentUserCodeLocation())))
+            foreach (List<INode> testCaseNodes in generateCaseDirector.Visit(mParseDirector.GetReference<INode>(caseSet, mCodeLocationUtil.GetCurrentUserCodeLocation())))
             {
 
                 // REPLAY CASE
                 mRePlayDirector.IsReplay = true;
-                foreach (var node in generateCaseDirector.CurrentCase)
+                foreach (var node in testCaseNodes)
                     mRePlayDirector.Visit(node);
 
                 // enable caller to something after having replayed case
                 yield return Pause.Now; 
 
                 mRePlayDirector.IsReplay = false;
-                foreach (var node in generateCaseDirector.CurrentCase)
+                foreach (var node in testCaseNodes)
                     mRePlayDirector.Visit(node);
 
             } 

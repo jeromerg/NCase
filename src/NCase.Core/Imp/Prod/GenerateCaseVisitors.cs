@@ -3,7 +3,6 @@ using System.Linq;
 using NCase.Api.Dev.Core.GenerateCase;
 using NCase.Api.Dev.Prod;
 using NDsl.Api.Dev.Core.Nod;
-using NVisitor.Api.Lazy;
 
 namespace NCase.Imp.Prod
 {
@@ -12,49 +11,49 @@ namespace NCase.Imp.Prod
         , IGenerateCaseVisitor<IRefNode<IProdNode>>
         , IGenerateCaseVisitor<ProdDimNode>
     {
-        public IEnumerable<Pause> Visit(IGenerateCaseDirector dir, IProdNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector dir, IProdNode node)
         {
             List<INode> operands = node.Children.ToList();
 
             if(operands.Count == 0)
-                yield break;
-
-            foreach (var pause in ProduceCartesianProductRecursively(dir, operands, 0))
-                yield return Pause.Now;
+                return Enumerable.Empty<List<INode>>();
+            else
+                return ProduceCartesianProductRecursively(dir, operands, 0);
         }
 
-        private IEnumerable<Pause> ProduceCartesianProductRecursively(IGenerateCaseDirector dir, List<INode> operands, int operandIndex)
+        private IEnumerable<List<INode>> ProduceCartesianProductRecursively(IGenerateCaseDirector dir, 
+                                                                            List<INode> operands, 
+                                                                            int operandIndex)
         {
             bool isLastOperand = operandIndex == operands.Count - 1;
             INode currentOperand = operands[operandIndex];
 
-            foreach (var pause in dir.Visit(currentOperand))
+            foreach (List<INode> nodes in dir.Visit(currentOperand))
             {
                 if (isLastOperand)
                 {
-                    yield return Pause.Now; // end of recursion here
+                    yield return nodes; // end of recursion here
                 }
                 else
                 {
                     // continue recursion
-                    foreach (var pause1 in ProduceCartesianProductRecursively(dir, operands, operandIndex + 1))
-                        yield return Pause.Now;
+                    foreach (List<INode> subnodes in ProduceCartesianProductRecursively(dir, operands, operandIndex + 1))
+                        yield return ListUtil.Concat(nodes, subnodes);
                 }
             }
 
         }
 
-        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, IRefNode<IProdNode> node)
+        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector director, IRefNode<IProdNode> node)
         {
-            foreach (Pause pause in director.Visit(node.Reference))
-                yield return Pause.Now;
+            return director.Visit(node.Reference);
         }
 
-        public IEnumerable<Pause> Visit(IGenerateCaseDirector director, ProdDimNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector director, ProdDimNode node)
         {
-            foreach(var child in node.Children)
-                foreach (var pause in director.Visit(child))
-                    yield return Pause.Now;
+            foreach(INode child in node.Children)
+                foreach (List<INode> nodes in director.Visit(child))
+                    yield return nodes;
         }
     }
 }

@@ -78,6 +78,7 @@
     <Compile Include="Imp\Pairwise\PairwiseCaseSetFactory.cs" />
     <Compile Include="Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Imp\Pairwise\PairwiseNode.cs" />
+    <Compile Include="Imp\Helper\ListUtil.cs" />
     <Compile Include="Imp\Prod\ProdCaseSet.cs" />
     <Compile Include="Imp\Prod\DumpVisitors.cs" />
     <Compile Include="Imp\Prod\GenerateCaseVisitors.cs" />
@@ -108,30 +109,16 @@
     <Compile Include="Imp\Core\GenerateCase\GenerateCaseDirector.cs" />
     <Compile Include="Api\Dev\Core\GenerateCase\IGenerateCaseDirector.cs" />
     <Compile Include="Imp\Core\Replay\ReplayVisitors.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
       <Name>NDsl.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resource\Assembly.cpp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
