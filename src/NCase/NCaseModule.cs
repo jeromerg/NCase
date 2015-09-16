@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using NCase.Api;
 using NCase.Imp;
+using NDsl;
 
 namespace NCase
 {
@@ -11,6 +12,8 @@ namespace NCase
             base.Load(builder);
 
             // modules
+            builder.RegisterModule(new NDslCoreModule(new[] { System.Reflection.Assembly.GetExecutingAssembly() }));
+            builder.RegisterModule<NDslRecPlayModule>();
             builder.RegisterModule<NCaseCoreModule>();
             builder.RegisterModule<NCaseInterfaceRecPlayModule>(); 
             builder.RegisterModule<NCaseTreeModule>(); 

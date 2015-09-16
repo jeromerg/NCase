@@ -5,6 +5,8 @@ using NDsl.Imp.Core;
 using NDsl.Imp.Core.Util;
 using NVisitor.Api.Action;
 using NVisitor.Api.ActionPair;
+using NVisitor.Api.ActionPayload;
+using NVisitor.Api.ActionPayloadPair;
 using NVisitor.Api.Func;
 using NVisitor.Api.FuncPair;
 using NVisitor.Api.FuncPayload;
@@ -34,7 +36,9 @@ namespace NDsl
             builder.RegisterType<TokenStream>().AsImplementedInterfaces();
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
             builder.RegisterGeneric(typeof(ActionVisitMapper<,>)).AsSelf().As(typeof(IActionVisitMapper<,>));
+            builder.RegisterGeneric(typeof(ActionPayloadVisitMapper<,,>)).AsSelf().As(typeof(IActionPayloadVisitMapper<,,>));
             builder.RegisterGeneric(typeof(ActionPairVisitMapper<,,>)).AsSelf().As(typeof(IActionPairVisitMapper<,,>));
+            builder.RegisterGeneric(typeof(ActionPayloadPairVisitMapper<,,,>)).AsSelf().As(typeof(IActionPayloadPairVisitMapper<,,,>));
             builder.RegisterGeneric(typeof(FuncVisitMapper<,,>)).AsSelf().As(typeof(IFuncVisitMapper<,,>));
             builder.RegisterGeneric(typeof(FuncPairVisitMapper<,,,>)).AsSelf().As(typeof(IFuncPairVisitMapper<,,,>));
             builder.RegisterGeneric(typeof(FuncPayloadVisitMapper<,,,>)).AsSelf().As(typeof(IFuncPayloadVisitMapper<,,,>));

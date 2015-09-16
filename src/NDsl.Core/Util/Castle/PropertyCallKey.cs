@@ -84,9 +84,5 @@ namespace NDsl.Util.Castle
         }
         #endregion
 
-        public override string ToString()
-        {
-            return string.Format("PropertyName: {0}, IndexParameters: {1}", mPropertyName, mIndexParameters.Length);
-        }
     }
 }

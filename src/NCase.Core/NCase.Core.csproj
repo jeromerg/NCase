@@ -39,11 +39,11 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.59\lib\net40-Client\NGitVersion.exe</HintPath>
+      <HintPath>..\packages\NVisitor.1.1.0.60\lib\net40-Client\NGitVersion.exe</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.59, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.59\lib\net40-Client\NVisitor.dll</HintPath>
+    <Reference Include="NVisitor, Version=1.1.0.60, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.60\lib\net40-Client\NVisitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -63,13 +63,18 @@
     <Compile Include="Api\Dev\Core\Parse\IAddChildDirector.cs" />
     <Compile Include="Api\Dev\Core\Parse\IAddChildVisitor.cs" />
     <Compile Include="Api\Dev\Core\Parse\IParseVisitor.cs" />
+    <Compile Include="Api\Dev\Core\Print\IPrintDetailsVisitor.cs" />
+    <Compile Include="Api\Dev\Core\Print\IPrintDetailsDirector.cs" />
+    <Compile Include="Api\Dev\Core\Print\PrintDetailsDirector.cs" />
     <Compile Include="Api\Dev\Core\Replay\IReplayVisitor.cs" />
     <Compile Include="Api\Dev\Pairwise\IPairwiseNode.cs" />
     <Compile Include="Api\IPairwise.cs" />
     <Compile Include="Api\IProd.cs" />
     <Compile Include="Api\ITree.cs" />
     <Compile Include="Imp\Core\Parse\AddChildDirector.cs" />
+    <Compile Include="Api\ICase.cs" />
     <Compile Include="Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
+    <Compile Include="Imp\InterfaceRecPlay\PrintDetailsVisitors.cs" />
     <Compile Include="Imp\Pairwise\AddChildVisitors.cs" />
     <Compile Include="Imp\Pairwise\DumpVisitors.cs" />
     <Compile Include="Imp\Pairwise\GenerateCaseVisitors.cs" />

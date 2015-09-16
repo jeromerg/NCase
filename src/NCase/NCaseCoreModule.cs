@@ -18,10 +18,6 @@ namespace NCase
 
             builder.RegisterInstance(new ProxyGenerator());
 
-            // NDsl
-            builder.RegisterModule(new NDslCoreModule(new[] { System.Reflection.Assembly.GetExecutingAssembly() }));            
-            builder.RegisterModule<NDslRecPlayModule>();
-
             // Parser
             builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency();
             builder.RegisterType<AddChildDirector>().As<IAddChildDirector>().InstancePerDependency();
