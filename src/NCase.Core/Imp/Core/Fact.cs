@@ -2,7 +2,7 @@
 using NCase.Api.Dev.Core.Replay;
 using NDsl.Api.Dev.Core.Nod;
 
-namespace NCase.Imp.Core.Fact
+namespace NCase.Imp.Core
 {
     public class Fact : IFact
     {

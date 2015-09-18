@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\NCase.Core.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,12 +59,14 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Api\Dev\Core\CaseSet\ICaseSetFactory.cs" />
-    <Compile Include="Api\Dev\Core\Case\ICaseFactory.cs" />
-    <Compile Include="Api\Dev\Core\Fact\ICaseFactory.cs" />
-    <Compile Include="Api\Dev\Core\GenerateCase\IGenerateCaseVisitor.cs" />
+    <Compile Include="Api\CaseExtensions.cs" />
+    <Compile Include="Api\Dev\Core\ICaseSetFactory.cs" />
+    <Compile Include="Api\Dev\Core\ICaseFactory.cs" />
+    <Compile Include="Api\Dev\Core\IFactFactory.cs" />
+    <Compile Include="Api\Dev\Core\Parse\IGenerateCaseVisitor.cs" />
     <Compile Include="Api\Dev\Core\Parse\IAddChildDirector.cs" />
     <Compile Include="Api\Dev\Core\Parse\IAddChildVisitor.cs" />
+    <Compile Include="Api\Dev\Core\Parse\IParserGenerator.cs" />
     <Compile Include="Api\Dev\Core\Parse\IParseVisitor.cs" />
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsVisitor.cs" />
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsDirector.cs" />
@@ -74,12 +77,13 @@
     <Compile Include="Api\IPairwise.cs" />
     <Compile Include="Api\IProd.cs" />
     <Compile Include="Api\ITree.cs" />
-    <Compile Include="Imp\Core\Fact\Fact.cs" />
-    <Compile Include="Imp\Core\Fact\FactFactory.cs" />
-    <Compile Include="Imp\Core\Case\Case.cs" />
-    <Compile Include="Imp\Core\Case\CaseFactory.cs" />
+    <Compile Include="Imp\Core\Fact.cs" />
+    <Compile Include="Imp\Core\FactFactory.cs" />
+    <Compile Include="Imp\Core\Case.cs" />
+    <Compile Include="Imp\Core\CaseFactory.cs" />
     <Compile Include="Imp\Core\Parse\AddChildDirector.cs" />
     <Compile Include="Api\ICase.cs" />
+    <Compile Include="Imp\Core\Parse\ParserGenerator.cs" />
     <Compile Include="Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
     <Compile Include="Imp\InterfaceRecPlay\PrintDetailsVisitors.cs" />
     <Compile Include="Imp\Pairwise\AddChildVisitors.cs" />
@@ -104,22 +108,22 @@
     <Compile Include="Imp\Tree\AddChildVisitors.cs" />
     <Compile Include="Imp\Tree\ParseVisitors.cs" />
     <Compile Include="Imp\Tree\TreeCaseSet.cs" />
-    <Compile Include="Api\Dev\Core\CaseSet\ICaseSet.cs" />
+    <Compile Include="Api\Dev\Core\ICaseSet.cs" />
     <Compile Include="Imp\Prod\ProdCaseSetFactory.cs" />
     <Compile Include="Imp\Tree\TreeCaseSetFactory.cs" />
     <Compile Include="Imp\Prod\ProdNode.cs" />
-    <Compile Include="Api\Dev\Core\CaseSet\ICaseSetNode.cs" />
+    <Compile Include="Api\Dev\Core\ICaseSetNode.cs" />
     <Compile Include="Api\Dev\Prod\IProdNode.cs" />
     <Compile Include="Api\Dev\Tree\ITreeNode.cs" />
     <Compile Include="Api\Dev\Core\Replay\IReplayDirector.cs" />
     <Compile Include="Api\Dev\Core\Parse\IParseDirector.cs" />
     <Compile Include="Imp\Tree\TreeNode.cs" />
     <Compile Include="Imp\Core\Replay\ReplayDirector.cs" />
-    <Compile Include="Imp\CaseBuilder.cs" />
+    <Compile Include="Imp\Core\CaseBuilder.cs" />
     <Compile Include="Api\ICaseBuilder.cs" />
     <Compile Include="Imp\Core\Parse\ParseDirector.cs" />
-    <Compile Include="Imp\Core\GenerateCase\GenerateCaseDirector.cs" />
-    <Compile Include="Api\Dev\Core\GenerateCase\IGenerateCaseDirector.cs" />
+    <Compile Include="Imp\Core\Parse\GenerateDirector.cs" />
+    <Compile Include="Api\Dev\Core\Parse\IGenerateDirector.cs" />
     <Compile Include="Imp\Core\Replay\ReplayVisitors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

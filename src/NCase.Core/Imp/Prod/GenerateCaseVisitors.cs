@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NCase.Api.Dev.Core.GenerateCase;
+using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Prod;
 using NCase.Imp.Helper;
 using NDsl.Api.Dev.Core.Nod;
@@ -12,7 +12,7 @@ namespace NCase.Imp.Prod
         , IGenerateCaseVisitor<IRefNode<IProdNode>>
         , IGenerateCaseVisitor<ProdDimNode>
     {
-        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector dir, IProdNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateDirector dir, IProdNode node)
         {
             List<INode> operands = node.Children.ToList();
 
@@ -22,7 +22,7 @@ namespace NCase.Imp.Prod
                 return ProduceCartesianProductRecursively(dir, operands, 0);
         }
 
-        private IEnumerable<List<INode>> ProduceCartesianProductRecursively(IGenerateCaseDirector dir, 
+        private IEnumerable<List<INode>> ProduceCartesianProductRecursively(IGenerateDirector dir, 
                                                                             List<INode> operands, 
                                                                             int operandIndex)
         {
@@ -45,12 +45,12 @@ namespace NCase.Imp.Prod
 
         }
 
-        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector director, IRefNode<IProdNode> node)
+        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IRefNode<IProdNode> node)
         {
             return director.Visit(node.Reference);
         }
 
-        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector director, ProdDimNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateDirector director, ProdDimNode node)
         {
             foreach(INode child in node.Children)
                 foreach (List<INode> nodes in director.Visit(child))

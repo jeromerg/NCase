@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NCase.Api.Dev.Core.GenerateCase;
+using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Tree;
 using NCase.Imp.Helper;
 using NCase.Imp.Prod;
@@ -12,7 +12,7 @@ namespace NCase.Imp.Tree
         : IGenerateCaseVisitor<ITreeNode>
         , IGenerateCaseVisitor<IRefNode<ITreeNode>>
     {
-        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector director, ITreeNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateDirector director, ITreeNode node)
         {
             if (node.Fact != null)
             {
@@ -27,7 +27,7 @@ namespace NCase.Imp.Tree
             }
         }
 
-        private IEnumerable<List<INode>> VisitTreeNodeChildren(IGenerateCaseDirector director, ITreeNode node)
+        private IEnumerable<List<INode>> VisitTreeNodeChildren(IGenerateDirector director, ITreeNode node)
         {
             // it's a leaf, so it is also a case: 
             // then give hand to calling foreach in order to process the case
@@ -40,7 +40,7 @@ namespace NCase.Imp.Tree
 
         }
 
-        public IEnumerable<List<INode>> Visit(IGenerateCaseDirector director, IRefNode<ITreeNode> node)
+        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IRefNode<ITreeNode> node)
         {
             return director.Visit(node.Reference);
         }

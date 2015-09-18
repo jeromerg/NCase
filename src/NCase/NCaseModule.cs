@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using NCase.Api;
 using NCase.Imp;
+using NCase.Imp.Core;
 using NDsl;
 
 namespace NCase

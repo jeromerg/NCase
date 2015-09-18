@@ -1,6 +1,6 @@
 ﻿using NDsl.Api.Dev.Core;
 
-namespace NCase.Api.Dev.Core.CaseSet
+namespace NCase.Api.Dev.Core
 {
     public interface ICaseSetFactory
     {
@@ -9,6 +9,6 @@ namespace NCase.Api.Dev.Core.CaseSet
     public interface ICaseSetFactory<out T>  : ICaseSetFactory
         where T : ICaseSet
     {
-        T Create(ITokenWriter tokenWriter, string name);
+        T Create(ITokenReaderWriter tokenReaderWriter, string name);
     }
 }

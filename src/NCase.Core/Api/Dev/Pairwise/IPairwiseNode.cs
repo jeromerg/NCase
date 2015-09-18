@@ -1,4 +1,4 @@
-using NCase.Api.Dev.Core.CaseSet;
+using NCase.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Nod;
 
 namespace NCase.Api.Dev.Pairwise

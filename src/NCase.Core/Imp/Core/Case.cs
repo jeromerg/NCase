@@ -3,7 +3,7 @@ using NCase.Api;
 using NCase.Api.Dev.Core.Replay;
 using NDsl.Api.Dev.Core.Nod;
 
-namespace NCase.Imp.Core.Case
+namespace NCase.Imp.Core
 {
     public class Case : ICase
     {

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using NCase.Api;
+using NCase.Api.Dev.Core.Parse;
 using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Ex;
 using NDsl.Api.Dev.Core.Tok;
@@ -11,7 +13,8 @@ namespace NCase.Imp.Prod
     public class ProdCaseSet : IProd
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
-        [NotNull] private readonly ITokenWriter mTokenWriter;
+        [NotNull] private readonly IParserGenerator mParserGenerator;
+        [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
         [NotNull] private readonly string mCaseSetName;
 
         private bool mIsDefined;
@@ -20,15 +23,18 @@ namespace NCase.Imp.Prod
 
         /// <exception cref="ArgumentNullException">The value of 'tokenWriter'/'caseSetName' cannot be null. </exception>
         public ProdCaseSet(
-            [NotNull] ITokenWriter tokenWriter,
+            [NotNull] IParserGenerator parserGenerator,
+            [NotNull] ITokenReaderWriter tokenReaderWriter,
             [NotNull] string caseSetName,
             [NotNull] ICodeLocationUtil codeLocationUtil)
         {
-            if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
+            if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
+            if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
             if (caseSetName == null) throw new ArgumentNullException("caseSetName");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
 
-            mTokenWriter = tokenWriter;
+            mParserGenerator = parserGenerator;
+            mTokenReaderWriter = tokenReaderWriter;
             mCaseSetName = caseSetName;
             mCodeLocationUtil = codeLocationUtil;
         }
@@ -46,12 +52,17 @@ namespace NCase.Imp.Prod
 
             mIsDefined = true;
 
-            return new SemanticalBlockDisposable<ProdCaseSet>(mCodeLocationUtil, mTokenWriter, this);
+            return new SemanticalBlockDisposable<ProdCaseSet>(mCodeLocationUtil, mTokenReaderWriter, this);
         }
 
         public void Ref()
         {
-            mTokenWriter.Append(new RefToken<ProdCaseSet>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new RefToken<ProdCaseSet>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+        }
+
+        public IEnumerable<ICase> Cases
+        {
+            get { return mParserGenerator.ParseAndGenerate(this, mTokenReaderWriter); }
         }
 
     }

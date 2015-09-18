@@ -2,7 +2,6 @@
 using NCase;
 using NCase.Api;
 using NUnit.Framework;
-using NVisitor.Api.Lazy;
 
 namespace NCaseTest
 {
@@ -37,8 +36,8 @@ namespace NCaseTest
                 o.Age = 30;
             }
 
-            // Then you can iterate through the cases defined by the tree, by calling GetAllCases() 
-            IEnumerator<Pause> enumerator = caseBuilder.GetAllCases(allPersonsAllAges).GetEnumerator();
+            // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
+            IEnumerator<ICase> enumerator = allPersonsAllAges.Cases.Replay().GetEnumerator();
             
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);
@@ -117,8 +116,8 @@ namespace NCaseTest
                 ages.Ref();
             }
 
-            // Then you can iterate through the cases defined by the tree, by calling GetAllCases() 
-            IEnumerator<Pause> enumerator = caseBuilder.GetAllCases(allPersonsAllAges).GetEnumerator();
+            // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
+            IEnumerator<ICase> enumerator = allPersonsAllAges.Cases.Replay().GetEnumerator();
             
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);

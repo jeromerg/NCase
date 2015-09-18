@@ -50,7 +50,7 @@ namespace NCaseTest
 
             Console.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
             Console.WriteLine("---------|-------------|--------|---------");
-            foreach (Pause pause in builder.GetAllCases(transfers))
+            foreach (var cas in transfers.Cases.Replay())
             {
                 Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}",
                     t.Currency,
@@ -92,7 +92,7 @@ namespace NCaseTest
 
             Console.WriteLine("DEST_BANK     | CARD       ");
             Console.WriteLine("--------------|------------");
-            foreach (Pause pause in builder.GetAllCases(cardsAndBanks))
+            foreach (var cas in cardsAndBanks.Cases.Replay())
             {
                 Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
             }
@@ -157,7 +157,7 @@ namespace NCaseTest
 
             Console.WriteLine("DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
             Console.WriteLine("--------------|------------|----------|-------------|--------|---------");
-            foreach (Pause pause in builder.GetAllCases(transfersForAllcardsAndBanks))
+            foreach (var cas in transfersForAllcardsAndBanks.Cases.Replay())
             {
                 Console.WriteLine("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}",
                     t.DestBank, t.Card, t.Currency, t.BalanceUsd, t.Amount, t.Accepted);

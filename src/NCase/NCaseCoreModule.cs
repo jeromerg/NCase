@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using Castle.DynamicProxy;
-using NCase.Api.Dev.Core.GenerateCase;
+using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Core.Replay;
-using NCase.Imp.Core.GenerateCase;
+using NCase.Imp.Core;
 using NCase.Imp.Core.Parse;
 using NCase.Imp.Core.Replay;
 using NDsl;
@@ -18,12 +18,16 @@ namespace NCase
 
             builder.RegisterInstance(new ProxyGenerator());
 
+            // case and fact factory
+            builder.RegisterType<CaseFactory>().As<ICaseFactory>().InstancePerDependency();
+            builder.RegisterType<FactFactory>().As<IFactFactory>().InstancePerDependency();
+
             // Parser
+            builder.RegisterType<ParserGenerator>().As<IParserGenerator>().InstancePerDependency();
+
             builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency();
             builder.RegisterType<AddChildDirector>().As<IAddChildDirector>().InstancePerDependency();
-
-            // Generate Case Director
-            builder.RegisterType<GenerateCaseDirector>().As<IGenerateCaseDirector>().InstancePerDependency();
+            builder.RegisterType<GenerateDirector>().As<IGenerateDirector>().InstancePerDependency();
 
             // Replay Director and default visitor
             builder.RegisterType<ReplayDirector>().As<IReplayDirector>().InstancePerDependency();

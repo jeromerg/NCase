@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using NCase.Api.Dev.Core.CaseSet;
-using NVisitor.Api.Lazy;
+﻿using NCase.Api.Dev.Core;
 using NVisitor.Common.Quality;
 
 namespace NCase.Api
@@ -9,6 +7,5 @@ namespace NCase.Api
     {
         [NotNull] T CreateSet<T>([NotNull] string name) where T : ICaseSet;
         [NotNull] T GetContributor<T>([NotNull] string name);
-        [NotNull] IEnumerable<Pause> GetAllCases(ICaseSet caseSet);
     }
 }

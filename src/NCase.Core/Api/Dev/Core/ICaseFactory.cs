@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using NCase.Imp;
 using NDsl.Api.Dev.Core.Nod;
 
-namespace NCase.Api.Dev.Core.Case
+namespace NCase.Api.Dev.Core
 {
     public interface ICaseFactory
     {

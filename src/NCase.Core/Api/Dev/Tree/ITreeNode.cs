@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NCase.Api.Dev.Core.CaseSet;
+using NCase.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Nod;
 using NVisitor.Common.Quality;
 

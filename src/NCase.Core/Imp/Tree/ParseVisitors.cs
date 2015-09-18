@@ -1,4 +1,4 @@
-using NCase.Api.Dev.Core.CaseSet;
+using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Tree;
 using NDsl.Api.Dev.Core.Nod;
