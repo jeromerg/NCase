@@ -4,6 +4,5 @@ namespace NCase.Api.Dev.Core.CaseSet
 {
     public interface ICaseSetNode : INode
     {
-        //[CanBeNull] ICaseSet CaseSet { get; }
     }
 }

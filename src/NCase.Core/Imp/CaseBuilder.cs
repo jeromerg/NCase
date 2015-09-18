@@ -97,16 +97,14 @@ namespace NCase.Imp
             {
 
                 // REPLAY CASE
-                mRePlayDirector.IsReplay = true;
                 foreach (var node in testCaseNodes)
-                    mRePlayDirector.Visit(node);
+                    mRePlayDirector.Visit(node, true);
 
                 // enable caller to something after having replayed case
                 yield return Pause.Now; 
 
-                mRePlayDirector.IsReplay = false;
                 foreach (var node in testCaseNodes)
-                    mRePlayDirector.Visit(node);
+                    mRePlayDirector.Visit(node, false);
 
             } 
 

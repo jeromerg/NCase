@@ -1,6 +1,6 @@
 namespace NCase.Api
 {
-    public interface ICase
+    public interface IFact
     {
     }
 }

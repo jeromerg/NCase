@@ -1,16 +1,14 @@
 using NCase.Api.Dev.Core.Replay;
 using NDsl.Api.Dev.Core.Nod;
-using NVisitor.Api.Action;
+using NVisitor.Api.ActionPayload;
 
 namespace NCase.Imp.Core.Replay
 {
-    public class ReplayDirector : ActionDirector<INode, IReplayDirector>, IReplayDirector
+    public class ReplayDirector : ActionPayloadDirector<INode, IReplayDirector, bool>, IReplayDirector
     {
-        public ReplayDirector(IActionVisitMapper<INode, IReplayDirector> visitMapper)
+        public ReplayDirector(IActionPayloadVisitMapper<INode, IReplayDirector, bool> visitMapper)
             : base(visitMapper)
         {
         }
-
-        public bool IsReplay { get; set; }
     }
 }

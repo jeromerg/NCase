@@ -2,6 +2,7 @@
 using System.Linq;
 using NCase.Api.Dev.Core.GenerateCase;
 using NCase.Api.Dev.Tree;
+using NCase.Imp.Helper;
 using NCase.Imp.Prod;
 using NDsl.Api.Dev.Core.Nod;
 

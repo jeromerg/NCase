@@ -6,9 +6,9 @@ namespace NCase.Imp.Core.Replay
 {
     public class ReplayVisitors : IReplayVisitor<INode>
     {
-        public void Visit(IReplayDirector dir, INode node)
+        public void Visit(IReplayDirector dir, INode node, bool isReplay)
         {
-            node.Children.ForEach(c => dir.Visit(c));
+            node.Children.ForEach(c => dir.Visit(c, isReplay));
         }
     }
 }

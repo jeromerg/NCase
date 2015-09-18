@@ -7,10 +7,10 @@ namespace NCase.Imp.InterfaceRecPlay
     public class ReplayVisitors
         : IReplayVisitor<IInterfaceRecPlayNode>
     {
-        public void Visit(IReplayDirector dir, IInterfaceRecPlayNode node)
+        public void Visit(IReplayDirector dir, IInterfaceRecPlayNode node, bool isReplay)
         {
-            node.IsReplay = dir.IsReplay;
-            node.Children.ForEach(c => dir.Visit(c));
+            node.IsReplay = isReplay;
+            node.Children.ForEach(c => dir.Visit(c, isReplay));
         }
     }
 }
