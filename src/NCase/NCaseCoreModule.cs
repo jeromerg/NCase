@@ -18,6 +18,7 @@ namespace NCase
             builder.RegisterInstance(new ProxyGenerator());
 
             // case and fact factory
+            builder.RegisterType<SetFactory>().As<ISetFactory>().InstancePerDependency();
             builder.RegisterType<CaseFactory>().As<ICaseFactory>().InstancePerDependency();
             builder.RegisterType<FactFactory>().As<IFactFactory>().InstancePerDependency();
 

@@ -12,10 +12,11 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Core
 {
-    public abstract class BlockDefBase<TDef> : IBlockDefBase
+    public abstract class BlockDefBase<TDef> 
         where TDef : IDef
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+        private readonly ISetFactory mSetFactory;
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
         [NotNull] private readonly string mDefName;
@@ -24,16 +25,19 @@ namespace NCase.Imp.Core
             [NotNull] IParserGenerator parserGenerator,
             [NotNull] ITokenReaderWriter tokenReaderWriter,
             [NotNull] string defName,
-            [NotNull] ICodeLocationUtil codeLocationUtil)
+            [NotNull] ICodeLocationUtil codeLocationUtil,
+            [NotNull] ISetFactory setFactory)
         {
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
             if (defName == null) throw new ArgumentNullException("defName");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
+            if (setFactory == null) throw new ArgumentNullException("setFactory");
 
             mParserGenerator = parserGenerator;
             mTokenReaderWriter = tokenReaderWriter;
             mDefName = defName;
             mCodeLocationUtil = codeLocationUtil;
+            mSetFactory = setFactory;
         }
 
         protected DefSteps State { get; private set; }
@@ -67,9 +71,12 @@ namespace NCase.Imp.Core
             mTokenReaderWriter.Append(new RefToken<TDef>(GetDef(), mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
-        public virtual IEnumerable<ICase> Cases
+        public virtual ISet Cases
         {
-            get { return mParserGenerator.ParseAndGenerate(GetDef(), mTokenReaderWriter); }
+            get
+            {
+                return mSetFactory.Create(mParserGenerator.ParseAndGenerate(GetDef(), mTokenReaderWriter));
+            }
         }
     }
 }

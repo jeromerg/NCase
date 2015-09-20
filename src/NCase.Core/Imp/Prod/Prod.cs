@@ -1,4 +1,5 @@
 ﻿using NCase.Api;
+using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Imp.Core;
 using NDsl.Api.Dev.Core;
@@ -13,8 +14,9 @@ namespace NCase.Imp.Prod
             [NotNull] IParserGenerator parserGenerator,
             [NotNull] ITokenReaderWriter tokenReaderWriter,
             [NotNull] string caseSetName,
-            [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(parserGenerator, tokenReaderWriter, caseSetName, codeLocationUtil)
+            [NotNull] ICodeLocationUtil codeLocationUtil,
+            [NotNull] ISetFactory setFactory)
+            : base(parserGenerator, tokenReaderWriter, caseSetName, codeLocationUtil, setFactory)
         {
         }
 
