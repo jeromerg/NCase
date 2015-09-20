@@ -5,12 +5,12 @@ namespace NCase
 {
     public static class Case
     {
-        public static ICaseBuilder GetBuilder()
+        public static IBuilder CreateBuilder()
         {
             var builder = new ContainerBuilder();
             builder.RegisterModule<NCaseModule>();
             IContainer container = builder.Build();
-            return container.Resolve<ICaseBuilder>();
+            return container.Resolve<IBuilder>();
         }
     }
 }

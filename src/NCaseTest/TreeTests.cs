@@ -20,13 +20,13 @@ namespace NCaseTest
         public void Test_Properties_1Contrib()
         {
             // Create a new builder
-            var caseBuilder = Case.GetBuilder();
+            var builder = Case.CreateBuilder();
 
             // create a case contributor
-            var o = caseBuilder.GetContributor<IMyTestvalues>("o");
+            var o = builder.CreateContributor<IMyTestvalues>("o");
             
             // initialize a new case set of type ITree
-            var tree = caseBuilder.CreateSet<ITree>("Environment");
+            var tree = builder.CreateSet<ITree>("Environment");
 
             // define the content of the tree
             using (tree.Define())
@@ -94,14 +94,14 @@ namespace NCaseTest
         public void Test_Properties_2Contribs()
         {
             // Create a new builder
-            var caseBuilder = Case.GetBuilder();
+            var builder = Case.CreateBuilder();
 
             // you can use multiple contributors, contributing to the definition of cases
-            var m = caseBuilder.GetContributor<IMyTestvalues>("man");
-            var w = caseBuilder.GetContributor<IMyTestvalues>("woman");
+            var m = builder.CreateContributor<IMyTestvalues>("man");
+            var w = builder.CreateContributor<IMyTestvalues>("woman");
 
-            ITree caseSet = caseBuilder.CreateSet<ITree>("children");
-            using (caseSet.Define())
+            ITree tree = builder.CreateSet<ITree>("children");
+            using (tree.Define())
             {
                 {
                     m.Name = "Louis";
@@ -122,7 +122,7 @@ namespace NCaseTest
                     }
                 }
             }
-            IEnumerator<ICase> enumerator = caseSet.Cases.Replay().GetEnumerator();
+            IEnumerator<ICase> enumerator = tree.Cases.Replay().GetEnumerator();
 
             // case 1
             enumerator.MoveNext();
@@ -157,13 +157,13 @@ namespace NCaseTest
         public void TestTreeWithRef()
         {
             // Create a new builder
-            var caseBuilder = Case.GetBuilder();
+            var builder = Case.CreateBuilder();
 
             // create a case contributor
-            var o = caseBuilder.GetContributor<IMyTestvalues>("o");
+            var o = builder.CreateContributor<IMyTestvalues>("o");
 
             // define a first set of cases
-            var ages = caseBuilder.CreateSet<ITree>("age_set");
+            var ages = builder.CreateSet<ITree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -171,7 +171,7 @@ namespace NCaseTest
             }
 
             // transplant the first set into a second one
-            var names = caseBuilder.CreateSet<ITree>("person_set");
+            var names = builder.CreateSet<ITree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";

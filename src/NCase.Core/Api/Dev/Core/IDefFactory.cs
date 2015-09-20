@@ -2,12 +2,12 @@
 
 namespace NCase.Api.Dev.Core
 {
-    public interface ICaseSetFactory
+    public interface IDefFactory
     {
     }
 
-    public interface ICaseSetFactory<out T>  : ICaseSetFactory
-        where T : ICaseSet
+    public interface IDefFactory<out T>  : IDefFactory
+        where T : IDef
     {
         T Create(ITokenReaderWriter tokenReaderWriter, string name);
     }

@@ -25,8 +25,8 @@ namespace NCaseTest
         [Test]
         public void SimpleTreeTest()
         {
-            ICaseBuilder builder = Case.GetBuilder();
-            ITransfer t = builder.GetContributor<ITransfer>("t");
+            IBuilder builder = Case.CreateBuilder();
+            ITransfer t = builder.CreateContributor<ITransfer>("t");
 
             ITree transfers = builder.CreateSet<ITree>("transfers");
             using (transfers.Define())
@@ -75,8 +75,8 @@ namespace NCaseTest
         [Test]
         public void SimpleCartesianProductTest()
         {
-            ICaseBuilder builder = Case.GetBuilder();
-            ITransfer t = builder.GetContributor<ITransfer>("t");
+            IBuilder builder = Case.CreateBuilder();
+            ITransfer t = builder.CreateContributor<ITransfer>("t");
 
             IProd cardsAndBanks = builder.CreateSet<IProd>("cardsAndBank");
             using (cardsAndBanks.Define())
@@ -113,8 +113,8 @@ namespace NCaseTest
         [Test]
         public void ReferenceTest()
         {
-            ICaseBuilder builder = Case.GetBuilder();
-            ITransfer t = builder.GetContributor<ITransfer>("t");
+            IBuilder builder = Case.CreateBuilder();
+            ITransfer t = builder.CreateContributor<ITransfer>("t");
 
             ITree transfers = builder.CreateSet<ITree>("transfers");
             using (transfers.Define())

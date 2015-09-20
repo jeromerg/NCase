@@ -37,14 +37,14 @@ namespace NCase.Imp.Core.Parse
             mParseDirector = parseDirector;
         }
 
-        public IEnumerable<ICase> ParseAndGenerate(ICaseSet caseSet, ITokenReader tokenReader)
+        public IEnumerable<ICase> ParseAndGenerate(IDef def, ITokenReader tokenReader)
         {
             // PARSE
             foreach (var token in tokenReader.Tokens)
                 mParseDirector.Visit(token);
 
             // GENERATE CASES
-            var reference = mParseDirector.GetReference<INode>(caseSet, mCodeLocationUtil.GetCurrentUserCodeLocation());
+            var reference = mParseDirector.GetReference<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
 
             // WRAP RESULT INTO ICase
             foreach (List<INode> testCaseNodes in mCaseGenerator.Visit(reference))

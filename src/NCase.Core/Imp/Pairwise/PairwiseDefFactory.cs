@@ -8,12 +8,12 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Pairwise
 {
-    public class PairwiseCaseSetFactory : ICaseSetFactory<IPairwise>
+    public class PairwiseDefFactory : IDefFactory<IPairwise>
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-        public PairwiseCaseSetFactory([NotNull] IParserGenerator parserGenerator, [NotNull] ICodeLocationUtil codeLocationUtil)
+        public PairwiseDefFactory([NotNull] IParserGenerator parserGenerator, [NotNull] ICodeLocationUtil codeLocationUtil)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
@@ -25,7 +25,7 @@ namespace NCase.Imp.Pairwise
         {
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
             if (name == null) throw new ArgumentNullException("name");
-            return new PairwiseCaseSet(mParserGenerator, tokenReaderWriter, name, mCodeLocationUtil);
+            return new Pairwise(mParserGenerator, tokenReaderWriter, name, mCodeLocationUtil);
         }
     }
 }

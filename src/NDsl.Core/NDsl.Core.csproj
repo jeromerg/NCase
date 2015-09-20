@@ -69,7 +69,6 @@
     <Compile Include="Api\Dev\Core\ITokenReader.cs" />
     <Compile Include="Api\Dev\RecPlay\IInterfaceRecPlayNode.cs" />
     <Compile Include="Api\Dev\Core\ITokenReaderWriter.cs" />
-    <Compile Include="Api\Dev\Core\UsingBlock.cs" />
     <Compile Include="Api\Dev\Core\ILocated.cs" />
     <Compile Include="Api\Dev\Core\Tok\RefToken.cs" />
     <Compile Include="Api\Dev\Core\Tok\BeginToken.cs" />
@@ -102,7 +101,7 @@
     <Compile Include="Api\Dev\Core\Util\IStackFrameUtil.cs" />
     <Compile Include="Imp\Core\Util\CodeLocationUtil.cs" />
     <Compile Include="Imp\Core\Util\StackFrameUtil.cs" />
-    <Compile Include="Util\Disposable.cs" />
+    <Compile Include="Util\DisposableWithCallbacks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

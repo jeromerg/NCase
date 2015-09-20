@@ -7,7 +7,7 @@ using NVisitor.Common.Quality;
 namespace NCase.Imp.Prod
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>
-    public class ProdDimNode : ICaseSetNode
+    public class ProdDimNode : IDefNode
     {
         [NotNull] private readonly INode mFirstChild;
         [NotNull] private readonly List<INode> mChildren = new List<INode>();

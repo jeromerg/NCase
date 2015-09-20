@@ -5,7 +5,7 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Api.Dev.Tree
 {
-    public interface ITreeNode : ICaseSetNode
+    public interface ITreeNode : IDefNode
     {
         [CanBeNull] INode Fact { get; }
 

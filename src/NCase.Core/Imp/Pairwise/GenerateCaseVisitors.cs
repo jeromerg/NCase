@@ -10,7 +10,7 @@ namespace NCase.Imp.Pairwise
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<IPairwiseNode>
         , IGenerateCaseVisitor<IRefNode<IPairwiseNode>>
-        , IGenerateCaseVisitor<PairwiseDimNode>
+        , IGenerateCaseVisitor<IPairwiseDimNode>
     {
         public IEnumerable<List<INode>> Visit(IGenerateDirector dir, IPairwiseNode node)
         {
@@ -26,7 +26,7 @@ namespace NCase.Imp.Pairwise
             return director.Visit(node.Reference);
         }
 
-        public IEnumerable<List<INode>> Visit(IGenerateDirector director, PairwiseDimNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IPairwiseDimNode node)
         {
             foreach(var child in node.Children)
                 foreach (List<INode> nodes in director.Visit(child))

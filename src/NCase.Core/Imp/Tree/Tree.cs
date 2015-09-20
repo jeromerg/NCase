@@ -6,36 +6,36 @@ using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Ex;
 using NDsl.Api.Dev.Core.Tok;
 using NDsl.Api.Dev.Core.Util;
+using NDsl.Util;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Prod
+namespace NCase.Imp.Tree
 {
-    public class ProdCaseSet : IProd
+    public class Tree : ITree
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
-        [NotNull] private readonly string mCaseSetName;
+        [NotNull] private readonly string mDefName;
 
         private bool mIsDefined;
 
         #region Ctor and Factory
-
-        /// <exception cref="ArgumentNullException">The value of 'tokenWriter'/'caseSetName' cannot be null. </exception>
-        public ProdCaseSet(
+        
+        public Tree(
             [NotNull] IParserGenerator parserGenerator,
-            [NotNull] ITokenReaderWriter tokenReaderWriter,
-            [NotNull] string caseSetName,
-            [NotNull] ICodeLocationUtil codeLocationUtil)
+            [NotNull] ITokenReaderWriter tokenReaderWriter, 
+            [NotNull] string defName,
+            [NotNull] ICodeLocationUtil codeLocationUtil) 
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
-            if (caseSetName == null) throw new ArgumentNullException("caseSetName");
+            if (defName == null) throw new ArgumentNullException("defName");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
 
             mParserGenerator = parserGenerator;
             mTokenReaderWriter = tokenReaderWriter;
-            mCaseSetName = caseSetName;
+            mDefName = defName;
             mCodeLocationUtil = codeLocationUtil;
         }
 
@@ -47,23 +47,32 @@ namespace NCase.Imp.Prod
             if (mIsDefined)
             {
                 throw new InvalidSyntaxException(mCodeLocationUtil.GetCurrentUserCodeLocation(),
-                                                 "Case set {0} has already been defined", mCaseSetName);
+                                                 "Definition {0} has already been defined", mDefName);
             }
 
             mIsDefined = true;
 
-            return new SemanticalBlockDisposable<ProdCaseSet>(mCodeLocationUtil, mTokenReaderWriter, this);
+            return new DisposableWithCallbacks(OnBegin, OnEnd);
+        }
+
+        private void OnBegin()
+        {
+            mTokenReaderWriter.Append(new BeginToken<ITree>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+        }
+
+        private void OnEnd()
+        {
+            mTokenReaderWriter.Append(new EndToken<ITree>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
         public void Ref()
         {
-            mTokenReaderWriter.Append(new RefToken<ProdCaseSet>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new RefToken<ITree>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
         public IEnumerable<ICase> Cases
         {
             get { return mParserGenerator.ParseAndGenerate(this, mTokenReaderWriter); }
         }
-
     }
 }

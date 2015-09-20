@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NCase.Api.Dev.Core;
+using NCase.Api.Dev.Pairwise;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
@@ -7,7 +7,7 @@ using NVisitor.Common.Quality;
 namespace NCase.Imp.Pairwise
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>
-    public class PairwiseDimNode : ICaseSetNode
+    public class PairwiseDimNode : IPairwiseDimNode
     {
         [NotNull] private readonly INode mFirstChild;
         [NotNull] private readonly List<INode> mChildren = new List<INode>();

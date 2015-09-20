@@ -18,12 +18,12 @@ namespace NCaseTest
         public void Test_CartesianProduct()
         {
             // Create a new builder
-            var caseBuilder = Case.GetBuilder();
+            var builder = Case.CreateBuilder();
 
             // create a case contributor
-            var o = caseBuilder.GetContributor<IMyTestvalues>("o");
+            var o = builder.CreateContributor<IMyTestvalues>("o");
             
-            var allPersonsAllAges = caseBuilder.CreateSet<IProd>("allPersonsAllAges");
+            var allPersonsAllAges = builder.CreateSet<IProd>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {
@@ -85,13 +85,13 @@ namespace NCaseTest
         public void Test_CartesianProduct_with_ref()
         {
             // Create a new builder
-            var caseBuilder = Case.GetBuilder();
+            var builder = Case.CreateBuilder();
 
             // create a case contributor
-            var o = caseBuilder.GetContributor<IMyTestvalues>("o");
+            var o = builder.CreateContributor<IMyTestvalues>("o");
             
             // define a first set of cases
-            var names = caseBuilder.CreateSet<ITree>("person_set");
+            var names = builder.CreateSet<ITree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";
@@ -100,7 +100,7 @@ namespace NCaseTest
             }
 
             // transplant the first set into a second one
-            var ages = caseBuilder.CreateSet<ITree>("age_set");
+            var ages = builder.CreateSet<ITree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -108,7 +108,7 @@ namespace NCaseTest
                 o.Age = 30;
             }
 
-            var allPersonsAllAges = caseBuilder.CreateSet<IProd>("allPersonsAllAges");
+            var allPersonsAllAges = builder.CreateSet<IProd>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {

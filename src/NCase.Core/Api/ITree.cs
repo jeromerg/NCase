@@ -3,7 +3,7 @@ using NCase.Api.Dev.Core;
 
 namespace NCase.Api
 {
-    public interface ITree : ICaseSet
+    public interface ITree : IDef
     {
         IDisposable Define();
         void Ref();

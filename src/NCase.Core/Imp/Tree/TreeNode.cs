@@ -13,19 +13,19 @@ namespace NCase.Imp.Tree
         [NotNull] private readonly ICodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mBranches = new List<INode>();
 
-        [CanBeNull] private readonly TreeCaseSet mCaseSet;
+        [CanBeNull] private readonly ITree mDef;
         [CanBeNull] private readonly INode mFact;
 
         public TreeNode(
             [NotNull] ICodeLocation codeLocation, 
-            [CanBeNull] TreeCaseSet caseSet,
+            [CanBeNull] ITree def,
             [CanBeNull] INode fact)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
             mCodeLocation = codeLocation;
             
-            mCaseSet = caseSet;
+            mDef = def;
             mFact = fact;
 
         }
@@ -45,9 +45,9 @@ namespace NCase.Imp.Tree
             get { return mCodeLocation; }
         }
 
-        public ITree CaseSet
+        public ITree Def
         {
-            get { return mCaseSet; }
+            get { return mDef; }
         }
 
         public INode Fact

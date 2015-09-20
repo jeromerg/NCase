@@ -13,11 +13,11 @@ namespace NCase.Imp.Prod
         [NotNull] private readonly ICodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mDimensions = new List<INode>();
 
-        [CanBeNull] private readonly ProdCaseSet mProd;
+        [CanBeNull] private readonly IProd mProd;
 
         public ProdNode(
             [NotNull] ICodeLocation codeLocation, 
-            [CanBeNull] ProdCaseSet prod)
+            [CanBeNull] IProd prod)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 

@@ -13,11 +13,11 @@ namespace NCase.Imp.Pairwise
         [NotNull] private readonly ICodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mDimensions = new List<INode>();
 
-        [CanBeNull] private readonly PairwiseCaseSet mPairwise;
+        [CanBeNull] private readonly IPairwise mPairwise;
 
         public PairwiseNode(
             [NotNull] ICodeLocation codeLocation, 
-            [CanBeNull] PairwiseCaseSet pairwise)
+            [CanBeNull] IPairwise pairwise)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 

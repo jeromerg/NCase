@@ -6,14 +6,14 @@ using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Prod
+namespace NCase.Imp.Tree
 {
-    public class ProdCaseSetFactory : ICaseSetFactory<IProd>
+    public class TreeDefFactory : IDefFactory<ITree>
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-        public ProdCaseSetFactory([NotNull] IParserGenerator parserGenerator, [NotNull] ICodeLocationUtil codeLocationUtil)
+        public TreeDefFactory([NotNull] IParserGenerator parserGenerator, [NotNull] ICodeLocationUtil codeLocationUtil)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
@@ -21,11 +21,11 @@ namespace NCase.Imp.Prod
             mCodeLocationUtil = codeLocationUtil;
         }
 
-        public IProd Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
+        public ITree Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
         {
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
             if (name == null) throw new ArgumentNullException("name");
-            return new ProdCaseSet(mParserGenerator, tokenReaderWriter, name, mCodeLocationUtil);
+            return new Tree(mParserGenerator, tokenReaderWriter, name, mCodeLocationUtil);
         }
     }
 }

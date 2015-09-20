@@ -6,35 +6,36 @@ using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Ex;
 using NDsl.Api.Dev.Core.Tok;
 using NDsl.Api.Dev.Core.Util;
+using NDsl.Util;
 using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Pairwise
 {
-    public class PairwiseCaseSet : IPairwise
+    public class Pairwise : IPairwise
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
-        [NotNull] private readonly string mCaseSetName;
+        [NotNull] private readonly string mDefName;
 
         private bool mIsDefined;
 
         #region Ctor and Factory
 
-        /// <exception cref="ArgumentNullException">The value of 'tokenWriter'/'caseSetName' cannot be null. </exception>
-        public PairwiseCaseSet(
+        /// <exception cref="ArgumentNullException">The value of 'tokenWriter'/'defName' cannot be null. </exception>
+        public Pairwise(
             [NotNull] IParserGenerator parserGenerator,
             [NotNull] ITokenReaderWriter tokenReaderWriter,
-            [NotNull] string caseSetName,
+            [NotNull] string defName,
             [NotNull] ICodeLocationUtil codeLocationUtil)
         {
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
-            if (caseSetName == null) throw new ArgumentNullException("caseSetName");
+            if (defName == null) throw new ArgumentNullException("defName");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
 
             mParserGenerator = parserGenerator;
             mTokenReaderWriter = tokenReaderWriter;
-            mCaseSetName = caseSetName;
+            mDefName = defName;
             mCodeLocationUtil = codeLocationUtil;
         }
 
@@ -46,17 +47,27 @@ namespace NCase.Imp.Pairwise
             if (mIsDefined)
             {
                 throw new InvalidSyntaxException(mCodeLocationUtil.GetCurrentUserCodeLocation(),
-                                                 "Case set {0} has already been defined", mCaseSetName);
+                                                 "Case set {0} has already been defined", mDefName);
             }
 
             mIsDefined = true;
 
-            return new SemanticalBlockDisposable<PairwiseCaseSet>(mCodeLocationUtil, mTokenReaderWriter, this);
+            return new DisposableWithCallbacks(OnBegin, OnEnd);
+        }
+
+        private void OnBegin()
+        {
+            mTokenReaderWriter.Append(new BeginToken<IPairwise>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+        }
+
+        private void OnEnd()
+        {
+            mTokenReaderWriter.Append(new EndToken<IPairwise>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
         public void Ref()
         {
-            mTokenReaderWriter.Append(new RefToken<PairwiseCaseSet>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new RefToken<IPairwise>(this, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
         public IEnumerable<ICase> Cases

@@ -5,6 +5,6 @@ namespace NCase.Api.Dev.Core.Parse
 {
     public interface IParserGenerator
     {
-        IEnumerable<ICase> ParseAndGenerate(ICaseSet caseSet, ITokenReader tokenReader);
+        IEnumerable<ICase> ParseAndGenerate(IDef def, ITokenReader tokenReader);
     }
 }

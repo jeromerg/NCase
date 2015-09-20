@@ -60,7 +60,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Api\CaseExtensions.cs" />
-    <Compile Include="Api\Dev\Core\ICaseSetFactory.cs" />
+    <Compile Include="Api\Dev\Core\IDefFactory.cs" />
     <Compile Include="Api\Dev\Core\ICaseFactory.cs" />
     <Compile Include="Api\Dev\Core\IFactFactory.cs" />
     <Compile Include="Api\Dev\Core\Parse\IGenerateCaseVisitor.cs" />
@@ -72,6 +72,7 @@
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsDirector.cs" />
     <Compile Include="Api\Dev\Core\Print\PrintDetailsDirector.cs" />
     <Compile Include="Api\Dev\Core\Replay\IReplayVisitor.cs" />
+    <Compile Include="Api\Dev\Pairwise\IPairwiseDimNode.cs" />
     <Compile Include="Api\Dev\Pairwise\IPairwiseNode.cs" />
     <Compile Include="Api\IFact.cs" />
     <Compile Include="Api\IPairwise.cs" />
@@ -90,12 +91,12 @@
     <Compile Include="Imp\Pairwise\DumpVisitors.cs" />
     <Compile Include="Imp\Pairwise\GenerateCaseVisitors.cs" />
     <Compile Include="Imp\Pairwise\ParseVisitors.cs" />
-    <Compile Include="Imp\Pairwise\PairwiseCaseSet.cs" />
-    <Compile Include="Imp\Pairwise\PairwiseCaseSetFactory.cs" />
+    <Compile Include="Imp\Pairwise\Pairwise.cs" />
+    <Compile Include="Imp\Pairwise\PairwiseDefFactory.cs" />
     <Compile Include="Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Imp\Pairwise\PairwiseNode.cs" />
     <Compile Include="Imp\Helper\ListUtil.cs" />
-    <Compile Include="Imp\Prod\ProdCaseSet.cs" />
+    <Compile Include="Imp\Prod\Prod.cs" />
     <Compile Include="Imp\Prod\DumpVisitors.cs" />
     <Compile Include="Imp\Prod\GenerateCaseVisitors.cs" />
     <Compile Include="Imp\Prod\ParseVisitors.cs" />
@@ -107,20 +108,20 @@
     <Compile Include="Imp\Tree\GenerateCaseVisitors.cs" />
     <Compile Include="Imp\Tree\AddChildVisitors.cs" />
     <Compile Include="Imp\Tree\ParseVisitors.cs" />
-    <Compile Include="Imp\Tree\TreeCaseSet.cs" />
-    <Compile Include="Api\Dev\Core\ICaseSet.cs" />
-    <Compile Include="Imp\Prod\ProdCaseSetFactory.cs" />
-    <Compile Include="Imp\Tree\TreeCaseSetFactory.cs" />
+    <Compile Include="Imp\Tree\Tree.cs" />
+    <Compile Include="Api\Dev\Core\IDef.cs" />
+    <Compile Include="Imp\Prod\ProdDefFactory.cs" />
+    <Compile Include="Imp\Tree\TreeDefFactory.cs" />
     <Compile Include="Imp\Prod\ProdNode.cs" />
-    <Compile Include="Api\Dev\Core\ICaseSetNode.cs" />
+    <Compile Include="Api\Dev\Core\IDefNode.cs" />
     <Compile Include="Api\Dev\Prod\IProdNode.cs" />
     <Compile Include="Api\Dev\Tree\ITreeNode.cs" />
     <Compile Include="Api\Dev\Core\Replay\IReplayDirector.cs" />
     <Compile Include="Api\Dev\Core\Parse\IParseDirector.cs" />
     <Compile Include="Imp\Tree\TreeNode.cs" />
     <Compile Include="Imp\Core\Replay\ReplayDirector.cs" />
-    <Compile Include="Imp\Core\CaseBuilder.cs" />
-    <Compile Include="Api\ICaseBuilder.cs" />
+    <Compile Include="Imp\Core\Builder.cs" />
+    <Compile Include="Api\IBuilder.cs" />
     <Compile Include="Imp\Core\Parse\ParseDirector.cs" />
     <Compile Include="Imp\Core\Parse\GenerateDirector.cs" />
     <Compile Include="Api\Dev\Core\Parse\IGenerateDirector.cs" />

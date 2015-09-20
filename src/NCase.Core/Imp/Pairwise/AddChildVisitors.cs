@@ -19,7 +19,7 @@ namespace NCase.Imp.Pairwise
         {
             INode lastSet = parent.Children.LastOrDefault();
 
-            var lastPairwiseDimNode = lastSet as PairwiseDimNode;
+            var lastPairwiseDimNode = lastSet as IPairwiseDimNode;
             if (lastPairwiseDimNode == null)
             {
                 parent.AddChild(new PairwiseDimNode(child));

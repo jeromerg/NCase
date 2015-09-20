@@ -21,7 +21,7 @@ namespace NCase
             builder.RegisterModule<NCaseProdModule>(); 
                        
             // case builder 
-            builder.RegisterType<CaseBuilder>().As<ICaseBuilder>().InstancePerDependency();
+            builder.RegisterType<Builder>().As<IBuilder>().InstancePerDependency();
         }
     }
 }
