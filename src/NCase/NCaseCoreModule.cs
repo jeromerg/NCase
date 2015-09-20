@@ -6,7 +6,6 @@ using NCase.Api.Dev.Core.Replay;
 using NCase.Imp.Core;
 using NCase.Imp.Core.Parse;
 using NCase.Imp.Core.Replay;
-using NDsl;
 
 namespace NCase
 {

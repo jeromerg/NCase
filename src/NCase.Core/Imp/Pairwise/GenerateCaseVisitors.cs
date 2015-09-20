@@ -3,7 +3,6 @@ using System.Linq;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Pairwise;
 using NDsl.Api.Dev.Core.Nod;
-using NVisitor.Api.Lazy;
 
 namespace NCase.Imp.Pairwise
 {

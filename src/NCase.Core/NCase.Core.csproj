@@ -62,6 +62,7 @@
     <Compile Include="Api\CaseExtensions.cs" />
     <Compile Include="Api\Dev\Core\IDefFactory.cs" />
     <Compile Include="Api\Dev\Core\ICaseFactory.cs" />
+    <Compile Include="Api\Dev\Core\IBlockDefBase.cs" />
     <Compile Include="Api\Dev\Core\IFactFactory.cs" />
     <Compile Include="Api\Dev\Core\Parse\IGenerateCaseVisitor.cs" />
     <Compile Include="Api\Dev\Core\Parse\IAddChildDirector.cs" />
@@ -78,6 +79,8 @@
     <Compile Include="Api\IPairwise.cs" />
     <Compile Include="Api\IProd.cs" />
     <Compile Include="Api\ITree.cs" />
+    <Compile Include="Imp\Core\BlockDefBase.cs" />
+    <Compile Include="Imp\Core\DefSteps.cs" />
     <Compile Include="Imp\Core\Fact.cs" />
     <Compile Include="Imp\Core\FactFactory.cs" />
     <Compile Include="Imp\Core\Case.cs" />

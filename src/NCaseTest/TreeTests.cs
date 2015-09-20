@@ -2,7 +2,6 @@
 using NCase;
 using NCase.Api;
 using NUnit.Framework;
-using NVisitor.Api.Lazy;
 
 namespace NCaseTest
 {
