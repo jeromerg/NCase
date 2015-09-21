@@ -6,6 +6,5 @@ namespace NCase.Api.Dev.Core.Print
 {
     public interface IPrintDetailsDirector : IActionPayloadDirector<INode, IPrintDetailsDirector, StringBuilder>
     {
-        
     }
 }

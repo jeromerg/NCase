@@ -9,18 +9,20 @@ namespace NCase.Imp.InterfaceRecPlay
     {
         public void Visit(IPrintDetailsDirector dir, IInterfaceRecPlayNode node, StringBuilder sb)
         {
-            sb.AppendFormat("{0}\n  {1}.{2}={3}", 
-                node.CodeLocation.GetUserCodeInfo(), 
-                node.ContributorName,
-                Reconstitute(node.PropertyCallKey),
-                node.PropertyValue);
+            sb.AppendFormat("{0}\n  {1}.{2}={3}",
+                            node.CodeLocation.GetUserCodeInfo(),
+                            node.ContributorName,
+                            Reconstitute(node.PropertyCallKey),
+                            node.PropertyValue);
         }
 
         private string Reconstitute(PropertyCallKey propertyCallKey)
         {
             return propertyCallKey.IndexParameters.Length == 0
-                        ? propertyCallKey.PropertyName
-                        : string.Format("{0}[{1}]", propertyCallKey.PropertyName, string.Join(", ", propertyCallKey.IndexParameters));
+                       ? propertyCallKey.PropertyName
+                       : string.Format("{0}[{1}]",
+                                       propertyCallKey.PropertyName,
+                                       string.Join(", ", propertyCallKey.IndexParameters));
         }
     }
 }

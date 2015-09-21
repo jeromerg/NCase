@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using NCase.Api;
 using NCase.Api.Dev.Tree;
 using NCase.Api.Pub;
 using NDsl.Api.Dev.Core.Nod;
@@ -18,17 +17,21 @@ namespace NCase.Imp.Tree
         [CanBeNull] private readonly INode mFact;
 
         public TreeNode(
-            [NotNull] ICodeLocation codeLocation, 
+            [NotNull] ICodeLocation codeLocation,
             [CanBeNull] ITree def,
             [CanBeNull] INode fact)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
             mCodeLocation = codeLocation;
-            
+
             mDef = def;
             mFact = fact;
+        }
 
+        public ITree Def
+        {
+            get { return mDef; }
         }
 
         public IEnumerable<INode> Children
@@ -36,7 +39,7 @@ namespace NCase.Imp.Tree
             get
             {
                 yield return mFact;
-                foreach (var caseBranchNode in Branches)
+                foreach (INode caseBranchNode in Branches)
                     yield return caseBranchNode;
             }
         }
@@ -44,11 +47,6 @@ namespace NCase.Imp.Tree
         public ICodeLocation CodeLocation
         {
             get { return mCodeLocation; }
-        }
-
-        public ITree Def
-        {
-            get { return mDef; }
         }
 
         public INode Fact

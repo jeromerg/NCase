@@ -8,22 +8,34 @@ using NDsl.Api.Dev.Core.Nod;
 namespace NCase.Imp.Prod
 {
     public class GenerateCaseVisitors
-        : IGenerateCaseVisitor<IProdNode>
-        , IGenerateCaseVisitor<IRefNode<IProdNode>>
-        , IGenerateCaseVisitor<ProdDimNode>
+        : IGenerateCaseVisitor<IProdNode>,
+          IGenerateCaseVisitor<IRefNode<IProdNode>>,
+          IGenerateCaseVisitor<ProdDimNode>
     {
         public IEnumerable<List<INode>> Visit(IGenerateDirector dir, IProdNode node)
         {
             List<INode> operands = node.Children.ToList();
 
-            if(operands.Count == 0)
+            if (operands.Count == 0)
                 return Enumerable.Empty<List<INode>>();
             else
                 return ProduceCartesianProductRecursively(dir, operands, 0);
         }
 
-        private IEnumerable<List<INode>> ProduceCartesianProductRecursively(IGenerateDirector dir, 
-                                                                            List<INode> operands, 
+        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IRefNode<IProdNode> node)
+        {
+            return director.Visit(node.Reference);
+        }
+
+        public IEnumerable<List<INode>> Visit(IGenerateDirector director, ProdDimNode node)
+        {
+            foreach (INode child in node.Children)
+                foreach (List<INode> nodes in director.Visit(child))
+                    yield return nodes;
+        }
+
+        private IEnumerable<List<INode>> ProduceCartesianProductRecursively(IGenerateDirector dir,
+                                                                            List<INode> operands,
                                                                             int operandIndex)
         {
             bool isLastOperand = operandIndex == operands.Count - 1;
@@ -42,19 +54,6 @@ namespace NCase.Imp.Prod
                         yield return ListUtil.Concat(nodes, subnodes);
                 }
             }
-
-        }
-
-        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IRefNode<IProdNode> node)
-        {
-            return director.Visit(node.Reference);
-        }
-
-        public IEnumerable<List<INode>> Visit(IGenerateDirector director, ProdDimNode node)
-        {
-            foreach(INode child in node.Children)
-                foreach (List<INode> nodes in director.Visit(child))
-                    yield return nodes;
         }
     }
 }

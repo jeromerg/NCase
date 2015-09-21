@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NCase.Api;
 using NCase.Api.Dev.Core.Replay;
 using NCase.Api.Pub;
 using NDsl.Api.Dev.Core.Nod;
@@ -19,7 +18,7 @@ namespace NCase.Imp.Core
 
         public void Replay(bool isReplay)
         {
-            foreach (var factNode in mFactNodes)
+            foreach (INode factNode in mFactNodes)
                 mReplayDirector.Visit(factNode, isReplay);
         }
     }

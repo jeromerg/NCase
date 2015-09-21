@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using NCase.Api;
 using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Core.Replay;
 using NCase.Api.Pub;
 using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Nod;
+using NDsl.Api.Dev.Core.Tok;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
@@ -41,7 +41,7 @@ namespace NCase.Imp.Core.Parse
         public IEnumerable<ICase> ParseAndGenerate(IDef def, ITokenReader tokenReader)
         {
             // PARSE
-            foreach (var token in tokenReader.Tokens)
+            foreach (IToken token in tokenReader.Tokens)
                 mParseDirector.Visit(token);
 
             // GENERATE CASES
@@ -51,6 +51,5 @@ namespace NCase.Imp.Core.Parse
             foreach (List<INode> testCaseNodes in mCaseGenerator.Visit(reference))
                 yield return mCaseFactory.Create(testCaseNodes);
         }
-
     }
 }

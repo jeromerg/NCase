@@ -7,14 +7,9 @@ using NDsl.Api.Dev.RecPlay;
 namespace NCase.Imp.Prod
 {
     public class AddChildVisitors
-        : IAddChildVisitor<IProdNode, INode>
-        , IAddChildVisitor<IProdNode, IInterfaceRecPlayNode>
+        : IAddChildVisitor<IProdNode, INode>,
+          IAddChildVisitor<IProdNode, IInterfaceRecPlayNode>
     {
-        public void Visit(IAddChildDirector dir, IProdNode parent, INode child)
-        {
-            parent.AddChild(child);
-        }
-
         public void Visit(IAddChildDirector dir, IProdNode parent, IInterfaceRecPlayNode child)
         {
             INode lastSet = parent.Children.LastOrDefault();
@@ -40,6 +35,11 @@ namespace NCase.Imp.Prod
             }
 
             lastProdDimNode.PlaceNextValue(child);
+        }
+
+        public void Visit(IAddChildDirector dir, IProdNode parent, INode child)
+        {
+            parent.AddChild(child);
         }
     }
 }

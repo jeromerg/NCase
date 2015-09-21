@@ -15,7 +15,7 @@ namespace NCase.Imp.Core.Parse
         private readonly Dictionary<object, INode> mReferences = new Dictionary<object, INode>();
         [CanBeNull] private INode mCurrentScope;
 
-        public ParseDirector(IActionVisitMapper<IToken, IParseDirector> visitMapper, IAddChildDirector addChildDirector) 
+        public ParseDirector(IActionVisitMapper<IToken, IParseDirector> visitMapper, IAddChildDirector addChildDirector)
             : base(visitMapper)
         {
             mAddChildDirector = addChildDirector;
@@ -36,9 +36,10 @@ namespace NCase.Imp.Core.Parse
 
             if (!(referencedNode is TNod))
             {
-                throw new InvalidSyntaxException(location, 
-                                                "Referenced Node {0} expected to be assignable to {1}", 
-                                                reference.GetType().FullName, typeof(TNod).FullName);
+                throw new InvalidSyntaxException(location,
+                                                 "Referenced Node {0} expected to be assignable to {1}",
+                                                 reference.GetType().FullName,
+                                                 typeof (TNod).FullName);
             }
             return (TNod) referencedNode;
         }
@@ -57,6 +58,5 @@ namespace NCase.Imp.Core.Parse
         {
             mAddChildDirector.Visit(mCurrentScope, childNode);
         }
-
     }
 }

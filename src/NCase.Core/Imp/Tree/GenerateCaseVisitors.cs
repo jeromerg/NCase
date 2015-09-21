@@ -8,9 +8,14 @@ using NDsl.Api.Dev.Core.Nod;
 namespace NCase.Imp.Tree
 {
     public class GenerateCaseVisitors
-        : IGenerateCaseVisitor<ITreeNode>
-        , IGenerateCaseVisitor<IRefNode<ITreeNode>>
+        : IGenerateCaseVisitor<ITreeNode>,
+          IGenerateCaseVisitor<IRefNode<ITreeNode>>
     {
+        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IRefNode<ITreeNode> node)
+        {
+            return director.Visit(node.Reference);
+        }
+
         public IEnumerable<List<INode>> Visit(IGenerateDirector director, ITreeNode node)
         {
             if (node.Fact != null)
@@ -36,13 +41,6 @@ namespace NCase.Imp.Tree
                 foreach (INode branch in node.Branches)
                     foreach (List<INode> nodes in director.Visit(branch))
                         yield return nodes;
-
         }
-
-        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IRefNode<ITreeNode> node)
-        {
-            return director.Visit(node.Reference);
-        }
-
     }
 }

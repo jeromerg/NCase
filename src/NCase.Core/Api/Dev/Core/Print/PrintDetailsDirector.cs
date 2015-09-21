@@ -6,7 +6,7 @@ namespace NCase.Api.Dev.Core.Print
 {
     public class PrintDetailsDirector : ActionPayloadDirector<INode, IPrintDetailsDirector, StringBuilder>
     {
-        public PrintDetailsDirector(IActionPayloadVisitMapper<INode, IPrintDetailsDirector, StringBuilder> visitMapper) 
+        public PrintDetailsDirector(IActionPayloadVisitMapper<INode, IPrintDetailsDirector, StringBuilder> visitMapper)
             : base(visitMapper)
         {
         }

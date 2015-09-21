@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NCase.Api;
 using NCase.Api.Dev.Core;
 using NCase.Api.Pub;
 using NDsl.Api.Dev.Core;
@@ -30,17 +29,6 @@ namespace NCase.Imp.Core
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
         }
 
-        private Type GetDefType(IDefFactory defFactory)
-        {
-            Type factoryType = defFactory.GetType();
-            Type defType = factoryType
-                .GetInterfaces()
-                .First(interf => interf.GetGenericTypeDefinition() == typeof (IDefFactory<>))
-                .GetGenericArguments()[0];
-
-            return defType;
-        }
-
         public T CreateContributor<T>(string name)
         {
             if (name == null) throw new ArgumentNullException("name");
@@ -53,14 +41,26 @@ namespace NCase.Imp.Core
             if (name == null) throw new ArgumentNullException("name");
 
             IDefFactory defFactory;
-            if(!mDefFactories.TryGetValue(typeof(T), out defFactory))
-                throw new ArgumentException(string.Format(@"No factory found for case set type {0}", typeof(T).Name));
+            if (!mDefFactories.TryGetValue(typeof (T), out defFactory))
+                throw new ArgumentException(string.Format(@"No factory found for case set type {0}", typeof (T).Name));
 
             var genericDefFactory = defFactory as IDefFactory<IDef>;
-            if(genericDefFactory == null)
-                throw new ArgumentException(string.Format(@"Factory for case set type {0} does not implement IDefFactory<{0}>", typeof(T).Name));
+            if (genericDefFactory == null)
+                throw new ArgumentException(string.Format(@"Factory for case set type {0} does not implement IDefFactory<{0}>",
+                                                          typeof (T).Name));
 
             return (T) genericDefFactory.Create(mTokenStream, name);
+        }
+
+        private Type GetDefType(IDefFactory defFactory)
+        {
+            Type factoryType = defFactory.GetType();
+            Type defType = factoryType
+                .GetInterfaces()
+                .First(interf => interf.GetGenericTypeDefinition() == typeof (IDefFactory<>))
+                .GetGenericArguments()[0];
+
+            return defType;
         }
     }
 }

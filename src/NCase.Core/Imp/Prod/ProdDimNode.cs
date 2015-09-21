@@ -17,15 +17,14 @@ namespace NCase.Imp.Prod
             mFirstChild = firstChild;
         }
 
+        [NotNull] public INode FirstChild
+        {
+            get { return mFirstChild; }
+        }
+
         public ICodeLocation CodeLocation
         {
             get { return mFirstChild.CodeLocation; }
-        }
-
-        [NotNull] 
-        public INode FirstChild
-        {
-            get { return mFirstChild; }
         }
 
         public IEnumerable<INode> Children
@@ -33,7 +32,7 @@ namespace NCase.Imp.Prod
             get
             {
                 yield return mFirstChild;
-                foreach (var child in mChildren)
+                foreach (INode child in mChildren)
                     yield return child;
             }
         }

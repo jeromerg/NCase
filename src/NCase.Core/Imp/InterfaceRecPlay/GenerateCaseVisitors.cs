@@ -10,7 +10,7 @@ namespace NCase.Imp.InterfaceRecPlay
     {
         public IEnumerable<List<INode>> Visit(IGenerateDirector director, IInterfaceRecPlayNode node)
         {
-            yield return new List<INode> { node };
+            yield return new List<INode> {node};
         }
     }
 }

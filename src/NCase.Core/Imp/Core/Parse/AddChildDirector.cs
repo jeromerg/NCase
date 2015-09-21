@@ -6,7 +6,7 @@ namespace NCase.Imp.Core.Parse
 {
     public class AddChildDirector : ActionPairDirector<INode, INode, IAddChildDirector>, IAddChildDirector
     {
-        public AddChildDirector(IActionPairVisitMapper<INode, INode, IAddChildDirector> visitMapper) 
+        public AddChildDirector(IActionPairVisitMapper<INode, INode, IAddChildDirector> visitMapper)
             : base(visitMapper)
         {
         }

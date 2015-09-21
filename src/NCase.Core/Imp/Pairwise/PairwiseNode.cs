@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using NCase.Api;
 using NCase.Api.Dev.Pairwise;
 using NCase.Api.Pub;
 using NDsl.Api.Dev.Core.Nod;
@@ -17,14 +16,19 @@ namespace NCase.Imp.Pairwise
         [CanBeNull] private readonly IPairwise mPairwise;
 
         public PairwiseNode(
-            [NotNull] ICodeLocation codeLocation, 
+            [NotNull] ICodeLocation codeLocation,
             [CanBeNull] IPairwise pairwise)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
             mCodeLocation = codeLocation;
-            
+
             mPairwise = pairwise;
+        }
+
+        public IPairwise CaseSet
+        {
+            get { return mPairwise; }
         }
 
         public IEnumerable<INode> Children
@@ -40,11 +44,6 @@ namespace NCase.Imp.Pairwise
         public ICodeLocation CodeLocation
         {
             get { return mCodeLocation; }
-        }
-
-        public IPairwise CaseSet
-        {
-            get { return mPairwise; }
         }
     }
 }

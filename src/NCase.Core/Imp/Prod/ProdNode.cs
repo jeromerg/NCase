@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using NCase.Api;
 using NCase.Api.Dev.Prod;
 using NCase.Api.Pub;
 using NDsl.Api.Dev.Core.Nod;
@@ -17,14 +16,19 @@ namespace NCase.Imp.Prod
         [CanBeNull] private readonly IProd mProd;
 
         public ProdNode(
-            [NotNull] ICodeLocation codeLocation, 
+            [NotNull] ICodeLocation codeLocation,
             [CanBeNull] IProd prod)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
             mCodeLocation = codeLocation;
-            
+
             mProd = prod;
+        }
+
+        public IProd CaseSet
+        {
+            get { return mProd; }
         }
 
         public IEnumerable<INode> Children
@@ -40,11 +44,6 @@ namespace NCase.Imp.Prod
         public ICodeLocation CodeLocation
         {
             get { return mCodeLocation; }
-        }
-
-        public IProd CaseSet
-        {
-            get { return mProd; }
         }
     }
 }

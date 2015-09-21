@@ -7,14 +7,9 @@ using NDsl.Api.Dev.RecPlay;
 namespace NCase.Imp.Pairwise
 {
     public class AddChildVisitors
-        : IAddChildVisitor<IPairwiseNode, INode>
-        , IAddChildVisitor<IPairwiseNode, IInterfaceRecPlayNode>
+        : IAddChildVisitor<IPairwiseNode, INode>,
+          IAddChildVisitor<IPairwiseNode, IInterfaceRecPlayNode>
     {
-        public void Visit(IAddChildDirector dir, IPairwiseNode parent, INode child)
-        {
-            parent.AddChild(child);
-        }
-
         public void Visit(IAddChildDirector dir, IPairwiseNode parent, IInterfaceRecPlayNode child)
         {
             INode lastSet = parent.Children.LastOrDefault();
@@ -40,6 +35,11 @@ namespace NCase.Imp.Pairwise
             }
 
             lastPairwiseDimNode.PlaceNextValue(child);
+        }
+
+        public void Visit(IAddChildDirector dir, IPairwiseNode parent, INode child)
+        {
+            parent.AddChild(child);
         }
     }
 }

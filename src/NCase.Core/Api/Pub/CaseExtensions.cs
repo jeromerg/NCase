@@ -12,6 +12,6 @@ namespace NCase.Api.Pub
                 yield return cas;
                 cas.Replay(false);
             }
-        } 
+        }
     }
 }

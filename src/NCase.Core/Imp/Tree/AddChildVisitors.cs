@@ -9,24 +9,13 @@ using NDsl.Api.Dev.RecPlay;
 namespace NCase.Imp.Tree
 {
     public class AddChildVisitors
-        : IAddChildVisitor<ITreeNode, INode>
-        , IAddChildVisitor<ITreeNode, IInterfaceRecPlayNode>
+        : IAddChildVisitor<ITreeNode, INode>,
+          IAddChildVisitor<ITreeNode, IInterfaceRecPlayNode>
     {
-        public void Visit(IAddChildDirector dir, ITreeNode parent, INode child)
-        {
-            INode nextBranch = parent.Branches.LastOrDefault();
-
-            if (nextBranch == null)
-                parent.AddTreeBranch(child);
-            else
-                dir.Visit(nextBranch, child);
-
-        }
-
         public void Visit(IAddChildDirector dir, ITreeNode parent, IInterfaceRecPlayNode child)
         {
             ICodeLocation codeLocation = child.CodeLocation;
-            TreeNode nodeToAdd = new TreeNode(codeLocation, null, child);
+            var nodeToAdd = new TreeNode(codeLocation, null, child);
 
             INode nextBranch = parent.Branches.LastOrDefault();
 
@@ -36,11 +25,11 @@ namespace NCase.Imp.Tree
                 return;
             }
 
-            ITreeNode nextTreeNode = nextBranch as ITreeNode;
+            var nextTreeNode = nextBranch as ITreeNode;
             if (nextTreeNode == null)
             {
                 throw new InvalidSyntaxException(codeLocation,
-                    "Last branch is an end branch and therefore cannot accept any child");
+                                                 "Last branch is an end branch and therefore cannot accept any child");
             }
 
             var nextInterfaceRecPlayNode = nextTreeNode.Fact as IInterfaceRecPlayNode;
@@ -53,7 +42,17 @@ namespace NCase.Imp.Tree
             }
 
             // ok keys are different, recurse
-            dir.Visit(nextTreeNode, child);            
+            dir.Visit(nextTreeNode, child);
+        }
+
+        public void Visit(IAddChildDirector dir, ITreeNode parent, INode child)
+        {
+            INode nextBranch = parent.Branches.LastOrDefault();
+
+            if (nextBranch == null)
+                parent.AddTreeBranch(child);
+            else
+                dir.Visit(nextBranch, child);
         }
     }
 }

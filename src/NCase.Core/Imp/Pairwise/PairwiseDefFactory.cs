@@ -1,5 +1,4 @@
 ﻿using System;
-using NCase.Api;
 using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Pub;
@@ -15,8 +14,9 @@ namespace NCase.Imp.Pairwise
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         private readonly ISetFactory mSetFactory;
 
-        public PairwiseDefFactory([NotNull] IParserGenerator parserGenerator, [NotNull] ICodeLocationUtil codeLocationUtil,
-            [NotNull] ISetFactory setFactory)
+        public PairwiseDefFactory([NotNull] IParserGenerator parserGenerator,
+                                  [NotNull] ICodeLocationUtil codeLocationUtil,
+                                  [NotNull] ISetFactory setFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");

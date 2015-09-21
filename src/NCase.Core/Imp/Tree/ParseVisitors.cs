@@ -1,4 +1,3 @@
-using NCase.Api;
 using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Tree;
@@ -10,14 +9,14 @@ using NDsl.Api.Dev.Core.Util;
 namespace NCase.Imp.Tree
 {
     public class ParseVisitors
-        : IParseVisitor<BeginToken<ITree>>
-        , IParseVisitor<EndToken<ITree>>
-        , IParseVisitor<RefToken<ITree>>
+        : IParseVisitor<BeginToken<ITree>>,
+          IParseVisitor<EndToken<ITree>>,
+          IParseVisitor<RefToken<ITree>>
     {
         public void Visit(IParseDirector dir, BeginToken<ITree> token)
         {
             var newCaseSetNode = new TreeNode(token.CodeLocation, token.Owner, null);
-            
+
             dir.AddReference(token.Owner, newCaseSetNode);
             dir.PushScope(newCaseSetNode);
         }

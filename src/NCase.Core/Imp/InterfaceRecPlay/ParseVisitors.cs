@@ -20,7 +20,7 @@ namespace NCase.Imp.InterfaceRecPlay
             if (setterCallKey == null)
             {
                 throw new InvalidSyntaxException(token.CodeLocation,
-                    "While definining test cases, you can only call property setters on interface contributors");
+                                                 "While definining test cases, you can only call property setters on interface contributors");
             }
 
             object argumentValue = invocation.GetArgumentValue(invocation.Arguments.Length - 1);

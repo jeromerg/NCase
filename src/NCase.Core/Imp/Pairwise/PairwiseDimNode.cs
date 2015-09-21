@@ -22,8 +22,7 @@ namespace NCase.Imp.Pairwise
             get { return mFirstChild.CodeLocation; }
         }
 
-        [NotNull] 
-        public INode FirstChild
+        [NotNull] public INode FirstChild
         {
             get { return mFirstChild; }
         }
@@ -33,7 +32,7 @@ namespace NCase.Imp.Pairwise
             get
             {
                 yield return mFirstChild;
-                foreach (var child in mChildren)
+                foreach (INode child in mChildren)
                     yield return child;
             }
         }

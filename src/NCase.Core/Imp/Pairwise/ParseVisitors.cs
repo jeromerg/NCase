@@ -1,4 +1,3 @@
-using NCase.Api;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Dev.Pairwise;
 using NCase.Api.Pub;
@@ -8,11 +7,10 @@ using NDsl.Api.Dev.Core.Tok;
 namespace NCase.Imp.Pairwise
 {
     public class ParseVisitors
-        : IParseVisitor<BeginToken<IPairwise>>
-        , IParseVisitor<EndToken<IPairwise>>
-        , IParseVisitor<RefToken<IPairwise>>
+        : IParseVisitor<BeginToken<IPairwise>>,
+          IParseVisitor<EndToken<IPairwise>>,
+          IParseVisitor<RefToken<IPairwise>>
     {
-
         public void Visit(IParseDirector dir, BeginToken<IPairwise> token)
         {
             var defNode = new PairwiseNode(token.CodeLocation, token.Owner);
@@ -27,7 +25,7 @@ namespace NCase.Imp.Pairwise
 
         public void Visit(IParseDirector dir, RefToken<IPairwise> token)
         {
-            IPairwiseNode referredSetNode = dir.GetReference<IPairwiseNode>(token.Owner, token.CodeLocation);
+            var referredSetNode = dir.GetReference<IPairwiseNode>(token.Owner, token.CodeLocation);
 
             var newNode = new RefNode<IPairwiseNode>(referredSetNode, token.CodeLocation);
 

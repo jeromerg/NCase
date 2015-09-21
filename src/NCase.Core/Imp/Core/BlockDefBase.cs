@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using NCase.Api;
 using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
 using NCase.Api.Pub;
@@ -13,7 +11,7 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Core
 {
-    public abstract class BlockDefBase<TDef> 
+    public abstract class BlockDefBase<TDef>
         where TDef : IDef
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
@@ -42,6 +40,12 @@ namespace NCase.Imp.Core
         }
 
         protected DefSteps State { get; private set; }
+
+        public virtual ISet Cases
+        {
+            get { return mSetFactory.Create(mParserGenerator.ParseAndGenerate(GetDef(), mTokenReaderWriter)); }
+        }
+
         protected abstract TDef GetDef();
 
         public IDisposable Define()
@@ -54,7 +58,8 @@ namespace NCase.Imp.Core
             if (State > DefSteps.NotDefined)
             {
                 throw new InvalidSyntaxException(mCodeLocationUtil.GetCurrentUserCodeLocation(),
-                                                 "Case set {0} has already been defined", mDefName);
+                                                 "Case set {0} has already been defined",
+                                                 mDefName);
             }
 
             State = DefSteps.Defining;
@@ -70,14 +75,6 @@ namespace NCase.Imp.Core
         public virtual void Ref()
         {
             mTokenReaderWriter.Append(new RefToken<TDef>(GetDef(), mCodeLocationUtil.GetCurrentUserCodeLocation()));
-        }
-
-        public virtual ISet Cases
-        {
-            get
-            {
-                return mSetFactory.Create(mParserGenerator.ParseAndGenerate(GetDef(), mTokenReaderWriter));
-            }
         }
     }
 }
