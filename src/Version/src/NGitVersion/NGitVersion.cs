@@ -8,7 +8,6 @@ namespace NGitVersion
 {
     public static class NGitVersion
     {
-
         private const string MODEL_VAR = @"m";
 
         // directories are relative to output project directory ${ProjectDir}\bin
