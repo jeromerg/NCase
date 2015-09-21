@@ -25,7 +25,7 @@ namespace NCaseTest
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");
 
-            var allPersonsAllAges = builder.CreateSet<IProd>("allPersonsAllAges");
+            var allPersonsAllAges = builder.CreateDef<IProd>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {
@@ -90,7 +90,7 @@ namespace NCaseTest
             var o = builder.CreateContributor<IMyTestvalues>("o");
 
             // define a first set of cases
-            var names = builder.CreateSet<ITree>("person_set");
+            var names = builder.CreateDef<ITree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";
@@ -99,7 +99,7 @@ namespace NCaseTest
             }
 
             // transplant the first set into a second one
-            var ages = builder.CreateSet<ITree>("age_set");
+            var ages = builder.CreateDef<ITree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -107,7 +107,7 @@ namespace NCaseTest
                 o.Age = 30;
             }
 
-            var allPersonsAllAges = builder.CreateSet<IProd>("allPersonsAllAges");
+            var allPersonsAllAges = builder.CreateDef<IProd>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {

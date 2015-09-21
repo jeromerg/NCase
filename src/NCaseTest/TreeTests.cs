@@ -27,7 +27,7 @@ namespace NCaseTest
             var o = builder.CreateContributor<IMyTestvalues>("o");
 
             // initialize a new case set of type ITree
-            var tree = builder.CreateSet<ITree>("Environment");
+            var tree = builder.CreateDef<ITree>("Environment");
 
             // define the content of the tree
             using (tree.Define())
@@ -99,7 +99,7 @@ namespace NCaseTest
             var m = builder.CreateContributor<IMyTestvalues>("man");
             var w = builder.CreateContributor<IMyTestvalues>("woman");
 
-            var tree = builder.CreateSet<ITree>("children");
+            var tree = builder.CreateDef<ITree>("children");
             using (tree.Define())
             {
                 {
@@ -161,7 +161,7 @@ namespace NCaseTest
             var o = builder.CreateContributor<IMyTestvalues>("o");
 
             // define a first set of cases
-            var ages = builder.CreateSet<ITree>("age_set");
+            var ages = builder.CreateDef<ITree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -169,7 +169,7 @@ namespace NCaseTest
             }
 
             // transplant the first set into a second one
-            var names = builder.CreateSet<ITree>("person_set");
+            var names = builder.CreateDef<ITree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";

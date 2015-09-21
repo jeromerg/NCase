@@ -43,7 +43,7 @@ namespace NCaseTest
             IBuilder builder = Case.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
 
-            var transfers = builder.CreateSet<ITree>("transfers");
+            var transfers = builder.CreateDef<ITree>("transfers");
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;
@@ -71,7 +71,7 @@ namespace NCaseTest
                 t.Accepted = false;
             }
 
-            var cardsAndBanks = builder.CreateSet<IProd>("cardsAndBank");
+            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
             using (cardsAndBanks.Define())
             {
                 t.DestBank = "HSBC";
@@ -83,7 +83,7 @@ namespace NCaseTest
                 t.Card = Card.Maestro;
             }
 
-            var transfersForAllcardsAndBanks = builder.CreateSet<IProd>("transferForAllcardsAndBanks");
+            var transfersForAllcardsAndBanks = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
             using (transfersForAllcardsAndBanks.Define())
             {
                 transfers.Ref();
@@ -187,7 +187,7 @@ namespace NCaseTest
             IBuilder builder = Case.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
 
-            var cardsAndBanks = builder.CreateSet<IProd>("cardsAndBank");
+            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
             using (cardsAndBanks.Define())
             {
                 t.DestBank = "HSBC";
@@ -225,7 +225,7 @@ namespace NCaseTest
             IBuilder builder = Case.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
 
-            var transfers = builder.CreateSet<ITree>("transfers");
+            var transfers = builder.CreateDef<ITree>("transfers");
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;

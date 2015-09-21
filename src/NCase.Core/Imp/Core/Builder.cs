@@ -36,7 +36,7 @@ namespace NCase.Imp.Core
             return mInterfaceRecPlayContributorFactory.CreateContributor<T>(mTokenStream, name);
         }
 
-        public T CreateSet<T>(string name) where T : IDef
+        public T CreateDef<T>(string name) where T : IDef
         {
             if (name == null) throw new ArgumentNullException("name");
 
