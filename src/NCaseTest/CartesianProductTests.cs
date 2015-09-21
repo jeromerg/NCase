@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using NCase;
-using NCase.Api;
 using NCase.Api.Pub;
 using NUnit.Framework;
 
@@ -15,15 +14,14 @@ namespace NCaseTest
             int Age { get; set; }
         }
 
-        [Test]
-        public void Test_CartesianProduct()
+        [Test] public void Test_CartesianProduct()
         {
             // Create a new builder
-            var builder = Case.CreateBuilder();
+            IBuilder builder = Case.CreateBuilder();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");
-            
+
             var allPersonsAllAges = builder.CreateSet<IProd>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
@@ -39,7 +37,7 @@ namespace NCaseTest
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
             IEnumerator<ICase> enumerator = allPersonsAllAges.Cases.Replay().GetEnumerator();
-            
+
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);
             Assert.AreEqual(20, o.Age);
@@ -51,7 +49,6 @@ namespace NCaseTest
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);
             Assert.AreEqual(30, o.Age);
-
 
 
             enumerator.MoveNext();
@@ -78,19 +75,16 @@ namespace NCaseTest
             enumerator.MoveNext();
             Assert.AreEqual("Wilhelm", o.Name);
             Assert.AreEqual(30, o.Age);
-
-
         }
 
-        [Test]
-        public void Test_CartesianProduct_with_ref()
+        [Test] public void Test_CartesianProduct_with_ref()
         {
             // Create a new builder
-            var builder = Case.CreateBuilder();
+            IBuilder builder = Case.CreateBuilder();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");
-            
+
             // define a first set of cases
             var names = builder.CreateSet<ITree>("person_set");
             using (names.Define())
@@ -119,7 +113,7 @@ namespace NCaseTest
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
             IEnumerator<ICase> enumerator = allPersonsAllAges.Cases.Replay().GetEnumerator();
-            
+
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);
             Assert.AreEqual(20, o.Age);
@@ -131,7 +125,6 @@ namespace NCaseTest
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);
             Assert.AreEqual(30, o.Age);
-
 
 
             enumerator.MoveNext();
@@ -158,10 +151,6 @@ namespace NCaseTest
             enumerator.MoveNext();
             Assert.AreEqual("Wilhelm", o.Name);
             Assert.AreEqual(30, o.Age);
-
-
         }
-
     }
 }
-

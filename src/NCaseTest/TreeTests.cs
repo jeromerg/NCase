@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using NCase;
-using NCase.Api;
 using NCase.Api.Pub;
 using NUnit.Framework;
 
@@ -16,15 +15,14 @@ namespace NCaseTest
             string City { get; set; }
         }
 
-        [Test]
-        public void Test_Properties_1Contrib()
+        [Test] public void Test_Properties_1Contrib()
         {
             // Create a new builder
-            var builder = Case.CreateBuilder();
+            IBuilder builder = Case.CreateBuilder();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");
-            
+
             // initialize a new case set of type ITree
             var tree = builder.CreateSet<ITree>("Environment");
 
@@ -35,13 +33,11 @@ namespace NCaseTest
                 {
                     o.Age = 22;
                     {
-
                         o.City = "Munich";
                         o.City = "Berlin"; // successive use of a property results in a case fork
-                    
                     } // bracket have no syntax meaning, they just ease the automatic formatting
 
-                    o.Age = 30; 
+                    o.Age = 30;
                     {
                         o.City = "Paris";
                         o.City = "London";
@@ -58,7 +54,7 @@ namespace NCaseTest
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
             IEnumerator<ICase> enumerator = tree.Cases.Replay().GetEnumerator();
-            
+
             // case 1
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);
@@ -90,17 +86,16 @@ namespace NCaseTest
             Assert.AreEqual("Lyon", o.City);
         }
 
-        [Test]
-        public void Test_Properties_2Contribs()
+        [Test] public void Test_Properties_2Contribs()
         {
             // Create a new builder
-            var builder = Case.CreateBuilder();
+            IBuilder builder = Case.CreateBuilder();
 
             // you can use multiple contributors, contributing to the definition of cases
             var m = builder.CreateContributor<IMyTestvalues>("man");
             var w = builder.CreateContributor<IMyTestvalues>("woman");
 
-            ITree tree = builder.CreateSet<ITree>("children");
+            var tree = builder.CreateSet<ITree>("children");
             using (tree.Define())
             {
                 {
@@ -150,14 +145,12 @@ namespace NCaseTest
             Assert.AreEqual("Munich", w.City);
             Assert.AreEqual(7, m.Age);
             Assert.AreEqual(5, w.Age);
-
         }
 
-        [Test]
-        public void TestTreeWithRef()
+        [Test] public void TestTreeWithRef()
         {
             // Create a new builder
-            var builder = Case.CreateBuilder();
+            IBuilder builder = Case.CreateBuilder();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");
@@ -202,10 +195,6 @@ namespace NCaseTest
             enumerator.MoveNext();
             Assert.AreEqual("Philip", o.Name);
             Assert.AreEqual(25, o.Age);
-
         }
-
-
     }
 }
-
