@@ -3,7 +3,7 @@ using NCase.Api.Pub;
 
 namespace NCase.Api.Dev.Core
 {
-    public interface IDefHelper 
+    public interface IDefHelper
     {
         ISet Cases { get; }
         TResult Get<TResult>(IDefTransform<TResult> transform);

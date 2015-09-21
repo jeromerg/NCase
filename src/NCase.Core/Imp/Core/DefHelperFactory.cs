@@ -15,8 +15,8 @@ namespace NCase.Imp.Core
         [NotNull] private readonly IParserGenerator mParserGenerator;
 
         public DefHelperFactory([NotNull] IParserGenerator parserGenerator,
-                                   [NotNull] ICodeLocationUtil codeLocationUtil,
-                                   [NotNull] ISetFactory setFactory)
+                                [NotNull] ICodeLocationUtil codeLocationUtil,
+                                [NotNull] ISetFactory setFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");

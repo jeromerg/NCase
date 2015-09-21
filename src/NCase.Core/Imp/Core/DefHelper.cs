@@ -22,11 +22,11 @@ namespace NCase.Imp.Core
         [NotNull] private readonly string mDefName;
 
         public DefHelper([NotNull] TDef def,
-                            [NotNull] string defName,
-                            [NotNull] ITokenReaderWriter tokenReaderWriter,
-                            [NotNull] ICodeLocationUtil codeLocationUtil,
-                            [NotNull] IParserGenerator parserGenerator,
-                            [NotNull] ISetFactory setFactory)
+                         [NotNull] string defName,
+                         [NotNull] ITokenReaderWriter tokenReaderWriter,
+                         [NotNull] ICodeLocationUtil codeLocationUtil,
+                         [NotNull] IParserGenerator parserGenerator,
+                         [NotNull] ISetFactory setFactory)
         {
             if (def == null) throw new ArgumentNullException("def");
             if (defName == null) throw new ArgumentNullException("defName");

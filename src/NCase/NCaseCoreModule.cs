@@ -40,7 +40,6 @@ namespace NCase
 
             // Print
             builder.RegisterType<PrintDetailsDirector>().As<IPrintDetailsDirector>().InstancePerDependency();
-
         }
     }
 }
