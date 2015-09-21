@@ -4,11 +4,11 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Api.Dev.Core.Tok
 {
-    public class Token<TSemanticalOwner> : IToken
+    public abstract class Token : IToken
     {
         [NotNull] private readonly ICodeLocation mCodeLocation;
 
-        public Token([NotNull] ICodeLocation codeLocation)
+        protected Token([NotNull] ICodeLocation codeLocation)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             mCodeLocation = codeLocation;

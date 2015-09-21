@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
@@ -14,11 +13,6 @@ namespace NDsl.Api.Dev.Core.Ex
             : base(string.Format("{0}\n\t{1}", codeLocation.GetUserCodeInfo(), string.Format(format, args)))
         {
             mCodeLocation = codeLocation;
-        }
-
-        protected InvalidSyntaxException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
         }
 
         public ICodeLocation CodeLocation

@@ -20,7 +20,7 @@ namespace NCase.Imp.Core
         [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
         [NotNull] private readonly string mDefName;
 
-        public BlockDefBase(
+        protected BlockDefBase(
             [NotNull] IParserGenerator parserGenerator,
             [NotNull] ITokenReaderWriter tokenReaderWriter,
             [NotNull] string defName,

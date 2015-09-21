@@ -20,6 +20,7 @@ namespace NCase
             builder.RegisterModule<NCaseInterfaceRecPlayModule>();
             builder.RegisterModule<NCaseTreeModule>();
             builder.RegisterModule<NCaseProdModule>();
+            builder.RegisterModule<NCasePairwiseModule>();
 
             // case builder 
             builder.RegisterType<Builder>().As<IBuilder>().InstancePerDependency();

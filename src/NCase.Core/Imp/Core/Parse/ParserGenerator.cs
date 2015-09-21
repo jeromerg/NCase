@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
-using NCase.Api.Dev.Core.Replay;
 using NCase.Api.Pub;
 using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Nod;
@@ -17,24 +16,20 @@ namespace NCase.Imp.Core.Parse
         [NotNull] private readonly ICaseFactory mCaseFactory;
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly IGenerateDirector mCaseGenerator;
-        [NotNull] private readonly IReplayDirector mRePlayDirector;
         [NotNull] private readonly IParseDirector mParseDirector;
 
         public ParserGenerator([NotNull] ICaseFactory caseFactory,
                                [NotNull] ICodeLocationUtil codeLocationUtil,
                                [NotNull] IGenerateDirector caseGenerator,
-                               [NotNull] IReplayDirector rePlayDirector,
                                [NotNull] IParseDirector parseDirector)
         {
             if (caseFactory == null) throw new ArgumentNullException("caseFactory");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
             if (caseGenerator == null) throw new ArgumentNullException("caseGenerator");
-            if (rePlayDirector == null) throw new ArgumentNullException("rePlayDirector");
             if (parseDirector == null) throw new ArgumentNullException("parseDirector");
             mCaseFactory = caseFactory;
             mCodeLocationUtil = codeLocationUtil;
             mCaseGenerator = caseGenerator;
-            mRePlayDirector = rePlayDirector;
             mParseDirector = parseDirector;
         }
 

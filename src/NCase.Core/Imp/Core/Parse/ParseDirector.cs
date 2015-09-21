@@ -56,6 +56,9 @@ namespace NCase.Imp.Core.Parse
 
         public void AddChildToScope(INode childNode)
         {
+            if(mCurrentScope == null)
+                throw new InvalidSyntaxException(childNode.CodeLocation, "Trying to add child outside of any scope");
+
             mAddChildDirector.Visit(mCurrentScope, childNode);
         }
     }

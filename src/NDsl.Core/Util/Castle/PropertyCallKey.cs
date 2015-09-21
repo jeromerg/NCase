@@ -21,7 +21,7 @@ namespace NDsl.Util.Castle
                 throw new ArgumentNullException("propertyInfo");
 
             if (invocation.Proxy == null)
-                throw new ArgumentNullException("invocation.Proxy");
+                throw new ArgumentException("invocation.Proxy is null");
 
             mOwningProxy = invocation.Proxy;
             mPropertyName = propertyInfo.Name;

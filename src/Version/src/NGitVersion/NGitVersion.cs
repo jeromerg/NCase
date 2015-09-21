@@ -15,7 +15,7 @@ namespace NGitVersion
         private const string OUTPUT_DIR = @"..\..\Generated\";
         private const string MAIN_TEMPLATE_NAME = @"MainTemplate";
 
-        public static void Main(string[] args)
+        public static void Main()
         {
             var model = new Model.Model(new Repository(GetGitRoot()));
 

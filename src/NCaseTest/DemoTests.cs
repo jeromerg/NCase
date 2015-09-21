@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using NCase;
 using NCase.Api.Pub;
 using NUnit.Framework;
@@ -6,8 +7,10 @@ using NUnit.Framework;
 namespace NCaseTest
 {
     [TestFixture]
+    [SuppressMessage("ReSharper", "UnusedVariable")]
     public class DemoTests
     {
+        [SuppressMessage("ReSharper", "InconsistentNaming")] 
         public enum Curr
         {
             EUR,
@@ -22,6 +25,7 @@ namespace NCaseTest
             Maestro
         }
 
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public interface ITransfer
         {
             Curr Currency { get; set; }

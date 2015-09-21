@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using NCase;
 using NCase.Api.Pub;
 using NUnit.Framework;
@@ -8,6 +9,7 @@ namespace NCaseTest
     [TestFixture]
     public class TreeTests
     {
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public interface IMyTestvalues
         {
             string Name { get; set; }

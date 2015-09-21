@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using LibGit2Sharp;
 
 namespace NGitVersion.Model
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class Model
     {
         private readonly IRepository mRepository;

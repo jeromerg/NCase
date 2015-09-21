@@ -2,9 +2,11 @@
 using Castle.DynamicProxy;
 using NCase.Api.Dev.Core;
 using NCase.Api.Dev.Core.Parse;
+using NCase.Api.Dev.Core.Print;
 using NCase.Api.Dev.Core.Replay;
 using NCase.Imp.Core;
 using NCase.Imp.Core.Parse;
+using NCase.Imp.Core.Print;
 using NCase.Imp.Core.Replay;
 
 namespace NCase
@@ -32,6 +34,10 @@ namespace NCase
             // Replay Director and default visitor
             builder.RegisterType<ReplayDirector>().As<IReplayDirector>().InstancePerDependency();
             builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
+
+            // Print
+            builder.RegisterType<PrintDetailsDirector>().As<IPrintDetailsDirector>().InstancePerDependency();
+
         }
     }
 }

@@ -67,7 +67,7 @@
     <Compile Include="Api\Dev\Core\Parse\IParseVisitor.cs" />
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsVisitor.cs" />
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsDirector.cs" />
-    <Compile Include="Api\Dev\Core\Print\PrintDetailsDirector.cs" />
+    <Compile Include="Imp\Core\Print\PrintDetailsDirector.cs" />
     <Compile Include="Api\Dev\Core\Replay\IReplayVisitor.cs" />
     <Compile Include="Api\Dev\Pairwise\IPairwiseDimNode.cs" />
     <Compile Include="Api\Dev\Pairwise\IPairwiseNode.cs" />
