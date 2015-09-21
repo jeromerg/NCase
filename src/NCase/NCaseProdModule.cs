@@ -16,10 +16,9 @@ namespace NCase
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<AddChildVisitors>().AsImplementedInterfaces().SingleInstance();
-            
+
             // Case Generator
             builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
-
         }
     }
 }

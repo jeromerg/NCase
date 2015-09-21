@@ -20,9 +20,10 @@ namespace NDsl
         private readonly Assembly[] mNonUserAssemblies;
 
         /// <param name="nonUserAssemblies">
-        /// Assemblies considered as framework assemblies. 
-        /// They will be ignored while retrieving the user code location 
-        /// of user statements</param>
+        ///     Assemblies considered as framework assemblies.
+        ///     They will be ignored while retrieving the user code location
+        ///     of user statements
+        /// </param>
         public NDslCoreModule(Assembly[] nonUserAssemblies)
         {
             mNonUserAssemblies = nonUserAssemblies;
@@ -35,14 +36,18 @@ namespace NDsl
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
             builder.RegisterType<TokenStream>().AsImplementedInterfaces();
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
-            builder.RegisterGeneric(typeof(ActionVisitMapper<,>)).AsSelf().As(typeof(IActionVisitMapper<,>));
-            builder.RegisterGeneric(typeof(ActionPayloadVisitMapper<,,>)).AsSelf().As(typeof(IActionPayloadVisitMapper<,,>));
-            builder.RegisterGeneric(typeof(ActionPairVisitMapper<,,>)).AsSelf().As(typeof(IActionPairVisitMapper<,,>));
-            builder.RegisterGeneric(typeof(ActionPayloadPairVisitMapper<,,,>)).AsSelf().As(typeof(IActionPayloadPairVisitMapper<,,,>));
-            builder.RegisterGeneric(typeof(FuncVisitMapper<,,>)).AsSelf().As(typeof(IFuncVisitMapper<,,>));
-            builder.RegisterGeneric(typeof(FuncPairVisitMapper<,,,>)).AsSelf().As(typeof(IFuncPairVisitMapper<,,,>));
-            builder.RegisterGeneric(typeof(FuncPayloadVisitMapper<,,,>)).AsSelf().As(typeof(IFuncPayloadVisitMapper<,,,>));
-            builder.RegisterGeneric(typeof(FuncPayloadPairVisitMapper<,,,,>)).AsSelf().As(typeof(IFuncPayloadPairVisitMapper<,,,,>));
+            builder.RegisterGeneric(typeof (ActionVisitMapper<,>)).AsSelf().As(typeof (IActionVisitMapper<,>));
+            builder.RegisterGeneric(typeof (ActionPayloadVisitMapper<,,>)).AsSelf().As(typeof (IActionPayloadVisitMapper<,,>));
+            builder.RegisterGeneric(typeof (ActionPairVisitMapper<,,>)).AsSelf().As(typeof (IActionPairVisitMapper<,,>));
+            builder.RegisterGeneric(typeof (ActionPayloadPairVisitMapper<,,,>))
+                   .AsSelf()
+                   .As(typeof (IActionPayloadPairVisitMapper<,,,>));
+            builder.RegisterGeneric(typeof (FuncVisitMapper<,,>)).AsSelf().As(typeof (IFuncVisitMapper<,,>));
+            builder.RegisterGeneric(typeof (FuncPairVisitMapper<,,,>)).AsSelf().As(typeof (IFuncPairVisitMapper<,,,>));
+            builder.RegisterGeneric(typeof (FuncPayloadVisitMapper<,,,>)).AsSelf().As(typeof (IFuncPayloadVisitMapper<,,,>));
+            builder.RegisterGeneric(typeof (FuncPayloadPairVisitMapper<,,,,>))
+                   .AsSelf()
+                   .As(typeof (IFuncPayloadPairVisitMapper<,,,,>));
         }
     }
 }

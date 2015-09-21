@@ -19,7 +19,6 @@ namespace NCase
 
             // Case Generator
             builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
-
         }
     }
 }

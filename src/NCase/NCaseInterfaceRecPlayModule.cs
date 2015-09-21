@@ -22,7 +22,6 @@ namespace NCase
 
             // Print
             builder.RegisterType<PrintDetailsVisitors>().AsImplementedInterfaces().SingleInstance();
-            
         }
     }
 }
