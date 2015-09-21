@@ -3,7 +3,7 @@ using NCase.Api.Pub;
 
 namespace NCase
 {
-    public static class Case
+    public static class NCase
     {
         public static IBuilder CreateBuilder()
         {

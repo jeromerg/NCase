@@ -42,11 +42,11 @@ namespace NCase.Imp.Core
 
             IDefFactory defFactory;
             if (!mDefFactories.TryGetValue(typeof (T), out defFactory))
-                throw new ArgumentException(string.Format(@"No factory found for case set type {0}", typeof (T).Name));
+                throw new ArgumentException(string.Format(@"No factory found for definition type {0}", typeof (T).Name));
 
             var genericDefFactory = defFactory as IDefFactory<IDef>;
             if (genericDefFactory == null)
-                throw new ArgumentException(string.Format(@"Factory for case set type {0} does not implement IDefFactory<{0}>",
+                throw new ArgumentException(string.Format(@"Factory for definition type {0} does not implement IDefFactory<{0}>",
                                                           typeof (T).Name));
 
             return (T) genericDefFactory.Create(mTokenStream, name);

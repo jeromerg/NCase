@@ -54,7 +54,7 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Case.cs" />
+    <Compile Include="NCase.cs" />
     <Compile Include="NCaseCoreModule.cs" />
     <Compile Include="NCaseInterfaceRecPlayModule.cs" />
     <Compile Include="NCasePairwiseModule.cs" />

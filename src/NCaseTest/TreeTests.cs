@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using NCase;
 using NCase.Api.Pub;
 using NUnit.Framework;
 
@@ -21,7 +20,7 @@ namespace NCaseTest
         public void Test_Properties_1Contrib()
         {
             // Create a new builder
-            IBuilder builder = Case.CreateBuilder();
+            IBuilder builder = NCase.NCase.CreateBuilder();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");
@@ -93,7 +92,7 @@ namespace NCaseTest
         public void Test_Properties_2Contribs()
         {
             // Create a new builder
-            IBuilder builder = Case.CreateBuilder();
+            IBuilder builder = NCase.NCase.CreateBuilder();
 
             // you can use multiple contributors, contributing to the definition of cases
             var m = builder.CreateContributor<IMyTestvalues>("man");
@@ -155,7 +154,7 @@ namespace NCaseTest
         public void TestTreeWithRef()
         {
             // Create a new builder
-            IBuilder builder = Case.CreateBuilder();
+            IBuilder builder = NCase.NCase.CreateBuilder();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");

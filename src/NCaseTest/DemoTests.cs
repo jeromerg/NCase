@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using NCase;
 using NCase.Api.Pub;
 using NUnit.Framework;
 
@@ -40,7 +39,7 @@ namespace NCaseTest
         [Test]
         public void ReferenceTest()
         {
-            IBuilder builder = Case.CreateBuilder();
+            IBuilder builder = NCase.NCase.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var transfers = builder.CreateDef<ITree>("transfers");
@@ -184,7 +183,7 @@ namespace NCaseTest
         [Test]
         public void SimpleCartesianProductTest()
         {
-            IBuilder builder = Case.CreateBuilder();
+            IBuilder builder = NCase.NCase.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
@@ -222,7 +221,7 @@ namespace NCaseTest
         [Test]
         public void SimpleTreeTest()
         {
-            IBuilder builder = Case.CreateBuilder();
+            IBuilder builder = NCase.NCase.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var transfers = builder.CreateDef<ITree>("transfers");

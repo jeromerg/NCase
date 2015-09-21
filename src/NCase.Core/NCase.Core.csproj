@@ -71,8 +71,8 @@
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsVisitor.cs" />
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsDirector.cs" />
     <Compile Include="Api\Pub\PrintDef.cs" />
-    <Compile Include="Imp\Core\DefHelperFactory.cs" />
     <Compile Include="Imp\Core\DefHelper.cs" />
+    <Compile Include="Imp\Core\DefHelperFactory.cs" />
     <Compile Include="Imp\Core\Print\PrintDetailsDirector.cs" />
     <Compile Include="Api\Dev\Core\Replay\IReplayVisitor.cs" />
     <Compile Include="Api\Dev\Pairwise\IPairwiseDimNode.cs" />
@@ -83,12 +83,9 @@
     <Compile Include="Api\Pub\ITree.cs" />
     <Compile Include="Imp\Core\DefBase.cs" />
     <Compile Include="Imp\Core\Set.cs" />
-    <Compile Include="Imp\Core\SetFactory.cs" />
     <Compile Include="Imp\Core\DefSteps.cs" />
     <Compile Include="Imp\Core\Fact.cs" />
-    <Compile Include="Imp\Core\FactFactory.cs" />
     <Compile Include="Imp\Core\Case.cs" />
-    <Compile Include="Imp\Core\CaseFactory.cs" />
     <Compile Include="Imp\Core\Parse\AddChildDirector.cs" />
     <Compile Include="Api\Pub\ICase.cs" />
     <Compile Include="Imp\Core\Parse\ParserGenerator.cs" />
