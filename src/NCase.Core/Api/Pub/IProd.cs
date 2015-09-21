@@ -1,9 +1,9 @@
 using System;
 using NCase.Api.Dev.Core;
 
-namespace NCase.Api
+namespace NCase.Api.Pub
 {
-    public interface ITree : IDef
+    public interface IProd : IDef
     {
         IDisposable Define();
         void Ref();

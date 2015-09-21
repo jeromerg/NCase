@@ -1,4 +1,4 @@
-namespace NCase.Api.Dev.Core
+namespace NCase.Api.Pub
 {
     /// <summary>Case Set Definition</summary>
     public interface IDef

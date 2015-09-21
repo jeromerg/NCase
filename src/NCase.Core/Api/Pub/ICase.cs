@@ -1,4 +1,4 @@
-namespace NCase.Api
+namespace NCase.Api.Pub
 {
     public interface ICase
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NCase;
 using NCase.Api;
+using NCase.Api.Pub;
 using NUnit.Framework;
 
 namespace NCaseTest

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using NCase.Api;
+using NCase.Api.Pub;
 
 namespace NCase
 {
