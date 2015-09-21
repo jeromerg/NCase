@@ -6,31 +6,31 @@ using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Tree
+namespace NCase.Imp.Core
 {
-    public class TreeDefFactory : IDefFactory<ITree>
+    public class DefHelperFactory : IDefHelperFactory
     {
-        [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         private readonly ISetFactory mSetFactory;
+        [NotNull] private readonly IParserGenerator mParserGenerator;
 
-        public TreeDefFactory([NotNull] IParserGenerator parserGenerator,
-                              [NotNull] ICodeLocationUtil codeLocationUtil,
-                              [NotNull] ISetFactory setFactory)
+        public DefHelperFactory([NotNull] IParserGenerator parserGenerator,
+                                   [NotNull] ICodeLocationUtil codeLocationUtil,
+                                   [NotNull] ISetFactory setFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
             if (setFactory == null) throw new ArgumentNullException("setFactory");
+
             mParserGenerator = parserGenerator;
             mCodeLocationUtil = codeLocationUtil;
             mSetFactory = setFactory;
         }
 
-        public ITree Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
+        public DefHelper<TDef> CreateDefHelper<TDef>(TDef def, string defName, ITokenReaderWriter tokenReaderWriter)
+            where TDef : IDef
         {
-            if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
-            if (name == null) throw new ArgumentNullException("name");
-            return new Tree(mParserGenerator, tokenReaderWriter, name, mCodeLocationUtil, mSetFactory);
+            return new DefHelper<TDef>(def, defName, tokenReaderWriter, mCodeLocationUtil, mParserGenerator, mSetFactory);
         }
     }
 }

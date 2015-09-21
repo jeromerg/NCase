@@ -4,5 +4,6 @@ namespace NCase.Api.Pub
     public interface IDef
     {
         ISet Cases { get; }
+        TResult Get<TResult>(IDefTransform<TResult> transform);
     }
 }

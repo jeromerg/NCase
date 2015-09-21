@@ -10,7 +10,7 @@ namespace NCaseTest
     [SuppressMessage("ReSharper", "UnusedVariable")]
     public class DemoTests
     {
-        [SuppressMessage("ReSharper", "InconsistentNaming")] 
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         public enum Curr
         {
             EUR,

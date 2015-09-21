@@ -11,7 +11,7 @@ namespace NCase
             base.Load(builder);
 
             // Case sets
-            builder.RegisterType<PairwiseDefFactory>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<Pairwise.Factory>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

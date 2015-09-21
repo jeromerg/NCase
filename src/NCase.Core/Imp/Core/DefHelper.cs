@@ -11,27 +11,31 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Core
 {
-    public abstract class BlockDefBase<TDef>
+    public class DefHelper<TDef> : IDefHelper
         where TDef : IDef
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
-        private readonly ISetFactory mSetFactory;
+        [NotNull] private readonly ISetFactory mSetFactory;
+        [NotNull] private readonly TDef mDef;
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
         [NotNull] private readonly string mDefName;
 
-        protected BlockDefBase(
-            [NotNull] IParserGenerator parserGenerator,
-            [NotNull] ITokenReaderWriter tokenReaderWriter,
-            [NotNull] string defName,
-            [NotNull] ICodeLocationUtil codeLocationUtil,
-            [NotNull] ISetFactory setFactory)
+        public DefHelper([NotNull] TDef def,
+                            [NotNull] string defName,
+                            [NotNull] ITokenReaderWriter tokenReaderWriter,
+                            [NotNull] ICodeLocationUtil codeLocationUtil,
+                            [NotNull] IParserGenerator parserGenerator,
+                            [NotNull] ISetFactory setFactory)
         {
-            if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
+            if (def == null) throw new ArgumentNullException("def");
             if (defName == null) throw new ArgumentNullException("defName");
+            if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
+            if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (setFactory == null) throw new ArgumentNullException("setFactory");
 
+            mDef = def;
             mParserGenerator = parserGenerator;
             mTokenReaderWriter = tokenReaderWriter;
             mDefName = defName;
@@ -39,21 +43,24 @@ namespace NCase.Imp.Core
             mSetFactory = setFactory;
         }
 
-        protected DefSteps State { get; private set; }
+        public DefSteps State { get; private set; }
 
-        public virtual ISet Cases
+        public ISet Cases
         {
-            get { return mSetFactory.Create(mParserGenerator.ParseAndGenerate(GetDef(), mTokenReaderWriter)); }
+            get { return mSetFactory.Create(mParserGenerator.ParseAndGenerate(mDef, mTokenReaderWriter)); }
         }
 
-        protected abstract TDef GetDef();
+        public TResult Get<TResult>(IDefTransform<TResult> transform)
+        {
+            throw new NotImplementedException();
+        }
 
         public IDisposable Define()
         {
             return new DisposableWithCallbacks(Begin, End);
         }
 
-        public virtual void Begin()
+        public void Begin()
         {
             if (State > DefSteps.NotDefined)
             {
@@ -63,18 +70,18 @@ namespace NCase.Imp.Core
             }
 
             State = DefSteps.Defining;
-            mTokenReaderWriter.Append(new BeginToken<TDef>(GetDef(), mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new BeginToken<TDef>(mDef, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
-        public virtual void End()
+        public void End()
         {
-            mTokenReaderWriter.Append(new EndToken<TDef>(GetDef(), mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new EndToken<TDef>(mDef, mCodeLocationUtil.GetCurrentUserCodeLocation()));
             State = DefSteps.Defined;
         }
 
-        public virtual void Ref()
+        public void Ref()
         {
-            mTokenReaderWriter.Append(new RefToken<TDef>(GetDef(), mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new RefToken<TDef>(mDef, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
     }
 }
