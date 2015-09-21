@@ -56,8 +56,9 @@
     </Compile>
     <Compile Include="Api\Dev\Core\IDefHelper.cs" />
     <Compile Include="Api\Dev\Core\IDefHelperFactory.cs" />
+    <Compile Include="Api\Dev\Core\ITransformDir.cs" />
     <Compile Include="Api\Pub\CaseExtensions.cs" />
-    <Compile Include="Api\Pub\IDefTransform.cs" />
+    <Compile Include="Api\Pub\IArtefact.cs" />
     <Compile Include="Api\Pub\ISet.cs" />
     <Compile Include="Api\Dev\Core\ISetFactory.cs" />
     <Compile Include="Api\Dev\Core\IDefFactory.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Api\Dev\Core\Parse\IParseVisitor.cs" />
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsVisitor.cs" />
     <Compile Include="Api\Dev\Core\Print\IPrintDetailsDirector.cs" />
-    <Compile Include="Api\Pub\PrintDef.cs" />
+    <Compile Include="Api\Pub\ITransform.cs" />
     <Compile Include="Imp\Core\DefHelper.cs" />
     <Compile Include="Imp\Core\DefHelperFactory.cs" />
     <Compile Include="Imp\Core\Print\PrintDetailsDirector.cs" />

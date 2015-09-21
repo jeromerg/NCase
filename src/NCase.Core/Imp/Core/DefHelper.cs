@@ -50,7 +50,7 @@ namespace NCase.Imp.Core
             get { return mSetFactory.Create(mParserGenerator.ParseAndGenerate(mDef, mTokenReaderWriter)); }
         }
 
-        public TResult Get<TResult>(IDefTransform<TResult> transform)
+        public TResult Get<TResult>(ITransform<IDef, TResult> transform)
         {
             throw new NotImplementedException();
         }

@@ -1,9 +1,9 @@
 namespace NCase.Api.Pub
 {
     /// <summary>Case Set Definition</summary>
-    public interface IDef
+    public interface IDef : IArtefact
     {
         ISet Cases { get; }
-        TResult Get<TResult>(IDefTransform<TResult> transform);
+        TResult Get<TResult>(ITransform<IDef, TResult> transform);
     }
 }

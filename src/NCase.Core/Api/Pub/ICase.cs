@@ -1,6 +1,6 @@
 namespace NCase.Api.Pub
 {
-    public interface ICase
+    public interface ICase : IArtefact
     {
         void Replay(bool isReplay);
     }

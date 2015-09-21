@@ -19,7 +19,7 @@ namespace NCase.Imp.Core
             mDefHelper = defHelperFactory.CreateDefHelper(GetDef(), defName, tokenReaderWriter);
         }
 
-        public TResult Get<TResult>(IDefTransform<TResult> transform)
+        public TResult Get<TResult>(ITransform<IDef, TResult> transform)
         {
             return mDefHelper.Get(transform);
         }
