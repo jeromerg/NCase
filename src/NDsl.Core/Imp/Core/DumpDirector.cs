@@ -8,11 +8,12 @@ namespace NDsl.Imp.Core
     public class DumpDirector : ActionDirector<INode, IDumpDirector>, IDumpDirector
     {
         private const int INDENTATION_SPACES = 4;
-        private int mCurrentIndentation;
 
         private readonly StringBuilder mStringBuilder = new StringBuilder();
+        private int mCurrentIndentation;
 
-        public DumpDirector(IActionVisitMapper<INode, IDumpDirector> visitMapper) : base(visitMapper)
+        public DumpDirector(IActionVisitMapper<INode, IDumpDirector> visitMapper)
+            : base(visitMapper)
         {
         }
 
@@ -28,7 +29,7 @@ namespace NDsl.Imp.Core
 
         public void AddText(string format, params object[] formatArgs)
         {
-            mStringBuilder.Append(new string(' ', INDENTATION_SPACES * mCurrentIndentation));
+            mStringBuilder.Append(new string(' ', INDENTATION_SPACES*mCurrentIndentation));
             mStringBuilder.AppendFormat(format, formatArgs);
             mStringBuilder.AppendLine();
         }

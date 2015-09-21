@@ -9,9 +9,9 @@ namespace NDsl.Api.Dev.Core.Tok
         [NotNull] private readonly IInvocationRecord mInvocationRecord;
 
         public InvocationToken(
-            [NotNull] T semanticalOwner, 
-            [NotNull] IInvocationRecord invocationRecord, 
-            ICodeLocation codeLocation) 
+            [NotNull] T semanticalOwner,
+            [NotNull] IInvocationRecord invocationRecord,
+            ICodeLocation codeLocation)
             : base(semanticalOwner, codeLocation)
         {
             if (invocationRecord == null) throw new ArgumentNullException("invocationRecord");
@@ -19,8 +19,7 @@ namespace NDsl.Api.Dev.Core.Tok
             mInvocationRecord = invocationRecord;
         }
 
-        [NotNull]
-        public IInvocationRecord InvocationRecord
+        [NotNull] public IInvocationRecord InvocationRecord
         {
             get { return mInvocationRecord; }
         }

@@ -5,11 +5,13 @@ namespace NDsl.Api.Dev.Core.Ex
 {
     public class DslInvalidStateException : Exception
     {
-        public DslInvalidStateException(string message) : base(message)
+        public DslInvalidStateException(string message)
+            : base(message)
         {
         }
 
-        protected DslInvalidStateException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DslInvalidStateException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

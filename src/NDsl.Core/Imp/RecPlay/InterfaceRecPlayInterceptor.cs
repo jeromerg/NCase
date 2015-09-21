@@ -12,20 +12,28 @@ namespace NDsl.Imp.RecPlay
 {
     public class InterfaceRecPlayInterceptor : IInterceptor, IInterfaceRecPlayInterceptor
     {
-        #region public enum
-        public enum Mode { Recording, Playing }
+        #region inner types
+
+        public enum Mode
+        {
+            Recording,
+            Playing
+        }
+
         #endregion
 
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
-        
+
         [NotNull] private readonly ITokenWriter mTokenWriter;
         [NotNull] private readonly string mContributorName;
-        [NotNull] private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues = new Dictionary<PropertyCallKey, object>();
+
+        [NotNull] private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues =
+            new Dictionary<PropertyCallKey, object>();
 
         private Mode mMode;
 
         public InterfaceRecPlayInterceptor(
-            [NotNull] ITokenWriter tokenWriter, 
+            [NotNull] ITokenWriter tokenWriter,
             [NotNull] string contributorName,
             [NotNull] ICodeLocationUtil codeLocationUtil)
         {
@@ -38,13 +46,7 @@ namespace NDsl.Imp.RecPlay
             mTokenWriter = tokenWriter;
         }
 
-        public void SetMode(Mode mode)
-        {
-            mMode = mode;
-        }
-
-        [NotNull]
-        public string ContributorName
+        [NotNull] public string ContributorName
         {
             get { return mContributorName; }
         }
@@ -60,10 +62,15 @@ namespace NDsl.Imp.RecPlay
                 case Mode.Playing:
                     InterceptInReplayMode(invocation);
                     break;
-                
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public void SetMode(Mode mode)
+        {
+            mMode = mode;
         }
 
         public void AddReplayPropertyValue(PropertyCallKey callKey, object value)
@@ -88,11 +95,13 @@ namespace NDsl.Imp.RecPlay
         {
             PropertyCallKey propertyCallKey = InvocationUtil.TryGetPropertyCallKeyFromGetter(invocation);
             if (propertyCallKey == null)
-                throw new InvalidCaseRecordException("Invalid call to {0} in replay mode. Only property getter allowed", invocation.Method);
+                throw new InvalidCaseRecordException("Invalid call to {0} in replay mode. Only property getter allowed",
+                                                     invocation.Method);
 
             object value;
             if (!mReplayPropertyValues.TryGetValue(propertyCallKey, out value))
-                throw new CaseValueNotFoundException("Call to {0} cannot be replayed as it has not been recorded", invocation.Method);
+                throw new CaseValueNotFoundException("Call to {0} cannot be replayed as it has not been recorded",
+                                                     invocation.Method);
 
             invocation.ReturnValue = value;
         }

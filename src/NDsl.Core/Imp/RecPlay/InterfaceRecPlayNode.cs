@@ -11,7 +11,7 @@ namespace NDsl.Imp.RecPlay
     public class InterfaceRecPlayNode : IInterfaceRecPlayNode
     {
         [NotNull] private readonly IInterfaceRecPlayInterceptor mParentInterceptor;
-        
+
         [NotNull] private readonly string mContributorName;
         [NotNull] private readonly PropertyCallKey mPropertyCallKey;
         [CanBeNull] private readonly object mPropertyValue;
@@ -19,7 +19,11 @@ namespace NDsl.Imp.RecPlay
 
         private bool mIsReplay;
 
-        public InterfaceRecPlayNode([NotNull] IInterfaceRecPlayInterceptor parentInterceptor, [NotNull] string contributorName, [NotNull] PropertyCallKey propertyCallKey, [CanBeNull] object propertyValue, [NotNull] ICodeLocation codeLocation)
+        public InterfaceRecPlayNode([NotNull] IInterfaceRecPlayInterceptor parentInterceptor,
+                                    [NotNull] string contributorName,
+                                    [NotNull] PropertyCallKey propertyCallKey,
+                                    [CanBeNull] object propertyValue,
+                                    [NotNull] ICodeLocation codeLocation)
         {
             if (parentInterceptor == null) throw new ArgumentNullException("parentInterceptor");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
@@ -83,7 +87,10 @@ namespace NDsl.Imp.RecPlay
 
         public override string ToString()
         {
-            return string.Format("ContributorName: {0}, PropertyCallKey: {1}, PropertyValue: {2}", mContributorName, mPropertyCallKey, mPropertyValue);
+            return string.Format("ContributorName: {0}, PropertyCallKey: {1}, PropertyValue: {2}",
+                                 mContributorName,
+                                 mPropertyCallKey,
+                                 mPropertyValue);
         }
     }
 }

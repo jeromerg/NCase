@@ -6,11 +6,13 @@ namespace NDsl.Api.Dev.Core.Ex
 {
     public class InvalidCaseRecordException : Exception
     {
-        public InvalidCaseRecordException(string format, params object[] args) : base(string.Format(format, args))
+        public InvalidCaseRecordException(string format, params object[] args)
+            : base(string.Format(format, args))
         {
         }
 
-        protected InvalidCaseRecordException([NotNull] SerializationInfo info, StreamingContext context) : base(info, context)
+        protected InvalidCaseRecordException([NotNull] SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

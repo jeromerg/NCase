@@ -7,8 +7,7 @@ namespace NDsl.Imp.Core.Util
 {
     public class CodeLocation : ICodeLocation
     {
-        [CanBeNull]
-        private readonly StackFrame mStackFrame;
+        [CanBeNull] private readonly StackFrame mStackFrame;
 
         public CodeLocation([CanBeNull] StackFrame stackFrame)
         {
@@ -23,7 +22,6 @@ namespace NDsl.Imp.Core.Util
 
             // TODO Format string a.o. so that Resharper StackTrace functionality works!
             return mStackFrame.ToString();
-            
         }
 
         public override string ToString()

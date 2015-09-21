@@ -9,13 +9,12 @@ namespace NDsl.Imp.Core
     public class TokenStream : ITokenReaderWriter
     {
         private readonly Queue<IToken> mTokens = new Queue<IToken>();
-        
-        [NotNull]
-        public IEnumerable<IToken> Tokens
+
+        [NotNull] public IEnumerable<IToken> Tokens
         {
             get
             {
-                while(mTokens.Count > 0)
+                while (mTokens.Count > 0)
                     yield return mTokens.Dequeue();
             }
         }

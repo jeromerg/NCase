@@ -8,7 +8,6 @@ namespace NDsl.Api.Dev.Core.Tok
         public RefToken([NotNull] T ownerReference, ICodeLocation codeLocation)
             : base(ownerReference, codeLocation)
         {
-            
         }
     }
 }

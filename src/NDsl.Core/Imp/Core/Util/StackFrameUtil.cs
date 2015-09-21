@@ -12,15 +12,15 @@ namespace NDsl.Imp.Core.Util
         private readonly List<Assembly> mExcludedAssemblies = new List<Assembly>();
 
         /// <param name="assembliesToIgnore">
-        /// the assemblies to filter out as they don't belong to user code. 
-        /// Their dependencies will be ignored either
+        ///     the assemblies to filter out as they don't belong to user code.
+        ///     Their dependencies will be ignored either
         /// </param>
         public StackFrameUtil(params Assembly[] assembliesToIgnore)
         {
             // In any case remove the assembly executing this code and its dependencies
             mExcludedAssemblies.AddRange(GetAssemblyAndReferenced(Assembly.GetExecutingAssembly()));
 
-            foreach (var assembly in assembliesToIgnore)
+            foreach (Assembly assembly in assembliesToIgnore)
                 mExcludedAssemblies.AddRange(GetAssemblyAndReferenced(assembly));
         }
 
@@ -31,8 +31,8 @@ namespace NDsl.Imp.Core.Util
             if (stackFrames == null)
                 return null;
 
-            foreach (var stackFrame in stackFrames)
-            {                
+            foreach (StackFrame stackFrame in stackFrames)
+            {
                 MethodBase method = stackFrame.GetMethod();
                 if (method == null)
                     return null;
@@ -40,9 +40,9 @@ namespace NDsl.Imp.Core.Util
                 if (method.Module.FullyQualifiedName == IN_MEMORY_MODULE_NAME)
                     continue;
 
-                if (mExcludedAssemblies.Any(excludedAssembly => excludedAssembly == method.Module.Assembly)) 
+                if (mExcludedAssemblies.Any(excludedAssembly => excludedAssembly == method.Module.Assembly))
                     continue;
-                
+
                 return stackFrame;
             }
 
@@ -52,7 +52,7 @@ namespace NDsl.Imp.Core.Util
         private IEnumerable<Assembly> GetAssemblyAndReferenced(Assembly assembly)
         {
             yield return assembly;
-            foreach (var ass in assembly.GetReferencedAssemblies().Select(n => Assembly.Load(n)))
+            foreach (Assembly ass in assembly.GetReferencedAssemblies().Select(n => Assembly.Load(n)))
                 yield return ass;
         }
     }

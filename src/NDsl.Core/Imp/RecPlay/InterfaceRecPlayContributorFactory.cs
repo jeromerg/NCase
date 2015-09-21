@@ -14,7 +14,7 @@ namespace NDsl.Imp.RecPlay
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
         public InterfaceRecPlayContributorFactory(
-            [NotNull] ProxyGenerator proxyGenerator, 
+            [NotNull] ProxyGenerator proxyGenerator,
             [NotNull] ICodeLocationUtil codeLocationUtil)
         {
             if (proxyGenerator == null) throw new ArgumentNullException("proxyGenerator");
@@ -27,14 +27,14 @@ namespace NDsl.Imp.RecPlay
         public T CreateContributor<T>(ITokenWriter tokenWriter, string contributorName)
         {
             var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationUtil);
-            
+
             Type[] interfaces = typeof (T).GetInterfaces()
-                .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport).ToArray();
-         
+                                          .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport).ToArray();
+
             return (T) mProxyGenerator.CreateInterfaceProxyWithoutTarget(typeof (T),
-                interfaces,
-                ProxyGenerationOptions.Default,
-                interceptor);
+                                                                         interfaces,
+                                                                         ProxyGenerationOptions.Default,
+                                                                         interceptor);
         }
     }
 }

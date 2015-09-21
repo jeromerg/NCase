@@ -11,7 +11,8 @@ namespace NDsl.Api.Dev.Core.Ex
         {
         }
 
-        protected CaseValueNotFoundException([NotNull] SerializationInfo info, StreamingContext context) : base(info, context)
+        protected CaseValueNotFoundException([NotNull] SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

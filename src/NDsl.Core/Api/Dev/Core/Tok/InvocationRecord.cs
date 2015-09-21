@@ -12,8 +12,8 @@ namespace NDsl.Api.Dev.Core.Tok
         [NotNull] private readonly ICodeLocation mCodeLocation;
 
         public InvocationRecord(
-            [NotNull] string invocationTargetName, 
-            [NotNull] IInvocation invocation, 
+            [NotNull] string invocationTargetName,
+            [NotNull] IInvocation invocation,
             [NotNull] ICodeLocation codeLocation)
         {
             if (invocationTargetName == null) throw new ArgumentNullException("invocationTargetName");

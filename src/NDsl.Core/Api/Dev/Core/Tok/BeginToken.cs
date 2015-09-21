@@ -8,7 +8,6 @@ namespace NDsl.Api.Dev.Core.Tok
         public BeginToken([NotNull] T semanticalOwner, ICodeLocation codeLocation)
             : base(semanticalOwner, codeLocation)
         {
-            
         }
     }
 }

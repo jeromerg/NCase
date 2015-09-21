@@ -16,10 +16,10 @@ namespace NDsl.Util.Castle
         {
             if (invocation == null)
                 throw new ArgumentNullException("invocation");
-            
+
             if (propertyInfo == null)
                 throw new ArgumentNullException("propertyInfo");
-            
+
             if (invocation.Proxy == null)
                 throw new ArgumentNullException("invocation.Proxy");
 
@@ -28,8 +28,7 @@ namespace NDsl.Util.Castle
             mIndexParameters = invocation.Arguments.Take(propertyInfo.GetIndexParameters().Length).ToArray();
         }
 
-        [NotNull]
-        public object OwningProxy
+        [NotNull] public object OwningProxy
         {
             get { return mOwningProxy; }
         }
@@ -45,9 +44,10 @@ namespace NDsl.Util.Castle
         }
 
         #region Equals and GetHashCode
+
         private bool Equals(PropertyCallKey other)
         {
-            bool equal = string.Equals(mOwningProxy, other.mOwningProxy);
+            bool equal = Equals(mOwningProxy, other.mOwningProxy);
             if (!equal)
                 return false;
 
@@ -78,11 +78,11 @@ namespace NDsl.Util.Castle
         {
             unchecked
             {
-                int i = (mPropertyName.GetHashCode() *397) ^ (1 + mIndexParameters.Length);
+                int i = (mPropertyName.GetHashCode()*397) ^ (1 + mIndexParameters.Length);
                 return mIndexParameters.Where(p => p != null).Aggregate(i, (agg, p) => agg ^ p.GetHashCode());
             }
         }
-        #endregion
 
+        #endregion
     }
 }

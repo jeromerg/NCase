@@ -5,7 +5,6 @@ namespace NDsl.Api.Dev.Core
 {
     public interface ILocated
     {
-        [NotNull]
-        ICodeLocation CodeLocation { get; }
+        [NotNull] ICodeLocation CodeLocation { get; }
     }
 }

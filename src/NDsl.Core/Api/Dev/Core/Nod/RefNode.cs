@@ -16,7 +16,7 @@ namespace NDsl.Api.Dev.Core.Nod
         {
             if (reference == null) throw new ArgumentNullException("reference");
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
-            
+
             mReference = reference;
             mCodeLocation = codeLocation;
         }
