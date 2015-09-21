@@ -14,7 +14,8 @@ namespace NCaseTest
             int Age { get; set; }
         }
 
-        [Test] public void Test_CartesianProduct()
+        [Test]
+        public void Test_CartesianProduct()
         {
             // Create a new builder
             IBuilder builder = Case.CreateBuilder();
@@ -77,7 +78,8 @@ namespace NCaseTest
             Assert.AreEqual(30, o.Age);
         }
 
-        [Test] public void Test_CartesianProduct_with_ref()
+        [Test]
+        public void Test_CartesianProduct_with_ref()
         {
             // Create a new builder
             IBuilder builder = Case.CreateBuilder();

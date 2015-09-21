@@ -9,6 +9,7 @@ namespace NDsl.Api.Dev.Core.Vis
         void Indent();
         void Dedent();
 
-        [StringFormatMethod("format")] void AddText(string format, params object[] formatArgs);
+        [StringFormatMethod("format")]
+        void AddText(string format, params object[] formatArgs);
     }
 }

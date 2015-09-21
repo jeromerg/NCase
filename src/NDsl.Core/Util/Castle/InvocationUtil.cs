@@ -9,7 +9,8 @@ namespace NDsl.Util.Castle
 {
     public class InvocationUtil
     {
-        [CanBeNull] public static PropertyCallKey TryGetPropertyCallKeyFromGetter(IInvocation invocation)
+        [CanBeNull]
+        public static PropertyCallKey TryGetPropertyCallKeyFromGetter(IInvocation invocation)
         {
             PropertyInfo propertyInfo = TryGetPropertyInfoFromGetter(invocation);
 
@@ -18,7 +19,8 @@ namespace NDsl.Util.Castle
                        : new PropertyCallKey(invocation, propertyInfo);
         }
 
-        [CanBeNull] public static PropertyCallKey TryGetPropertyCallKeyFromSetter(IInvocation invocation)
+        [CanBeNull]
+        public static PropertyCallKey TryGetPropertyCallKeyFromSetter(IInvocation invocation)
         {
             PropertyInfo propertyInfo = TryGetPropertyInfoFromSetter(invocation);
 
@@ -27,13 +29,15 @@ namespace NDsl.Util.Castle
                        : new PropertyCallKey(invocation, propertyInfo);
         }
 
-        [CanBeNull] public static PropertyInfo TryGetPropertyInfoFromGetter(IInvocation invocation)
+        [CanBeNull]
+        public static PropertyInfo TryGetPropertyInfoFromGetter(IInvocation invocation)
         {
             MethodInfo method = invocation.Method;
             return GetAllImplementedProperties(invocation.Proxy.GetType()).FirstOrDefault(p => p.GetGetMethod() == method);
         }
 
-        [CanBeNull] public static PropertyInfo TryGetPropertyInfoFromSetter(IInvocation invocation)
+        [CanBeNull]
+        public static PropertyInfo TryGetPropertyInfoFromSetter(IInvocation invocation)
         {
             MethodInfo method = invocation.Method;
             return GetAllImplementedProperties(invocation.Proxy.GetType()).FirstOrDefault(p => p.GetSetMethod() == method);

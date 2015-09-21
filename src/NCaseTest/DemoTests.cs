@@ -33,7 +33,8 @@ namespace NCaseTest
             Card Card { get; set; }
         }
 
-        [Test] public void ReferenceTest()
+        [Test]
+        public void ReferenceTest()
         {
             IBuilder builder = Case.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
@@ -176,7 +177,8 @@ namespace NCaseTest
             // Bank of China | Maestro    |      EUR |      100,00 | 089,40 | False   
         }
 
-        [Test] public void SimpleCartesianProductTest()
+        [Test]
+        public void SimpleCartesianProductTest()
         {
             IBuilder builder = Case.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
@@ -213,7 +215,8 @@ namespace NCaseTest
             // Bank of China | Maestro   
         }
 
-        [Test] public void SimpleTreeTest()
+        [Test]
+        public void SimpleTreeTest()
         {
             IBuilder builder = Case.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");

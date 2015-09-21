@@ -15,7 +15,8 @@ namespace NCaseTest
             string City { get; set; }
         }
 
-        [Test] public void Test_Properties_1Contrib()
+        [Test]
+        public void Test_Properties_1Contrib()
         {
             // Create a new builder
             IBuilder builder = Case.CreateBuilder();
@@ -86,7 +87,8 @@ namespace NCaseTest
             Assert.AreEqual("Lyon", o.City);
         }
 
-        [Test] public void Test_Properties_2Contribs()
+        [Test]
+        public void Test_Properties_2Contribs()
         {
             // Create a new builder
             IBuilder builder = Case.CreateBuilder();
@@ -147,7 +149,8 @@ namespace NCaseTest
             Assert.AreEqual(5, w.Age);
         }
 
-        [Test] public void TestTreeWithRef()
+        [Test]
+        public void TestTreeWithRef()
         {
             // Create a new builder
             IBuilder builder = Case.CreateBuilder();
