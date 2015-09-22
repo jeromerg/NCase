@@ -19,11 +19,6 @@ namespace NCase.Imp.Core
             mDefHelper = defHelperFactory.CreateDefHelper(GetDef(), defName, tokenReaderWriter);
         }
 
-        public TResult Get<TResult>(ITransform<IDef, TResult> transform)
-        {
-            return mDefHelper.Get(transform);
-        }
-
         public virtual ISet Cases
         {
             get { return mDefHelper.Cases; }
@@ -31,7 +26,7 @@ namespace NCase.Imp.Core
 
         protected abstract TDef GetDef();
 
-        public IDisposable Define()
+        public virtual IDisposable Define()
         {
             return mDefHelper.Define();
         }

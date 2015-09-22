@@ -15,10 +15,9 @@ namespace NCase.Imp.Core
         [NotNull] private readonly Dictionary<Type, IDefFactory> mDefFactories;
         [NotNull] private readonly IInterfaceRecPlayContributorFactory mInterfaceRecPlayContributorFactory;
 
-        public Builder(
-            [NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
-            [NotNull] ITokenReaderWriter tokenStream,
-            [NotNull] IEnumerable<IDefFactory> defFactories)
+        public Builder([NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
+                       [NotNull] ITokenReaderWriter tokenStream,
+                       [NotNull] IEnumerable<IDefFactory> defFactories)
         {
             if (interfaceRecPlayContributorFactory == null) throw new ArgumentNullException("interfaceRecPlayContributorFactory");
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");
