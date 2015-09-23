@@ -1,10 +1,8 @@
 using Castle.DynamicProxy;
-using NCase.Back.Api.Core.Parse;
-using NDsl.Api.Dev.Core.Ex;
-using NDsl.Api.Dev.Core.Tok;
-using NDsl.Api.Dev.Core.Util;
-using NDsl.Imp.RecPlay;
-using NDsl.Util.Castle;
+using NCase.Back.Api.Parse;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.RecPlay;
+using NDsl.Back.Imp.RecPlay;
 
 namespace NCase.Back.Imp.InterfaceRecPlay
 {

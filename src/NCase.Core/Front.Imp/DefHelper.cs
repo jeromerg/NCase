@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NCase.All;
-using NCase.Back.Api.Core.Parse;
+using NCase.Back.Api.Core;
+using NCase.Back.Api.Parse;
 using NCase.Front.Api;
-using NDsl.Api.Dev.Core;
-using NDsl.Api.Dev.Core.Ex;
-using NDsl.Api.Dev.Core.Tok;
-using NDsl.Api.Dev.Core.Util;
-using NDsl.Util;
+using NDsl.Back.Api.Block;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Ref;
 using NVisitor.Common.Quality;
 
 namespace NCase.Front.Imp
@@ -55,7 +53,8 @@ namespace NCase.Front.Imp
         {
             get
             {
-                IEnumerable<ICase> cases = mParserGenerator.ParseAndGenerate(mDefId, mTokenReaderWriter).Select(tc => mCaseFactory.Create(tc));
+                IEnumerable<ICase> cases =
+                    mParserGenerator.ParseAndGenerate(mDefId, mTokenReaderWriter).Select(tc => mCaseFactory.Create(tc));
                 return mSetFactory.Create(cases);
             }
         }

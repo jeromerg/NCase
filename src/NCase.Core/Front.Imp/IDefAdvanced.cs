@@ -1,4 +1,4 @@
-using NCase.All;
+using NCase.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {

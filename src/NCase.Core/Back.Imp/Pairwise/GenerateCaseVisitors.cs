@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NCase.Back.Api.Core.Parse;
 using NCase.Back.Api.Pairwise;
-using NDsl.Api.Dev.Core.Nod;
+using NCase.Back.Api.Parse;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Ref;
 
 namespace NCase.Back.Imp.Pairwise
 {

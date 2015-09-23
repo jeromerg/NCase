@@ -1,9 +1,7 @@
 ﻿using System;
-using NCase.All;
-using NCase.Back.Api.Core.Parse;
-using NCase.Front.Api;
-using NDsl.Api.Dev.Core;
-using NDsl.Api.Dev.Core.Util;
+using NCase.Back.Api.Core;
+using NCase.Back.Api.Parse;
+using NDsl.Back.Api.Core;
 using NVisitor.Common.Quality;
 
 namespace NCase.Front.Imp
@@ -34,7 +32,13 @@ namespace NCase.Front.Imp
         public DefHelper<TDefId> CreateDefHelper<TDefId>(TDefId def, string defName, ITokenReaderWriter tokenReaderWriter)
             where TDefId : IDefId
         {
-            return new DefHelper<TDefId>(def, defName, tokenReaderWriter, mCodeLocationUtil, mParserGenerator, mSetFactory, mCaseFactory);
+            return new DefHelper<TDefId>(def,
+                                         defName,
+                                         tokenReaderWriter,
+                                         mCodeLocationUtil,
+                                         mParserGenerator,
+                                         mSetFactory,
+                                         mCaseFactory);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using NCase.Back.Api.Core.Parse;
-using NDsl.Api.Dev.Core.Nod;
-using NDsl.Api.Dev.RecPlay;
+using NCase.Back.Api.Parse;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.RecPlay;
 
 namespace NCase.Back.Imp.InterfaceRecPlay
 {

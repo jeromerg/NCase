@@ -1,7 +1,7 @@
 ﻿using System;
-using NCase.Back.Api.Core.Replay;
+using NCase.Back.Api.Replay;
 using NCase.Front.Api;
-using NDsl.Api.Dev.Core.Nod;
+using NDsl.Back.Api.Core;
 using NVisitor.Common.Quality;
 
 namespace NCase.Front.Imp

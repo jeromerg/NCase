@@ -1,7 +1,7 @@
 ﻿using System;
 using NCase.Back.Api.Tree;
 using NCase.Front.Api;
-using NDsl.Api.Dev.Core;
+using NDsl.Back.Api.Core;
 using NVisitor.Common.Quality;
 
 namespace NCase.Front.Imp

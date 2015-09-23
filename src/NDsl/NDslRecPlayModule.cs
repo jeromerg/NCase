@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using NDsl.Api.Dev.RecPlay;
-using NDsl.Imp.RecPlay;
+using NDsl.Back.Api.RecPlay;
+using NDsl.Back.Imp.RecPlay;
 
 namespace NDsl
 {

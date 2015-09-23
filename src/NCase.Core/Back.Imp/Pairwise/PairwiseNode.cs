@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NCase.Back.Api.Pairwise;
-using NCase.Front.Api;
-using NDsl.Api.Dev.Core.Nod;
-using NDsl.Api.Dev.Core.Util;
+using NDsl.Back.Api.Core;
 using NVisitor.Common.Quality;
 
 namespace NCase.Back.Imp.Pairwise
@@ -25,6 +23,7 @@ namespace NCase.Back.Imp.Pairwise
 
             mPairwiseId = pairwiseId;
         }
+
         public IEnumerable<INode> Children
         {
             get { return mDimensions; }

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NCase.All;
+using NCase.Back.Api.Core;
 using NCase.Front.Api;
-using NDsl.Api.Dev.Core;
-using NDsl.Api.Dev.RecPlay;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.RecPlay;
 using NVisitor.Common.Quality;
 
 namespace NCase.Front.Imp
@@ -31,7 +31,7 @@ namespace NCase.Front.Imp
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
             mResolver = resolver;
         }
-        
+
         public T CreateContributor<T>(string name)
         {
             if (name == null) throw new ArgumentNullException("name");
@@ -53,11 +53,6 @@ namespace NCase.Front.Imp
                                                           typeof (T).Name));
 
             return (T) genericDefFactory.Create(mTokenStream, name);
-        }
-
-        public T Resolve<T>()
-        {
-            return mResolver.Resolve<T>();
         }
 
         private Type GetDefType(IDefFactory defFactory)

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NCase.Back.Api.Tree;
-using NCase.Front.Api;
-using NDsl.Api.Dev.Core.Nod;
-using NDsl.Api.Dev.Core.Util;
+using NDsl.Back.Api.Core;
 using NVisitor.Common.Quality;
 
 namespace NCase.Back.Imp.Tree
@@ -17,8 +15,8 @@ namespace NCase.Back.Imp.Tree
         [CanBeNull] private readonly INode mFact;
 
         public TreeNode([NotNull] ICodeLocation codeLocation,
-            [CanBeNull] TreeId id,
-            [CanBeNull] INode fact)
+                        [CanBeNull] TreeId id,
+                        [CanBeNull] INode fact)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 

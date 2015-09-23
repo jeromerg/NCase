@@ -1,7 +1,7 @@
 ﻿using System;
 using NCase.Back.Api.Pairwise;
 using NCase.Front.Api;
-using NDsl.Api.Dev.Core;
+using NDsl.Back.Api.Core;
 using NVisitor.Common.Quality;
 
 namespace NCase.Front.Imp
@@ -34,6 +34,5 @@ namespace NCase.Front.Imp
             : base(new PairwiseId(), defName, tokenReaderWriter, defHelperFactory)
         {
         }
-
     }
 }

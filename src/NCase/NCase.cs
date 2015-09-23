@@ -1,6 +1,6 @@
 ﻿using System;
 using Autofac;
-using NCase.All;
+using NCase.Back.Api.Core;
 using NCase.Front.Api;
 using NVisitor.Common.Quality;
 
