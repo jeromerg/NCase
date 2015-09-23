@@ -1,6 +1,6 @@
 namespace NCase.Api.Pub
 {
-    public interface IFact : IArtefact
+    public interface IFact
     {
     }
 }

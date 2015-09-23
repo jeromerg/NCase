@@ -1,5 +1,6 @@
 ﻿using System;
 using NCase.Api.Dev.Core;
+using NCase.Api.Dev.Pairwise;
 using NCase.Api.Pub;
 using NCase.Imp.Core;
 using NDsl.Api.Dev.Core;
@@ -7,7 +8,7 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Pairwise
 {
-    public class Pairwise : DefBase<IPairwise>, IPairwise
+    public class Pairwise : DefBase<IPairwise, IPairwiseNode>, IPairwise
     {
         #region inner types
 

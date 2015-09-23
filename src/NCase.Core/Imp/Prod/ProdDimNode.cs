@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NCase.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
@@ -7,7 +6,7 @@ using NVisitor.Common.Quality;
 namespace NCase.Imp.Prod
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>
-    public class ProdDimNode : IDefNode
+    public class ProdDimNode : INode
     {
         [NotNull] private readonly INode mFirstChild;
         [NotNull] private readonly List<INode> mChildren = new List<INode>();
