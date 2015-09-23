@@ -58,7 +58,6 @@
     <Compile Include="Api\Dev\Core\IDefHelperFactory.cs" />
     <Compile Include="Api\Dev\Core\IResolver.cs" />
     <Compile Include="Api\Pub\CaseExtensions.cs" />
-    <Compile Include="Api\Pub\IBuilderAdvanced.cs" />
     <Compile Include="Api\Pub\IDefAdvanced.cs" />
     <Compile Include="Api\Pub\ISet.cs" />
     <Compile Include="Api\Dev\Core\ISetFactory.cs" />

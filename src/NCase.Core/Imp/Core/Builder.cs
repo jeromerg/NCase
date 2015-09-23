@@ -9,7 +9,7 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Core
 {
-    public class Builder : IBuilder, IBuilderAdvanced
+    public class Builder : IBuilder
     {
         [NotNull] private readonly ITokenReaderWriter mTokenStream;
         [NotNull] private readonly Dictionary<Type, IDefFactory> mDefFactories;
@@ -31,12 +31,7 @@ namespace NCase.Imp.Core
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
             mResolver = resolver;
         }
-
-        public IBuilderAdvanced Advanced
-        {
-            get { return this; }
-        }
-
+        
         public T CreateContributor<T>(string name)
         {
             if (name == null) throw new ArgumentNullException("name");
@@ -60,7 +55,7 @@ namespace NCase.Imp.Core
             return (T) genericDefFactory.Create(mTokenStream, name);
         }
 
-        T IBuilderAdvanced.Resolve<T>()
+        public T Resolve<T>()
         {
             return mResolver.Resolve<T>();
         }
