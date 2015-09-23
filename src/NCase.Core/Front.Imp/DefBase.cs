@@ -6,14 +6,12 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Core
 {
-    public abstract class DefBase<TDef, TDefNode> : IDef
+    public abstract class DefBase<TDef> : IDef
         where TDef : IDef
-        where TDefNode : IDefNode
     {
         private readonly DefHelper<TDef> mDefHelper;
 
-        protected DefBase([NotNull] TDefNode defNode,
-                          [NotNull] string defName,
+        protected DefBase([NotNull] string defName,
                           [NotNull] ITokenReaderWriter tokenReaderWriter,
                           [NotNull] IDefHelperFactory defHelperFactory)
         {

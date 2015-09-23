@@ -8,7 +8,7 @@ using NVisitor.Common.Quality;
 
 namespace NCase.Imp.Pairwise
 {
-    public class Pairwise : DefBase<IPairwise, IPairwiseNode>, IPairwise
+    public class Pairwise : DefBase<IPairwise>, IPairwise
     {
         #region inner types
 
