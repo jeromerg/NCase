@@ -1,14 +1,12 @@
 ﻿using System;
-using NCase.Api.Dev.Core;
-using NCase.Api.Dev.Pairwise;
-using NCase.Api.Pub;
-using NCase.Imp.Core;
+using NCase.Back.Api.Pairwise;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Pairwise
+namespace NCase.Front.Imp
 {
-    public class Pairwise : DefBase<IPairwise>, IPairwise
+    public class Pairwise : DefBase<PairwiseId>, IPairwise
     {
         #region inner types
 
@@ -33,14 +31,9 @@ namespace NCase.Imp.Pairwise
         public Pairwise([NotNull] ITokenReaderWriter tokenReaderWriter,
                         [NotNull] string defName,
                         [NotNull] IDefHelperFactory defHelperFactory)
-            : base(defName, tokenReaderWriter, defHelperFactory)
+            : base(new PairwiseId(), defName, tokenReaderWriter, defHelperFactory)
         {
         }
 
-
-        protected override IPairwise GetDef()
-        {
-            return this;
-        }
     }
 }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace NCase.Api.Pub
+namespace NCase.Front.Api
 {
     public static class CaseExtensions
     {

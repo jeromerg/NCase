@@ -1,6 +1,6 @@
 using NDsl.Api.Dev.Core.Nod;
 
-namespace NCase.Api.Dev.Pairwise
+namespace NCase.Back.Api.Pairwise
 {
     public interface IPairwiseDimNode : INode
     {

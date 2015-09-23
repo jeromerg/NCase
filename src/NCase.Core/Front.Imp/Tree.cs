@@ -1,13 +1,12 @@
 ﻿using System;
-using NCase.Api.Dev.Core;
-using NCase.Api.Pub;
-using NCase.Imp.Core;
+using NCase.Back.Api.Tree;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Tree
+namespace NCase.Front.Imp
 {
-    public class Tree : DefBase<ITree>, ITree
+    public class Tree : DefBase<TreeId>, ITree
     {
         #region inner types
 
@@ -32,14 +31,8 @@ namespace NCase.Imp.Tree
         public Tree([NotNull] ITokenReaderWriter tokenReaderWriter,
                     [NotNull] string defName,
                     [NotNull] IDefHelperFactory defHelperFactory)
-            : base(defName, tokenReaderWriter, defHelperFactory)
+            : base(new TreeId(), defName, tokenReaderWriter, defHelperFactory)
         {
-        }
-
-
-        protected override ITree GetDef()
-        {
-            return this;
         }
     }
 }

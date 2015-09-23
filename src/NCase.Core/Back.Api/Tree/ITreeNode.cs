@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using NCase.Api.Dev.Core;
+using NCase.Back.Api.Core;
 using NDsl.Api.Dev.Core.Nod;
 using NVisitor.Common.Quality;
 
-namespace NCase.Api.Dev.Tree
+namespace NCase.Back.Api.Tree
 {
     public interface ITreeNode : IDefNode
     {

@@ -1,8 +1,8 @@
-using NCase.Api.Dev.Core.Parse;
+using NCase.Back.Api.Core.Parse;
 using NDsl.Api.Dev.Core.Nod;
 using NVisitor.Api.ActionPair;
 
-namespace NCase.Imp.Core.Parse
+namespace NCase.Back.Imp.Core.Parse
 {
     public class AddChildDirector : ActionPairDirector<INode, INode, IAddChildDirector>, IAddChildDirector
     {

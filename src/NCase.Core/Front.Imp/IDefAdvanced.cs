@@ -1,6 +1,6 @@
-using NCase.Api.Dev.Core;
+using NCase.All;
 
-namespace NCase.Api.Pub
+namespace NCase.Front.Imp
 {
     public interface IAdvanced<out T>
     {

@@ -1,7 +1,9 @@
 ﻿using System;
-using NCase.Api.Dev.Core;
-using NCase.Api.Dev.Core.Parse;
-using NCase.Api.Pub;
+using System.Collections.Generic;
+using System.Linq;
+using NCase.All;
+using NCase.Back.Api.Core.Parse;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.Core.Ex;
 using NDsl.Api.Dev.Core.Tok;
@@ -9,45 +11,53 @@ using NDsl.Api.Dev.Core.Util;
 using NDsl.Util;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Core
+namespace NCase.Front.Imp
 {
-    public class DefHelper<TDef> : IDefHelper
-        where TDef : IDef
+    public class DefHelper<TDefId> : IDefHelper
+        where TDefId : IDefId
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly ISetFactory mSetFactory;
-        [NotNull] private readonly TDef mDef;
+        private readonly ICaseFactory mCaseFactory;
+        [NotNull] private readonly TDefId mDefId;
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
         [NotNull] private readonly string mDefName;
 
-        public DefHelper([NotNull] TDef def,
+        public DefHelper([NotNull] TDefId defId,
                          [NotNull] string defName,
                          [NotNull] ITokenReaderWriter tokenReaderWriter,
                          [NotNull] ICodeLocationUtil codeLocationUtil,
                          [NotNull] IParserGenerator parserGenerator,
-                         [NotNull] ISetFactory setFactory)
+                         [NotNull] ISetFactory setFactory,
+                         [NotNull] ICaseFactory caseFactory)
         {
-            if (def == null) throw new ArgumentNullException("def");
+            if (defId == null) throw new ArgumentNullException("defId");
             if (defName == null) throw new ArgumentNullException("defName");
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (setFactory == null) throw new ArgumentNullException("setFactory");
+            if (caseFactory == null) throw new ArgumentNullException("caseFactory");
 
-            mDef = def;
+            mDefId = defId;
             mParserGenerator = parserGenerator;
             mTokenReaderWriter = tokenReaderWriter;
             mDefName = defName;
             mCodeLocationUtil = codeLocationUtil;
             mSetFactory = setFactory;
+            mCaseFactory = caseFactory;
         }
 
         public DefSteps State { get; private set; }
 
         public ISet Cases
         {
-            get { return mSetFactory.Create(mParserGenerator.ParseAndGenerate(mDef, mTokenReaderWriter)); }
+            get
+            {
+                IEnumerable<ICase> cases = mParserGenerator.ParseAndGenerate(mDefId, mTokenReaderWriter).Select(tc => mCaseFactory.Create(tc));
+                return mSetFactory.Create(cases);
+            }
         }
 
         public IDisposable Define()
@@ -65,18 +75,18 @@ namespace NCase.Imp.Core
             }
 
             State = DefSteps.Defining;
-            mTokenReaderWriter.Append(new BeginToken<TDef>(mDef, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new BeginToken<TDefId>(mDefId, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
 
         public void End()
         {
-            mTokenReaderWriter.Append(new EndToken<TDef>(mDef, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new EndToken<TDefId>(mDefId, mCodeLocationUtil.GetCurrentUserCodeLocation()));
             State = DefSteps.Defined;
         }
 
         public void Ref()
         {
-            mTokenReaderWriter.Append(new RefToken<TDef>(mDef, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+            mTokenReaderWriter.Append(new RefToken<TDefId>(mDefId, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
     }
 }

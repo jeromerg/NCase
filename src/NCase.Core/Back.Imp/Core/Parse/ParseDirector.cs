@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NCase.Api.Dev.Core.Parse;
+using NCase.Back.Api.Core.Parse;
 using NDsl.Api.Dev.Core.Ex;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Tok;
@@ -7,7 +7,7 @@ using NDsl.Api.Dev.Core.Util;
 using NVisitor.Api.Action;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Core.Parse
+namespace NCase.Back.Imp.Core.Parse
 {
     public class ParseDirector : ActionDirector<IToken, IParseDirector>, IParseDirector
     {
@@ -21,12 +21,12 @@ namespace NCase.Imp.Core.Parse
             mAddChildDirector = addChildDirector;
         }
 
-        public void AddReference(object reference, INode referencedNode)
+        public void AddId(object reference, INode referencedNode)
         {
             mReferences.Add(reference, referencedNode);
         }
 
-        public TNod GetReference<TNod>(object reference, ICodeLocation location) where TNod : INode
+        public TNod GetReferencedNode<TNod>(object reference, ICodeLocation location) where TNod : INode
         {
             INode referencedNode;
             if (!mReferences.TryGetValue(reference, out referencedNode))

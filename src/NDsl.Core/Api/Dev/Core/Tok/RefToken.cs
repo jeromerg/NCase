@@ -5,8 +5,8 @@ namespace NDsl.Api.Dev.Core.Tok
 {
     public class RefToken<T> : OwnedToken<T>
     {
-        public RefToken([NotNull] T ownerReference, ICodeLocation codeLocation)
-            : base(ownerReference, codeLocation)
+        public RefToken([NotNull] T ownerId, ICodeLocation codeLocation)
+            : base(ownerId, codeLocation)
         {
         }
     }

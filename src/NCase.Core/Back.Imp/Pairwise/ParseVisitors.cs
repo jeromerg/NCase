@@ -1,31 +1,31 @@
-using NCase.Api.Dev.Core.Parse;
-using NCase.Api.Dev.Pairwise;
-using NCase.Api.Pub;
+using NCase.Back.Api.Core.Parse;
+using NCase.Back.Api.Pairwise;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Tok;
 
-namespace NCase.Imp.Pairwise
+namespace NCase.Back.Imp.Pairwise
 {
     public class ParseVisitors
-        : IParseVisitor<BeginToken<IPairwise>>,
-          IParseVisitor<EndToken<IPairwise>>,
-          IParseVisitor<RefToken<IPairwise>>
+        : IParseVisitor<BeginToken<PairwiseId>>,
+          IParseVisitor<EndToken<PairwiseId>>,
+          IParseVisitor<RefToken<PairwiseId>>
     {
-        public void Visit(IParseDirector dir, BeginToken<IPairwise> token)
+        public void Visit(IParseDirector dir, BeginToken<PairwiseId> token)
         {
-            var defNode = new PairwiseNode(token.CodeLocation, token.Owner);
-            dir.AddReference(token.Owner, defNode);
+            var defNode = new PairwiseNode(token.CodeLocation, token.OwnerId);
+            dir.AddId(token.OwnerId, defNode);
             dir.PushScope(defNode);
         }
 
-        public void Visit(IParseDirector dir, EndToken<IPairwise> token)
+        public void Visit(IParseDirector dir, EndToken<PairwiseId> token)
         {
             dir.PopScope();
         }
 
-        public void Visit(IParseDirector dir, RefToken<IPairwise> token)
+        public void Visit(IParseDirector dir, RefToken<PairwiseId> token)
         {
-            var referredSetNode = dir.GetReference<IPairwiseNode>(token.Owner, token.CodeLocation);
+            var referredSetNode = dir.GetReferencedNode<IPairwiseNode>(token.OwnerId, token.CodeLocation);
 
             var newNode = new RefNode<IPairwiseNode>(referredSetNode, token.CodeLocation);
 

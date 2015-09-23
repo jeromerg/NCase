@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using NCase.Imp.Tree;
+using NCase.Back.Imp.Tree;
+using NCase.Front.Imp;
 
 namespace NCase
 {

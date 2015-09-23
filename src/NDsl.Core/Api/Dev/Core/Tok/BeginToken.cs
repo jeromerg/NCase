@@ -5,8 +5,8 @@ namespace NDsl.Api.Dev.Core.Tok
 {
     public class BeginToken<T> : OwnedToken<T>
     {
-        public BeginToken([NotNull] T semanticalOwner, ICodeLocation codeLocation)
-            : base(semanticalOwner, codeLocation)
+        public BeginToken([NotNull] T ownerId, ICodeLocation codeLocation)
+            : base(ownerId, codeLocation)
         {
         }
     }

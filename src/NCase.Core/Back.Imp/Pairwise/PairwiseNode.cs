@@ -1,36 +1,30 @@
 using System;
 using System.Collections.Generic;
-using NCase.Api.Dev.Pairwise;
-using NCase.Api.Pub;
+using NCase.Back.Api.Pairwise;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Pairwise
+namespace NCase.Back.Imp.Pairwise
 {
     public class PairwiseNode : IPairwiseNode
     {
         [NotNull] private readonly ICodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mDimensions = new List<INode>();
 
-        [CanBeNull] private readonly IPairwise mPairwise;
+        [CanBeNull] private readonly PairwiseId mPairwiseId;
 
         public PairwiseNode(
             [NotNull] ICodeLocation codeLocation,
-            [CanBeNull] IPairwise pairwise)
+            [CanBeNull] PairwiseId pairwiseId)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
             mCodeLocation = codeLocation;
 
-            mPairwise = pairwise;
+            mPairwiseId = pairwiseId;
         }
-
-        public IPairwise CaseSet
-        {
-            get { return mPairwise; }
-        }
-
         public IEnumerable<INode> Children
         {
             get { return mDimensions; }

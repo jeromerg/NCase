@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using NCase.Api.Pub;
+using NCase.Front.Api;
 using NUnit.Framework;
 
 namespace NCaseTest

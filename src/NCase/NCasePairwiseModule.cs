@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using NCase.Imp.Pairwise;
+using NCase.Back.Imp.Pairwise;
+using NCase.Front.Imp;
 
 namespace NCase
 {

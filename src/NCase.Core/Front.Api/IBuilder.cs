@@ -1,6 +1,6 @@
 ﻿using NVisitor.Common.Quality;
 
-namespace NCase.Api.Pub
+namespace NCase.Front.Api
 {
     public interface IBuilder
     {

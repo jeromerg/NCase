@@ -4,20 +4,20 @@ using NVisitor.Common.Quality;
 
 namespace NDsl.Api.Dev.Core.Tok
 {
-    public abstract class OwnedToken<TSemanticalOwner> : Token
+    public abstract class OwnedToken<TOwnerId> : Token
     {
-        [NotNull] private readonly TSemanticalOwner mOwner;
+        [NotNull] private readonly TOwnerId mOwnerId;
 
-        protected OwnedToken([NotNull] TSemanticalOwner owner, [NotNull] ICodeLocation codeLocation)
+        protected OwnedToken([NotNull] TOwnerId ownerId, [NotNull] ICodeLocation codeLocation)
             : base(codeLocation)
         {
-            if (owner == null) throw new ArgumentNullException("owner");
-            mOwner = owner;
+            if (ownerId == null) throw new ArgumentNullException("ownerId");
+            mOwnerId = ownerId;
         }
 
-        [NotNull] public TSemanticalOwner Owner
+        [NotNull] public TOwnerId OwnerId
         {
-            get { return mOwner; }
+            get { return mOwnerId; }
         }
     }
 }

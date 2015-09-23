@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
-using NCase.Api.Pub;
-using NCase.Imp.Core;
+using NCase.Front.Api;
+using NCase.Front.Imp;
 using NDsl;
 using Module = Autofac.Module;
 

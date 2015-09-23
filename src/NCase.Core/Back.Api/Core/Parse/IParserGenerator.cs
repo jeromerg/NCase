@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using NCase.Api.Pub;
+using NCase.All;
 using NDsl.Api.Dev.Core;
+using NDsl.Api.Dev.Core.Nod;
 
-namespace NCase.Api.Dev.Core.Parse
+namespace NCase.Back.Api.Core.Parse
 {
     public interface IParserGenerator
     {
-        IEnumerable<ICase> ParseAndGenerate(IDef def, ITokenReader tokenReader);
+        IEnumerable<List<INode>> ParseAndGenerate(IDefId def, ITokenReader tokenReader);
     }
 }

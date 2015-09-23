@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NDsl.Api.Dev.Core.Nod;
 
-namespace NCase.Imp.Helper
+namespace NCase.All.Helper
 {
     public static class ListUtil
     {

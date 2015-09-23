@@ -1,30 +1,29 @@
 ﻿using System;
-using NCase.Api.Dev.Core;
-using NCase.Api.Pub;
+using NCase.All;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Core
+namespace NCase.Front.Imp
 {
-    public abstract class DefBase<TDef> : IDef
-        where TDef : IDef
+    public abstract class DefBase<TDefId> : IDef
+        where TDefId : IDefId
     {
-        private readonly DefHelper<TDef> mDefHelper;
+        private readonly DefHelper<TDefId> mDefHelper;
 
-        protected DefBase([NotNull] string defName,
+        protected DefBase([NotNull] TDefId defId,
+                          [NotNull] string defName,
                           [NotNull] ITokenReaderWriter tokenReaderWriter,
                           [NotNull] IDefHelperFactory defHelperFactory)
         {
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
-            mDefHelper = defHelperFactory.CreateDefHelper(GetDef(), defName, tokenReaderWriter);
+            mDefHelper = defHelperFactory.CreateDefHelper(defId, defName, tokenReaderWriter);
         }
 
         public virtual ISet Cases
         {
             get { return mDefHelper.Cases; }
         }
-
-        protected abstract TDef GetDef();
 
         public virtual IDisposable Define()
         {

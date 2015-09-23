@@ -1,7 +1,7 @@
-using NCase.Api.Dev.Core;
+using NCase.Back.Api.Core;
 using NDsl.Api.Dev.Core.Nod;
 
-namespace NCase.Api.Dev.Prod
+namespace NCase.Back.Api.Prod
 {
     /// <summary>
     ///     A child corresponds to a set of cases, which will be used in the cartesian product

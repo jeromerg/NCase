@@ -1,13 +1,12 @@
 ﻿using System;
-using NCase.Api.Dev.Core;
-using NCase.Api.Pub;
-using NCase.Imp.Core;
+using NCase.Back.Api.Prod;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Prod
+namespace NCase.Front.Imp
 {
-    public class Prod : DefBase<IProd>, IProd
+    public class Prod : DefBase<ProdId>, IProd
     {
         #region inner types
 
@@ -32,14 +31,8 @@ namespace NCase.Imp.Prod
         public Prod([NotNull] ITokenReaderWriter tokenReaderWriter,
                     [NotNull] string defName,
                     [NotNull] IDefHelperFactory defHelperFactory)
-            : base(defName, tokenReaderWriter, defHelperFactory)
+            : base(new ProdId(), defName, tokenReaderWriter, defHelperFactory)
         {
-        }
-
-
-        protected override IProd GetDef()
-        {
-            return this;
         }
     }
 }

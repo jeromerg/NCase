@@ -1,11 +1,10 @@
 ﻿using System;
-using NCase.Api.Dev.Core;
-using NCase.Api.Dev.Core.Replay;
-using NCase.Api.Pub;
+using NCase.Back.Api.Core.Replay;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core.Nod;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Core
+namespace NCase.Front.Imp
 {
     public class Fact : IFact
     {

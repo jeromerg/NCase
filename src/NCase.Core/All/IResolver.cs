@@ -1,4 +1,4 @@
-﻿namespace NCase.Api.Dev.Core
+﻿namespace NCase.All
 {
     public interface IResolver
     {

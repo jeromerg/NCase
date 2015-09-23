@@ -1,4 +1,4 @@
-﻿namespace NCase.Imp.Core
+﻿namespace NCase.Front.Imp
 {
     public enum DefSteps
     {

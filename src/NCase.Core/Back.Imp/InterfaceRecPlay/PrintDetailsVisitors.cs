@@ -1,9 +1,9 @@
 ﻿using System.Text;
-using NCase.Api.Dev.Core.Print;
+using NCase.Back.Api.Core.Print;
 using NDsl.Api.Dev.RecPlay;
 using NDsl.Util.Castle;
 
-namespace NCase.Imp.InterfaceRecPlay
+namespace NCase.Back.Imp.InterfaceRecPlay
 {
     public class PrintDetailsVisitors : IPrintDetailsVisitor<IInterfaceRecPlayNode>
     {

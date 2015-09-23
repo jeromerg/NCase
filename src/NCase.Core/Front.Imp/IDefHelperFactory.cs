@@ -1,15 +1,14 @@
-﻿using NCase.Api.Pub;
-using NCase.Imp.Core;
+﻿using NCase.All;
 using NDsl.Api.Dev.Core;
 using NVisitor.Common.Quality;
 
-namespace NCase.Api.Dev.Core
+namespace NCase.Front.Imp
 {
     public interface IDefHelperFactory : IDefFactory
     {
-        DefHelper<TDef> CreateDefHelper<TDef>([NotNull] TDef def,
+        DefHelper<TDefId> CreateDefHelper<TDefId>([NotNull] TDefId defId,
                                               [NotNull] string defName,
                                               [NotNull] ITokenReaderWriter tokenReaderWriter)
-            where TDef : IDef;
+            where TDefId : IDefId;
     }
 }

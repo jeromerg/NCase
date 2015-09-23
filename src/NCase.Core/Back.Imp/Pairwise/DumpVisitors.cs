@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Castle.Core.Internal;
-using NCase.Api.Dev.Pairwise;
+using NCase.Back.Api.Pairwise;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Vis;
 using NVisitor.Api.Action;
 
-namespace NCase.Imp.Pairwise
+namespace NCase.Back.Imp.Pairwise
 {
     public class DumpVisitors
         : IActionVisitor<INode, IDumpDirector, IPairwiseNode>

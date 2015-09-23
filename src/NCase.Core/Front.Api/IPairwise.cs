@@ -1,6 +1,6 @@
 using System;
 
-namespace NCase.Api.Pub
+namespace NCase.Front.Api
 {
     public interface IPairwise : IDef
     {

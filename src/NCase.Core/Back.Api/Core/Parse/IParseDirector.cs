@@ -3,12 +3,12 @@ using NDsl.Api.Dev.Core.Tok;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Api.Action;
 
-namespace NCase.Api.Dev.Core.Parse
+namespace NCase.Back.Api.Core.Parse
 {
     public interface IParseDirector : IActionDirector<IToken, IParseDirector>
     {
-        void AddReference(object reference, INode referencedNode);
-        TNod GetReference<TNod>(object reference, ICodeLocation location) where TNod : INode;
+        void AddId(object reference, INode referencedNode);
+        TNod GetReferencedNode<TNod>(object reference, ICodeLocation location) where TNod : INode;
 
         void PushScope(INode rootNode);
         void PopScope();

@@ -3,7 +3,7 @@ using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Prod
+namespace NCase.Back.Imp.Prod
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>
     public class ProdDimNode : INode

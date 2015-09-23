@@ -1,13 +1,12 @@
 ﻿using Autofac;
 using Castle.DynamicProxy;
-using NCase.Api.Dev.Core;
-using NCase.Api.Dev.Core.Parse;
-using NCase.Api.Dev.Core.Print;
-using NCase.Api.Dev.Core.Replay;
-using NCase.Imp.Core;
-using NCase.Imp.Core.Parse;
-using NCase.Imp.Core.Print;
-using NCase.Imp.Core.Replay;
+using NCase.Back.Api.Core.Parse;
+using NCase.Back.Api.Core.Print;
+using NCase.Back.Api.Core.Replay;
+using NCase.Back.Imp.Core.Parse;
+using NCase.Back.Imp.Core.Print;
+using NCase.Back.Imp.Core.Replay;
+using NCase.Front.Imp;
 
 namespace NCase
 {

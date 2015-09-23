@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NCase.Api.Dev.Core.Parse;
-using NCase.Api.Dev.Pairwise;
+using NCase.Back.Api.Core.Parse;
+using NCase.Back.Api.Pairwise;
 using NDsl.Api.Dev.Core.Nod;
 
-namespace NCase.Imp.Pairwise
+namespace NCase.Back.Imp.Pairwise
 {
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<IPairwiseNode>,

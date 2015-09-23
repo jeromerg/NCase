@@ -1,7 +1,7 @@
 ﻿using System;
-using NCase.Api.Pub;
+using NCase.Front.Api;
 
-namespace NCase.Api.Dev.Core
+namespace NCase.Front.Imp
 {
     public interface IDefHelper
     {

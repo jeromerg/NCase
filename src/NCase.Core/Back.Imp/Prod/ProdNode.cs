@@ -1,34 +1,28 @@
 using System;
 using System.Collections.Generic;
-using NCase.Api.Dev.Prod;
-using NCase.Api.Pub;
+using NCase.Back.Api.Prod;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Util;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Prod
+namespace NCase.Back.Imp.Prod
 {
     public class ProdNode : IProdNode
     {
         [NotNull] private readonly ICodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mDimensions = new List<INode>();
 
-        [CanBeNull] private readonly IProd mProd;
+        [CanBeNull] private readonly ProdId mId;
 
         public ProdNode(
             [NotNull] ICodeLocation codeLocation,
-            [CanBeNull] IProd prod)
+            [CanBeNull] ProdId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
             mCodeLocation = codeLocation;
 
-            mProd = prod;
-        }
-
-        public IProd CaseSet
-        {
-            get { return mProd; }
+            mId = id;
         }
 
         public IEnumerable<INode> Children

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Castle.Core.Internal;
-using NCase.Api.Dev.Prod;
+using NCase.Back.Api.Prod;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.Core.Vis;
 using NVisitor.Api.Action;
 
-namespace NCase.Imp.Prod
+namespace NCase.Back.Imp.Prod
 {
     public class DumpVisitors
         : IActionVisitor<INode, IDumpDirector, IProdNode>

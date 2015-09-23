@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
-using NCase.Api.Dev.Core;
-using NCase.Api.Pub;
+using NCase.All;
+using NCase.Front.Api;
 using NVisitor.Common.Quality;
 
 namespace NCase

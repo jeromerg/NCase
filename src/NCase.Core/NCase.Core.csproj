@@ -54,16 +54,20 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Back.Api\Core\IDefHelper.cs" />
-    <Compile Include="Back.Api\Core\IDefHelperFactory.cs" />
-    <Compile Include="Back.Api\Core\IResolver.cs" />
+    <Compile Include="Front.Imp\IDefHelper.cs" />
+    <Compile Include="Front.Imp\IDefHelperFactory.cs" />
+    <Compile Include="All\IResolver.cs" />
+    <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
+    <Compile Include="All\IDefId.cs" />
+    <Compile Include="Back.Api\Prod\ProdId.cs" />
+    <Compile Include="Back.Api\Tree\TreeId.cs" />
     <Compile Include="Front.Api\CaseExtensions.cs" />
-    <Compile Include="Front.Api\IDefAdvanced.cs" />
+    <Compile Include="Front.Imp\IDefAdvanced.cs" />
     <Compile Include="Front.Api\ISet.cs" />
-    <Compile Include="Back.Api\Core\ISetFactory.cs" />
-    <Compile Include="Back.Api\Core\IDefFactory.cs" />
-    <Compile Include="Back.Api\Core\ICaseFactory.cs" />
-    <Compile Include="Back.Api\Core\IFactFactory.cs" />
+    <Compile Include="Front.Imp\ISetFactory.cs" />
+    <Compile Include="Front.Imp\IDefFactory.cs" />
+    <Compile Include="Front.Imp\ICaseFactory.cs" />
+    <Compile Include="Front.Imp\IFactFactory.cs" />
     <Compile Include="Back.Api\Core\Parse\IGenerateCaseVisitor.cs" />
     <Compile Include="Back.Api\Core\Parse\IAddChildDirector.cs" />
     <Compile Include="Back.Api\Core\Parse\IAddChildVisitor.cs" />
@@ -94,7 +98,7 @@
     <Compile Include="Back.Imp\Pairwise\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\DumpVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\GenerateCaseVisitors.cs" />
-    <Compile Include="Back.Imp\Pairwise\Pairwise.cs" />
+    <Compile Include="Front.Imp\Pairwise.cs" />
     <Compile Include="Back.Imp\Pairwise\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
@@ -104,7 +108,7 @@
     <Compile Include="Back.Imp\Prod\ParseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ParseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ReplayVisitors.cs" />
-    <Compile Include="Back.Imp\Prod\Prod.cs" />
+    <Compile Include="Front.Imp\Prod.cs" />
     <Compile Include="Back.Imp\Prod\ProdDimNode.cs" />
     <Compile Include="Back.Imp\Prod\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Tree\DumpVisitors.cs" />
@@ -118,7 +122,7 @@
     <Compile Include="Back.Api\Tree\ITreeNode.cs" />
     <Compile Include="Back.Api\Core\Replay\IReplayDirector.cs" />
     <Compile Include="Back.Api\Core\Parse\IParseDirector.cs" />
-    <Compile Include="Back.Imp\Tree\Tree.cs" />
+    <Compile Include="Front.Imp\Tree.cs" />
     <Compile Include="Back.Imp\Tree\TreeNode.cs" />
     <Compile Include="Back.Imp\Core\Replay\ReplayDirector.cs" />
     <Compile Include="Front.Imp\Builder.cs" />

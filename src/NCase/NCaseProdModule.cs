@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using NCase.Imp.Prod;
+using NCase.Back.Imp.Prod;
+using NCase.Front.Imp;
 
 namespace NCase
 {

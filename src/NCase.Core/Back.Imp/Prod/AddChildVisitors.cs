@@ -1,10 +1,10 @@
 using System.Linq;
-using NCase.Api.Dev.Core.Parse;
-using NCase.Api.Dev.Prod;
+using NCase.Back.Api.Core.Parse;
+using NCase.Back.Api.Prod;
 using NDsl.Api.Dev.Core.Nod;
 using NDsl.Api.Dev.RecPlay;
 
-namespace NCase.Imp.Prod
+namespace NCase.Back.Imp.Prod
 {
     public class AddChildVisitors
         : IAddChildVisitor<IProdNode, INode>,

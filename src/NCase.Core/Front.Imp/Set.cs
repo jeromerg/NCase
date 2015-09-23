@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using NCase.Api.Dev.Core;
-using NCase.Api.Pub;
+using NCase.Front.Api;
 
-namespace NCase.Imp.Core
+namespace NCase.Front.Imp
 {
     public class Set : ISet
     {

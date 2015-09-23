@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NCase.Api.Dev.Core;
-using NCase.Api.Pub;
+using NCase.All;
+using NCase.Front.Api;
 using NDsl.Api.Dev.Core;
 using NDsl.Api.Dev.RecPlay;
 using NVisitor.Common.Quality;
 
-namespace NCase.Imp.Core
+namespace NCase.Front.Imp
 {
     public class Builder : IBuilder
     {
