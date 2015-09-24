@@ -1,4 +1,4 @@
-using NDsl.Back.Api.Core;
+using NDsl.Api.Core;
 using NVisitor.Api.ActionPayload;
 
 namespace NCase.Back.Api.Replay

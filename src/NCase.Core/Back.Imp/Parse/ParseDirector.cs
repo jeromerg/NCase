@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
+using NDsl.Api.Core;
 using NVisitor.Api.Action;
-using NVisitor.Common.Quality;
+
 
 namespace NCase.Back.Imp.Parse
 {

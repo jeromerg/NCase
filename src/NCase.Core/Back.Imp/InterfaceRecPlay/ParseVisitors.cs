@@ -1,15 +1,21 @@
 using Castle.DynamicProxy;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Api.RecPlay;
-using NDsl.Back.Imp.RecPlay;
+using NDsl.Api.Core;
+using NDsl.Api.RecPlay;
 
 namespace NCase.Back.Imp.InterfaceRecPlay
 {
     public class ParseVisitors
-        : IParseVisitor<InvocationToken<InterfaceRecPlayInterceptor>>
+        : IParseVisitor<InvocationToken<IInterfaceRecPlayInterceptor>>
     {
-        public void Visit(IParseDirector dir, InvocationToken<InterfaceRecPlayInterceptor> token)
+        private readonly IInterfaceReIInterfaceRecPlayNodeFactory mNodeFactory;
+
+        public ParseVisitors(IInterfaceReIInterfaceRecPlayNodeFactory nodeFactory)
+        {
+            mNodeFactory = nodeFactory;
+        }
+
+        public void Visit(IParseDirector dir, InvocationToken<IInterfaceRecPlayInterceptor> token)
         {
             ICodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
@@ -23,12 +29,11 @@ namespace NCase.Back.Imp.InterfaceRecPlay
 
             object argumentValue = invocation.GetArgumentValue(invocation.Arguments.Length - 1);
 
-            var newNode = new InterfaceRecPlayNode(
-                token.OwnerId,
-                token.OwnerId.ContributorName,
-                setterCallKey,
-                argumentValue,
-                codeLocation);
+            IInterfaceRecPlayNode newNode = mNodeFactory.Create(token.Owner,
+                                                                token.Owner.ContributorName,
+                                                                setterCallKey,
+                                                                argumentValue,
+                                                                codeLocation);
 
             dir.AddChildToScope(newNode);
         }

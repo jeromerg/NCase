@@ -1,0 +1,12 @@
+﻿<NsDepCopConfig IsEnabled="True" CodeIssueKind="Error">
+
+    <Allowed From="*" To="System.*" />
+    <Allowed From="*" To="JetBrains.*" />
+    <Allowed From="*" To="NVisitor.Api.*" />
+    <Allowed From="*" To="Castle.*" />
+
+  <!-- layer rules -->
+    <Allowed From="NDsl.Imp.*" To="NDsl.Api.*" />
+    <Allowed From="NDsl.Api.*" To="NDsl.Api.Core" />
+
+</NsDepCopConfig>

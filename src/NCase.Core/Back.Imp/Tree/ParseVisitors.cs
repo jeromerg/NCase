@@ -1,9 +1,9 @@
 using NCase.Back.Api.Core;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Tree;
-using NDsl.Back.Api.Block;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Api.Ref;
+using NDsl.Api.Block;
+using NDsl.Api.Core;
+using NDsl.Api.Ref;
 
 namespace NCase.Back.Imp.Tree
 {
@@ -14,9 +14,9 @@ namespace NCase.Back.Imp.Tree
     {
         public void Visit(IParseDirector dir, BeginToken<TreeId> token)
         {
-            var newCaseSetNode = new TreeNode(token.CodeLocation, token.OwnerId, null);
+            var newCaseSetNode = new TreeNode(token.CodeLocation, token.Owner, null);
 
-            dir.AddId(token.OwnerId, newCaseSetNode);
+            dir.AddId(token.Owner, newCaseSetNode);
             dir.PushScope(newCaseSetNode);
         }
 
@@ -29,7 +29,7 @@ namespace NCase.Back.Imp.Tree
         {
             ICodeLocation codeLocation = token.CodeLocation;
 
-            IDefNode referredSetNode = dir.GetReferencedNode<ITreeNode>(token.OwnerId, codeLocation);
+            IDefNode referredSetNode = dir.GetReferencedNode<ITreeNode>(token.Owner, codeLocation);
 
             var newNode = new RefNode<ITreeNode>((ITreeNode) referredSetNode, codeLocation);
 

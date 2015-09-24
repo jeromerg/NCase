@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NCase.Back.Api.Core;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
-using NVisitor.Common.Quality;
+using NDsl.Api.Core;
+
 
 namespace NCase.Back.Imp.Parse
 {

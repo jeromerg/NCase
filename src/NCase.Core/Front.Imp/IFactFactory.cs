@@ -1,5 +1,5 @@
 ﻿using NCase.Front.Api;
-using NDsl.Back.Api.Core;
+using NDsl.Api.Core;
 
 namespace NCase.Front.Imp
 {

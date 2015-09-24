@@ -3,8 +3,8 @@ using System.Linq;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Prod;
 using NCase.Back.Api.Util;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Api.Ref;
+using NDsl.Api.Core;
+using NDsl.Api.Ref;
 
 namespace NCase.Back.Imp.Prod
 {

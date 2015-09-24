@@ -1,7 +1,7 @@
 using NCase.Back.Api.Pairwise;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Block;
-using NDsl.Back.Api.Ref;
+using NDsl.Api.Block;
+using NDsl.Api.Ref;
 
 namespace NCase.Back.Imp.Pairwise
 {
@@ -12,8 +12,8 @@ namespace NCase.Back.Imp.Pairwise
     {
         public void Visit(IParseDirector dir, BeginToken<PairwiseId> token)
         {
-            var defNode = new PairwiseNode(token.CodeLocation, token.OwnerId);
-            dir.AddId(token.OwnerId, defNode);
+            var defNode = new PairwiseNode(token.CodeLocation, token.Owner);
+            dir.AddId(token.Owner, defNode);
             dir.PushScope(defNode);
         }
 
@@ -24,7 +24,7 @@ namespace NCase.Back.Imp.Pairwise
 
         public void Visit(IParseDirector dir, RefToken<PairwiseId> token)
         {
-            var referredSetNode = dir.GetReferencedNode<IPairwiseNode>(token.OwnerId, token.CodeLocation);
+            var referredSetNode = dir.GetReferencedNode<IPairwiseNode>(token.Owner, token.CodeLocation);
 
             var newNode = new RefNode<IPairwiseNode>(referredSetNode, token.CodeLocation);
 

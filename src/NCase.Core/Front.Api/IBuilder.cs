@@ -1,4 +1,6 @@
-﻿using NVisitor.Common.Quality;
+﻿
+
+using JetBrains.Annotations;
 
 namespace NCase.Front.Api
 {

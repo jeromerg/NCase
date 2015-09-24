@@ -1,8 +1,8 @@
 using System.Linq;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Tree;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Api.RecPlay;
+using NDsl.Api.Core;
+using NDsl.Api.RecPlay;
 
 namespace NCase.Back.Imp.Tree
 {

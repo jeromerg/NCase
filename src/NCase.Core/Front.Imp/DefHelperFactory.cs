@@ -1,8 +1,9 @@
 ﻿using System;
+using JetBrains.Annotations;
 using NCase.Back.Api.Core;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
-using NVisitor.Common.Quality;
+using NDsl.Api.Core;
+
 
 namespace NCase.Front.Imp
 {

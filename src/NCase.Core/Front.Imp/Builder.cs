@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using NCase.Back.Api.Core;
 using NCase.Front.Api;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Api.RecPlay;
-using NVisitor.Common.Quality;
+using NDsl.Api.Core;
+using NDsl.Api.RecPlay;
+
 
 namespace NCase.Front.Imp
 {

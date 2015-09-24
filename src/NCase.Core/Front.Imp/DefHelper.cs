@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using NCase.Back.Api.Core;
 using NCase.Back.Api.Parse;
 using NCase.Front.Api;
-using NDsl.Back.Api.Block;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Api.Ref;
-using NVisitor.Common.Quality;
+using NDsl.Api.Block;
+using NDsl.Api.Core;
+using NDsl.Api.Ref;
+
 
 namespace NCase.Front.Imp
 {

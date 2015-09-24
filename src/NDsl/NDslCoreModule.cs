@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Imp.Core;
+using NDsl.Api.Core;
+using NDsl.Imp.Core;
 using NVisitor.Api.Action;
 using NVisitor.Api.ActionPair;
 using NVisitor.Api.ActionPayload;

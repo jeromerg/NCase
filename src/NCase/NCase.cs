@@ -1,8 +1,9 @@
 ﻿using System;
 using Autofac;
+using JetBrains.Annotations;
 using NCase.Back.Api.Core;
 using NCase.Front.Api;
-using NVisitor.Common.Quality;
+
 
 namespace NCase
 {

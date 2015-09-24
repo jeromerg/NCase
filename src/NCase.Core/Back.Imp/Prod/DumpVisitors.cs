@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Castle.Core.Internal;
 using NCase.Back.Api.Prod;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Api.Dump;
+using NDsl.Api.Core;
+using NDsl.Api.Dump;
 using NVisitor.Api.Action;
 
 namespace NCase.Back.Imp.Prod

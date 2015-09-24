@@ -1,8 +1,8 @@
 using System.Linq;
 using NCase.Back.Api.Pairwise;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
-using NDsl.Back.Api.RecPlay;
+using NDsl.Api.Core;
+using NDsl.Api.RecPlay;
 
 namespace NCase.Back.Imp.Pairwise
 {
