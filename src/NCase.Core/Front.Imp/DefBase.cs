@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Core;
 using NCase.Front.Api;
@@ -21,7 +22,7 @@ namespace NCase.Front.Imp
             mDefHelper = defHelperFactory.CreateDefHelper(defId, defName, tokenReaderWriter);
         }
 
-        public virtual ISet Cases
+        public virtual IEnumerable<ICase> Cases
         {
             get { return mDefHelper.Cases; }
         }

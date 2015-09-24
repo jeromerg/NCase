@@ -9,14 +9,12 @@ using NDsl.Api.Block;
 using NDsl.Api.Core;
 using NDsl.Api.Ref;
 
-
 namespace NCase.Front.Imp
 {
     public class DefHelper<TDefId> : IDefHelper
         where TDefId : IDefId
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
-        [NotNull] private readonly ISetFactory mSetFactory;
         private readonly ICaseFactory mCaseFactory;
         [NotNull] private readonly TDefId mDefId;
         [NotNull] private readonly IParserGenerator mParserGenerator;
@@ -28,7 +26,6 @@ namespace NCase.Front.Imp
                          [NotNull] ITokenReaderWriter tokenReaderWriter,
                          [NotNull] ICodeLocationUtil codeLocationUtil,
                          [NotNull] IParserGenerator parserGenerator,
-                         [NotNull] ISetFactory setFactory,
                          [NotNull] ICaseFactory caseFactory)
         {
             if (defId == null) throw new ArgumentNullException("defId");
@@ -36,7 +33,6 @@ namespace NCase.Front.Imp
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
-            if (setFactory == null) throw new ArgumentNullException("setFactory");
             if (caseFactory == null) throw new ArgumentNullException("caseFactory");
 
             mDefId = defId;
@@ -44,20 +40,14 @@ namespace NCase.Front.Imp
             mTokenReaderWriter = tokenReaderWriter;
             mDefName = defName;
             mCodeLocationUtil = codeLocationUtil;
-            mSetFactory = setFactory;
             mCaseFactory = caseFactory;
         }
 
         public DefSteps State { get; private set; }
 
-        public ISet Cases
+        public IEnumerable<ICase> Cases
         {
-            get
-            {
-                IEnumerable<ICase> cases =
-                    mParserGenerator.ParseAndGenerate(mDefId, mTokenReaderWriter).Select(tc => mCaseFactory.Create(tc));
-                return mSetFactory.Create(cases);
-            }
+            get { return mParserGenerator.ParseAndGenerate(mDefId, mTokenReaderWriter).Select(tc => mCaseFactory.Create(tc)); }
         }
 
         public IDisposable Define()

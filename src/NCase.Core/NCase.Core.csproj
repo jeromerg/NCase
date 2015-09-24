@@ -96,8 +96,6 @@
     <Compile Include="Back.Api\Tree\TreeId.cs" />
     <Compile Include="Front.Api\CaseExtensions.cs" />
     <Compile Include="Front.Imp\IDefAdvanced.cs" />
-    <Compile Include="Front.Api\ISet.cs" />
-    <Compile Include="Front.Imp\ISetFactory.cs" />
     <Compile Include="Front.Imp\IDefFactory.cs" />
     <Compile Include="Front.Imp\ICaseFactory.cs" />
     <Compile Include="Front.Imp\IFactFactory.cs" />
@@ -118,7 +116,6 @@
     <Compile Include="Front.Api\IProd.cs" />
     <Compile Include="Front.Api\ITree.cs" />
     <Compile Include="Front.Imp\DefBase.cs" />
-    <Compile Include="Front.Imp\Set.cs" />
     <Compile Include="Front.Imp\DefSteps.cs" />
     <Compile Include="Front.Imp\Fact.cs" />
     <Compile Include="Front.Imp\Case.cs" />

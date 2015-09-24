@@ -22,7 +22,6 @@ namespace NCase
             builder.RegisterType<DefHelperFactory>().As<IDefHelperFactory>().InstancePerDependency();
 
             // case and fact factory
-            builder.RegisterType<Set.Factory>().As<ISetFactory>().InstancePerDependency();
             builder.RegisterType<Case.Factory>().As<ICaseFactory>().InstancePerDependency();
             builder.RegisterType<Fact.Factory>().As<IFactFactory>().InstancePerDependency();
 

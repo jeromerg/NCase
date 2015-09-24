@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+
 namespace NCase.Front.Api
 {
     /// <summary>Case Set Definition</summary>
     public interface IDef
     {
-        ISet Cases { get; }
+        IEnumerable<ICase> Cases { get; }
+
+        //T Get<T>(IFunc<IDef, T> function);
     }
 }
