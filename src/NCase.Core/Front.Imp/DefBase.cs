@@ -8,7 +8,7 @@ using NDsl.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public abstract class DefBase<TDefId> : IDef
+    public abstract class DefBase<TDefId, TDef> : IDef<TDef>
         where TDefId : IDefId
     {
         private readonly DefHelper<TDefId> mDefHelper;

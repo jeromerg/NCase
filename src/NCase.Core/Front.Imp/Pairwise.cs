@@ -3,11 +3,16 @@ using JetBrains.Annotations;
 using NCase.Back.Api.Pairwise;
 using NCase.Front.Api;
 using NDsl.Api.Core;
-
+using NVisitor.Api.FuncPair;
 
 namespace NCase.Front.Imp
 {
-    public class Pairwise : DefBase<PairwiseId>, IPairwise
+    public interface IFuncDirector<TArteFact, TResult> 
+        : IFuncPairDirector<IFuncSettings<object, object>,TArteFact,IFuncDirector<TArteFact, TResult>,TResult>
+    {
+    }
+
+    public class Pairwise : DefBase<PairwiseId, IPairwise>, IPairwise
     {
         #region inner types
 
@@ -33,6 +38,10 @@ namespace NCase.Front.Imp
                         [NotNull] string defName,
                         [NotNull] IDefHelperFactory defHelperFactory)
             : base(new PairwiseId(), defName, tokenReaderWriter, defHelperFactory)
+        {
+        }
+
+        public TResult Get<TFunc, TResult>(TFunc func) where TFunc : IFuncSettings<IPairwise, TResult>
         {
         }
     }
