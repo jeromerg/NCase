@@ -11,7 +11,7 @@ namespace NCase.Front.Imp
     public abstract class DefBase<TDefId, TDef> : IDef<TDef>
         where TDefId : IDefId
     {
-        private readonly DefHelper<TDefId> mDefHelper;
+        private readonly DefHelper<TDefId, TDef> mDefHelper;
 
         protected DefBase([NotNull] TDefId defId,
                           [NotNull] string defName,
@@ -19,12 +19,7 @@ namespace NCase.Front.Imp
                           [NotNull] IDefHelperFactory defHelperFactory)
         {
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor
-            mDefHelper = defHelperFactory.CreateDefHelper(defId, defName, tokenReaderWriter);
-        }
-
-        public virtual IEnumerable<ICase> Cases
-        {
-            get { return mDefHelper.Cases; }
+            mDefHelper = defHelperFactory.CreateDefHelper<TDefId, TDef>(defId, defName, tokenReaderWriter);
         }
 
         public virtual IDisposable Define()
@@ -45,6 +40,11 @@ namespace NCase.Front.Imp
         public virtual void Ref()
         {
             mDefHelper.Ref();
+        }
+
+        public TResult Perform<TOp, TResult>(TOp operation) where TOp : IOp<TDef, TResult>
+        {
+            return mDefHelper.Perform<TOp, TResult>(operation);
         }
     }
 }

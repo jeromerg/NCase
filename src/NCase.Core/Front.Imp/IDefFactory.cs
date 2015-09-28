@@ -7,9 +7,9 @@ namespace NCase.Front.Imp
     {
     }
 
-    public interface IDefFactory<out T> : IDefFactory
-        where T : IDef
+    public interface IDefFactory<out TDef> : IDefFactory
+        where TDef : IDef<TDef>
     {
-        T Create(ITokenReaderWriter tokenReaderWriter, string name);
+        TDef Create(ITokenReaderWriter tokenReaderWriter, string name);
     }
 }

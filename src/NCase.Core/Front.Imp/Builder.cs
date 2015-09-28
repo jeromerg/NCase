@@ -7,10 +7,9 @@ using NCase.Front.Api;
 using NDsl.Api.Core;
 using NDsl.Api.RecPlay;
 
-
 namespace NCase.Front.Imp
 {
-    public class Builder : IBuilder
+    public class Builder // TODO JRG: IArtefact<IBuilder>
     {
         [NotNull] private readonly ITokenReaderWriter mTokenStream;
         [NotNull] private readonly Dictionary<Type, IDefFactory> mDefFactories;
@@ -40,20 +39,20 @@ namespace NCase.Front.Imp
             return mInterfaceRecPlayContributorFactory.CreateContributor<T>(mTokenStream, name);
         }
 
-        public T CreateDef<T>(string name) where T : IDef
+        public TDef CreateDef<TDef>(string name) where TDef : IDef<TDef>
         {
             if (name == null) throw new ArgumentNullException("name");
 
             IDefFactory defFactory;
-            if (!mDefFactories.TryGetValue(typeof (T), out defFactory))
-                throw new ArgumentException(string.Format(@"No factory found for definition type {0}", typeof (T).Name));
+            if (!mDefFactories.TryGetValue(typeof (TDef), out defFactory))
+                throw new ArgumentException(string.Format(@"No factory found for definition type {0}", typeof (TDef).Name));
 
-            var genericDefFactory = defFactory as IDefFactory<IDef>;
+            var genericDefFactory = defFactory as IDefFactory<TDef>;
             if (genericDefFactory == null)
                 throw new ArgumentException(string.Format(@"Factory for definition type {0} does not implement IDefFactory<{0}>",
-                                                          typeof (T).Name));
+                                                          typeof (TDef).Name));
 
-            return (T) genericDefFactory.Create(mTokenStream, name);
+            return genericDefFactory.Create(mTokenStream, name);
         }
 
         private Type GetDefType(IDefFactory defFactory)

@@ -7,7 +7,7 @@ using NDsl.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class Tree : DefBase<TreeId>, ITree
+    public class Tree : DefBase<TreeId, ITree>, ITree
     {
         #region inner types
 

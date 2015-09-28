@@ -7,7 +7,7 @@ using NDsl.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class Prod : DefBase<ProdId>, IProd
+    public class Prod : DefBase<ProdId, IProd>, IProd
     {
         #region inner types
 

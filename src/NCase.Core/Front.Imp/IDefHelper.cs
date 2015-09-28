@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using NCase.Front.Api;
 
 namespace NCase.Front.Imp
 {
-    public interface IDefHelper
+    public interface IDefHelper<TDef>
     {
-        IEnumerable<ICase> Cases { get; }
         IDisposable Define();
         void Begin();
         void End();
         void Ref();
+        TResult Perform<TOp, TResult>(TOp operation) where TOp : IOp<TDef, TResult>;
     }
 }
