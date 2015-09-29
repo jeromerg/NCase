@@ -1,6 +1,6 @@
 using NCase.Back.Api.Core;
 
-namespace NCase.Front.Imp.Op
+namespace NCase.Front.Imp
 {
     public interface IDefImp : IArtefactImp
     {

@@ -1,4 +1,4 @@
-namespace NCase.Front.Imp.Op
+namespace NCase.Front.Imp
 {
     public interface IArtefactImp
     {
