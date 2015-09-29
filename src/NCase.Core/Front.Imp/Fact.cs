@@ -4,7 +4,6 @@ using NCase.Back.Api.Replay;
 using NCase.Front.Api;
 using NDsl.Api.Core;
 
-
 namespace NCase.Front.Imp
 {
     public class Fact : IFact

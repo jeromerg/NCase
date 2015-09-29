@@ -1,6 +1,4 @@
-﻿
-
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace NDsl.Api.Core
 {

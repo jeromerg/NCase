@@ -9,10 +9,6 @@ namespace NDsl.Imp.RecPlay
 {
     public class InterfaceRecPlayInterceptor : IInterceptor, IInterfaceRecPlayInterceptor
     {
-        #region inner types
-
-        #endregion
-
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
         [NotNull] private readonly ITokenWriter mTokenWriter;
@@ -37,11 +33,6 @@ namespace NDsl.Imp.RecPlay
             mTokenWriter = tokenWriter;
         }
 
-        [NotNull] public string ContributorName
-        {
-            get { return mContributorName; }
-        }
-
         public void Intercept(IInvocation invocation)
         {
             switch (mMode)
@@ -57,6 +48,11 @@ namespace NDsl.Imp.RecPlay
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        [NotNull] public string ContributorName
+        {
+            get { return mContributorName; }
         }
 
         public void SetMode(RecPlayMode mode)

@@ -19,6 +19,7 @@ namespace NCase.Front.Imp.Op
         }
 
         public TResult Perform<TArtefact, TResult>(IOp<TArtefact, TResult> operation, IArtefactImp artefactImp)
+            where TArtefact : IArtefact
         {
             if (ReferenceEquals(operation, null))
                 throw new ArgumentNullException("operation");
@@ -29,7 +30,7 @@ namespace NCase.Front.Imp.Op
             Func<IOperationDirector, IOp, IArtefactImp, object> visitAction;
             //try
             //{
-               visitAction = mVisitMapper.GetVisitDelegate(operation, artefactImp);
+            visitAction = mVisitMapper.GetVisitDelegate(operation, artefactImp);
             //}
             //catch (TargetTypeNotResolvedException e)
             //{

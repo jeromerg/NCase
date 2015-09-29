@@ -7,9 +7,10 @@ namespace NCaseTest
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "UnusedVariable")]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class DemoTests
     {
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
         public enum Curr
         {
             EUR,
@@ -24,7 +25,6 @@ namespace NCaseTest
             Maestro
         }
 
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public interface ITransfer
         {
             Curr Currency { get; set; }
@@ -46,28 +46,28 @@ namespace NCaseTest
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;
-                t.BalanceUsd = 100.00;
-                t.Amount = 0.01;
-                t.Accepted = true;
-                t.Amount = 100.00;
-                t.Accepted = true;
-                t.Amount = 100.01;
-                t.Accepted = false;
-                t.BalanceUsd = 0.00;
-                t.Amount = 0.01;
-                t.Accepted = false;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 100.00;
+                            t.Accepted = true;
+                        t.Amount = 100.01;
+                            t.Accepted = false;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
                 t.Currency = Curr.YEN;
-                t.BalanceUsd = 0.00;
-                t.Amount = 0.01;
-                t.Accepted = false;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
                 t.Currency = Curr.EUR;
-                t.BalanceUsd = 100.00;
-                t.Amount = 0.01;
-                t.Accepted = true;
-                t.Amount = 89.39;
-                t.Accepted = true;
-                t.Amount = 89.40;
-                t.Accepted = false;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 89.39;
+                            t.Accepted = true;
+                        t.Amount = 89.40;
+                            t.Accepted = false;
             }
 
             var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
@@ -91,7 +91,7 @@ namespace NCaseTest
 
             Console.WriteLine("DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
             Console.WriteLine("--------------|------------|----------|-------------|--------|---------");
-            foreach (ICase cas in transfersForAllcardsAndBanks.Cases.Replay())
+            foreach (ICase cas in transfersForAllcardsAndBanks.Cases().Replay())
             {
                 Console.WriteLine("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}",
                                   t.DestBank,
@@ -200,7 +200,7 @@ namespace NCaseTest
 
             Console.WriteLine("DEST_BANK     | CARD       ");
             Console.WriteLine("--------------|------------");
-            foreach (ICase cas in cardsAndBanks.Cases.Replay())
+            foreach (ICase cas in cardsAndBanks.Cases().Replay())
             {
                 Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
             }
@@ -228,33 +228,33 @@ namespace NCaseTest
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;
-                t.BalanceUsd = 100.00;
-                t.Amount = 0.01;
-                t.Accepted = true;
-                t.Amount = 100.00;
-                t.Accepted = true;
-                t.Amount = 100.01;
-                t.Accepted = false;
-                t.BalanceUsd = 0.00;
-                t.Amount = 0.01;
-                t.Accepted = false;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 100.00;
+                            t.Accepted = true;
+                        t.Amount = 100.01;
+                            t.Accepted = false;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
                 t.Currency = Curr.YEN;
-                t.BalanceUsd = 0.00;
-                t.Amount = 0.01;
-                t.Accepted = false;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
                 t.Currency = Curr.EUR;
-                t.BalanceUsd = 100.00;
-                t.Amount = 0.01;
-                t.Accepted = true;
-                t.Amount = 89.39;
-                t.Accepted = true;
-                t.Amount = 89.40;
-                t.Accepted = false;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 89.39;
+                            t.Accepted = true;
+                        t.Amount = 89.40;
+                            t.Accepted = false;
             }
 
             Console.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
             Console.WriteLine("---------|-------------|--------|---------");
-            foreach (ICase cas in transfers.Cases.Replay())
+            foreach (ICase cas in transfers.Cases().Replay())
             {
                 Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}",
                                   t.Currency,

@@ -38,7 +38,7 @@ namespace NCaseTest
             }
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
-            IEnumerator<ICase> enumerator = allPersonsAllAges.Cases.Replay().GetEnumerator();
+            IEnumerator<ICase> enumerator = allPersonsAllAges.Cases().Replay().GetEnumerator();
 
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);
@@ -115,7 +115,7 @@ namespace NCaseTest
             }
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
-            IEnumerator<ICase> enumerator = allPersonsAllAges.Cases.Replay().GetEnumerator();
+            IEnumerator<ICase> enumerator = allPersonsAllAges.Cases().Replay().GetEnumerator();
 
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);

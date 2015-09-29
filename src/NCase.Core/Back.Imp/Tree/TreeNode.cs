@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 using NCase.Back.Api.Tree;
 using NDsl.Api.Core;
 
-
 namespace NCase.Back.Imp.Tree
 {
     public class TreeNode : ITreeNode

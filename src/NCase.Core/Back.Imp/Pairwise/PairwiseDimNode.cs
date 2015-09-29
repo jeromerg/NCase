@@ -3,7 +3,6 @@ using JetBrains.Annotations;
 using NCase.Back.Api.Pairwise;
 using NDsl.Api.Core;
 
-
 namespace NCase.Back.Imp.Pairwise
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>

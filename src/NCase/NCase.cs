@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 using NCase.Back.Api.Core;
 using NCase.Front.Api;
 
-
 namespace NCase
 {
     public static class NCase
@@ -32,10 +31,10 @@ namespace NCase
 
         public static IBuilder CreateBuilder()
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule<NCaseModule>();
-            builder.RegisterType<Resolver>().As<IResolver>();
-            IContainer container = builder.Build();
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<NCaseModule>();
+            containerBuilder.RegisterType<Resolver>().As<IResolver>();
+            IContainer container = containerBuilder.Build();
             return container.Resolve<IBuilder>();
         }
     }

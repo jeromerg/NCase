@@ -4,7 +4,6 @@ using NCase.Back.Api.Parse;
 using NDsl.Api.Core;
 using NVisitor.Api.Action;
 
-
 namespace NCase.Back.Imp.Parse
 {
     public class ParseDirector : ActionDirector<IToken, IParseDirector>, IParseDirector

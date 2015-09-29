@@ -35,8 +35,8 @@ namespace NCase.Front.Imp.Op
                 .Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof (IOp<,>))
                 .ToList();
 
-            if(operationOpenTypes.Count != 1)
-                throw new ArgumentException(string.Format("Type {0} must implement IOp once and only once", 
+            if (operationOpenTypes.Count != 1)
+                throw new ArgumentException(string.Format("Type {0} must implement IOp once and only once",
                                                           operation.GetType().FullName));
 
             Type artefactType = operationOpenTypes[0].GetGenericArguments()[0];
@@ -50,7 +50,7 @@ namespace NCase.Front.Imp.Op
 
             // prepare the visit action and dispatcher it
             return (someDirector, operation1, car1) =>
-                     visitMethod.Invoke(visitorInstance, new object[] {someDirector, operation1, car1});
+                   visitMethod.Invoke(visitorInstance, new object[] {someDirector, operation1, car1});
         }
     }
 }

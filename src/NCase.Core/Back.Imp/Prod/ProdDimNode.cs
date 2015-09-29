@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using NDsl.Api.Core;
 
-
 namespace NCase.Back.Imp.Prod
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>

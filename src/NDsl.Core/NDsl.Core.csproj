@@ -42,11 +42,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.60\lib\net40-Client\NGitVersion.exe</HintPath>
+      <HintPath>..\packages\NVisitor.1.1.0.66\lib\net40-Client\NGitVersion.exe</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.60, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.60\lib\net40-Client\NVisitor.dll</HintPath>
+    <Reference Include="NVisitor, Version=1.1.0.66, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.66\lib\net40-Client\NVisitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

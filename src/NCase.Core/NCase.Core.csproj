@@ -44,11 +44,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.60\lib\net40-Client\NGitVersion.exe</HintPath>
+      <HintPath>..\packages\NVisitor.1.1.0.66\lib\net40-Client\NGitVersion.exe</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.60, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.60\lib\net40-Client\NVisitor.dll</HintPath>
+    <Reference Include="NVisitor, Version=1.1.0.66, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.66\lib\net40-Client\NVisitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -88,8 +88,11 @@
     <Compile Include="Back.Imp\Tree\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\TreeNode.cs" />
     <Compile Include="Front.Api\DefExtensions.cs" />
+    <Compile Include="Front.Api\GetCases.cs" />
     <Compile Include="Front.Api\IArtefact.cs" />
     <Compile Include="Front.Api\IOp.cs" />
+    <Compile Include="Front.Imp\GetCasesImpl.cs" />
+    <Compile Include="Front.Imp\IDefImp.cs" />
     <Compile Include="Front.Imp\Op\OperationDirector.cs" />
     <Compile Include="Front.Imp\Op\OperationVisitMapper.cs" />
     <Compile Include="Front.Imp\IArtefactImp.cs" />
@@ -97,8 +100,6 @@
     <Compile Include="Front.Imp\Op\IOperationImp.cs" />
     <Compile Include="Front.Imp\Op\IOperationVisitMapper.cs" />
     <Compile Include="Front.Imp\Op\IOperationVisitorClass.cs" />
-    <Compile Include="Front.Imp\IDefHelper.cs" />
-    <Compile Include="Front.Imp\IDefHelperFactory.cs" />
     <Compile Include="Back.Api\Core\IResolver.cs" />
     <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
     <Compile Include="Back.Api\Core\IDefId.cs" />
@@ -116,8 +117,6 @@
     <Compile Include="Back.Api\Parse\IParseVisitor.cs" />
     <Compile Include="Back.Api\Print\IPrintDetailsVisitor.cs" />
     <Compile Include="Back.Api\Print\IPrintDetailsDirector.cs" />
-    <Compile Include="Front.Imp\DefHelper.cs" />
-    <Compile Include="Front.Imp\DefHelperFactory.cs" />
     <Compile Include="Back.Api\Replay\IReplayVisitor.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseDimNode.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseNode.cs" />

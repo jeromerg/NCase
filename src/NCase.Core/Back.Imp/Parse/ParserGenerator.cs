@@ -5,7 +5,6 @@ using NCase.Back.Api.Core;
 using NCase.Back.Api.Parse;
 using NDsl.Api.Core;
 
-
 namespace NCase.Back.Imp.Parse
 {
     public class ParserGenerator : IParserGenerator

@@ -9,7 +9,7 @@ using NDsl.Api.RecPlay;
 
 namespace NCase.Front.Imp
 {
-    public class Builder // TODO JRG: IArtefact<IBuilder>
+    public class Builder : IBuilder
     {
         [NotNull] private readonly ITokenReaderWriter mTokenStream;
         [NotNull] private readonly Dictionary<Type, IDefFactory> mDefFactories;

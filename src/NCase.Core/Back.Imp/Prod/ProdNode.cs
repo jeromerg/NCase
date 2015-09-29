@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 using NCase.Back.Api.Prod;
 using NDsl.Api.Core;
 
-
 namespace NCase.Back.Imp.Prod
 {
     public class ProdNode : IProdNode

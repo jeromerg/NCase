@@ -8,7 +8,7 @@ namespace NCase.Front.Imp.Op
         : IOperationVisitorClass
         where TOperation : IOp<TArtefact, TResult>
         where TArtefactImp : IArtefactImp
-        where TArtefact : IArtefact<TArtefact>
+        where TArtefact : IArtefact
     {
         TResult Perform(IOperationDirector director, TOperation operation, TArtefactImp artefactImp);
     }

@@ -1,13 +1,13 @@
-using System;
 using System.Collections.Generic;
 
 namespace NCase.Front.Api
 {
     public static class DefExtensions
     {
-        public static IEnumerable<ICase> Cases<TDef>(this IDef<TDef> cases)
+        public static IEnumerable<ICase> Cases<TDef>(this TDef def)
+            where TDef : class, IDef, IDef<TDef>
         {
-            throw new NotImplementedException("TODO JRG");
+            return def.Perform<GetCases, IEnumerable<ICase>>(GetCases.Instance);
         }
     }
 }

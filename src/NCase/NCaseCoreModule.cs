@@ -7,6 +7,7 @@ using NCase.Back.Imp.Parse;
 using NCase.Back.Imp.Print;
 using NCase.Back.Imp.Replay;
 using NCase.Front.Imp;
+using NCase.Front.Imp.Op;
 
 namespace NCase
 {
@@ -18,26 +19,28 @@ namespace NCase
 
             builder.RegisterInstance(new ProxyGenerator());
 
-            // Def helper
-            builder.RegisterType<DefHelperFactory>().As<IDefHelperFactory>().InstancePerDependency();
+            builder.RegisterType<OperationDirector>().As<IOperationDirector>().SingleInstance();
 
             // case and fact factory
-            builder.RegisterType<Case.Factory>().As<ICaseFactory>().InstancePerDependency();
-            builder.RegisterType<Fact.Factory>().As<IFactFactory>().InstancePerDependency();
+            builder.RegisterType<Case.Factory>().As<ICaseFactory>().SingleInstance();
+            builder.RegisterType<Fact.Factory>().As<IFactFactory>().SingleInstance();
 
             // Parser
-            builder.RegisterType<ParserGenerator>().As<IParserGenerator>().InstancePerDependency();
+            builder.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();
 
-            builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency();
-            builder.RegisterType<AddChildDirector>().As<IAddChildDirector>().InstancePerDependency();
-            builder.RegisterType<GenerateDirector>().As<IGenerateDirector>().InstancePerDependency();
+            builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency(); // STATEFUL!
+            builder.RegisterType<AddChildDirector>().As<IAddChildDirector>().SingleInstance();
+            builder.RegisterType<GenerateDirector>().As<IGenerateDirector>().SingleInstance();
 
             // Replay Director and default visitor
-            builder.RegisterType<ReplayDirector>().As<IReplayDirector>().InstancePerDependency();
+            builder.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
             builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Print
-            builder.RegisterType<PrintDetailsDirector>().As<IPrintDetailsDirector>().InstancePerDependency();
+            builder.RegisterType<PrintDetailsDirector>().As<IPrintDetailsDirector>().SingleInstance();
+
+            // GetCases
+            builder.RegisterType<GetCasesImpl>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }
