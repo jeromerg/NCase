@@ -1,10 +1,6 @@
-using System;
-
 namespace NCase.Front.Api
 {
-    public interface IPairwise : IDef<IPairwise>
+    public interface IPairwise : ISetDef<IPairwise>
     {
-        IDisposable Define();
-        void Ref();
     }
 }

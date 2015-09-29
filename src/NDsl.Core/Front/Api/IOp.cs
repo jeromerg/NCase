@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace NCase.Front.Api
+namespace NDsl.Front.Api
 {
     public interface IOp
     {

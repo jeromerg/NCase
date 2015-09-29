@@ -5,6 +5,8 @@ using JetBrains.Annotations;
 using NCase.Front.Api;
 using NDsl.Back.Api.Core;
 using NDsl.Back.Api.RecPlay;
+using NDsl.Front.Api;
+using NDsl.Front.Imp;
 
 namespace NCase.Front.Imp
 {

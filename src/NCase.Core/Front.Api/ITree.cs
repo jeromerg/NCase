@@ -1,10 +1,6 @@
-using System;
-
 namespace NCase.Front.Api
 {
-    public interface ITree : IDef<ITree>
+    public interface ITree : ISetDef<ITree>
     {
-        IDisposable Define();
-        void Ref();
     }
 }

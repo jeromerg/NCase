@@ -1,7 +1,7 @@
-﻿using NCase.Front.Api;
-using NDsl.Back.Api.Core;
+﻿using NDsl.Back.Api.Core;
+using NDsl.Front.Api;
 
-namespace NCase.Front.Imp
+namespace NDsl.Front.Imp
 {
     public interface IDefFactory
     {

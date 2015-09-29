@@ -1,4 +1,4 @@
-namespace NCase.Front.Api
+namespace NDsl.Front.Api
 {
     public interface IArtefact
     {

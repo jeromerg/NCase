@@ -1,4 +1,4 @@
-using NCase.Back.Api.Core;
+using NDsl.Back.Api;
 using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Api.Prod

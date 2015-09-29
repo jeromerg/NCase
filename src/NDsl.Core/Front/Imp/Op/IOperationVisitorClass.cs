@@ -1,4 +1,4 @@
-namespace NCase.Front.Imp.Op
+namespace NDsl.Front.Imp.Op
 {
     public interface IOperationVisitorClass
     {

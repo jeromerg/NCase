@@ -71,6 +71,14 @@
       <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
       <Name>NCase.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
+      <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
+      <Name>NDsl.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDsl\NDsl.csproj">
+      <Project>{fd488cb0-efeb-4e14-86d8-220d378a716f}</Project>
+      <Name>NDsl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

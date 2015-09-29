@@ -9,13 +9,13 @@ using NDsl.Back.Api.Ref;
 
 namespace NCase.Front.Imp
 {
-    public abstract class DefBase : IDefImp
+    public abstract class DefImpBase : IDefImp
     {
         [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
         [NotNull] private readonly string mDefName;
 
-        protected DefBase([NotNull] string defName,
-                          [NotNull] ITokenReaderWriter tokenReaderWriter)
+        protected DefImpBase([NotNull] string defName,
+                             [NotNull] ITokenReaderWriter tokenReaderWriter)
         {
             if (defName == null) throw new ArgumentNullException("defName");
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
@@ -37,8 +37,8 @@ namespace NCase.Front.Imp
         public abstract IDefId DefId { get; }
     }
 
-    public abstract class DefBase<TDef, TDefId, TDefImp>
-        : DefBase, IDef<TDef>
+    public abstract class DefImpBase<TDef, TDefId, TDefImp>
+        : DefImpBase, IDef<TDef>
         where TDef : IDef<TDef>
         where TDefId : IDefId
         where TDefImp : IDefImp<TDefId>
@@ -46,10 +46,10 @@ namespace NCase.Front.Imp
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly IOperationDirector mOperationDirector;
 
-        protected DefBase([NotNull] string defName,
-                          [NotNull] ITokenReaderWriter tokenReaderWriter,
-                          [NotNull] ICodeLocationUtil codeLocationUtil,
-                          [NotNull] IOperationDirector operationDirector)
+        protected DefImpBase([NotNull] string defName,
+                             [NotNull] ITokenReaderWriter tokenReaderWriter,
+                             [NotNull] ICodeLocationUtil codeLocationUtil,
+                             [NotNull] IOperationDirector operationDirector)
             : base(defName, tokenReaderWriter)
         {
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
@@ -77,6 +77,11 @@ namespace NCase.Front.Imp
             return new DisposableWithCallbacks(Begin, End);
         }
 
+        public void Ref()
+        {
+            TokenReaderWriter.Append(new RefToken<TDefId>(ThisDefImpl.Id, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+        }
+
         public void Begin()
         {
             if (State > DefSteps.NotDefined)
@@ -94,11 +99,6 @@ namespace NCase.Front.Imp
         {
             TokenReaderWriter.Append(new EndToken<TDefId>(ThisDefImpl.Id, mCodeLocationUtil.GetCurrentUserCodeLocation()));
             State = DefSteps.Defined;
-        }
-
-        public void Ref()
-        {
-            TokenReaderWriter.Append(new RefToken<TDefId>(ThisDefImpl.Id, mCodeLocationUtil.GetCurrentUserCodeLocation()));
         }
     }
 }

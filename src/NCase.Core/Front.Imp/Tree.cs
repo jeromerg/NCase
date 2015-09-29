@@ -2,12 +2,13 @@
 using JetBrains.Annotations;
 using NCase.Back.Api.Tree;
 using NCase.Front.Api;
-using NCase.Front.Imp.Op;
 using NDsl.Back.Api.Core;
+using NDsl.Front.Imp;
+using NDsl.Front.Imp.Op;
 
 namespace NCase.Front.Imp
 {
-    public class Tree : DefBase<ITree, TreeId, Tree>, ITree, IDefImp<TreeId>
+    public class Tree : SetDefImpBase<ITree, TreeId, Tree>, ITree, IDefImp<TreeId>
     {
         #region inner types
 

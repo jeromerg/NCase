@@ -2,12 +2,13 @@
 using JetBrains.Annotations;
 using NCase.Back.Api.Pairwise;
 using NCase.Front.Api;
-using NCase.Front.Imp.Op;
 using NDsl.Back.Api.Core;
+using NDsl.Front.Imp;
+using NDsl.Front.Imp.Op;
 
 namespace NCase.Front.Imp
 {
-    public class Pairwise : DefBase<IPairwise, PairwiseId, Pairwise>, IPairwise, IDefImp<PairwiseId>
+    public class Pairwise : SetDefImpBase<IPairwise, PairwiseId, Pairwise>, IPairwise, IDefImp<PairwiseId>
     {
         #region inner types
 

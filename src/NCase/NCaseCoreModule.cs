@@ -7,7 +7,7 @@ using NCase.Back.Imp.Parse;
 using NCase.Back.Imp.Print;
 using NCase.Back.Imp.Replay;
 using NCase.Front.Imp;
-using NCase.Front.Imp.Op;
+using NDsl.Front.Imp.Op;
 
 namespace NCase
 {

@@ -8,7 +8,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class GetCasesImpl : IOperationImp<IDef, GetCases, DefBase, IEnumerable<ICase>>
+    public class GetCasesImpl : IOperationImp<ISetDef, GetCases, ISetDefImp, IEnumerable<ICase>>
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly ICaseFactory mCaseFactory;
@@ -21,9 +21,9 @@ namespace NCase.Front.Imp
             mCaseFactory = caseFactory;
         }
 
-        public IEnumerable<ICase> Perform(IOperationDirector director, GetCases operation, DefBase defImp)
+        public IEnumerable<ICase> Perform(IOperationDirector director, GetCases operation, ISetDefImp setDefImp)
         {
-            IEnumerable<List<INode>> cases = mParserGenerator.ParseAndGenerate(defImp.DefId, defImp.TokenReaderWriter);
+            IEnumerable<List<INode>> cases = mParserGenerator.ParseAndGenerate(setDefImp.DefId, setDefImp.TokenReaderWriter);
             foreach (List<INode> cas in cases)
             {
                 yield return mCaseFactory.Create(cas);

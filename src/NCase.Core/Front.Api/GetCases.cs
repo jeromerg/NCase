@@ -2,7 +2,7 @@
 
 namespace NCase.Front.Api
 {
-    public class GetCases : IOp<IDef, IEnumerable<ICase>>
+    public class GetCases : IOp<ISetDef, IEnumerable<ICase>>
     {
         public static readonly GetCases Instance = new GetCases();
 

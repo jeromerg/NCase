@@ -4,10 +4,10 @@ namespace NCase.Front.Api
 {
     public static class DefExtensions
     {
-        public static IEnumerable<ICase> Cases<TDef>(this TDef def)
-            where TDef : class, IDef, IDef<TDef>
+        public static IEnumerable<ICase> Cases<TSetDef>(this TSetDef setDef)
+            where TSetDef : class, ISetDef<TSetDef>
         {
-            return def.Perform<GetCases, IEnumerable<ICase>>(GetCases.Instance);
+            return setDef.Perform<GetCases, IEnumerable<ICase>>(GetCases.Instance);
         }
     }
 }

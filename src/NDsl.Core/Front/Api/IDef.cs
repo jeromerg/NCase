@@ -1,7 +1,11 @@
-namespace NCase.Front.Api
+using System;
+
+namespace NDsl.Front.Api
 {
     public interface IDef : IArtefact
     {
+        IDisposable Define();
+        void Ref();
     }
 
     /// <summary>Case Set Definition</summary>

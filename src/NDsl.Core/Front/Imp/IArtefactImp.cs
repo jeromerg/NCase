@@ -1,4 +1,4 @@
-namespace NCase.Front.Imp
+namespace NDsl.Front.Imp
 {
     public interface IArtefactImp
     {

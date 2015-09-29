@@ -2,12 +2,13 @@
 using JetBrains.Annotations;
 using NCase.Back.Api.Prod;
 using NCase.Front.Api;
-using NCase.Front.Imp.Op;
 using NDsl.Back.Api.Core;
+using NDsl.Front.Imp;
+using NDsl.Front.Imp.Op;
 
 namespace NCase.Front.Imp
 {
-    public class Prod : DefBase<IProd, ProdId, Prod>, IProd, IDefImp<ProdId>
+    public class Prod : SetDefImpBase<IProd, ProdId, Prod>, IProd, IDefImp<ProdId>
     {
         #region inner types
 
