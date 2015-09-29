@@ -6,7 +6,7 @@
     <Allowed From="*" To="Castle.*" />
 
   <!-- layer rules -->
-    <Allowed From="NDsl.Imp.*" To="NDsl.Api.*" />
-    <Allowed From="NDsl.Api.*" To="NDsl.Api.Core" />
+    <Allowed From="NDsl.Back.Imp.*" To="NDsl.Back.Api.*" />
+    <Allowed From="NDsl.Back.Api.*" To="NDsl.Back.Api.Core" />
 
 </NsDepCopConfig>

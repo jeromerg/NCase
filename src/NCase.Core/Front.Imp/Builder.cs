@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NCase.Back.Api.Core;
 using NCase.Front.Api;
-using NDsl.Api.Core;
-using NDsl.Api.RecPlay;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.RecPlay;
 
 namespace NCase.Front.Imp
 {
@@ -14,22 +13,18 @@ namespace NCase.Front.Imp
         [NotNull] private readonly ITokenReaderWriter mTokenStream;
         [NotNull] private readonly Dictionary<Type, IDefFactory> mDefFactories;
         [NotNull] private readonly IInterfaceRecPlayContributorFactory mInterfaceRecPlayContributorFactory;
-        [NotNull] private readonly IResolver mResolver;
 
         public Builder([NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
                        [NotNull] ITokenReaderWriter tokenStream,
-                       [NotNull] IEnumerable<IDefFactory> defFactories,
-                       [NotNull] IResolver resolver)
+                       [NotNull] IEnumerable<IDefFactory> defFactories)
         {
             if (interfaceRecPlayContributorFactory == null) throw new ArgumentNullException("interfaceRecPlayContributorFactory");
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");
             if (defFactories == null) throw new ArgumentNullException("defFactories");
-            if (resolver == null) throw new ArgumentNullException("resolver");
 
             mTokenStream = tokenStream;
             mDefFactories = defFactories.ToDictionary(f => GetDefType(f));
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
-            mResolver = resolver;
         }
 
         public T CreateContributor<T>(string name)

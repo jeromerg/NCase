@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using NCase.Back.Api.Print;
-using NDsl.Api.Core;
-using NDsl.Api.RecPlay;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.RecPlay;
 
 namespace NCase.Back.Imp.InterfaceRecPlay
 {

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using NCase.Back.Api.Core;
 using NCase.Back.Api.Tree;
-using NDsl.Api.Core;
+using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Imp.Tree
 {
@@ -24,6 +25,16 @@ namespace NCase.Back.Imp.Tree
 
             mId = id;
             mFact = fact;
+        }
+
+        [CanBeNull] public TreeId Id
+        {
+            get { return mId; }
+        }
+
+        public IDefId DefId
+        {
+            get { return mId; }
         }
 
         public IEnumerable<INode> Children

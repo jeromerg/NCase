@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Core;
-using NDsl.Api.Core;
+using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Api.Tree
 {
@@ -10,6 +10,7 @@ namespace NCase.Back.Api.Tree
         [CanBeNull] INode Fact { get; }
 
         IEnumerable<INode> Branches { get; }
+        TreeId Id { get; }
         void AddTreeBranch(INode branch);
     }
 }

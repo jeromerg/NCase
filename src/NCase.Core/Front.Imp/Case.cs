@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Replay;
 using NCase.Front.Api;
-using NDsl.Api.Core;
+using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {

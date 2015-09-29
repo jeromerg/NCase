@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Pairwise;
-using NDsl.Api.Core;
+using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Imp.Pairwise
 {

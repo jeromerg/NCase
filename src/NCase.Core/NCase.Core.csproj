@@ -100,13 +100,11 @@
     <Compile Include="Front.Imp\Op\IOperationImp.cs" />
     <Compile Include="Front.Imp\Op\IOperationVisitMapper.cs" />
     <Compile Include="Front.Imp\Op\IOperationVisitorClass.cs" />
-    <Compile Include="Back.Api\Core\IResolver.cs" />
     <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
     <Compile Include="Back.Api\Core\IDefId.cs" />
     <Compile Include="Back.Api\Prod\ProdId.cs" />
     <Compile Include="Back.Api\Tree\TreeId.cs" />
     <Compile Include="Front.Api\CaseExtensions.cs" />
-    <Compile Include="Front.Imp\IDefAdvanced.cs" />
     <Compile Include="Front.Imp\IDefFactory.cs" />
     <Compile Include="Front.Imp\ICaseFactory.cs" />
     <Compile Include="Front.Imp\IFactFactory.cs" />

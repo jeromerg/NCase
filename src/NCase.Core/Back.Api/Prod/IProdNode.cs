@@ -1,5 +1,5 @@
 using NCase.Back.Api.Core;
-using NDsl.Api.Core;
+using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Api.Prod
 {
@@ -8,6 +8,7 @@ namespace NCase.Back.Api.Prod
     /// </summary>
     public interface IProdNode : IDefNode
     {
+        ProdId Id { get; }
         void AddChild(INode child);
     }
 }

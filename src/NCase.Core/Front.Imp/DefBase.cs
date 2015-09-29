@@ -3,9 +3,9 @@ using JetBrains.Annotations;
 using NCase.Back.Api.Core;
 using NCase.Front.Api;
 using NCase.Front.Imp.Op;
-using NDsl.Api.Block;
-using NDsl.Api.Core;
-using NDsl.Api.Ref;
+using NDsl.Back.Api.Block;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Ref;
 
 namespace NCase.Front.Imp
 {

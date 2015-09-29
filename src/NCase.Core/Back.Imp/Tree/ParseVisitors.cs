@@ -1,9 +1,9 @@
 using NCase.Back.Api.Core;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Tree;
-using NDsl.Api.Block;
-using NDsl.Api.Core;
-using NDsl.Api.Ref;
+using NDsl.Back.Api.Block;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Ref;
 
 namespace NCase.Back.Imp.Tree
 {

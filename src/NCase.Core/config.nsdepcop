@@ -4,15 +4,16 @@
     <Allowed From="*" To="NVisitor.Api.*" />
 
 	<!-- layer rules -->
+    <Allowed From="NCase.Front.Imp.*" To="NCase.Front.Imp.*" />
     <Allowed From="NCase.Front.Imp.*" To="NCase.Front.Api.*" />
     <Allowed From="NCase.Front.Imp.*" To="NCase.Back.Api.*" />
-    <Allowed From="NCase.Front.Imp.*" To="NDsl.Api.*" />
+    <Allowed From="NCase.Front.Imp.*" To="NDsl.Back.Api.*" />
 
     <Allowed From="NCase.Back.Imp.*"  To="NCase.Back.Api.*" />
-    <Allowed From="NCase.Back.Imp.*"  To="NDsl.Api.*" />
+    <Allowed From="NCase.Back.Imp.*"  To="NDsl.Back.Api.*" />
     <Allowed From="NCase.Back.Imp.*"  To="Castle.*" />
 
     <Allowed From="NCase.Back.Api.*"  To="NCase.Back.Api.Core" />
-    <Allowed From="NCase.Back.Api.*"  To="NDsl.Api.*" />
+    <Allowed From="NCase.Back.Api.*"  To="NDsl.Back.Api.*" />
 
 </NsDepCopConfig>

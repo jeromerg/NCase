@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Castle.Core.Internal;
 using NCase.Back.Api.Pairwise;
-using NDsl.Api.Core;
-using NDsl.Api.Dump;
+using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Dump;
 using NVisitor.Api.Action;
 
 namespace NCase.Back.Imp.Pairwise

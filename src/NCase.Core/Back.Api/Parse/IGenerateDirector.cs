@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NDsl.Api.Core;
+using NDsl.Back.Api.Core;
 using NVisitor.Api.Func;
 
 namespace NCase.Back.Api.Parse
