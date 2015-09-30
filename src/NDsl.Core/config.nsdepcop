@@ -1,12 +1,16 @@
 ﻿<NsDepCopConfig IsEnabled="True" CodeIssueKind="Error">
 
-    <Allowed From="*" To="System.*" />
-    <Allowed From="*" To="JetBrains.*" />
-    <Allowed From="*" To="NVisitor.Api.*" />
-    <Allowed From="*" To="Castle.*" />
+  <Allowed From="*" To="System.*" />
+  <Allowed From="*" To="JetBrains.*" />
+  <Allowed From="*" To="NVisitor.Api.*" />
+  <Allowed From="*" To="Castle.*" />
 
   <!-- layer rules -->
-    <Allowed From="NDsl.Back.Imp.*" To="NDsl.Back.Api.*" />
-    <Allowed From="NDsl.Back.Api.*" To="NDsl.Back.Api.Core" />
+  <Allowed From="NDsl.Front.Imp.*" To="NDsl.Front.Imp.*" />
+  <Allowed From="NDsl.Front.Imp.*" To="NDsl.Back.Api.*" />
+  <Allowed From="NDsl.Front.Imp.*" To="NDsl.Front.Api.*" />
+
+  <Allowed From="NDsl.Back.Imp.*" To="NDsl.Back.Api.*" />
+  <Allowed From="NDsl.Back.Api.*" To="NDsl.Back.Api.Core" />
 
 </NsDepCopConfig>

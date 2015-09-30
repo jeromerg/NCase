@@ -1,13 +1,13 @@
 ﻿using System;
 using JetBrains.Annotations;
-using NCase.Back.Api.Core;
-using NCase.Front.Api;
-using NCase.Front.Imp.Op;
+using NDsl.Back.Api;
 using NDsl.Back.Api.Block;
 using NDsl.Back.Api.Core;
 using NDsl.Back.Api.Ref;
+using NDsl.Front.Api;
+using NDsl.Front.Imp.Op;
 
-namespace NCase.Front.Imp
+namespace NDsl.Front.Imp
 {
     public abstract class DefImpBase : IDefImp
     {

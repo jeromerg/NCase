@@ -86,14 +86,14 @@
     <Compile Include="Back.Imp\Tree\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\TreeNode.cs" />
-    <Compile Include="Front.Api\DefExtensions.cs" />
-    <Compile Include="Front.Api\GetCases.cs" />
-    <Compile Include="Front.Api\ISetDef.cs" />
+    <Compile Include="Front.Ui\DefExtensions.cs" />
+    <Compile Include="Front.Ui\GetCases.cs" />
+    <Compile Include="Front.Ui\ISetDef.cs" />
     <Compile Include="Front.Imp\GetCasesImpl.cs" />
     <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
     <Compile Include="Back.Api\Prod\ProdId.cs" />
     <Compile Include="Back.Api\Tree\TreeId.cs" />
-    <Compile Include="Front.Api\CaseExtensions.cs" />
+    <Compile Include="Front.Ui\CaseExtensions.cs" />
     <Compile Include="Front.Imp\ICaseFactory.cs" />
     <Compile Include="Front.Imp\IFactFactory.cs" />
     <Compile Include="Back.Api\Parse\IGenerateCaseVisitor.cs" />
@@ -106,13 +106,13 @@
     <Compile Include="Back.Api\Replay\IReplayVisitor.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseDimNode.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseNode.cs" />
-    <Compile Include="Front.Api\IFact.cs" />
-    <Compile Include="Front.Api\IPairwise.cs" />
-    <Compile Include="Front.Api\IProd.cs" />
-    <Compile Include="Front.Api\ITree.cs" />
+    <Compile Include="Front.Ui\IFact.cs" />
+    <Compile Include="Front.Ui\IPairwise.cs" />
+    <Compile Include="Front.Ui\IProd.cs" />
+    <Compile Include="Front.Ui\ITree.cs" />
     <Compile Include="Front.Imp\Fact.cs" />
     <Compile Include="Front.Imp\Case.cs" />
-    <Compile Include="Front.Api\ICase.cs" />
+    <Compile Include="Front.Ui\ICase.cs" />
     <Compile Include="Front.Imp\ISetDefImp.cs" />
     <Compile Include="Front.Imp\Pairwise.cs" />
     <Compile Include="Back.Api\Util\ListUtil.cs" />
@@ -124,7 +124,7 @@
     <Compile Include="Front.Imp\SetDefImpBase.cs" />
     <Compile Include="Front.Imp\Tree.cs" />
     <Compile Include="Front.Imp\Builder.cs" />
-    <Compile Include="Front.Api\IBuilder.cs" />
+    <Compile Include="Front.Ui\IBuilder.cs" />
     <Compile Include="Back.Api\Parse\IGenerateDirector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

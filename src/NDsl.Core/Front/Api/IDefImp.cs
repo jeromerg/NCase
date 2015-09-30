@@ -1,7 +1,7 @@
-using NCase.Back.Api.Core;
+using NDsl.Back.Api;
 using NDsl.Back.Api.Core;
 
-namespace NCase.Front.Imp
+namespace NDsl.Front.Imp
 {
     public interface IDefImp : IArtefactImp
     {

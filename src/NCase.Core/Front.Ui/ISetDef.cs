@@ -1,3 +1,5 @@
+using NDsl.Front.Api;
+
 namespace NCase.Front.Api
 {
     public interface ISetDef : IDef

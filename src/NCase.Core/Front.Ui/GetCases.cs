@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NDsl.Front.Api;
 
 namespace NCase.Front.Api
 {
