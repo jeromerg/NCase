@@ -87,6 +87,7 @@
     <Compile Include="Back.Imp\Tree\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\TreeNode.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />
+    <Compile Include="Front.Ui\Print.cs" />
     <Compile Include="Front.Ui\GetCases.cs" />
     <Compile Include="Front.Ui\ISetDef.cs" />
     <Compile Include="Front.Imp\GetCasesImpl.cs" />

@@ -1,6 +1,6 @@
 using System;
 
-namespace NDsl.Front.Api
+namespace NDsl.Front.Ui
 {
     public interface IDef : IArtefact
     {

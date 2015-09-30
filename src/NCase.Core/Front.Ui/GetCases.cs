@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using NDsl.Front.Api;
+using NDsl.Front.Ui;
 
-namespace NCase.Front.Api
+namespace NCase.Front.Ui
 {
     public class GetCases : IOp<ISetDef, IEnumerable<ICase>>
     {

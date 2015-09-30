@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using NCase.Front.Api;
+using NCase.Front.Ui;
 using NUnit.Framework;
 
 namespace NCaseTest

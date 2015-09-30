@@ -1,4 +1,4 @@
-namespace NDsl.Front.Api
+namespace NDsl.Front.Ui
 {
     public interface IArtefact
     {

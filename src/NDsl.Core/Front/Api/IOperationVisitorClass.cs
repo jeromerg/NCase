@@ -1,4 +1,4 @@
-namespace NDsl.Front.Imp.Op
+namespace NDsl.Front.Api
 {
     public interface IOperationVisitorClass
     {

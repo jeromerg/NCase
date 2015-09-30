@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace NCase.Front.Api
+namespace NCase.Front.Ui
 {
     public static class DefExtensions
     {

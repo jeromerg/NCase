@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Parse;
-using NCase.Front.Api;
+using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
-using NDsl.Front.Imp.Op;
+using NDsl.Front.Api;
 
 namespace NCase.Front.Imp
 {

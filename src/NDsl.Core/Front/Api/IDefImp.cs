@@ -1,7 +1,7 @@
 using NDsl.Back.Api;
 using NDsl.Back.Api.Core;
 
-namespace NDsl.Front.Imp
+namespace NDsl.Front.Api
 {
     public interface IDefImp : IArtefactImp
     {

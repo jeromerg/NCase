@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
-using NDsl.Front.Api;
+using NDsl.Front.Ui;
 
-namespace NDsl.Front.Imp.Op
+namespace NDsl.Front.Api
 {
     [SuppressMessage("ReSharper", "TypeParameterCanBeVariant")]
     public interface IOperationImp<TArtefact, TOperation, TArtefactImp, TResult>

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using NDsl.Front.Api;
+using NDsl.Front.Ui;
 using NVisitor.Api.Common;
 
-namespace NDsl.Front.Imp.Op
+namespace NDsl.Front.Api
 {
     public class OperationVisitMapper
         : PairVisitMapperBase<

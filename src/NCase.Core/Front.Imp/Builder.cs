@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NCase.Front.Api;
+using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Front.Api;
 using NDsl.Front.Imp;
+using NDsl.Front.Ui;
 
 namespace NCase.Front.Imp
 {

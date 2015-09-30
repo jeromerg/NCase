@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
-using NDsl.Front.Api;
+using NDsl.Front.Ui;
 
-namespace NCase.Front.Api
+namespace NCase.Front.Ui
 {
     public interface IBuilder // TODO JRG: IArtefact<IBuilder>
     {

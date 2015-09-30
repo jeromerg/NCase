@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
-using NDsl.Front.Api;
+using NDsl.Front.Ui;
 
-namespace NDsl.Front.Imp.Op
+namespace NDsl.Front.Api
 {
     public interface IOperationDirector
     {

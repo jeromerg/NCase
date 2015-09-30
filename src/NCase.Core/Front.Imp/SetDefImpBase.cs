@@ -3,7 +3,7 @@ using NDsl.Back.Api;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 using NDsl.Front.Imp;
-using NDsl.Front.Imp.Op;
+using NDsl.Front.Ui;
 
 namespace NCase.Front.Imp
 {

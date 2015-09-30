@@ -1,10 +1,10 @@
 ﻿using System;
 using JetBrains.Annotations;
 using NCase.Back.Api.Tree;
-using NCase.Front.Api;
+using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
+using NDsl.Front.Api;
 using NDsl.Front.Imp;
-using NDsl.Front.Imp.Op;
 
 namespace NCase.Front.Imp
 {

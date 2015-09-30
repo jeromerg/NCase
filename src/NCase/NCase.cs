@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using NCase.Front.Api;
+using NCase.Front.Ui;
 
 namespace NCase
 {

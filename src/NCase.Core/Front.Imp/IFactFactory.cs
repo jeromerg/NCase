@@ -1,4 +1,4 @@
-﻿using NCase.Front.Api;
+﻿using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp

@@ -1,7 +1,7 @@
 ﻿using NDsl.Back.Api.Core;
-using NDsl.Front.Api;
+using NDsl.Front.Ui;
 
-namespace NDsl.Front.Imp
+namespace NDsl.Front.Api
 {
     public interface IDefFactory
     {

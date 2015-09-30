@@ -5,7 +5,7 @@ using NDsl.Back.Api.Block;
 using NDsl.Back.Api.Core;
 using NDsl.Back.Api.Ref;
 using NDsl.Front.Api;
-using NDsl.Front.Imp.Op;
+using NDsl.Front.Ui;
 
 namespace NDsl.Front.Imp
 {

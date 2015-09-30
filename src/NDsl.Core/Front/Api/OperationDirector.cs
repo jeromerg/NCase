@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using NDsl.Front.Api;
+using NDsl.Front.Ui;
 
-namespace NDsl.Front.Imp.Op
+namespace NDsl.Front.Api
 {
     public class OperationDirector : IOperationDirector
     {
