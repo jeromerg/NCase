@@ -23,11 +23,12 @@ namespace NCase.Front.Imp
 
         public IEnumerable<ICase> Perform(IOperationDirector director, GetCases operation, ISetDefImp setDefImp)
         {
-            IEnumerable<List<INode>> cases = mParserGenerator.ParseAndGenerate(setDefImp.DefId, setDefImp.TokenReaderWriter);
+            INode caseSetNode = mParserGenerator.Parse(setDefImp.DefId, setDefImp.TokenReaderWriter);
+            
+            IEnumerable<List<INode>> cases = mParserGenerator.Generate(caseSetNode);
+
             foreach (List<INode> cas in cases)
-            {
                 yield return mCaseFactory.Create(cas);
-            }
         }
     }
 }

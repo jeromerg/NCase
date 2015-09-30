@@ -37,7 +37,7 @@ namespace NCase
             builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Print
-            builder.RegisterType<PrintDetailsDirector>().As<IPrintDetailsDirector>().SingleInstance();
+            builder.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().SingleInstance();
 
             // GetCases
             builder.RegisterType<GetCasesImpl>().AsImplementedInterfaces().SingleInstance();

@@ -6,6 +6,7 @@ namespace NCase.Back.Api.Parse
 {
     public interface IParserGenerator
     {
-        IEnumerable<List<INode>> ParseAndGenerate(IDefId def, ITokenReader tokenReader);
+        INode Parse(IDefId def, ITokenReader tokenReader);
+        IEnumerable<List<INode>> Generate(INode caseSetNode);
     }
 }

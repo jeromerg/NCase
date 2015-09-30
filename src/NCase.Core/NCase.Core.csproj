@@ -60,7 +60,7 @@
     </Compile>
     <Compile Include="Back.Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ParseVisitors.cs" />
-    <Compile Include="Back.Imp\InterfaceRecPlay\PrintDetailsVisitors.cs" />
+    <Compile Include="Back.Imp\InterfaceRecPlay\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ReplayVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\DumpVisitors.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="Back.Imp\Parse\GenerateDirector.cs" />
     <Compile Include="Back.Imp\Parse\ParseDirector.cs" />
     <Compile Include="Back.Imp\Parse\ParserGenerator.cs" />
-    <Compile Include="Back.Imp\Print\PrintDetailsDirector.cs" />
+    <Compile Include="Back.Imp\Print\PrintDefinitionDirector.cs" />
     <Compile Include="Back.Imp\Prod\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Prod\DumpVisitors.cs" />
     <Compile Include="Back.Imp\Prod\GenerateCaseVisitors.cs" />
@@ -86,8 +86,9 @@
     <Compile Include="Back.Imp\Tree\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\TreeNode.cs" />
+    <Compile Include="Front.Imp\PrintDefinitionImpl.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />
-    <Compile Include="Front.Ui\Print.cs" />
+    <Compile Include="Front.Ui\PrintDefinition.cs" />
     <Compile Include="Front.Ui\GetCases.cs" />
     <Compile Include="Front.Ui\ISetDef.cs" />
     <Compile Include="Front.Imp\GetCasesImpl.cs" />
@@ -102,8 +103,8 @@
     <Compile Include="Back.Api\Parse\IAddChildVisitor.cs" />
     <Compile Include="Back.Api\Parse\IParserGenerator.cs" />
     <Compile Include="Back.Api\Parse\IParseVisitor.cs" />
-    <Compile Include="Back.Api\Print\IPrintDetailsVisitor.cs" />
-    <Compile Include="Back.Api\Print\IPrintDetailsDirector.cs" />
+    <Compile Include="Back.Api\Print\IPrintDefinitionVisitor.cs" />
+    <Compile Include="Back.Api\Print\IPrintDefinitionDirector.cs" />
     <Compile Include="Back.Api\Replay\IReplayVisitor.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseDimNode.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseNode.cs" />

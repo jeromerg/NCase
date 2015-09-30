@@ -4,7 +4,7 @@ using NVisitor.Api.ActionPayload;
 
 namespace NCase.Back.Api.Print
 {
-    public interface IPrintDetailsVisitor<TNod> : IActionPayloadVisitor<INode, IPrintDetailsDirector, TNod, StringBuilder>
+    public interface IPrintDefinitionVisitor<TNod> : IActionPayloadVisitor<INode, IPrintDefinitionDirector, TNod, StringBuilder>
         where TNod : INode
     {
     }

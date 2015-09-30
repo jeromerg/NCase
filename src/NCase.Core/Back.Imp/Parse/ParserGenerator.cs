@@ -25,17 +25,20 @@ namespace NCase.Back.Imp.Parse
             mParseDirector = parseDirector;
         }
 
-        public IEnumerable<List<INode>> ParseAndGenerate(IDefId def, ITokenReader tokenReader)
+        public INode Parse(IDefId def, ITokenReader tokenReader)
         {
             // PARSE
             foreach (IToken token in tokenReader.Tokens)
                 mParseDirector.Visit(token);
 
             // GENERATE CASES
-            var reference = mParseDirector.GetReferencedNode<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
+            return mParseDirector.GetReferencedNode<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
+        }
 
-            // WRAP RESULT INTO ICase
-            foreach (List<INode> testCaseNodes in mCaseGenerator.Visit(reference))
+        public IEnumerable<List<INode>> Generate(INode caseSetNode)
+        {
+            IEnumerable<List<INode>> factForEachTestCase = mCaseGenerator.Visit(caseSetNode);
+            foreach (List<INode> testCaseNodes in factForEachTestCase)
                 yield return testCaseNodes;
         }
     }

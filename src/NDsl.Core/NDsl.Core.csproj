@@ -60,6 +60,7 @@
     <Compile Include="Back\Api\IDefId.cs" />
     <Compile Include="Back\Api\IDefNode.cs" />
     <Compile Include="Back\Api\ITypedId.cs" />
+    <Compile Include="Back\Api\RecPlay\InterfaceRecPlayNodeExtensions.cs" />
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayNodeFactory.cs" />
     <Compile Include="Back\Api\Ref\IRefNode.cs" />
     <Compile Include="Back\Api\Ref\RefNode.cs" />
@@ -120,9 +121,7 @@
     <None Include="config.nsdepcop" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Back\Api\Util\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

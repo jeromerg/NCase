@@ -5,15 +5,19 @@ using NDsl.Back.Api.RecPlay;
 
 namespace NCase.Back.Imp.InterfaceRecPlay
 {
-    public class PrintDetailsVisitors : IPrintDetailsVisitor<IInterfaceRecPlayNode>
+    public class PrintDefinitionVisitors : IPrintDefinitionVisitor<IInterfaceRecPlayNode>
     {
-        public void Visit(IPrintDetailsDirector dir, IInterfaceRecPlayNode node, StringBuilder sb)
+        /// <summary> If node unknown, then recurse...</summary>
+        public void Visit(IPrintDefinitionDirector dir, INode node, StringBuilder sb)
         {
-            sb.AppendFormat("{0}\n  {1}.{2}={3}",
-                            node.CodeLocation.GetUserCodeInfo(),
-                            node.ContributorName,
-                            Reconstitute(node.PropertyCallKey),
-                            node.PropertyValue);
+            foreach (INode child in node.Children)
+                dir.Visit(child, sb);
+        }
+
+        public void Visit(IPrintDefinitionDirector dir, IInterfaceRecPlayNode node, StringBuilder sb)
+        {
+            node.
+            sb.node.PrintAssignment()
         }
 
         private string Reconstitute(PropertyCallKey propertyCallKey)
