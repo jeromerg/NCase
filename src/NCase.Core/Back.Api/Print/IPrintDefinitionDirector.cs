@@ -1,65 +1,23 @@
-﻿using System.Text;
+﻿using JetBrains.Annotations;
 using NDsl.Back.Api.Core;
-using NVisitor.Api.ActionPayload;
+using NVisitor.Api.Action;
 
 namespace NCase.Back.Api.Print
 {
-    public interface IPrintDefinitionDirector : IActionPayloadDirector<INode, IPrintDefinitionDirector, StringBuilder>
+    public interface IPrintDefinitionDirector : IActionDirector<INode, IPrintDefinitionDirector>
     {
-    }
+        bool RecurseIntoReferences { get; set; }
+        bool IncludeFilePath { get; set; }
+        bool IncludeFileLineColumn { get; set; }
+        string IndentationString { get; set; }
 
+        void Indent();
 
-    public class PrintDefinitionBuilder
-    {
-        #region inner types
+        void Dedent();
 
-        private class PrintDefinitionSettings
-        {
-            private readonly string mIndentationString;
-            private readonly bool mRecurseIntoReferences;
-            private readonly bool mIncludeFilePath;
-            private readonly bool mIncludeFileRowColumn;
+        [StringFormatMethod("args")]
+        void Print(string format, params object[] args);
 
-
-            public PrintDefinitionSettings(string indentationString,
-                                           bool recurseIntoReferences,
-                                           bool includeFilePath,
-                                           bool includeFileRowColumn)
-            {
-                mIndentationString = indentationString;
-                mRecurseIntoReferences = recurseIntoReferences;
-                mIncludeFilePath = includeFilePath;
-                mIncludeFileRowColumn = includeFileRowColumn;
-            }
-        }
-
-        #endregion
-
-        private readonly int mIndentation;
-        private readonly PrintDefinitionSettings mSettings;
-
-        public PrintDefinitionBuilder(string indentationString,
-                                      bool recurseIntoReferences,
-                                      bool includeFilePath,
-                                      bool includeFileRowColumn,
-                                      int indentation = 0)
-        {
-            mIndentation = indentation;
-            mSettings = new PrintDefinitionSettings(indentationString,
-                                                    recurseIntoReferences,
-                                                    includeFilePath,
-                                                    includeFileRowColumn);
-        }
-
-        private PrintDefinitionBuilder(PrintDefinitionSettings settings, int indentation = 0)
-        {
-            mSettings = settings;
-            mIndentation = indentation;
-        }
-
-        public void Print(ICodeLocation codeLocation, string fact)
-        {
-            
-        }
+        string GetString();
     }
 }

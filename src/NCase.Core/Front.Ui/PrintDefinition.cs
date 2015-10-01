@@ -4,6 +4,8 @@ namespace NCase.Front.Ui
 {
     public class PrintDefinition : IOp<ISetDef, string>
     {
+        public static readonly PrintDefinition Default = new PrintDefinition();
+
         public PrintDefinition()
         {
             Indentation = "    ";

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using JetBrains.Annotations;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Print;
@@ -13,26 +11,26 @@ namespace NCase.Front.Imp
     public class PrintDefinitionImpl : IOperationImp<ISetDef, PrintDefinition, ISetDefImp, string>
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
-        private readonly IPrintDefinitionDirector mPrintDefinitionDirector;
+        private readonly Func<IPrintDefinitionDirector> mPrintDefinitionDirectorFactory;
 
         public PrintDefinitionImpl([NotNull] IParserGenerator parserGenerator,
-                                   [NotNull] IPrintDefinitionDirector printDefinitionDirector)
+                                   [NotNull] Func<IPrintDefinitionDirector> printDefinitionDirectorFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
-            if (printDefinitionDirector == null) throw new ArgumentNullException("printDefinitionDirector");
+            if (printDefinitionDirectorFactory == null) throw new ArgumentNullException("printDefinitionDirectorFactory");
             mParserGenerator = parserGenerator;
-            mPrintDefinitionDirector = printDefinitionDirector;
+            mPrintDefinitionDirectorFactory = printDefinitionDirectorFactory;
         }
 
         public string Perform(IOperationDirector director, PrintDefinition printDefinition, ISetDefImp setDefImp)
         {
             INode caseSetNode = mParserGenerator.Parse(setDefImp.DefId, setDefImp.TokenReaderWriter);
 
-            var stringBuilder = new StringBuilder();
-            mPrintDefinitionDirector.Visit(caseSetNode, stringBuilder);
+            IPrintDefinitionDirector printDefinitionDirector = mPrintDefinitionDirectorFactory();
 
-            return stringBuilder.ToString();
+            printDefinitionDirector.Visit(caseSetNode);
+
+            return printDefinitionDirector.GetString();
         }
     }
-
 }

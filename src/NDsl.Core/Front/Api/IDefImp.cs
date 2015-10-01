@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NDsl.Back.Api;
 using NDsl.Back.Api.Core;
 
@@ -5,14 +6,13 @@ namespace NDsl.Front.Api
 {
     public interface IDefImp : IArtefactImp
     {
-        IDefId DefId { get; }
-        string DefName { get; }
+        [NotNull] IDefId DefId { get; }
         ITokenReaderWriter TokenReaderWriter { get; }
     }
 
     public interface IDefImp<TDefId> : IDefImp
         where TDefId : IDefId
     {
-        TDefId Id { get; }
+        [NotNull] TDefId Id { get; }
     }
 }

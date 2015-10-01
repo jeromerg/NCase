@@ -4,7 +4,6 @@ using NCase.Back.Api.Pairwise;
 using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
-using NDsl.Front.Imp;
 
 namespace NCase.Front.Imp
 {
@@ -33,15 +32,15 @@ namespace NCase.Front.Imp
 
         #endregion
 
-        private readonly PairwiseId mId;
+        [NotNull] private readonly PairwiseId mId;
 
         public Pairwise([NotNull] string defName,
                         [NotNull] ITokenReaderWriter tokenReaderWriter,
                         [NotNull] ICodeLocationUtil codeLocationUtil,
                         [NotNull] IOperationDirector operationDirector)
-            : base(defName, tokenReaderWriter, codeLocationUtil, operationDirector)
+            : base(tokenReaderWriter, codeLocationUtil, operationDirector)
         {
-            mId = new PairwiseId();
+            mId = new PairwiseId(defName);
         }
 
         protected override Pairwise ThisDefImpl

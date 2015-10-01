@@ -12,26 +12,16 @@ namespace NDsl.Front.Imp
     public abstract class DefImpBase : IDefImp
     {
         [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
-        [NotNull] private readonly string mDefName;
 
-        protected DefImpBase([NotNull] string defName,
-                             [NotNull] ITokenReaderWriter tokenReaderWriter)
+        protected DefImpBase([NotNull] ITokenReaderWriter tokenReaderWriter)
         {
-            if (defName == null) throw new ArgumentNullException("defName");
             if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
-
             mTokenReaderWriter = tokenReaderWriter;
-            mDefName = defName;
         }
 
         [NotNull] public ITokenReaderWriter TokenReaderWriter
         {
             get { return mTokenReaderWriter; }
-        }
-
-        [NotNull] public string DefName
-        {
-            get { return mDefName; }
         }
 
         public abstract IDefId DefId { get; }
@@ -46,11 +36,10 @@ namespace NDsl.Front.Imp
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly IOperationDirector mOperationDirector;
 
-        protected DefImpBase([NotNull] string defName,
-                             [NotNull] ITokenReaderWriter tokenReaderWriter,
+        protected DefImpBase([NotNull] ITokenReaderWriter tokenReaderWriter,
                              [NotNull] ICodeLocationUtil codeLocationUtil,
                              [NotNull] IOperationDirector operationDirector)
-            : base(defName, tokenReaderWriter)
+            : base(tokenReaderWriter)
         {
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
             if (operationDirector == null) throw new ArgumentNullException("operationDirector");
@@ -63,7 +52,7 @@ namespace NDsl.Front.Imp
             get { return ThisDefImpl.Id; }
         }
 
-        protected abstract TDefImp ThisDefImpl { get; }
+        [NotNull] protected abstract TDefImp ThisDefImpl { get; }
 
         public DefSteps State { get; private set; }
 
@@ -88,7 +77,7 @@ namespace NDsl.Front.Imp
             {
                 throw new InvalidSyntaxException(mCodeLocationUtil.GetCurrentUserCodeLocation(),
                                                  "Case set {0} has already been defined",
-                                                 DefName);
+                                                 DefId.Name);
             }
 
             State = DefSteps.Defining;

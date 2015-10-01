@@ -15,18 +15,41 @@ namespace NDsl.Back.Imp.Core
             mStackFrame = stackFrame;
         }
 
-        public string GetUserCodeInfo()
+        public string GetFullInfo()
         {
             if (mStackFrame == null)
-                return "no information";
+                return "file unknown";
 
             // TODO Format string a.o. so that Resharper StackTrace functionality works!
             return mStackFrame.ToString();
         }
 
+        public string GetLineAndColumnInfo()
+        {
+            if (mStackFrame == null || Line == null)
+                return "(line unknown)";
+
+            return string.Format(" ({0}:{1})", Line, Column ?? -1);
+        }
+
+        public string FileName
+        {
+            get { return mStackFrame == null ? null : mStackFrame.GetFileName(); }
+        }
+
+        public int? Line
+        {
+            get { return mStackFrame == null ? (int?) null : mStackFrame.GetFileLineNumber(); }
+        }
+
+        public int? Column
+        {
+            get { return mStackFrame == null ? (int?) null : mStackFrame.GetFileColumnNumber(); }
+        }
+
         public override string ToString()
         {
-            return GetUserCodeInfo();
+            return GetFullInfo();
         }
     }
 }

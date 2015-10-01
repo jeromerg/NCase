@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using NCase.Front.Ui;
+using NDsl.Front.Ui;
 using NUnit.Framework;
 
 namespace NCaseTest
@@ -34,6 +35,103 @@ namespace NCaseTest
 
             string DestBank { get; set; }
             Card Card { get; set; }
+        }
+
+
+        [Test]
+        public void SimpleTreeTest()
+        {
+            IBuilder builder = NCase.NCase.CreateBuilder();
+            var t = builder.CreateContributor<ITransfer>("t");
+
+            var transfers = builder.CreateDef<ITree>("transfers");
+            using (transfers.Define())
+            {
+                t.Currency = Curr.USD;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 100.00;
+                            t.Accepted = true;
+                        t.Amount = 100.01;
+                            t.Accepted = false;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
+                t.Currency = Curr.YEN;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
+                t.Currency = Curr.EUR;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 89.39;
+                            t.Accepted = true;
+                        t.Amount = 89.40;
+                            t.Accepted = false;
+            }
+
+            Console.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
+            Console.WriteLine("---------|-------------|--------|---------");
+            foreach (ICase cas in transfers.Cases().Replay())
+            {
+                Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}",
+                                  t.Currency,
+                                  t.BalanceUsd,
+                                  t.Amount,
+                                  t.Accepted);
+            }
+
+            // Console Output: 
+            // CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
+            // ---------|-------------|--------|---------
+            //      USD |      100,00 | 000,01 | True    
+            //      USD |      100,00 | 100,00 | True    
+            //      USD |      100,00 | 100,01 | False   
+            //      USD |      000,00 | 000,01 | False   
+            //      YEN |      000,00 | 000,01 | False   
+            //      EUR |      100,00 | 000,01 | True    
+            //      EUR |      100,00 | 089,39 | True    
+            //      EUR |      100,00 | 089,40 | False           
+        }
+
+        [Test]
+        public void SimpleCartesianProductTest()
+        {
+            IBuilder builder = NCase.NCase.CreateBuilder();
+            var t = builder.CreateContributor<ITransfer>("t");
+
+            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
+            using (cardsAndBanks.Define())
+            {
+                t.DestBank = "HSBC";
+                t.DestBank = "Unicredit";
+                t.DestBank = "Bank of China";
+
+                t.Card = Card.Visa;
+                t.Card = Card.Mastercard;
+                t.Card = Card.Maestro;
+            }
+
+            Console.WriteLine("DEST_BANK     | CARD       ");
+            Console.WriteLine("--------------|------------");
+            foreach (ICase cas in cardsAndBanks.Cases().Replay())
+            {
+                Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
+            }
+            // Console Output:
+            // DEST_BANK     | CARD       
+            // --------------|------------
+            // HSBC          | Visa      
+            // HSBC          | Mastercard
+            // HSBC          | Maestro   
+            // Unicredit     | Visa      
+            // Unicredit     | Mastercard
+            // Unicredit     | Maestro   
+            // Bank of China | Visa      
+            // Bank of China | Mastercard
+            // Bank of China | Maestro   
         }
 
         [Test]
@@ -181,45 +279,7 @@ namespace NCaseTest
         }
 
         [Test]
-        public void SimpleCartesianProductTest()
-        {
-            IBuilder builder = NCase.NCase.CreateBuilder();
-            var t = builder.CreateContributor<ITransfer>("t");
-
-            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
-            using (cardsAndBanks.Define())
-            {
-                t.DestBank = "HSBC";
-                t.DestBank = "Unicredit";
-                t.DestBank = "Bank of China";
-
-                t.Card = Card.Visa;
-                t.Card = Card.Mastercard;
-                t.Card = Card.Maestro;
-            }
-
-            Console.WriteLine("DEST_BANK     | CARD       ");
-            Console.WriteLine("--------------|------------");
-            foreach (ICase cas in cardsAndBanks.Cases().Replay())
-            {
-                Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
-            }
-            // Console Output:
-            // DEST_BANK     | CARD       
-            // --------------|------------
-            // HSBC          | Visa      
-            // HSBC          | Mastercard
-            // HSBC          | Maestro   
-            // Unicredit     | Visa      
-            // Unicredit     | Mastercard
-            // Unicredit     | Maestro   
-            // Bank of China | Visa      
-            // Bank of China | Mastercard
-            // Bank of China | Maestro   
-        }
-
-        [Test]
-        public void SimpleTreeTest()
+        public void PrintDefinitionTest()
         {
             IBuilder builder = NCase.NCase.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
@@ -252,28 +312,28 @@ namespace NCaseTest
                             t.Accepted = false;
             }
 
-            Console.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
-            Console.WriteLine("---------|-------------|--------|---------");
-            foreach (ICase cas in transfers.Cases().Replay())
+            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
+            using (cardsAndBanks.Define())
             {
-                Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}",
-                                  t.Currency,
-                                  t.BalanceUsd,
-                                  t.Amount,
-                                  t.Accepted);
+                t.DestBank = "HSBC";
+                t.DestBank = "Unicredit";
+                t.DestBank = "Bank of China";
+
+                t.Card = Card.Visa;
+                t.Card = Card.Mastercard;
+                t.Card = Card.Maestro;
             }
 
-            // Console Output: 
-            // CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
-            // ---------|-------------|--------|---------
-            //      USD |      100,00 | 000,01 | True    
-            //      USD |      100,00 | 100,00 | True    
-            //      USD |      100,00 | 100,01 | False   
-            //      USD |      000,00 | 000,01 | False   
-            //      YEN |      000,00 | 000,01 | False   
-            //      EUR |      100,00 | 000,01 | True    
-            //      EUR |      100,00 | 089,39 | True    
-            //      EUR |      100,00 | 089,40 | False           
+            var transfersForAllcardsAndBanks = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
+            using (transfersForAllcardsAndBanks.Define())
+            {
+                transfers.Ref();
+                cardsAndBanks.Ref();
+            }
+
+            string defString = transfersForAllcardsAndBanks.Perform<PrintDefinition, string>(PrintDefinition.Default);
+            Console.WriteLine(defString);
         }
+
     }
 }

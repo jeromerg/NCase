@@ -4,7 +4,7 @@ using NCase.Front.Imp;
 
 namespace NCase
 {
-    /// <summary> Requires NCaseCoreModule </summary>
+    /// <summary> Requires NCaseCoreModule, NCaseSeqModule </summary>
     public class NCaseProdModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -20,6 +20,9 @@ namespace NCase
 
             // Case Generator
             builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
+
+            // PrintDefinition
+            builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

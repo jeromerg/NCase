@@ -57,6 +57,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Back\Api\Core\InvalidSyntaxException.cs" />
+    <Compile Include="Back\Api\DefId.cs" />
     <Compile Include="Back\Api\IDefId.cs" />
     <Compile Include="Back\Api\IDefNode.cs" />
     <Compile Include="Back\Api\ITypedId.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="Back\Api\Ref\RefNode.cs" />
     <Compile Include="Back\Api\Core\IToken.cs" />
     <Compile Include="Back\Api\Core\ITokenReader.cs" />
-    <Compile Include="Back\Api\Dump\IDumpDirector.cs" />
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayNode.cs" />
     <Compile Include="Back\Api\Core\ITokenReaderWriter.cs" />
     <Compile Include="Back\Api\Core\ILocated.cs" />
@@ -85,13 +85,10 @@
     <Compile Include="Back\Imp\Core\TokenStream.cs" />
     <Compile Include="Back\Api\Core\INode.cs" />
     <Compile Include="Back\Api\Core\InvalidCaseRecordException.cs" />
-    <Compile Include="Back\Imp\Dump\DumpDirector.cs" />
-    <Compile Include="Back\Imp\Dump\DumpVisitors.cs" />
     <Compile Include="Back\Imp\RecPlay\InterfaceRecPlayContributorFactory.cs" />
     <Compile Include="Back\Imp\RecPlay\InterfaceRecPlayNode.cs" />
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayInterceptor.cs" />
     <Compile Include="Back\Imp\RecPlay\InterfaceRecPlayInterceptor.cs" />
-    <Compile Include="Back\Imp\RecPlay\DumpVisitors.cs" />
     <Compile Include="Back\Api\RecPlay\RecPlayMode.cs" />
     <Compile Include="Front\Ui\IArtefact.cs" />
     <Compile Include="Front\Ui\IDef.cs" />

@@ -103,7 +103,7 @@ namespace NDsl.Front.Api
                 string msg = string.Format("Method invocation '{0}': target mismatch: actual {1} is not assignable to {2}",
                                            method.Name,
                                            actualTargetType.FullName,
-                                           expectedTargetType.FullName);
+                                           expectedTargetType != null ? expectedTargetType.FullName : "unknown type");
 
                 throw new ArgumentException(msg, e);
             }

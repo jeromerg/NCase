@@ -7,10 +7,11 @@ namespace NCase.Back.Api.Tree
 {
     public interface ITreeNode : IDefNode
     {
+        [NotNull] TreeId Id { get; }
+
         [CanBeNull] INode Fact { get; }
 
         IEnumerable<INode> Branches { get; }
-        TreeId Id { get; }
         void AddTreeBranch(INode branch);
     }
 }

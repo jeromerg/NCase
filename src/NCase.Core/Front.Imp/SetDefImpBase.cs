@@ -14,11 +14,10 @@ namespace NCase.Front.Imp
         where TDefImp : IDefImp<TDefId>
 
     {
-        protected SetDefImpBase([NotNull] string defName,
-                                [NotNull] ITokenReaderWriter tokenReaderWriter,
+        protected SetDefImpBase([NotNull] ITokenReaderWriter tokenReaderWriter,
                                 [NotNull] ICodeLocationUtil codeLocationUtil,
                                 [NotNull] IOperationDirector operationDirector)
-            : base(defName, tokenReaderWriter, codeLocationUtil, operationDirector)
+            : base(tokenReaderWriter, codeLocationUtil, operationDirector)
         {
         }
     }

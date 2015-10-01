@@ -18,6 +18,7 @@ namespace NCase
             builder.RegisterModule<NDslRecPlayModule>();
             builder.RegisterModule<NCaseCoreModule>();
             builder.RegisterModule<NCaseInterfaceRecPlayModule>();
+            builder.RegisterModule<NCaseSeqModule>();
             builder.RegisterModule<NCaseTreeModule>();
             builder.RegisterModule<NCaseProdModule>();
             builder.RegisterModule<NCasePairwiseModule>();

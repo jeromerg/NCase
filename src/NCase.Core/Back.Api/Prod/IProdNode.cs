@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NDsl.Back.Api;
 using NDsl.Back.Api.Core;
 
@@ -8,7 +9,7 @@ namespace NCase.Back.Api.Prod
     /// </summary>
     public interface IProdNode : IDefNode
     {
-        ProdId Id { get; }
+        [NotNull] ProdId Id { get; }
         void AddChild(INode child);
     }
 }

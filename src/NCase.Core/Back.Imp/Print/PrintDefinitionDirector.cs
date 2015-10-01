@@ -1,15 +1,54 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using NCase.Back.Api.Print;
 using NDsl.Back.Api.Core;
-using NVisitor.Api.ActionPayload;
+using NVisitor.Api.Action;
 
 namespace NCase.Back.Imp.Print
 {
-    public class PrintDefinitionDirector : ActionPayloadDirector<INode, IPrintDefinitionDirector, StringBuilder>, IPrintDefinitionDirector
+    public class PrintDefinitionDirector : ActionDirector<INode, IPrintDefinitionDirector>, IPrintDefinitionDirector
     {
-        public PrintDefinitionDirector(IActionPayloadVisitMapper<INode, IPrintDefinitionDirector, StringBuilder> visitMapper)
+        private readonly StringBuilder mStringBuilder = new StringBuilder();
+        private int mIndentation;
+
+        public PrintDefinitionDirector(IActionVisitMapper<INode, IPrintDefinitionDirector> visitMapper)
             : base(visitMapper)
         {
+        }
+
+        public string IndentationString { get; set; }
+        public bool RecurseIntoReferences { get; set; }
+        public bool IncludeFilePath { get; set; }
+        public bool IncludeFileLineColumn { get; set; }
+
+        public void Indent()
+        {
+            mIndentation++;
+        }
+
+        public void Dedent()
+        {
+            mIndentation--;
+        }
+
+        public void Print(string format, params object[] args)
+        {
+            string s = string.Format(format, args);
+            string[] lines = s.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+
+
+            foreach (string line in lines)
+            {
+                for (int i = 0; i < mIndentation; i++)
+                    mStringBuilder.Append(IndentationString);
+
+                mStringBuilder.AppendLine(line);
+            }
+        }
+
+        public string GetString()
+        {
+            return mStringBuilder.ToString();
         }
     }
 }

@@ -20,6 +20,9 @@ namespace NCase
 
             // Case Generator
             builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
+
+            // PrintDefinition
+            builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

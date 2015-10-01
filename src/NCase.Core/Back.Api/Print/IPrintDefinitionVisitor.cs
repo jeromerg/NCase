@@ -1,10 +1,9 @@
-﻿using System.Text;
-using NDsl.Back.Api.Core;
-using NVisitor.Api.ActionPayload;
+﻿using NDsl.Back.Api.Core;
+using NVisitor.Api.Action;
 
 namespace NCase.Back.Api.Print
 {
-    public interface IPrintDefinitionVisitor<TNod> : IActionPayloadVisitor<INode, IPrintDefinitionDirector, TNod, StringBuilder>
+    public interface IPrintDefinitionVisitor<TNod> : IActionVisitor<INode, IPrintDefinitionDirector, TNod>
         where TNod : INode
     {
     }

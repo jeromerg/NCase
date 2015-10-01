@@ -6,6 +6,6 @@ namespace NDsl.Back.Api
     /// <summary>Case Set Definition Node </summary>
     public interface IDefNode : INode
     {
-        [CanBeNull] IDefId DefId { get; }
+        [NotNull] IDefId DefId { get; }
     }
 }
