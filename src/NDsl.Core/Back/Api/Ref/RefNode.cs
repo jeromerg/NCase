@@ -10,9 +10,9 @@ namespace NDsl.Back.Api.Ref
         where T : INode
     {
         private readonly T mReference;
-        private readonly ICodeLocation mCodeLocation;
+        private readonly CodeLocation mCodeLocation;
 
-        public RefNode([NotNull] T reference, [NotNull] ICodeLocation codeLocation)
+        public RefNode([NotNull] T reference, [NotNull] CodeLocation codeLocation)
         {
             if (reference == null) throw new ArgumentNullException("reference");
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
@@ -26,7 +26,7 @@ namespace NDsl.Back.Api.Ref
             get { return Enumerable.Empty<INode>(); }
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

@@ -11,9 +11,9 @@ namespace NCase.Back.Imp.Seq
     {
         [NotNull] private readonly SeqId mId;
         [NotNull] private readonly List<INode> mChildren = new List<INode>();
-        private readonly ICodeLocation mCodeLocation;
+        private readonly CodeLocation mCodeLocation;
 
-        public SeqNode([NotNull] ICodeLocation codeLocation, [NotNull] SeqId id)
+        public SeqNode([NotNull] CodeLocation codeLocation, [NotNull] SeqId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             mCodeLocation = codeLocation;
@@ -35,7 +35,7 @@ namespace NCase.Back.Imp.Seq
             get { return mChildren; }
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

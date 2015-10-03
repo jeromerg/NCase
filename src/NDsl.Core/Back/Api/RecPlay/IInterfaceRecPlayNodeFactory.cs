@@ -9,6 +9,6 @@ namespace NDsl.Back.Api.RecPlay
                                      [NotNull] string contributorName,
                                      [NotNull] PropertyCallKey propertyCallKey,
                                      [CanBeNull] object propertyValue,
-                                     [NotNull] ICodeLocation codeLocation);
+                                     [NotNull] CodeLocation codeLocation);
     }
 }

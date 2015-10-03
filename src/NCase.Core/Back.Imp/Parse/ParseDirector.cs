@@ -23,7 +23,7 @@ namespace NCase.Back.Imp.Parse
             mReferences.Add(reference, referencedNode);
         }
 
-        public TNod GetReferencedNode<TNod>(object reference, ICodeLocation location) where TNod : INode
+        public TNod GetReferencedNode<TNod>(object reference, CodeLocation location) where TNod : INode
         {
             INode referencedNode;
             if (!mReferences.TryGetValue(reference, out referencedNode))

@@ -5,7 +5,7 @@ namespace NDsl.Back.Api.Ref
 {
     public class RefToken<T> : OwnedToken<T>
     {
-        public RefToken([NotNull] T owner, ICodeLocation codeLocation)
+        public RefToken([NotNull] T owner, CodeLocation codeLocation)
             : base(owner, codeLocation)
         {
         }

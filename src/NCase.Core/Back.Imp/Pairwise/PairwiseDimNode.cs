@@ -16,7 +16,7 @@ namespace NCase.Back.Imp.Pairwise
             mFirstChild = firstChild;
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mFirstChild.CodeLocation; }
         }

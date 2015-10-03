@@ -28,9 +28,18 @@ namespace NCase.Front.Imp
 
             IPrintDefinitionDirector printDefinitionDirector = mPrintDefinitionDirectorFactory();
 
+            CopyProperties(printDefinition, printDefinitionDirector);
             printDefinitionDirector.Visit(caseSetNode);
 
             return printDefinitionDirector.GetString();
+        }
+
+        private void CopyProperties(PrintDefinition uiDef, IPrintDefinitionDirector dir)
+        {
+            dir.IncludeFileLineColumn = uiDef.IncludeFileRowColumn;
+            dir.IncludeFilePath = uiDef.IncludeFilePath;
+            dir.IndentationString = uiDef.Indentation;
+            dir.RecurseIntoReferences = uiDef.RecurseIntoReferences;
         }
     }
 }

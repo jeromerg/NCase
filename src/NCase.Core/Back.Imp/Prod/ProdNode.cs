@@ -9,13 +9,13 @@ namespace NCase.Back.Imp.Prod
 {
     public class ProdNode : IProdNode
     {
-        [NotNull] private readonly ICodeLocation mCodeLocation;
+        [NotNull] private readonly CodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mDimensions = new List<INode>();
 
         [NotNull] private readonly ProdId mId;
 
         public ProdNode(
-            [NotNull] ICodeLocation codeLocation,
+            [NotNull] CodeLocation codeLocation,
             [NotNull] ProdId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
@@ -45,7 +45,7 @@ namespace NCase.Back.Imp.Prod
             mDimensions.Add(child);
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

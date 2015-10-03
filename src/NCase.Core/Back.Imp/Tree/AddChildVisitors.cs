@@ -12,7 +12,7 @@ namespace NCase.Back.Imp.Tree
     {
         public void Visit(IAddChildDirector dir, ITreeNode parent, IInterfaceRecPlayNode child)
         {
-            ICodeLocation codeLocation = child.CodeLocation;
+            CodeLocation codeLocation = child.CodeLocation;
             var nodeToAdd = new TreeNode(codeLocation, null, child);
 
             INode nextBranch = parent.Branches.LastOrDefault();

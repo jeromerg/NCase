@@ -6,7 +6,7 @@ namespace NCase.Back.Api.Parse
     public interface IParseDirector : IActionDirector<IToken, IParseDirector>
     {
         void AddId(object reference, INode referencedNode);
-        TNod GetReferencedNode<TNod>(object reference, ICodeLocation location) where TNod : INode;
+        TNod GetReferencedNode<TNod>(object reference, CodeLocation location) where TNod : INode;
 
         void PushScope(INode rootNode);
         void PopScope();

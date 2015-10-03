@@ -333,6 +333,10 @@ namespace NCaseTest
 
             string defString = transfersForAllcardsAndBanks.Perform<PrintDefinition, string>(PrintDefinition.Default);
             Console.WriteLine(defString);
+
+            Console.WriteLine("---------- NOW WITH OPTION RecurseIntoReferences");
+            string defString2 = transfersForAllcardsAndBanks.Perform<PrintDefinition, string>(new PrintDefinition{RecurseIntoReferences = true});
+            Console.WriteLine(defString2);
         }
 
     }

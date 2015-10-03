@@ -31,6 +31,14 @@ namespace NCase.Back.Imp.Print
             mIndentation--;
         }
 
+        public void Print(CodeLocation codeLocation, string format, params object[] args)
+        {
+            Print("{0}{1}{2}",
+                  IncludeFilePath ? codeLocation.GetFullInfo() + Environment.NewLine : "",
+                  string.Format(format, args),
+                  IncludeFileLineColumn ? " " + codeLocation.GetLineAndColumnInfo() : "");
+        }
+
         public void Print(string format, params object[] args)
         {
             string s = string.Format(format, args);

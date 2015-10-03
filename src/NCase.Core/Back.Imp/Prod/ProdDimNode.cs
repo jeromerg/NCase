@@ -20,7 +20,7 @@ namespace NCase.Back.Imp.Prod
             get { return mFirstChild; }
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mFirstChild.CodeLocation; }
         }

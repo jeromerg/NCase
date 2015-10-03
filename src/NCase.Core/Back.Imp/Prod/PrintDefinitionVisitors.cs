@@ -1,12 +1,14 @@
 ﻿using NCase.Back.Api.Print;
 using NCase.Back.Api.Prod;
 using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Ref;
 
 namespace NCase.Back.Imp.Prod
 {
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<IProdNode>,
-          IPrintDefinitionVisitor<ProdDimNode>
+          IPrintDefinitionVisitor<ProdDimNode>,
+          IPrintDefinitionVisitor<IRefNode<IProdNode>>
     {
         public void Visit(IPrintDefinitionDirector dir, IProdNode node)
         {
@@ -21,6 +23,14 @@ namespace NCase.Back.Imp.Prod
                 dir.Visit(child);
 
             dir.Dedent();
+        }
+
+        public void Visit(IPrintDefinitionDirector dir, IRefNode<IProdNode> node)
+        {
+            if (dir.RecurseIntoReferences)
+                dir.Visit(node.Reference);
+            else
+                dir.Print(node.CodeLocation, "Ref to PROD {0}", node.Reference.Id.Name);
         }
 
         public void Visit(IPrintDefinitionDirector dir, ProdDimNode node)

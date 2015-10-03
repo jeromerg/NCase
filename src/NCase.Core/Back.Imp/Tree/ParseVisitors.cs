@@ -27,7 +27,7 @@ namespace NCase.Back.Imp.Tree
 
         public void Visit(IParseDirector dir, RefToken<TreeId> token)
         {
-            ICodeLocation codeLocation = token.CodeLocation;
+            CodeLocation codeLocation = token.CodeLocation;
 
             IDefNode referredSetNode = dir.GetReferencedNode<ITreeNode>(token.Owner, codeLocation);
 

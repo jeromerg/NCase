@@ -16,7 +16,7 @@ namespace NDsl.Back.Imp.RecPlay
                                                 string contributorName,
                                                 PropertyCallKey propertyCallKey,
                                                 object propertyValue,
-                                                ICodeLocation codeLocation)
+                                                CodeLocation codeLocation)
             {
                 return new InterfaceRecPlayNode(parentInterceptor, contributorName, propertyCallKey, propertyValue, codeLocation);
             }
@@ -29,7 +29,7 @@ namespace NDsl.Back.Imp.RecPlay
         [NotNull] private readonly string mContributorName;
         [NotNull] private readonly PropertyCallKey mPropertyCallKey;
         [CanBeNull] private readonly object mPropertyValue;
-        [NotNull] private readonly ICodeLocation mCodeLocation;
+        [NotNull] private readonly CodeLocation mCodeLocation;
 
         private bool mIsReplay;
 
@@ -37,7 +37,7 @@ namespace NDsl.Back.Imp.RecPlay
                                     [NotNull] string contributorName,
                                     [NotNull] PropertyCallKey propertyCallKey,
                                     [CanBeNull] object propertyValue,
-                                    [NotNull] ICodeLocation codeLocation)
+                                    [NotNull] CodeLocation codeLocation)
         {
             if (parentInterceptor == null) throw new ArgumentNullException("parentInterceptor");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
@@ -66,7 +66,7 @@ namespace NDsl.Back.Imp.RecPlay
             get { return mPropertyValue; }
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

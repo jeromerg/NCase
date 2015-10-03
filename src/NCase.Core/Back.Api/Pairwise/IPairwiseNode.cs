@@ -9,7 +9,7 @@ namespace NCase.Back.Api.Pairwise
     /// </summary>
     public interface IPairwiseNode : IDefNode
     {
-        [NotNull] PairwiseId PairwiseId { get; }
+        [NotNull] PairwiseId Id { get; }
         void AddChild(INode child);
     }
 }

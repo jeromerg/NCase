@@ -9,13 +9,13 @@ namespace NCase.Back.Imp.Tree
 {
     public class TreeNode : ITreeNode
     {
-        [NotNull] private readonly ICodeLocation mCodeLocation;
+        [NotNull] private readonly CodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mBranches = new List<INode>();
 
         [NotNull] private readonly TreeId mId;
         [CanBeNull] private readonly INode mFact;
 
-        public TreeNode([NotNull] ICodeLocation codeLocation,
+        public TreeNode([NotNull] CodeLocation codeLocation,
                         [NotNull] TreeId id,
                         [CanBeNull] INode fact)
         {
@@ -41,13 +41,13 @@ namespace NCase.Back.Imp.Tree
         {
             get
             {
-                yield return mFact;
+                yield return mFact ?? NullNode.Instance;
                 foreach (INode caseBranchNode in Branches)
                     yield return caseBranchNode;
             }
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

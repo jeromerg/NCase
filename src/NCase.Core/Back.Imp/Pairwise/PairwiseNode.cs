@@ -9,27 +9,27 @@ namespace NCase.Back.Imp.Pairwise
 {
     public class PairwiseNode : IPairwiseNode
     {
-        [NotNull] private readonly ICodeLocation mCodeLocation;
+        [NotNull] private readonly CodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mDimensions = new List<INode>();
 
-        [NotNull] private readonly PairwiseId mPairwiseId;
+        [NotNull] private readonly PairwiseId mId;
 
-        public PairwiseNode([NotNull] ICodeLocation codeLocation, [NotNull] PairwiseId pairwiseId)
+        public PairwiseNode([NotNull] CodeLocation codeLocation, [NotNull] PairwiseId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
             mCodeLocation = codeLocation;
-            mPairwiseId = pairwiseId;
+            mId = id;
         }
 
         public IDefId DefId
         {
-            get { return mPairwiseId; }
+            get { return mId; }
         }
 
-        public PairwiseId PairwiseId
+        public PairwiseId Id
         {
-            get { return mPairwiseId; }
+            get { return mId; }
         }
 
         public IEnumerable<INode> Children
@@ -42,7 +42,7 @@ namespace NCase.Back.Imp.Pairwise
             mDimensions.Add(child);
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

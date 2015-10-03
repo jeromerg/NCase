@@ -1,15 +1,13 @@
 ﻿using NCase.Back.Api.Print;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.RecPlay;
 
 namespace NCase.Back.Imp.InterfaceRecPlay
 {
-    public class PrintDefinitionVisitors : IPrintDefinitionVisitor<INode>
+    public class PrintDefinitionVisitors : IPrintDefinitionVisitor<IInterfaceRecPlayNode>
     {
-        /// <summary> If node unknown, then recurse...</summary>
-        public void Visit(IPrintDefinitionDirector dir, INode node)
+        public void Visit(IPrintDefinitionDirector dir, IInterfaceRecPlayNode node)
         {
-            foreach (INode child in node.Children)
-                dir.Visit(child);
+            dir.Print(node.PrintAssignment());
         }
     }
 }

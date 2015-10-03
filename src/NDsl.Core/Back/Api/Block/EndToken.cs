@@ -5,7 +5,7 @@ namespace NDsl.Back.Api.Block
 {
     public class EndToken<T> : OwnedToken<T>
     {
-        public EndToken([NotNull] T owner, [NotNull] ICodeLocation codeLocation)
+        public EndToken([NotNull] T owner, [NotNull] CodeLocation codeLocation)
             : base(owner, codeLocation)
         {
         }

@@ -11,7 +11,7 @@ namespace NDsl.Back.Api.RecPlay
 
         public static string PrintInvocation(this IInterfaceRecPlayNode node)
         {
-            return string.Format("{0}.{1}", PrintMember(node), node.PropertyValue);
+            return string.Format("{0}.{1}", node.ContributorName, PrintMember(node));
         }
 
         public static string PrintMember(this IInterfaceRecPlayNode node)

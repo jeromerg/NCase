@@ -72,7 +72,7 @@ namespace NDsl.Back.Imp.RecPlay
 
         private void InterceptInRecordingMode(IInvocation invocation)
         {
-            ICodeLocation codeLocation = mCodeLocationUtil.GetCurrentUserCodeLocation();
+            CodeLocation codeLocation = mCodeLocationUtil.GetCurrentUserCodeLocation();
             var invocationRecord = new InvocationRecord(mContributorName, invocation, codeLocation);
             var token = new InvocationToken<IInterfaceRecPlayInterceptor>(this, invocationRecord, codeLocation);
             mTokenWriter.Append(token);

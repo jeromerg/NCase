@@ -17,7 +17,7 @@ namespace NCase.Back.Imp.InterfaceRecPlay
 
         public void Visit(IParseDirector dir, InvocationToken<IInterfaceRecPlayInterceptor> token)
         {
-            ICodeLocation codeLocation = token.InvocationRecord.CodeLocation;
+            CodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
 
             PropertyCallKey setterCallKey = InvocationUtil.TryGetPropertyCallKeyFromSetter(invocation);

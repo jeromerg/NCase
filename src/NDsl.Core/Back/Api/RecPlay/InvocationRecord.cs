@@ -9,12 +9,12 @@ namespace NDsl.Back.Api.RecPlay
     {
         private readonly string mInvocationTargetName;
         [NotNull] private readonly IInvocation mInvocation;
-        [NotNull] private readonly ICodeLocation mCodeLocation;
+        [NotNull] private readonly CodeLocation mCodeLocation;
 
         public InvocationRecord(
             [NotNull] string invocationTargetName,
             [NotNull] IInvocation invocation,
-            [NotNull] ICodeLocation codeLocation)
+            [NotNull] CodeLocation codeLocation)
         {
             if (invocationTargetName == null) throw new ArgumentNullException("invocationTargetName");
             if (invocation == null) throw new ArgumentNullException("invocation");
@@ -35,7 +35,7 @@ namespace NDsl.Back.Api.RecPlay
             get { return mInvocation; }
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

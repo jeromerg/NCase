@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using NDsl.Back.Api.Core;
 
@@ -14,9 +15,15 @@ namespace NDsl.Back.Imp.Core
             mStackFrameUtil = stackFrameUtil;
         }
 
-        public ICodeLocation GetCurrentUserCodeLocation()
+        public CodeLocation GetCurrentUserCodeLocation()
         {
-            return new CodeLocation(mStackFrameUtil.GetUserStackFrame());
+            StackFrame stackFrame = mStackFrameUtil.GetUserStackFrame();
+            if (stackFrame == null)
+                return CodeLocation.Unknown;
+            else
+                return new CodeLocation(stackFrame.GetFileName() ?? "unknown file",
+                                        stackFrame.GetFileLineNumber(),
+                                        stackFrame.GetFileColumnNumber());
         }
     }
 }

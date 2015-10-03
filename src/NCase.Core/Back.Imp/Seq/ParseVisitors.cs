@@ -26,7 +26,7 @@ namespace NCase.Back.Imp.Seq
 
         public void Visit(IParseDirector dir, RefToken<SeqId> token)
         {
-            ICodeLocation codeLocation = token.CodeLocation;
+            CodeLocation codeLocation = token.CodeLocation;
 
             IDefNode referredSetNode = dir.GetReferencedNode<ISeqNode>(token.Owner, codeLocation);
 

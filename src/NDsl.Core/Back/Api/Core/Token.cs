@@ -5,15 +5,15 @@ namespace NDsl.Back.Api.Core
 {
     public abstract class Token : IToken
     {
-        [NotNull] private readonly ICodeLocation mCodeLocation;
+        [NotNull] private readonly CodeLocation mCodeLocation;
 
-        protected Token([NotNull] ICodeLocation codeLocation)
+        protected Token([NotNull] CodeLocation codeLocation)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             mCodeLocation = codeLocation;
         }
 
-        public ICodeLocation CodeLocation
+        public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

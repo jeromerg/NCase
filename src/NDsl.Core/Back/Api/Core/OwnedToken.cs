@@ -7,7 +7,7 @@ namespace NDsl.Back.Api.Core
     {
         [NotNull] private readonly TOwnerId mOwner;
 
-        protected OwnedToken([NotNull] TOwnerId owner, [NotNull] ICodeLocation codeLocation)
+        protected OwnedToken([NotNull] TOwnerId owner, [NotNull] CodeLocation codeLocation)
             : base(codeLocation)
         {
             if (owner == null) throw new ArgumentNullException("owner");
