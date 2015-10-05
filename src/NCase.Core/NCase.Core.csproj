@@ -58,6 +58,8 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Back.Api\Print\IPrintCaseTableDirector.cs" />
+    <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
     <Compile Include="Back.Api\Seq\ITreeNode.cs" />
     <Compile Include="Back.Api\Seq\SeqId.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
@@ -69,6 +71,8 @@
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
     <Compile Include="Back.Imp\Pairwise\ParseVisitors.cs" />
+    <Compile Include="Back.Imp\Print\PrintCaseTableDirector.cs" />
+    <Compile Include="Back.Imp\Print\PrintCaseTableVisitors.cs" />
     <Compile Include="Back.Imp\Prod\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Parse\AddChildDirector.cs" />
@@ -94,10 +98,15 @@
     <Compile Include="Back.Imp\Tree\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Tree\TreeNode.cs" />
+    <Compile Include="Front.Imp\ICaseImp.cs" />
+    <Compile Include="Front.Imp\ICaseEnumerableFactory.cs" />
+    <Compile Include="Front.Imp\PrintCaseTableImpl.cs" />
     <Compile Include="Front.Imp\PrintDefinitionImpl.cs" />
     <Compile Include="Front.Imp\Seq.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />
+    <Compile Include="Front.Ui\ICaseEnumerable.cs" />
     <Compile Include="Front.Ui\ISeq.cs" />
+    <Compile Include="Front.Ui\PrintCaseTable.cs" />
     <Compile Include="Front.Ui\PrintDefinition.cs" />
     <Compile Include="Front.Ui\GetCases.cs" />
     <Compile Include="Front.Ui\ISetDef.cs" />

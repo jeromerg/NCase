@@ -91,10 +91,11 @@
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayInterceptor.cs" />
     <Compile Include="Back\Imp\RecPlay\InterfaceRecPlayInterceptor.cs" />
     <Compile Include="Back\Api\RecPlay\RecPlayMode.cs" />
+    <Compile Include="Front\Imp\DefImpBase.cs" />
     <Compile Include="Front\Ui\IArtefact.cs" />
     <Compile Include="Front\Ui\IDef.cs" />
     <Compile Include="Front\Ui\IOp.cs" />
-    <Compile Include="Front\Imp\DefImpBase.cs" />
+    <Compile Include="Front\Imp\ArtefactImpBase.cs" />
     <Compile Include="Front\Imp\DefSteps.cs" />
     <Compile Include="Front\Api\IArtefactImp.cs" />
     <Compile Include="Front\Api\IDefFactory.cs" />

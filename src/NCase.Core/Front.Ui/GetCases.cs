@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using NDsl.Front.Ui;
+﻿using NDsl.Front.Ui;
 
 namespace NCase.Front.Ui
 {
-    public class GetCases : IOp<ISetDef, IEnumerable<ICase>>
+    public class GetCases : IOp<ISetDef, ICaseEnumerable>
     {
         public static readonly GetCases Instance = new GetCases();
 

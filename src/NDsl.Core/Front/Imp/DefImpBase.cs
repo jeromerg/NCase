@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using JetBrains.Annotations;
-using NDsl.Back.Api;
 using NDsl.Back.Api.Block;
 using NDsl.Back.Api.Core;
 using NDsl.Back.Api.Ref;
@@ -9,57 +8,28 @@ using NDsl.Front.Ui;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class DefImpBase : IDefImp
-    {
-        [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
-
-        protected DefImpBase([NotNull] ITokenReaderWriter tokenReaderWriter)
-        {
-            if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
-            mTokenReaderWriter = tokenReaderWriter;
-        }
-
-        [NotNull] public ITokenReaderWriter TokenReaderWriter
-        {
-            get { return mTokenReaderWriter; }
-        }
-
-        public abstract IDefId DefId { get; }
-    }
-
     public abstract class DefImpBase<TDef, TDefId, TDefImp>
-        : DefImpBase, IDef<TDef>
+        : ArtefactImpBase<TDef, TDefImp>, IDef<TDef>, IDefImp
         where TDef : IDef<TDef>
         where TDefId : IDefId
         where TDefImp : IDefImp<TDefId>
     {
+        [NotNull] private readonly ITokenReaderWriter mTokenReaderWriter;
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
-        [NotNull] private readonly IOperationDirector mOperationDirector;
 
         protected DefImpBase([NotNull] ITokenReaderWriter tokenReaderWriter,
                              [NotNull] ICodeLocationUtil codeLocationUtil,
                              [NotNull] IOperationDirector operationDirector)
-            : base(tokenReaderWriter)
+            : base(operationDirector)
         {
+            if (tokenReaderWriter == null) throw new ArgumentNullException("tokenReaderWriter");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
-            if (operationDirector == null) throw new ArgumentNullException("operationDirector");
+            mTokenReaderWriter = tokenReaderWriter;
             mCodeLocationUtil = codeLocationUtil;
-            mOperationDirector = operationDirector;
         }
 
-        public override IDefId DefId
-        {
-            get { return ThisDefImpl.Id; }
-        }
-
-        [NotNull] protected abstract TDefImp ThisDefImpl { get; }
 
         public DefSteps State { get; private set; }
-
-        public TResult Perform<TOp, TResult>(TOp operation) where TOp : IOp<TDef, TResult>
-        {
-            return mOperationDirector.Perform(operation, ThisDefImpl);
-        }
 
         public IDisposable Define()
         {
@@ -69,6 +39,16 @@ namespace NDsl.Front.Imp
         public void Ref()
         {
             TokenReaderWriter.Append(new RefToken<TDefId>(ThisDefImpl.Id, mCodeLocationUtil.GetCurrentUserCodeLocation()));
+        }
+
+        [NotNull] public ITokenReaderWriter TokenReaderWriter
+        {
+            get { return mTokenReaderWriter; }
+        }
+
+        public IDefId DefId
+        {
+            get { return ThisDefImpl.Id; }
         }
 
         public void Begin()
