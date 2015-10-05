@@ -350,5 +350,63 @@ namespace NCaseTest
                                                                               });
             Console.WriteLine(defString4);
         }
+
+        [Test]
+        public void PrintCaseTableTest()
+        {
+            IBuilder builder = NCase.NCase.CreateBuilder();
+            var t = builder.CreateContributor<ITransfer>("t");
+
+            var transfers = builder.CreateDef<ITree>("transfers");
+            using (transfers.Define())
+            {
+                t.Currency = Curr.USD;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 100.00;
+                            t.Accepted = true;
+                        t.Amount = 100.01;
+                            t.Accepted = false;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
+                t.Currency = Curr.YEN;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
+                t.Currency = Curr.EUR;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 89.39;
+                            t.Accepted = true;
+                        t.Amount = 89.40;
+                            t.Accepted = false;
+            }
+
+            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
+            using (cardsAndBanks.Define())
+            {
+                t.DestBank = "HSBC";
+                t.DestBank = "Unicredit";
+                t.DestBank = "Bank of China";
+
+                t.Card = Card.Visa;
+                t.Card = Card.Mastercard;
+                t.Card = Card.Maestro;
+            }
+
+            var testcasesDef = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
+            using (testcasesDef.Define())
+            {
+                transfers.Ref();
+                cardsAndBanks.Ref();
+            }
+
+            string defString = testcasesDef.Cases().Perform<PrintCaseTable, string>(PrintCaseTable.Default);
+            Console.WriteLine(defString);
+        }
+
     }
 }

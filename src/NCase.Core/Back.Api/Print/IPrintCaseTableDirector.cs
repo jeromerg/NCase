@@ -9,8 +9,10 @@ namespace NCase.Back.Api.Print
         bool RecurseIntoReferences { get; set; }
         bool IncludeFileInfo { get; set; }
 
+        void NewRow();
+
         [StringFormatMethod("args")]
-        void Print(CodeLocation codeLocation, object row, object column, string format, params object[] args);
+        void Print(CodeLocation codeLocation, object column, string format, params object[] args);
 
         string GetString();
     }

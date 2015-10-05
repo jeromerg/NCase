@@ -6,16 +6,17 @@ namespace NDsl.Front.Api
 {
     public class OperationDirector : IOperationDirector
     {
-        private readonly IOperationVisitMapper mVisitMapper;
+        private IOperationVisitMapper mVisitMapper;
 
-        public OperationDirector(IEnumerable<IOperationVisitorClass> visitorEnumerable)
+        public OperationDirector()
         {
-            mVisitMapper = new OperationVisitMapper(visitorEnumerable);
+            
         }
 
-        public OperationDirector(IOperationVisitMapper visitMapper)
+        // TODO: RESTORE CONSTRUCTOR INJECTION WITH DYN PROXY; TO AVOID CIRCULAR DEPENDENCY ISSUE
+        public void InitializeDirector(IEnumerable<IOperationVisitorClass> visitorEnumerable)
         {
-            mVisitMapper = visitMapper;
+            mVisitMapper = new OperationVisitMapper(visitorEnumerable);
         }
 
         public TResult Perform<TArtefact, TResult>(IOp<TArtefact, TResult> operation, IArtefactImp artefactImp)

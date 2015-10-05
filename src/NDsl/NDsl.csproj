@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NCase.Core\NCase.Core.csproj">
+      <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
+      <Name>NCase.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
       <Name>NDsl.Core</Name>

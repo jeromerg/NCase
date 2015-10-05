@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using Castle.DynamicProxy;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Print;
@@ -19,11 +20,14 @@ namespace NCase
 
             builder.RegisterInstance(new ProxyGenerator());
 
-            builder.RegisterType<OperationDirector>().As<IOperationDirector>().SingleInstance();
+            builder.RegisterType<OperationDirector>()
+                .As<IOperationDirector>().SingleInstance()
+                .OnActivated(eventArgs => eventArgs.Instance.InitializeDirector(eventArgs.Context.Resolve<IEnumerable<IOperationVisitorClass>>()));
 
-            // case and fact factory
-            builder.RegisterType<Case.Factory>().As<ICaseFactory>().SingleInstance();
-            builder.RegisterType<Fact.Factory>().As<IFactFactory>().SingleInstance();
+            // CaseEnumerable, Case, Fact factories
+            builder.RegisterType<CaseEnumerableImp.Factory>().AsSelf().SingleInstance();
+            builder.RegisterType<CaseImp.Factory>().AsSelf().SingleInstance();
+            builder.RegisterType<FactImp.Factory>().AsSelf().SingleInstance();
 
             // Parser
             builder.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();
@@ -33,6 +37,7 @@ namespace NCase
             builder.RegisterType<GenerateDirector>().As<IGenerateDirector>().SingleInstance();
 
             // Replay Director and default visitor
+            builder.RegisterType<ReplayImp>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
             builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 

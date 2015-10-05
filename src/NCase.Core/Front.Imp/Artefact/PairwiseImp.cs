@@ -7,7 +7,7 @@ using NDsl.Front.Api;
 
 namespace NCase.Front.Imp
 {
-    public class Pairwise : SetDefImpBase<IPairwise, PairwiseId, Pairwise>, IPairwise, IDefImp<PairwiseId>
+    public class PairwiseImp : SetDefImpBase<IPairwise, PairwiseId, PairwiseImp>, IPairwise, IDefImp<PairwiseId>
     {
         #region inner types
 
@@ -24,9 +24,9 @@ namespace NCase.Front.Imp
                 mOperationDirector = operationDirector;
             }
 
-            public IPairwise Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
+            public virtual IPairwise Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
             {
-                return new Pairwise(name, tokenReaderWriter, mCodeLocationUtil, mOperationDirector);
+                return new PairwiseImp(name, tokenReaderWriter, mCodeLocationUtil, mOperationDirector);
             }
         }
 
@@ -34,7 +34,7 @@ namespace NCase.Front.Imp
 
         [NotNull] private readonly PairwiseId mId;
 
-        public Pairwise([NotNull] string defName,
+        public PairwiseImp([NotNull] string defName,
                         [NotNull] ITokenReaderWriter tokenReaderWriter,
                         [NotNull] ICodeLocationUtil codeLocationUtil,
                         [NotNull] IOperationDirector operationDirector)
@@ -43,7 +43,7 @@ namespace NCase.Front.Imp
             mId = new PairwiseId(defName);
         }
 
-        protected override Pairwise ThisDefImpl
+        protected override PairwiseImp ThisDefImpl
         {
             get { return this; }
         }

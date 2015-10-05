@@ -1,17 +1,10 @@
-using System.Collections.Generic;
-
 namespace NCase.Front.Ui
 {
-    public static class CaseExtensions
+    public static class CaseEnumerableExtensions
     {
-        public static IEnumerable<ICase> Replay(this IEnumerable<ICase> cases)
+        public static ICaseEnumerable Replay(this ICaseEnumerable caseEnumerable)
         {
-            foreach (ICase cas in cases)
-            {
-                cas.Replay(true);
-                yield return cas;
-                cas.Replay(false);
-            }
+            return caseEnumerable.Perform<Replay, ICaseEnumerable>(Ui.Replay.Default);
         }
     }
 }

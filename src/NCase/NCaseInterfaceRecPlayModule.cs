@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using NCase.Back.Imp.InterfaceRecPlay;
+using NCase.Back.Imp.RecPlay;
 
 namespace NCase
 {

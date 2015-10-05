@@ -10,13 +10,13 @@ using NDsl.Front.Ui;
 
 namespace NCase.Front.Imp
 {
-    public class Builder : IBuilder
+    public class BuilderImp : IBuilder
     {
         [NotNull] private readonly ITokenReaderWriter mTokenStream;
         [NotNull] private readonly Dictionary<Type, IDefFactory> mDefFactories;
         [NotNull] private readonly IInterfaceRecPlayContributorFactory mInterfaceRecPlayContributorFactory;
 
-        public Builder([NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
+        public BuilderImp([NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
                        [NotNull] ITokenReaderWriter tokenStream,
                        [NotNull] IEnumerable<IDefFactory> defFactories)
         {

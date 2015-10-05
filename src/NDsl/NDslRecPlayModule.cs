@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using NCase.Back.Imp.RecPlay;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Back.Imp.RecPlay;
 
@@ -8,9 +9,9 @@ namespace NDsl
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<InterfaceRecPlayNode.Factory>().As<IInterfaceReIInterfaceRecPlayNodeFactory>();
-            builder.RegisterType<InterfaceRecPlayContributorFactory>().As<IInterfaceRecPlayContributorFactory>();
-            builder.RegisterType<InterfaceRecPlayNode>().As<IInterfaceRecPlayNode>();
+            builder.RegisterType<InterfaceRecPlayNode.Factory>().As<IInterfaceReIInterfaceRecPlayNodeFactory>().SingleInstance();
+            builder.RegisterType<InterfaceRecPlayContributorFactory>().As<IInterfaceRecPlayContributorFactory>().SingleInstance();
+            builder.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

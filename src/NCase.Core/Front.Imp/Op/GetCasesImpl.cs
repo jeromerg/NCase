@@ -11,10 +11,10 @@ namespace NCase.Front.Imp
     public class GetCasesImpl : IOperationImp<ISetDef, GetCases, ISetDefImp, ICaseEnumerable>
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
-        [NotNull] private readonly ICaseEnumerableFactory mCaseEnumerableFactory;
+        [NotNull] private readonly CaseEnumerableImp.Factory mCaseEnumerableFactory;
 
         public GetCasesImpl([NotNull] IParserGenerator parserGenerator,
-                            [NotNull] ICaseEnumerableFactory caseEnumerableFactory)
+                            [NotNull] CaseEnumerableImp.Factory caseEnumerableFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");
@@ -24,11 +24,11 @@ namespace NCase.Front.Imp
 
         public ICaseEnumerable Perform(IOperationDirector director, GetCases operation, ISetDefImp setDefImp)
         {
-            IEnumerable<IEnumerable<INode>> cases = Getcases(setDefImp);
+            IEnumerable<List<INode>> cases = Getcases(setDefImp);
             return mCaseEnumerableFactory.Create(cases);
         }
 
-        public IEnumerable<IEnumerable<INode>> Getcases(ISetDefImp setDefImp)
+        public IEnumerable<List<INode>> Getcases(ISetDefImp setDefImp)
         {
             INode caseSetNode = mParserGenerator.Parse(setDefImp.DefId, setDefImp.TokenReaderWriter);
 

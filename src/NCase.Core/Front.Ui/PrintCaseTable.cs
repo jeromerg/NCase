@@ -2,7 +2,7 @@
 
 namespace NCase.Front.Ui
 {
-    public class PrintCaseTable : IOp<ICase, string>
+    public class PrintCaseTable : IOp<ICaseEnumerable, string>
     {
         public static readonly PrintCaseTable Default = new PrintCaseTable();
 

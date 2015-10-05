@@ -7,7 +7,7 @@ using NDsl.Front.Api;
 
 namespace NCase.Front.Imp
 {
-    public class Prod : SetDefImpBase<IProd, ProdId, Prod>, IProd, IDefImp<ProdId>
+    public class ProdImp : SetDefImpBase<IProd, ProdId, ProdImp>, IProd, IDefImp<ProdId>
     {
         #region inner types
 
@@ -24,9 +24,9 @@ namespace NCase.Front.Imp
                 mOperationDirector = operationDirector;
             }
 
-            public IProd Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
+            public virtual IProd Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
             {
-                return new Prod(name, tokenReaderWriter, mCodeLocationUtil, mOperationDirector);
+                return new ProdImp(name, tokenReaderWriter, mCodeLocationUtil, mOperationDirector);
             }
         }
 
@@ -34,7 +34,7 @@ namespace NCase.Front.Imp
 
         [NotNull] private readonly ProdId mId;
 
-        public Prod([NotNull] string defName,
+        public ProdImp([NotNull] string defName,
                     [NotNull] ITokenReaderWriter tokenReaderWriter,
                     [NotNull] ICodeLocationUtil codeLocationUtil,
                     [NotNull] IOperationDirector operationDirector)
@@ -43,7 +43,7 @@ namespace NCase.Front.Imp
             mId = new ProdId(defName);
         }
 
-        protected override Prod ThisDefImpl
+        protected override ProdImp ThisDefImpl
         {
             get { return this; }
         }

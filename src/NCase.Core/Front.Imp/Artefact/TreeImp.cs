@@ -1,17 +1,17 @@
 ﻿using System;
 using JetBrains.Annotations;
-using NCase.Back.Api.Seq;
+using NCase.Back.Api.Tree;
 using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 
 namespace NCase.Front.Imp
 {
-    public class Seq : SetDefImpBase<ISeq, SeqId, Seq>, ISeq, IDefImp<SeqId>
+    public class TreeImp : SetDefImpBase<ITree, TreeId, TreeImp>, ITree, IDefImp<TreeId>
     {
         #region inner types
 
-        public class Factory : IDefFactory<ISeq>
+        public class Factory : IDefFactory<ITree>
         {
             private readonly ICodeLocationUtil mCodeLocationUtil;
             private readonly IOperationDirector mOperationDirector;
@@ -24,31 +24,31 @@ namespace NCase.Front.Imp
                 mOperationDirector = operationDirector;
             }
 
-            public ISeq Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
+            public virtual ITree Create([NotNull] ITokenReaderWriter tokenReaderWriter, [NotNull] string name)
             {
-                return new Seq(name, tokenReaderWriter, mCodeLocationUtil, mOperationDirector);
+                return new TreeImp(name, tokenReaderWriter, mCodeLocationUtil, mOperationDirector);
             }
         }
 
         #endregion
 
-        [NotNull] private readonly SeqId mId;
+        [NotNull] private readonly TreeId mId;
 
-        public Seq([NotNull] string defName,
-                   [NotNull] ITokenReaderWriter tokenReaderWriter,
-                   [NotNull] ICodeLocationUtil codeLocationUtil,
-                   [NotNull] IOperationDirector operationDirector)
+        public TreeImp([NotNull] string defName,
+                    [NotNull] ITokenReaderWriter tokenReaderWriter,
+                    [NotNull] ICodeLocationUtil codeLocationUtil,
+                    [NotNull] IOperationDirector operationDirector)
             : base(tokenReaderWriter, codeLocationUtil, operationDirector)
         {
-            mId = new SeqId(defName);
+            mId = new TreeId(defName);
         }
 
-        protected override Seq ThisDefImpl
+        protected override TreeImp ThisDefImpl
         {
             get { return this; }
         }
 
-        public SeqId Id
+        public TreeId Id
         {
             get { return mId; }
         }

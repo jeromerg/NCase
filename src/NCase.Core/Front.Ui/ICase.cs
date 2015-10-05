@@ -4,6 +4,5 @@ namespace NCase.Front.Ui
 {
     public interface ICase : IArtefact<ICase>
     {
-        void Replay(bool isReplay);
     }
 }

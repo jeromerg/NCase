@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCase.Back.Api.Parse;
 using NCase.Back.Api.Print;
 using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
@@ -9,9 +8,9 @@ using NDsl.Front.Api;
 
 namespace NCase.Front.Imp
 {
-    public class PrintCaseTableImpl : IOperationImp<ICase, PrintCaseTable, ICaseImp, string>
+    public class PrintCaseTableImpl : IOperationImp<ICaseEnumerable, PrintCaseTable, CaseEnumerableImp, string>
     {
-        private readonly Func<IPrintCaseTableDirector> mPrintCaseTableDirectorFactory;
+        [NotNull] private readonly Func<IPrintCaseTableDirector> mPrintCaseTableDirectorFactory;
 
         public PrintCaseTableImpl([NotNull] Func<IPrintCaseTableDirector> printCaseTableDirectorFactory)
         {
@@ -19,17 +18,19 @@ namespace NCase.Front.Imp
             mPrintCaseTableDirectorFactory = printCaseTableDirectorFactory;
         }
 
-        public string Perform(IOperationDirector director, PrintCaseTable printCaseTable, ICaseImp caseImp)
+        public string Perform(IOperationDirector director, PrintCaseTable printCaseTable, CaseEnumerableImp caseEnumerable)
         {
-            IPrintCaseTableDirector printDefinitionDirector = mPrintCaseTableDirectorFactory();
+            IPrintCaseTableDirector printCaseTableDirector = mPrintCaseTableDirectorFactory();
 
-            CopyProperties(printCaseTable, printDefinitionDirector);
+            CopyProperties(printCaseTable, printCaseTableDirector);
 
-            foreach (IEnumerable<INode> @case in caseImp.Cases)
+            foreach (List<INode> @case in caseEnumerable.Cases)
+            {
+                printCaseTableDirector.NewRow();
                 foreach (INode fact in @case)
-                    printDefinitionDirector.Visit(fact);
-
-            return printDefinitionDirector.GetString();
+                    printCaseTableDirector.Visit(fact);                
+            }
+            return printCaseTableDirector.GetString();
         }
 
         private void CopyProperties(PrintCaseTable uiDef, IPrintCaseTableDirector dir)

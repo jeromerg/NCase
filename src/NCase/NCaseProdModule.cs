@@ -12,7 +12,7 @@ namespace NCase
             base.Load(builder);
 
             // Case sets
-            builder.RegisterType<Prod.Factory>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ProdImp.Factory>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

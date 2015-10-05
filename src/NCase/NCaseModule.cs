@@ -24,7 +24,7 @@ namespace NCase
             builder.RegisterModule<NCasePairwiseModule>();
 
             // case builder 
-            builder.RegisterType<Builder>().As<IBuilder>().InstancePerDependency();
+            builder.RegisterType<BuilderImp>().As<IBuilder>().InstancePerDependency();
         }
     }
 }
