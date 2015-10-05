@@ -36,8 +36,7 @@ namespace NCase.Front.Imp
 
         private void CopyProperties(PrintDefinition uiDef, IPrintDefinitionDirector dir)
         {
-            dir.IncludeFileLineColumn = uiDef.IncludeFileRowColumn;
-            dir.IncludeFilePath = uiDef.IncludeFilePath;
+            dir.IncludeFileInfo = uiDef.IncludeFileInfo;
             dir.IndentationString = uiDef.Indentation;
             dir.RecurseIntoReferences = uiDef.RecurseIntoReferences;
         }

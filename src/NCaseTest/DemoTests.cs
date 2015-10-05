@@ -324,20 +324,31 @@ namespace NCaseTest
                 t.Card = Card.Maestro;
             }
 
-            var transfersForAllcardsAndBanks = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
-            using (transfersForAllcardsAndBanks.Define())
+            var testcasesDef = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
+            using (testcasesDef.Define())
             {
                 transfers.Ref();
                 cardsAndBanks.Ref();
             }
 
-            string defString = transfersForAllcardsAndBanks.Perform<PrintDefinition, string>(PrintDefinition.Default);
+            string defString = testcasesDef.Perform<PrintDefinition, string>(PrintDefinition.Default);
             Console.WriteLine(defString);
 
             Console.WriteLine("---------- NOW WITH OPTION RecurseIntoReferences");
-            string defString2 = transfersForAllcardsAndBanks.Perform<PrintDefinition, string>(new PrintDefinition{RecurseIntoReferences = true});
+            string defString2 = testcasesDef.Perform<PrintDefinition, string>(new PrintDefinition {RecurseIntoReferences = true});
             Console.WriteLine(defString2);
-        }
 
+            Console.WriteLine("---------- NOW WITH OPTION IncludeFileInfo");
+            string defString3 = testcasesDef.Perform<PrintDefinition, string>(new PrintDefinition {IncludeFileInfo = true});
+            Console.WriteLine(defString3);
+
+            Console.WriteLine("---------- NOW WITH OPTION RecurseIntoReferences and IncludeFileInfo");
+            string defString4 = testcasesDef.Perform<PrintDefinition, string>(new PrintDefinition
+                                                                              {
+                                                                                  RecurseIntoReferences = true,
+                                                                                  IncludeFileInfo = true
+                                                                              });
+            Console.WriteLine(defString4);
+        }
     }
 }

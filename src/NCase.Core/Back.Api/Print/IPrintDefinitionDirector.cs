@@ -7,8 +7,7 @@ namespace NCase.Back.Api.Print
     public interface IPrintDefinitionDirector : IActionDirector<INode, IPrintDefinitionDirector>
     {
         bool RecurseIntoReferences { get; set; }
-        bool IncludeFilePath { get; set; }
-        bool IncludeFileLineColumn { get; set; }
+        bool IncludeFileInfo { get; set; }
         string IndentationString { get; set; }
 
         void Indent();

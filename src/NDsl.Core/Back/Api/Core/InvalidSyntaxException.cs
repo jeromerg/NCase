@@ -9,7 +9,7 @@ namespace NDsl.Back.Api.Core
 
         [StringFormatMethod("args")]
         public InvalidSyntaxException(CodeLocation codeLocation, string format, params object[] args)
-            : base(string.Format("{0}\n\t{1}", codeLocation.GetFullInfo(), string.Format(format, args)))
+            : base(string.Format("{0}\n\t{1}", codeLocation.GetFullInfoWithSameSyntaxAsStackTrace(), string.Format(format, args)))
         {
             mCodeLocation = codeLocation;
         }

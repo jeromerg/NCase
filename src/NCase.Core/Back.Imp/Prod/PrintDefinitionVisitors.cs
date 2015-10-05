@@ -1,21 +1,16 @@
 ﻿using NCase.Back.Api.Print;
 using NCase.Back.Api.Prod;
 using NDsl.Back.Api.Core;
-using NDsl.Back.Api.Ref;
 
 namespace NCase.Back.Imp.Prod
 {
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<IProdNode>,
-          IPrintDefinitionVisitor<ProdDimNode>,
-          IPrintDefinitionVisitor<IRefNode<IProdNode>>
+          IPrintDefinitionVisitor<ProdDimNode>
     {
         public void Visit(IPrintDefinitionDirector dir, IProdNode node)
         {
-            if (dir.IncludeFilePath)
-                dir.Print(node.CodeLocation.GetFullInfo());
-
-            dir.Print("CARTESIAN PRODUCT {0}{1}", node.Id.Name, node.CodeLocation.GetLineAndColumnInfo());
+            dir.Print(node.CodeLocation, "Prod '{0}'", node.Id.Name);
 
             dir.Indent();
 
@@ -25,17 +20,9 @@ namespace NCase.Back.Imp.Prod
             dir.Dedent();
         }
 
-        public void Visit(IPrintDefinitionDirector dir, IRefNode<IProdNode> node)
-        {
-            if (dir.RecurseIntoReferences)
-                dir.Visit(node.Reference);
-            else
-                dir.Print(node.CodeLocation, "Ref to PROD {0}", node.Reference.Id.Name);
-        }
-
         public void Visit(IPrintDefinitionDirector dir, ProdDimNode node)
         {
-            dir.Print("IMPLICIT SET");
+            dir.Print("Implicit Seq");
 
             dir.Indent();
 

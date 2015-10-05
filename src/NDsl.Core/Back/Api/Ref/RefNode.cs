@@ -7,7 +7,7 @@ using NDsl.Back.Api.Core;
 namespace NDsl.Back.Api.Ref
 {
     public class RefNode<T> : IRefNode<T>
-        where T : INode
+        where T : IDefNode
     {
         private readonly T mReference;
         private readonly CodeLocation mCodeLocation;

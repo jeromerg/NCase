@@ -56,13 +56,12 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Back\Api\Core\CodeLocationExtensions.cs" />
     <Compile Include="Back\Api\Core\NullNode.cs" />
     <Compile Include="Back\Api\Core\InvalidSyntaxException.cs" />
-    <Compile Include="Back\Api\DefId.cs" />
-    <Compile Include="Back\Api\IDefId.cs" />
-    <Compile Include="Back\Api\IDefNode.cs" />
-    <Compile Include="Back\Api\ITypedId.cs" />
+    <Compile Include="Back\Api\Core\DefId.cs" />
+    <Compile Include="Back\Api\Core\IDefId.cs" />
+    <Compile Include="Back\Api\Core\IDefNode.cs" />
+    <Compile Include="Back\Api\Core\ITypedId.cs" />
     <Compile Include="Back\Api\RecPlay\InterfaceRecPlayNodeExtensions.cs" />
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayNodeFactory.cs" />
     <Compile Include="Back\Api\Ref\IRefNode.cs" />
@@ -80,7 +79,7 @@
     <Compile Include="Back\Api\Core\OwnedToken.cs" />
     <Compile Include="Back\Api\Block\EndToken.cs" />
     <Compile Include="Back\Api\Core\Token.cs" />
-    <Compile Include="Back\Api\Core\CodeLocationII.cs" />
+    <Compile Include="Back\Api\Core\CodeLocation.cs" />
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayContributorFactory.cs" />
     <Compile Include="Back\Api\Core\ITokenWriter.cs" />
     <Compile Include="Back\Api\Core\CaseValueNotFoundException.cs" />

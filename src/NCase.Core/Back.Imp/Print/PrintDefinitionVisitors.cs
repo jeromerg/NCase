@@ -18,18 +18,12 @@ namespace NCase.Back.Imp.Print
 
         public void Visit(IPrintDefinitionDirector dir, IRefNode<IDefNode> node)
         {
-            if (dir.RecurseIntoReferences)
-                dir.Visit(node.Reference);
-            else
-                dir.Print(node.CodeLocation, "Ref to definition '{0}'", node.Reference.DefId.Name);
-        }
+            IDefId defId = node.Reference.DefId;
 
-        public void Visit(IPrintDefinitionDirector dir, IRefNode<INode> node)
-        {
             if (dir.RecurseIntoReferences)
                 dir.Visit(node.Reference);
             else
-                dir.Print("Ref to '{0}'", node.Reference.CodeLocation.GetLineAndColumnInfo());
+                dir.Print(node.CodeLocation, "Ref to {0} '{1}'", defId.DefTypeName, defId.Name);            
         }
     }
 }

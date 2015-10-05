@@ -7,7 +7,7 @@ namespace NCase.Back.Imp.InterfaceRecPlay
     {
         public void Visit(IPrintDefinitionDirector dir, IInterfaceRecPlayNode node)
         {
-            dir.Print(node.PrintAssignment());
+            dir.Print(node.CodeLocation, node.PrintAssignment());
         }
     }
 }

@@ -10,13 +10,11 @@ namespace NCase.Front.Ui
         {
             Indentation = "    ";
             RecurseIntoReferences = false;
-            IncludeFilePath = false;
-            IncludeFileRowColumn = true;
+            IncludeFileInfo = false;
         }
 
         public string Indentation { get; set; }
         public bool RecurseIntoReferences { get; set; }
-        public bool IncludeFilePath { get; set; }
-        public bool IncludeFileRowColumn { get; set; }
+        public bool IncludeFileInfo { get; set; }
     }
 }

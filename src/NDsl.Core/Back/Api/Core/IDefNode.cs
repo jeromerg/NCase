@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
-using NDsl.Back.Api.Core;
 
-namespace NDsl.Back.Api
+namespace NDsl.Back.Api.Core
 {
     /// <summary>Case Set Definition Node </summary>
     public interface IDefNode : INode

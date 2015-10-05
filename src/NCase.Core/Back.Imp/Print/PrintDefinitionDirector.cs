@@ -18,8 +18,7 @@ namespace NCase.Back.Imp.Print
 
         public string IndentationString { get; set; }
         public bool RecurseIntoReferences { get; set; }
-        public bool IncludeFilePath { get; set; }
-        public bool IncludeFileLineColumn { get; set; }
+        public bool IncludeFileInfo { get; set; }
 
         public void Indent()
         {
@@ -33,10 +32,10 @@ namespace NCase.Back.Imp.Print
 
         public void Print(CodeLocation codeLocation, string format, params object[] args)
         {
-            Print("{0}{1}{2}",
-                  IncludeFilePath ? codeLocation.GetFullInfo() + Environment.NewLine : "",
-                  string.Format(format, args),
-                  IncludeFileLineColumn ? " " + codeLocation.GetLineAndColumnInfo() : "");
+            if (IncludeFileInfo)
+                Print("{0}  in {1}", string.Format(format, args), codeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
+            else
+                Print(format, args);
         }
 
         public void Print(string format, params object[] args)
