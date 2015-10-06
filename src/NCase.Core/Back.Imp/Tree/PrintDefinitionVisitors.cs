@@ -10,7 +10,7 @@ namespace NCase.Back.Imp.Tree
         public void Visit(IPrintDefinitionDirector dir, ITreeNode node)
         {
             if (node.Fact == null)
-                dir.PrintLine(node.CodeLocation, "TREE {0}", node.Id.Name);
+                dir.PrintLine(node.CodeLocation, "Tree {0}", node.Id.Name);
             else
                 dir.Visit(node.Fact);
 

@@ -10,6 +10,8 @@ namespace NCase.Back.Imp.Print
 {
     public class PrintCaseTableDirector : ActionDirector<INode, IPrintCaseTableDirector>, IPrintCaseTableDirector
     {
+        private static readonly SimpleTableColumn sIndexClumn = new SimpleTableColumn("#", HorizontalAlignment.Right);
+
         private readonly ITableBuilder mTableBuilder;
         private int mAmountOfCases;
 
@@ -21,13 +23,11 @@ namespace NCase.Back.Imp.Print
             mTableBuilder = tableBuilder;
         }
 
-        public bool IsRecursive { get; set; }
-        public bool IncludeFileInfo { get; set; }
-
         public void NewRow()
         {
             mAmountOfCases++;
             mTableBuilder.NewRow();
+            mTableBuilder.Print(sIndexClumn, mAmountOfCases.ToString());
         }
 
         public void Print(CodeLocation codeLocation, ITableColumn column, string format, params object[] args)

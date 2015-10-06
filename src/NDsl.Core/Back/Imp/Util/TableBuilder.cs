@@ -14,7 +14,6 @@ namespace NDsl.Back.Imp.Util
         private readonly int MARGIN_LEFT_AND_RIGHT = 1;
         private readonly string COLUMN_SEPARATOR = "|";
         private readonly char HEADER_CONTENT_SEPARATOR = '-';
-        private readonly string ROW_SEPARATOR = "";
 
         public void NewRow()
         {
@@ -59,7 +58,7 @@ namespace NDsl.Back.Imp.Util
             // and max the result with header width
             foreach (ITableColumn columnKey in allColumnAndWidthMax.Keys.ToArray())
             {
-                int headerWidth = columnKey.ToString().Length;
+                int headerWidth = columnKey.Title.Length;
                 allColumnAndWidthMax[columnKey] = Math.Max(allColumnAndWidthMax[columnKey], headerWidth);
             }
 

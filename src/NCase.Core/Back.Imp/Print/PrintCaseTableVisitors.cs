@@ -33,7 +33,7 @@ namespace NCase.Back.Imp.Print
 
         public string Title
         {
-            get { return string.Format("{0} ({1})", mNode.Reference.DefId.Name, mNode.Reference.DefId.DefTypeName); }
+            get { return string.Format("{0}", mNode.Reference.DefId.Name); }
         }
 
         protected bool Equals(RefColumn other)
