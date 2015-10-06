@@ -17,7 +17,7 @@ namespace NCase.Back.Imp.Print
         }
 
         public string IndentationString { get; set; }
-        public bool RecurseIntoReferences { get; set; }
+        public bool IsRecursive { get; set; }
         public bool IncludeFileInfo { get; set; }
 
         public void Indent()

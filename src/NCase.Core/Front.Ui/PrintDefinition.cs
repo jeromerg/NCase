@@ -9,12 +9,12 @@ namespace NCase.Front.Ui
         public PrintDefinition()
         {
             Indentation = "    ";
-            RecurseIntoReferences = false;
+            IsRecursive = false;
             IncludeFileInfo = false;
         }
 
         public string Indentation { get; set; }
-        public bool RecurseIntoReferences { get; set; }
+        public bool IsRecursive { get; set; }
         public bool IncludeFileInfo { get; set; }
     }
 }

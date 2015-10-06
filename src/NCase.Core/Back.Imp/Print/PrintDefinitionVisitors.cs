@@ -19,7 +19,7 @@ namespace NCase.Back.Imp.Print
         {
             IDefId defId = node.Reference.DefId;
 
-            if (dir.RecurseIntoReferences)
+            if (dir.IsRecursive)
                 dir.Visit(node.Reference);
             else
                 dir.Print(node.CodeLocation, "Ref to {0} '{1}'", defId.DefTypeName, defId.Name);

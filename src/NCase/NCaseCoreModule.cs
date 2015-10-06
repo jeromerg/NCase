@@ -51,7 +51,7 @@ namespace NCase
             builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Print Case Table
-            builder.RegisterType<PrintCaseTableImpl>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<PrintTableImpl>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
             builder.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
 

@@ -281,36 +281,37 @@ namespace NCaseTest
         [Test]
         public void PrintDefinitionTest()
         {
+            var testCasesDef = GetTipicalMixOfTreeAndProd();
+
+            string defString = testCasesDef.PrintDefinition();
+            Console.WriteLine(defString);
+
+            Console.WriteLine("---------- NOW WITH OPTION IsRecursive");
+            string defString2 = testCasesDef.PrintDefinition(isRecursive : true);
+            Console.WriteLine(defString2);
+
+            Console.WriteLine("---------- NOW WITH OPTION IncludeFileInfo");
+            string defString3 = testCasesDef.PrintDefinition(includeFileInfo : true);
+            Console.WriteLine(defString3);
+
+            Console.WriteLine("---------- NOW WITH OPTION IsRecursive and IncludeFileInfo");
+            string defString4 = testCasesDef.PrintDefinition(isRecursive : true, includeFileInfo : true);
+            Console.WriteLine(defString4);
+        }
+
+        [Test]
+        public void PrintCaseTableTest()
+        {
+            var testCasesDef = GetTipicalMixOfTreeAndProd();
+            string defString = testCasesDef.PrintTable();
+            Console.WriteLine(defString);
+        }
+
+        [Test]
+        public void PrintCaseTableTest_NonRecursiveCases()
+        {
             IBuilder builder = NCase.NCase.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
-
-            var transfers = builder.CreateDef<ITree>("transfers");
-            using (transfers.Define())
-            {
-                t.Currency = Curr.USD;
-                    t.BalanceUsd = 100.00;
-                        t.Amount = 0.01;
-                            t.Accepted = true;
-                        t.Amount = 100.00;
-                            t.Accepted = true;
-                        t.Amount = 100.01;
-                            t.Accepted = false;
-                    t.BalanceUsd = 0.00;
-                        t.Amount = 0.01;
-                            t.Accepted = false;
-                t.Currency = Curr.YEN;
-                    t.BalanceUsd = 0.00;
-                        t.Amount = 0.01;
-                            t.Accepted = false;
-                t.Currency = Curr.EUR;
-                    t.BalanceUsd = 100.00;
-                        t.Amount = 0.01;
-                            t.Accepted = true;
-                        t.Amount = 89.39;
-                            t.Accepted = true;
-                        t.Amount = 89.40;
-                            t.Accepted = false;
-            }
 
             var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
             using (cardsAndBanks.Define())
@@ -324,35 +325,38 @@ namespace NCaseTest
                 t.Card = Card.Maestro;
             }
 
-            var testcasesDef = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
-            using (testcasesDef.Define())
+            var transfers = builder.CreateDef<ITree>("transfers");
+            using (transfers.Define())
             {
-                transfers.Ref();
-                cardsAndBanks.Ref();
+                t.Currency = Curr.USD;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                                cardsAndBanks.Ref();
+                        t.Amount = 100.00;
+                            t.Accepted = true;
+                        t.Amount = 100.01;
+                            t.Accepted = false;
+                t.Currency = Curr.EUR;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 89.40;
+                            t.Accepted = false;
+                                cardsAndBanks.Ref();
             }
 
-            string defString = testcasesDef.Perform<PrintDefinition, string>(PrintDefinition.Default);
-            Console.WriteLine(defString);
+            Console.WriteLine("THIS IS PrintTable with option IsRecursive = true");
+            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine(transfers.PrintTable(isRecursive:true));
 
-            Console.WriteLine("---------- NOW WITH OPTION RecurseIntoReferences");
-            string defString2 = testcasesDef.Perform<PrintDefinition, string>(new PrintDefinition {RecurseIntoReferences = true});
-            Console.WriteLine(defString2);
-
-            Console.WriteLine("---------- NOW WITH OPTION IncludeFileInfo");
-            string defString3 = testcasesDef.Perform<PrintDefinition, string>(new PrintDefinition {IncludeFileInfo = true});
-            Console.WriteLine(defString3);
-
-            Console.WriteLine("---------- NOW WITH OPTION RecurseIntoReferences and IncludeFileInfo");
-            string defString4 = testcasesDef.Perform<PrintDefinition, string>(new PrintDefinition
-                                                                              {
-                                                                                  RecurseIntoReferences = true,
-                                                                                  IncludeFileInfo = true
-                                                                              });
-            Console.WriteLine(defString4);
+            Console.WriteLine();
+            Console.WriteLine("THIS IS PrintTable with option IsRecursive = false");
+            Console.WriteLine("-------------------------------------------------");
+            Console.WriteLine(transfers.PrintTable(isRecursive:false));
         }
 
-        [Test]
-        public void PrintCaseTableTest()
+        private IProd GetTipicalMixOfTreeAndProd()
         {
             IBuilder builder = NCase.NCase.CreateBuilder();
             var t = builder.CreateContributor<ITransfer>("t");
@@ -397,15 +401,14 @@ namespace NCaseTest
                 t.Card = Card.Maestro;
             }
 
-            var testcasesDef = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
-            using (testcasesDef.Define())
+            var testCasesDef = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
+            using (testCasesDef.Define())
             {
                 transfers.Ref();
                 cardsAndBanks.Ref();
             }
 
-            string defString = testcasesDef.Cases().Perform<PrintCaseTable, string>(PrintCaseTable.Default);
-            Console.WriteLine(defString);
+            return testCasesDef;
         }
 
     }

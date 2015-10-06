@@ -31,19 +31,12 @@ namespace NCase.Front.Imp.Op
 
         public IEnumerable<List<INode>> Getcases(ISetDefImp setDefImp, GetCases uiGetCases)
         {
-            GenerateOptions generateOptions = GetGenerateOptions(uiGetCases);
-
             INode caseSetNode = mParserGenerator.Parse(setDefImp.DefId, setDefImp.TokenReaderWriter);
 
-            IEnumerable<List<INode>> cases = mParserGenerator.Generate(caseSetNode, generateOptions);
+            IEnumerable<List<INode>> cases = mParserGenerator.Generate(caseSetNode, new GenerateOptions(true));
 
             foreach (List<INode> cas in cases)
                 yield return cas;
-        }
-
-        private GenerateOptions GetGenerateOptions(GetCases uiGetCases)
-        {
-            return new GenerateOptions(uiGetCases.IsRecursive);
         }
     }
 }

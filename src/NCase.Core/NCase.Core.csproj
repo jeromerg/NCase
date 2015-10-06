@@ -99,14 +99,14 @@
     <Compile Include="Back.Imp\Tree\TreeNode.cs" />
     <Compile Include="Front.Imp\Artefact\CaseEnumerableImp.cs" />
     <Compile Include="Front.Imp\Artefact\ISetDefImp.cs" />
-    <Compile Include="Front.Imp\Op\PrintCaseTableImpl.cs" />
+    <Compile Include="Front.Imp\Op\PrintTableImpl.cs" />
     <Compile Include="Front.Imp\Op\ReplayImpl.cs" />
     <Compile Include="Front.Imp\Op\PrintDefinitionImpl.cs" />
     <Compile Include="Front.Imp\Artefact\SeqImp.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />
     <Compile Include="Front.Ui\ICaseEnumerable.cs" />
     <Compile Include="Front.Ui\ISeq.cs" />
-    <Compile Include="Front.Ui\PrintCaseTable.cs" />
+    <Compile Include="Front.Ui\PrintTable.cs" />
     <Compile Include="Front.Ui\Replay.cs" />
     <Compile Include="Front.Ui\PrintDefinition.cs" />
     <Compile Include="Front.Ui\GetCases.cs" />

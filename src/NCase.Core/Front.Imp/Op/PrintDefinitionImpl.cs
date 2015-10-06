@@ -39,7 +39,7 @@ namespace NCase.Front.Imp.Op
         {
             dir.IncludeFileInfo = uiDef.IncludeFileInfo;
             dir.IndentationString = uiDef.Indentation;
-            dir.RecurseIntoReferences = uiDef.RecurseIntoReferences;
+            dir.IsRecursive = uiDef.IsRecursive;
         }
     }
 }
