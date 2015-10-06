@@ -9,11 +9,11 @@ namespace NCase.Back.Imp.Parse
     public class ParserGenerator : IParserGenerator
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
-        [NotNull] private readonly IGenerateDirector mCaseGenerator;
+        [NotNull] private readonly IGenerateCasesDirector mCaseGenerator;
         [NotNull] private readonly IParseDirector mParseDirector;
 
         public ParserGenerator([NotNull] ICodeLocationUtil codeLocationUtil,
-                               [NotNull] IGenerateDirector caseGenerator,
+                               [NotNull] IGenerateCasesDirector caseGenerator,
                                [NotNull] IParseDirector parseDirector)
         {
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
@@ -34,9 +34,9 @@ namespace NCase.Back.Imp.Parse
             return mParseDirector.GetReferencedNode<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
         }
 
-        public IEnumerable<List<INode>> Generate(INode caseSetNode)
+        public IEnumerable<List<INode>> Generate(INode caseSetNode, GenerateOptions options)
         {
-            IEnumerable<List<INode>> factForEachTestCase = mCaseGenerator.Visit(caseSetNode);
+            IEnumerable<List<INode>> factForEachTestCase = mCaseGenerator.Visit(caseSetNode, options);
             foreach (List<INode> testCaseNodes in factForEachTestCase)
                 yield return testCaseNodes;
         }

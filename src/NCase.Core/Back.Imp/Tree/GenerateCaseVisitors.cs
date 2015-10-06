@@ -4,35 +4,28 @@ using NCase.Back.Api.Parse;
 using NCase.Back.Api.Tree;
 using NCase.Back.Api.Util;
 using NDsl.Back.Api.Core;
-using NDsl.Back.Api.Ref;
 
 namespace NCase.Back.Imp.Tree
 {
     public class GenerateCaseVisitors
-        : IGenerateCaseVisitor<ITreeNode>,
-          IGenerateCaseVisitor<IRefNode<ITreeNode>>
+        : IGenerateCaseVisitor<ITreeNode>
     {
-        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IRefNode<ITreeNode> node)
-        {
-            return director.Visit(node.Reference);
-        }
-
-        public IEnumerable<List<INode>> Visit(IGenerateDirector director, ITreeNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector dir, ITreeNode node, GenerateOptions options)
         {
             if (node.Fact != null)
             {
-                foreach (List<INode> factNodes in director.Visit(node.Fact)) // fact comes first
-                    foreach (List<INode> subnodes in VisitTreeNodeChildren(director, node))
+                foreach (List<INode> factNodes in dir.Visit(node.Fact, options)) // fact comes first
+                    foreach (List<INode> subnodes in VisitTreeNodeChildren(dir, node, options))
                         yield return ListUtil.Concat(factNodes, subnodes);
             }
             else
             {
-                foreach (List<INode> nodes in VisitTreeNodeChildren(director, node))
+                foreach (List<INode> nodes in VisitTreeNodeChildren(dir, node, options))
                     yield return nodes;
             }
         }
 
-        private IEnumerable<List<INode>> VisitTreeNodeChildren(IGenerateDirector director, ITreeNode node)
+        private IEnumerable<List<INode>> VisitTreeNodeChildren(IGenerateCasesDirector dir, ITreeNode node, GenerateOptions options)
         {
             // it's a leaf, so it is also a case: 
             // then give hand to calling foreach in order to process the case
@@ -40,7 +33,7 @@ namespace NCase.Back.Imp.Tree
                 yield return new List<INode>();
             else
                 foreach (INode branch in node.Branches)
-                    foreach (List<INode> nodes in director.Visit(branch))
+                    foreach (List<INode> nodes in dir.Visit(branch, options))
                         yield return nodes;
         }
     }

@@ -4,10 +4,13 @@ namespace NCase.Front.Ui
 {
     public class GetCases : IOp<ISetDef, ICaseEnumerable>
     {
-        public static readonly GetCases Instance = new GetCases();
+        public static readonly GetCases Default = new GetCases(true);
 
-        private GetCases()
+        private GetCases(bool isRecursive)
         {
+            IsRecursive = isRecursive;
         }
+
+        public bool IsRecursive { get; private set; }
     }
 }

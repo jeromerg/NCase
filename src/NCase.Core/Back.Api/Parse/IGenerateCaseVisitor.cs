@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using NDsl.Back.Api.Core;
-using NVisitor.Api.Func;
+using NVisitor.Api.FuncPayload;
 
 namespace NCase.Back.Api.Parse
 {
-    public interface IGenerateCaseVisitor<TNod> : IFuncVisitor<INode, IGenerateDirector, TNod, IEnumerable<List<INode>>>
+    public interface IGenerateCaseVisitor<TNod> : IFuncPayloadVisitor<INode, IGenerateCasesDirector, TNod, GenerateOptions, IEnumerable<List<INode>>>
         where TNod : INode
     {
     }

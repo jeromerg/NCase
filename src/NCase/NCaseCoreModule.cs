@@ -37,7 +37,8 @@ namespace NCase
 
             builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency(); // STATEFUL!
             builder.RegisterType<AddChildDirector>().As<IAddChildDirector>().SingleInstance();
-            builder.RegisterType<GenerateDirector>().As<IGenerateDirector>().SingleInstance();
+            builder.RegisterType<GenerateCasesDirector>().As<IGenerateCasesDirector>().SingleInstance();
+            builder.RegisterType<GenerateCasesVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Replay Director and default visitor
             builder.RegisterType<ReplayImp>().AsImplementedInterfaces().SingleInstance();

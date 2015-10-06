@@ -36,7 +36,6 @@ namespace NCase.Front.Imp.Op
 
         private void CopyProperties(PrintCaseTable uiDef, IPrintCaseTableDirector dir)
         {
-            dir.IncludeFileInfo = uiDef.IncludeFileInfo;
             dir.RecurseIntoReferences = uiDef.RecurseIntoReferences;
         }
     }

@@ -23,20 +23,27 @@ namespace NCase.Front.Imp.Op
             mCaseEnumerableFactory = caseEnumerableFactory;
         }
 
-        public ICaseEnumerable Perform(IOperationDirector director, GetCases operation, ISetDefImp setDefImp)
+        public ICaseEnumerable Perform(IOperationDirector director, GetCases uiGetCases, ISetDefImp setDefImp)
         {
-            IEnumerable<List<INode>> cases = Getcases(setDefImp);
+            IEnumerable<List<INode>> cases = Getcases(setDefImp, uiGetCases);
             return mCaseEnumerableFactory.Create(cases);
         }
 
-        public IEnumerable<List<INode>> Getcases(ISetDefImp setDefImp)
+        public IEnumerable<List<INode>> Getcases(ISetDefImp setDefImp, GetCases uiGetCases)
         {
+            GenerateOptions generateOptions = GetGenerateOptions(uiGetCases);
+
             INode caseSetNode = mParserGenerator.Parse(setDefImp.DefId, setDefImp.TokenReaderWriter);
 
-            IEnumerable<List<INode>> cases = mParserGenerator.Generate(caseSetNode);
+            IEnumerable<List<INode>> cases = mParserGenerator.Generate(caseSetNode, generateOptions);
 
             foreach (List<INode> cas in cases)
                 yield return cas;
+        }
+
+        private GenerateOptions GetGenerateOptions(GetCases uiGetCases)
+        {
+            return new GenerateOptions(uiGetCases.IsRecursive);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace NCase.Back.Imp.InterfaceRecPlay
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<IInterfaceRecPlayNode>
     {
-        public IEnumerable<List<INode>> Visit(IGenerateDirector director, IInterfaceRecPlayNode node)
+        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector dir, IInterfaceRecPlayNode node, GenerateOptions options)
         {
             yield return new List<INode> {node};
         }

@@ -7,6 +7,5 @@ namespace NCase.Front.Ui
         public static readonly PrintCaseTable Default = new PrintCaseTable();
 
         public bool RecurseIntoReferences { get; set; }
-        public bool IncludeFileInfo { get; set; }
     }
 }

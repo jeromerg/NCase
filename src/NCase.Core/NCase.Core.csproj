@@ -54,6 +54,7 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Back.Api\Parse\GenerateOptions.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableDirector.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
     <Compile Include="Back.Api\Seq\ITreeNode.cs" />
@@ -68,12 +69,13 @@
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
     <Compile Include="Back.Imp\Pairwise\ParseVisitors.cs" />
+    <Compile Include="Back.Imp\Parse\GenerateCasesVisitors.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableDirector.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableVisitors.cs" />
     <Compile Include="Back.Imp\Prod\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Parse\AddChildDirector.cs" />
-    <Compile Include="Back.Imp\Parse\GenerateDirector.cs" />
+    <Compile Include="Back.Imp\Parse\GenerateCasesDirector.cs" />
     <Compile Include="Back.Imp\Parse\ParseDirector.cs" />
     <Compile Include="Back.Imp\Parse\ParserGenerator.cs" />
     <Compile Include="Back.Imp\Print\PrintDefinitionDirector.cs" />
@@ -142,7 +144,7 @@
     <Compile Include="Front.Imp\Artefact\TreeImp.cs" />
     <Compile Include="Front.Imp\Artefact\BuilderImp.cs" />
     <Compile Include="Front.Ui\IBuilder.cs" />
-    <Compile Include="Back.Api\Parse\IGenerateDirector.cs" />
+    <Compile Include="Back.Api\Parse\IGenerateCasesDirector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
