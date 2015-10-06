@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using NCase.Back.Api.Print;
+using NCase.Back.Imp.Print;
 using NDsl.Back.Api.Core;
 using NDsl.Back.Api.RecPlay;
 
@@ -7,7 +8,7 @@ namespace NCase.Back.Imp.RecPlay
 {
     public class PrintCaseTableVisitors : IPrintCaseTableVisitor<IInterfaceRecPlayNode>
     {
-        private class InterfaceRecPlayNodeColumn
+        private class InterfaceRecPlayNodeColumn : ITableColumn
         {
             [NotNull] private readonly IInterfaceRecPlayNode mNode;
 

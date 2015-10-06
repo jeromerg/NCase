@@ -62,6 +62,7 @@
     <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
     <Compile Include="Back.Api\Seq\ITreeNode.cs" />
     <Compile Include="Back.Api\Seq\SeqId.cs" />
+    <Compile Include="Back.Api\Util\ITableColumn.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ParseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\PrintCaseTableVisitors.cs" />
@@ -72,6 +73,8 @@
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
     <Compile Include="Back.Imp\Pairwise\ParseVisitors.cs" />
+    <Compile Include="Back.Api\Util\ITableBuilder.cs" />
+    <Compile Include="Back.Imp\Util\TableBuilder.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableDirector.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableVisitors.cs" />
     <Compile Include="Back.Imp\Prod\PrintDefinitionVisitors.cs" />

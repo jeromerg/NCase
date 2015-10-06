@@ -18,8 +18,11 @@ namespace NCase
         {
             base.Load(builder);
 
+            // UTILS
             builder.RegisterInstance(new ProxyGenerator());
+            builder.RegisterType<TableBuilder>().As<ITableBuilder>().InstancePerDependency();
 
+            // OPERATION DIRECTOR
             builder.RegisterType<OperationDirector>()
                 .As<IOperationDirector>().SingleInstance()
                 .OnActivated(eventArgs => eventArgs.Instance.InitializeDirector(eventArgs.Context.Resolve<IEnumerable<IOperationVisitorClass>>()));
