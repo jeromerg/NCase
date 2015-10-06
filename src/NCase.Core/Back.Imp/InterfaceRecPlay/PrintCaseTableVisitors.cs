@@ -1,13 +1,14 @@
 ﻿using JetBrains.Annotations;
 using NCase.Back.Api.Print;
-using NCase.Back.Imp.Print;
-using NDsl.Back.Api.Core;
 using NDsl.Back.Api.RecPlay;
+using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.RecPlay
+namespace NCase.Back.Imp.InterfaceRecPlay
 {
     public class PrintCaseTableVisitors : IPrintCaseTableVisitor<IInterfaceRecPlayNode>
     {
+        #region inner types
+
         private class InterfaceRecPlayNodeColumn : ITableColumn
         {
             [NotNull] private readonly IInterfaceRecPlayNode mNode;
@@ -26,7 +27,7 @@ namespace NCase.Back.Imp.RecPlay
             {
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != this.GetType()) return false;
+                if (obj.GetType() != GetType()) return false;
                 return Equals((InterfaceRecPlayNodeColumn) obj);
             }
 
@@ -40,9 +41,14 @@ namespace NCase.Back.Imp.RecPlay
                 return mNode.PrintInvocation();
             }
         }
+
+        #endregion
+
         public void Visit(IPrintCaseTableDirector director, IInterfaceRecPlayNode node)
         {
-            director.Print(node.CodeLocation, new InterfaceRecPlayNodeColumn(node), node.PropertyValue != null ? node.PropertyValue.ToString() : "null");
+            director.Print(node.CodeLocation,
+                           new InterfaceRecPlayNodeColumn(node),
+                           node.PropertyValue != null ? node.PropertyValue.ToString() : "null");
         }
     }
 }

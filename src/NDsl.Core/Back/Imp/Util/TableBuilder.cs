@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Castle.Components.DictionaryAdapter;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Print
+namespace NDsl.Back.Imp.Util
 {
     public class TableBuilder : ITableBuilder
     {
@@ -49,7 +48,8 @@ namespace NCase.Back.Imp.Print
                 {
                     int currentMax;
                     allColumnAndWidthMax.TryGetValue(cellContentByCol.Key, out currentMax);
-                    allColumnAndWidthMax[cellContentByCol.Key] = Math.Max(currentMax, cellContentByCol.Value.Max(txt => txt.Length));
+                    allColumnAndWidthMax[cellContentByCol.Key] = Math.Max(currentMax,
+                                                                          cellContentByCol.Value.Max(txt => txt.Length));
                 }
             }
 

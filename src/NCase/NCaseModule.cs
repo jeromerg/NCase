@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Autofac;
-using NCase.Front.Imp;
+using NCase.Front.Imp.Artefact;
 using NCase.Front.Ui;
 using NDsl;
 using Module = Autofac.Module;

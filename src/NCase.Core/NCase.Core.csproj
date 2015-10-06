@@ -43,10 +43,6 @@
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NGitVersion">
-      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NGitVersion.exe</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NVisitor, Version=1.1.0.70, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NVisitor.dll</HintPath>
       <Private>True</Private>
@@ -62,7 +58,6 @@
     <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
     <Compile Include="Back.Api\Seq\ITreeNode.cs" />
     <Compile Include="Back.Api\Seq\SeqId.cs" />
-    <Compile Include="Back.Api\Util\ITableColumn.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ParseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\PrintCaseTableVisitors.cs" />
@@ -73,8 +68,6 @@
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
     <Compile Include="Back.Imp\Pairwise\ParseVisitors.cs" />
-    <Compile Include="Back.Api\Util\ITableBuilder.cs" />
-    <Compile Include="Back.Imp\Util\TableBuilder.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableDirector.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableVisitors.cs" />
     <Compile Include="Back.Imp\Prod\PrintDefinitionVisitors.cs" />
@@ -162,9 +155,7 @@
       <Name>NDsl.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Back.Api\Core\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

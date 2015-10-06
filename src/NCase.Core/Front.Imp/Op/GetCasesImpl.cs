@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Parse;
+using NCase.Front.Imp.Artefact;
 using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Op
 {
     public class GetCasesImpl : IOperationImp<ISetDef, GetCases, ISetDefImp, ICaseEnumerable>
     {

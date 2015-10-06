@@ -5,7 +5,7 @@ using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Artefact
 {
     public class PairwiseImp : SetDefImpBase<IPairwise, PairwiseId, PairwiseImp>, IPairwise, IDefImp<PairwiseId>
     {
@@ -35,9 +35,9 @@ namespace NCase.Front.Imp
         [NotNull] private readonly PairwiseId mId;
 
         public PairwiseImp([NotNull] string defName,
-                        [NotNull] ITokenReaderWriter tokenReaderWriter,
-                        [NotNull] ICodeLocationUtil codeLocationUtil,
-                        [NotNull] IOperationDirector operationDirector)
+                           [NotNull] ITokenReaderWriter tokenReaderWriter,
+                           [NotNull] ICodeLocationUtil codeLocationUtil,
+                           [NotNull] IOperationDirector operationDirector)
             : base(tokenReaderWriter, codeLocationUtil, operationDirector)
         {
             mId = new PairwiseId(defName);

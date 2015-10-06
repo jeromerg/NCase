@@ -8,7 +8,7 @@ using NDsl.Back.Api.RecPlay;
 using NDsl.Front.Api;
 using NDsl.Front.Ui;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Artefact
 {
     public class BuilderImp : IBuilder
     {
@@ -17,8 +17,8 @@ namespace NCase.Front.Imp
         [NotNull] private readonly IInterfaceRecPlayContributorFactory mInterfaceRecPlayContributorFactory;
 
         public BuilderImp([NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory,
-                       [NotNull] ITokenReaderWriter tokenStream,
-                       [NotNull] IEnumerable<IDefFactory> defFactories)
+                          [NotNull] ITokenReaderWriter tokenStream,
+                          [NotNull] IEnumerable<IDefFactory> defFactories)
         {
             if (interfaceRecPlayContributorFactory == null) throw new ArgumentNullException("interfaceRecPlayContributorFactory");
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");

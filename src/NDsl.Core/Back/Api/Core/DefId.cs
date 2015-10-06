@@ -15,7 +15,7 @@ namespace NDsl.Back.Api.Core
         }
 
         public abstract string DefTypeName { get; }
-        
+
         public virtual string Name
         {
             get { return mName; }

@@ -5,7 +5,7 @@ using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Artefact
 {
     public class SeqImp : SetDefImpBase<ISeq, SeqId, SeqImp>, ISeq, IDefImp<SeqId>
     {
@@ -35,9 +35,9 @@ namespace NCase.Front.Imp
         [NotNull] private readonly SeqId mId;
 
         public SeqImp([NotNull] string defName,
-                   [NotNull] ITokenReaderWriter tokenReaderWriter,
-                   [NotNull] ICodeLocationUtil codeLocationUtil,
-                   [NotNull] IOperationDirector operationDirector)
+                      [NotNull] ITokenReaderWriter tokenReaderWriter,
+                      [NotNull] ICodeLocationUtil codeLocationUtil,
+                      [NotNull] IOperationDirector operationDirector)
             : base(tokenReaderWriter, codeLocationUtil, operationDirector)
         {
             mId = new SeqId(defName);

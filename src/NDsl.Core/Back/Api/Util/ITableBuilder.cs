@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace NCase.Back.Imp.Print
+namespace NDsl.Back.Api.Util
 {
     public interface ITableBuilder
     {

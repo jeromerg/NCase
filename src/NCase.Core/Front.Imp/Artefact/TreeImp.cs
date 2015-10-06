@@ -5,7 +5,7 @@ using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Artefact
 {
     public class TreeImp : SetDefImpBase<ITree, TreeId, TreeImp>, ITree, IDefImp<TreeId>
     {
@@ -35,9 +35,9 @@ namespace NCase.Front.Imp
         [NotNull] private readonly TreeId mId;
 
         public TreeImp([NotNull] string defName,
-                    [NotNull] ITokenReaderWriter tokenReaderWriter,
-                    [NotNull] ICodeLocationUtil codeLocationUtil,
-                    [NotNull] IOperationDirector operationDirector)
+                       [NotNull] ITokenReaderWriter tokenReaderWriter,
+                       [NotNull] ICodeLocationUtil codeLocationUtil,
+                       [NotNull] IOperationDirector operationDirector)
             : base(tokenReaderWriter, codeLocationUtil, operationDirector)
         {
             mId = new TreeId(defName);

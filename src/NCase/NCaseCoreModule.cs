@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Autofac;
-using Castle.DynamicProxy;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Print;
 using NCase.Back.Api.Replay;
 using NCase.Back.Imp.Parse;
 using NCase.Back.Imp.Print;
 using NCase.Back.Imp.Replay;
-using NCase.Front.Imp;
+using NCase.Front.Imp.Artefact;
+using NCase.Front.Imp.Op;
 using NDsl.Front.Api;
 
 namespace NCase
@@ -18,14 +18,14 @@ namespace NCase
         {
             base.Load(builder);
 
-            // UTILS
-            builder.RegisterInstance(new ProxyGenerator());
-            builder.RegisterType<TableBuilder>().As<ITableBuilder>().InstancePerDependency();
-
             // OPERATION DIRECTOR
             builder.RegisterType<OperationDirector>()
-                .As<IOperationDirector>().SingleInstance()
-                .OnActivated(eventArgs => eventArgs.Instance.InitializeDirector(eventArgs.Context.Resolve<IEnumerable<IOperationVisitorClass>>()));
+                   .As<IOperationDirector>().SingleInstance()
+                   .OnActivated(
+                                eventArgs =>
+                                eventArgs.Instance.InitializeDirector(
+                                                                      eventArgs.Context
+                                                                               .Resolve<IEnumerable<IOperationVisitorClass>>()));
 
             // CaseEnumerable, Case, Fact factories
             builder.RegisterType<CaseEnumerableImp.Factory>().AsSelf().SingleInstance();

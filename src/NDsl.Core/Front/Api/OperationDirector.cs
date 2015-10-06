@@ -8,17 +8,6 @@ namespace NDsl.Front.Api
     {
         private IOperationVisitMapper mVisitMapper;
 
-        public OperationDirector()
-        {
-            
-        }
-
-        // TODO: RESTORE CONSTRUCTOR INJECTION WITH DYN PROXY; TO AVOID CIRCULAR DEPENDENCY ISSUE
-        public void InitializeDirector(IEnumerable<IOperationVisitorClass> visitorEnumerable)
-        {
-            mVisitMapper = new OperationVisitMapper(visitorEnumerable);
-        }
-
         public TResult Perform<TArtefact, TResult>(IOp<TArtefact, TResult> operation, IArtefactImp artefactImp)
             where TArtefact : IArtefact
         {
@@ -38,6 +27,12 @@ namespace NDsl.Front.Api
             //    throw new VisitorNotFoundException(GetType(), e);
             //}
             return (TResult) visitAction(this, operation, artefactImp);
+        }
+
+        // TODO: RESTORE CONSTRUCTOR INJECTION WITH DYN PROXY; TO AVOID CIRCULAR DEPENDENCY ISSUE
+        public void InitializeDirector(IEnumerable<IOperationVisitorClass> visitorEnumerable)
+        {
+            mVisitMapper = new OperationVisitMapper(visitorEnumerable);
         }
     }
 }

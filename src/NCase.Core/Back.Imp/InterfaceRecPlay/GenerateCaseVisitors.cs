@@ -3,7 +3,7 @@ using NCase.Back.Api.Parse;
 using NDsl.Back.Api.Core;
 using NDsl.Back.Api.RecPlay;
 
-namespace NCase.Back.Imp.RecPlay
+namespace NCase.Back.Imp.InterfaceRecPlay
 {
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<IInterfaceRecPlayNode>

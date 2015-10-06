@@ -2,7 +2,7 @@
 using NCase.Back.Api.Replay;
 using NDsl.Back.Api.RecPlay;
 
-namespace NCase.Back.Imp.RecPlay
+namespace NCase.Back.Imp.InterfaceRecPlay
 {
     public class ReplayVisitors
         : IReplayVisitor<IInterfaceRecPlayNode>

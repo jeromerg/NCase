@@ -41,10 +41,6 @@
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NGitVersion.exe</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NVisitor, Version=1.1.0.70, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NVisitor.dll</HintPath>
       <Private>True</Private>
@@ -83,6 +79,8 @@
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayContributorFactory.cs" />
     <Compile Include="Back\Api\Core\ITokenWriter.cs" />
     <Compile Include="Back\Api\Core\CaseValueNotFoundException.cs" />
+    <Compile Include="Back\Api\Util\ITableBuilder.cs" />
+    <Compile Include="Back\Api\Util\ITableColumn.cs" />
     <Compile Include="Back\Imp\Core\TokenStream.cs" />
     <Compile Include="Back\Api\Core\INode.cs" />
     <Compile Include="Back\Api\Core\InvalidCaseRecordException.cs" />
@@ -91,6 +89,7 @@
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayInterceptor.cs" />
     <Compile Include="Back\Imp\RecPlay\InterfaceRecPlayInterceptor.cs" />
     <Compile Include="Back\Api\RecPlay\RecPlayMode.cs" />
+    <Compile Include="Back\Imp\Util\TableBuilder.cs" />
     <Compile Include="Front\Imp\DefImpBase.cs" />
     <Compile Include="Front\Ui\IArtefact.cs" />
     <Compile Include="Front\Ui\IDef.cs" />

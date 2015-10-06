@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using Castle.Components.DictionaryAdapter;
 using JetBrains.Annotations;
 using NCase.Back.Api.Print;
 using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Util;
 using NVisitor.Api.Action;
 
 namespace NCase.Back.Imp.Print
 {
     public class PrintCaseTableDirector : ActionDirector<INode, IPrintCaseTableDirector>, IPrintCaseTableDirector
     {
-        private int mAmountOfCases = 0;
         private readonly ITableBuilder mTableBuilder;
+        private int mAmountOfCases;
 
         public PrintCaseTableDirector(IActionVisitMapper<INode, IPrintCaseTableDirector> visitMapper,
                                       [NotNull] ITableBuilder tableBuilder)

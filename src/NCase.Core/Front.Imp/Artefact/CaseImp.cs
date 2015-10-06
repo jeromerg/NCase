@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCase.Back.Api.Replay;
 using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 using NDsl.Front.Imp;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Artefact
 {
     public class CaseImp : ArtefactImpBase<ICase, CaseImp>, ICase
     {
         #region inner types
+
         public class Factory
         {
             private readonly IOperationDirector mOperationDirector;

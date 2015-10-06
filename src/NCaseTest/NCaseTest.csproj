@@ -38,16 +38,8 @@
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NGitVersion.exe</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="NVisitor">
-      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NVisitor.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,10 +66,6 @@
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
       <Name>NDsl.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NDsl\NDsl.csproj">
-      <Project>{fd488cb0-efeb-4e14-86d8-220d378a716f}</Project>
-      <Name>NDsl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

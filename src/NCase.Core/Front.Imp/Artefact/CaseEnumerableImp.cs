@@ -7,11 +7,12 @@ using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 using NDsl.Front.Imp;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Artefact
 {
     public class CaseEnumerableImp : ArtefactImpBase<ICaseEnumerable, CaseEnumerableImp>, ICaseEnumerable
     {
         #region inner types
+
         public class Factory
         {
             [NotNull] private readonly IOperationDirector mOperationDirector;
@@ -43,6 +44,17 @@ namespace NCase.Front.Imp
             mCaseFactory = caseFactory;
         }
 
+
+        protected override CaseEnumerableImp ThisDefImpl
+        {
+            get { return this; }
+        }
+
+        public IEnumerable<List<INode>> Cases
+        {
+            get { return mCases; }
+        }
+
         #region
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -57,16 +69,5 @@ namespace NCase.Front.Imp
         }
 
         #endregion
-
-
-        protected override CaseEnumerableImp ThisDefImpl
-        {
-            get { return this; }
-        }
-
-        public IEnumerable<List<INode>> Cases
-        {
-            get { return mCases; }
-        }
     }
 }

@@ -5,7 +5,7 @@ using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 using NDsl.Front.Imp;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Artefact
 {
     public class FactImp : ArtefactImpBase<IFact, FactImp>, IFact
     {

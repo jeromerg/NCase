@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Print;
+using NCase.Front.Imp.Artefact;
 using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
 using NDsl.Front.Api;
 
-namespace NCase.Front.Imp
+namespace NCase.Front.Imp.Op
 {
     public class PrintCaseTableImpl : IOperationImp<ICaseEnumerable, PrintCaseTable, CaseEnumerableImp, string>
     {
@@ -28,7 +29,7 @@ namespace NCase.Front.Imp
             {
                 printCaseTableDirector.NewRow();
                 foreach (INode fact in @case)
-                    printCaseTableDirector.Visit(fact);                
+                    printCaseTableDirector.Visit(fact);
             }
             return printCaseTableDirector.GetString();
         }

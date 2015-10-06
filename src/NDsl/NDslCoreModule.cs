@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 using Autofac;
 using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Util;
 using NDsl.Back.Imp.Core;
+using NDsl.Back.Imp.Util;
 using NVisitor.Api.Action;
 using NVisitor.Api.ActionPair;
 using NVisitor.Api.ActionPayload;
@@ -31,6 +33,9 @@ namespace NDsl
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
+
+            builder.RegisterType<TableBuilder>().As<ITableBuilder>().InstancePerDependency();
+
             builder.RegisterInstance(new StackFrameUtil(mNonUserAssemblies)).As<IStackFrameUtil>();
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
             builder.RegisterType<TokenStream>().AsImplementedInterfaces();
