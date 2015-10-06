@@ -41,7 +41,7 @@ namespace NCaseTest
         [Test]
         public void SimpleTreeTest()
         {
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var transfers = builder.CreateDef<ITree>("transfers");
@@ -82,24 +82,12 @@ namespace NCaseTest
                                   t.Amount,
                                   t.Accepted);
             }
-
-            // Console Output: 
-            // CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
-            // ---------|-------------|--------|---------
-            //      USD |      100,00 | 000,01 | True    
-            //      USD |      100,00 | 100,00 | True    
-            //      USD |      100,00 | 100,01 | False   
-            //      USD |      000,00 | 000,01 | False   
-            //      YEN |      000,00 | 000,01 | False   
-            //      EUR |      100,00 | 000,01 | True    
-            //      EUR |      100,00 | 089,39 | True    
-            //      EUR |      100,00 | 089,40 | False           
         }
 
         [Test]
         public void SimpleCartesianProductTest()
         {
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
@@ -120,24 +108,12 @@ namespace NCaseTest
             {
                 Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
             }
-            // Console Output:
-            // DEST_BANK     | CARD       
-            // --------------|------------
-            // HSBC          | Visa      
-            // HSBC          | Mastercard
-            // HSBC          | Maestro   
-            // Unicredit     | Visa      
-            // Unicredit     | Mastercard
-            // Unicredit     | Maestro   
-            // Bank of China | Visa      
-            // Bank of China | Mastercard
-            // Bank of China | Maestro   
         }
 
         [Test]
         public void ReferenceTest()
         {
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var transfers = builder.CreateDef<ITree>("transfers");
@@ -235,7 +211,7 @@ namespace NCaseTest
 
         private static ITree GetTypicalTreeWithReferences()
         {
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
@@ -275,35 +251,35 @@ namespace NCaseTest
 
         private static IProd GetTipicalMixOfTreeAndProd()
         {
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var transfers = builder.CreateDef<ITree>("transfers");
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;
-                t.BalanceUsd = 100.00;
-                t.Amount = 0.01;
-                t.Accepted = true;
-                t.Amount = 100.00;
-                t.Accepted = true;
-                t.Amount = 100.01;
-                t.Accepted = false;
-                t.BalanceUsd = 0.00;
-                t.Amount = 0.01;
-                t.Accepted = false;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 100.00;
+                            t.Accepted = true;
+                        t.Amount = 100.01;
+                            t.Accepted = false;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
                 t.Currency = Curr.YEN;
-                t.BalanceUsd = 0.00;
-                t.Amount = 0.01;
-                t.Accepted = false;
+                    t.BalanceUsd = 0.00;
+                        t.Amount = 0.01;
+                            t.Accepted = false;
                 t.Currency = Curr.EUR;
-                t.BalanceUsd = 100.00;
-                t.Amount = 0.01;
-                t.Accepted = true;
-                t.Amount = 89.39;
-                t.Accepted = true;
-                t.Amount = 89.40;
-                t.Accepted = false;
+                    t.BalanceUsd = 100.00;
+                        t.Amount = 0.01;
+                            t.Accepted = true;
+                        t.Amount = 89.39;
+                            t.Accepted = true;
+                        t.Amount = 89.40;
+                            t.Accepted = false;
             }
 
             var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");

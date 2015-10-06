@@ -4,7 +4,9 @@ namespace NCase.Back.Api.Tree
 {
     public class TreeId : DefId
     {
-        private string mDefTypeName;
+        public TreeId()
+        {
+        }
 
         public TreeId(string name)
             : base(name)

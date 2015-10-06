@@ -2,7 +2,7 @@
 using NCase.Back.Imp.Tree;
 using NCase.Front.Imp.Artefact;
 
-namespace NCase
+namespace NCase.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule </summary>
     public class NCaseTreeModule : Module

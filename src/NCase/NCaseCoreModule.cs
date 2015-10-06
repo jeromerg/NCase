@@ -10,53 +10,51 @@ using NCase.Front.Imp.Artefact;
 using NCase.Front.Imp.Op;
 using NDsl.Front.Api;
 
-namespace NCase
+namespace NCase.Front.Ui
 {
     public class NCaseCoreModule : Module
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder cb)
         {
-            base.Load(builder);
+            base.Load(cb);
 
             // OPERATION DIRECTOR
-            builder.RegisterType<OperationDirector>()
-                   .As<IOperationDirector>().SingleInstance()
-                   .OnActivated(
-                                eventArgs =>
-                                eventArgs.Instance.InitializeDirector(
-                                                                      eventArgs.Context
-                                                                               .Resolve<IEnumerable<IOperationVisitorClass>>()));
+            cb.RegisterType<OperationDirector>()
+              .As<IOperationDirector>().SingleInstance()
+              .OnActivated(e => e.Instance.InitializeDirector(e.Context.Resolve<IEnumerable<IOperationVisitorClass>>()));
+
+            cb.RegisterType<BuilderImp>().As<IBuilder>().InstancePerDependency();
 
             // CaseEnumerable, Case, Fact factories
-            builder.RegisterType<CaseEnumerableImp.Factory>().AsSelf().SingleInstance();
-            builder.RegisterType<CaseImp.Factory>().AsSelf().SingleInstance();
-            builder.RegisterType<FactImp.Factory>().AsSelf().SingleInstance();
+            cb.RegisterType<CaseEnumerableImp.Factory>().AsSelf().SingleInstance();
+            cb.RegisterType<CaseImp.Factory>().AsSelf().SingleInstance();
+            cb.RegisterType<FactImp.Factory>().AsSelf().SingleInstance();
 
             // Parser
-            builder.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();
+            cb.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();
 
-            builder.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency(); // STATEFUL!
-            builder.RegisterType<AddChildDirector>().As<IAddChildDirector>().SingleInstance();
-            builder.RegisterType<GenerateCasesDirector>().As<IGenerateCasesDirector>().SingleInstance();
-            builder.RegisterType<GenerateCasesVisitors>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency(); // STATEFUL!
+            cb.RegisterType<AddChildDirector>().As<IAddChildDirector>().SingleInstance();
+            cb.RegisterType<GenerateCasesDirector>().As<IGenerateCasesDirector>().SingleInstance();
+            cb.RegisterType<GenerateCasesVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Replay Director and default visitor
-            builder.RegisterType<ReplayImp>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
-            builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<ReplayImp>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
+            cb.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // PrintLine Definition
-            builder.RegisterType<PrintDefinitionImpl>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().InstancePerDependency(); // stateful !!
-            builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintDefinitionImpl>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().InstancePerDependency(); // stateful !!
+            cb.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // PrintLine Case Table
-            builder.RegisterType<PrintTableImpl>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
-            builder.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintTableImpl>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
+            cb.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // GetCases
-            builder.RegisterType<GetCasesImpl>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<GetCasesImpl>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

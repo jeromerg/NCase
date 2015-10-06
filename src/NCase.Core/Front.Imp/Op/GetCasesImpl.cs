@@ -25,11 +25,11 @@ namespace NCase.Front.Imp.Op
 
         public ICaseEnumerable Perform(IOperationDirector director, GetCases uiGetCases, ISetDefImp setDefImp)
         {
-            IEnumerable<List<INode>> cases = Getcases(setDefImp, uiGetCases);
+            IEnumerable<List<INode>> cases = Getcases(setDefImp);
             return mCaseEnumerableFactory.Create(cases);
         }
 
-        public IEnumerable<List<INode>> Getcases(ISetDefImp setDefImp, GetCases uiGetCases)
+        public IEnumerable<List<INode>> Getcases(ISetDefImp setDefImp)
         {
             INode caseSetNode = mParserGenerator.Parse(setDefImp.DefId, setDefImp.TokenReaderWriter);
 

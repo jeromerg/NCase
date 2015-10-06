@@ -20,7 +20,7 @@ namespace NCaseTest
         public void Test_Properties_1Contrib()
         {
             // Create a new builder
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");
@@ -92,7 +92,7 @@ namespace NCaseTest
         public void Test_Properties_2Contribs()
         {
             // Create a new builder
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
 
             // you can use multiple contributors, contributing to the definition of cases
             var m = builder.CreateContributor<IMyTestvalues>("man");
@@ -154,7 +154,7 @@ namespace NCaseTest
         public void TestTreeWithRef()
         {
             // Create a new builder
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");

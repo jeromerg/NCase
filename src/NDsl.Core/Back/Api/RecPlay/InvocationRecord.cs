@@ -25,6 +25,11 @@ namespace NDsl.Back.Api.RecPlay
             mCodeLocation = codeLocation;
         }
 
+        public CodeLocation CodeLocation
+        {
+            get { return mCodeLocation; }
+        }
+
         public string InvocationTargetName
         {
             get { return mInvocationTargetName; }
@@ -33,11 +38,6 @@ namespace NDsl.Back.Api.RecPlay
         public IInvocation Invocation
         {
             get { return mInvocation; }
-        }
-
-        public CodeLocation CodeLocation
-        {
-            get { return mCodeLocation; }
         }
     }
 }

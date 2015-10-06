@@ -15,6 +15,16 @@ namespace NDsl.Back.Api.Util
             mHAlignment = hAlignment;
         }
 
+        public HorizontalAlignment HorizontalAlignment
+        {
+            get { return mHAlignment; }
+        }
+
+        [NotNull] public string Title
+        {
+            get { return mTitle; }
+        }
+
         protected bool Equals(SimpleTableColumn other)
         {
             return string.Equals(mTitle, other.mTitle);
@@ -24,23 +34,13 @@ namespace NDsl.Back.Api.Util
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((SimpleTableColumn) obj);
-        }
-
-        public HorizontalAlignment HorizontalAlignment
-        {
-            get { return mHAlignment; }
         }
 
         public override int GetHashCode()
         {
             return mTitle.GetHashCode();
-        }
-
-        [NotNull] public string Title
-        {
-            get { return mTitle; }
         }
     }
 }

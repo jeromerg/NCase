@@ -8,12 +8,12 @@ namespace NDsl.Back.Imp.Util
 {
     public class TableBuilder : ITableBuilder
     {
+        private const int MARGIN_LEFT_AND_RIGHT = 1;
+        private const string COLUMN_SEPARATOR = "|";
+        private const char HEADER_CONTENT_SEPARATOR = '-';
+
         private readonly List<Dictionary<ITableColumn, List<string>>> mCellContentByRowAndColumn =
             new List<Dictionary<ITableColumn, List<string>>>();
-
-        private readonly int MARGIN_LEFT_AND_RIGHT = 1;
-        private readonly string COLUMN_SEPARATOR = "|";
-        private readonly char HEADER_CONTENT_SEPARATOR = '-';
 
         public void NewRow()
         {

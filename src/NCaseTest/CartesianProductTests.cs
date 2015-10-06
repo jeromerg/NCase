@@ -19,7 +19,7 @@ namespace NCaseTest
         public void Test_CartesianProduct()
         {
             // Create a new builder
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");
@@ -83,7 +83,7 @@ namespace NCaseTest
         public void Test_CartesianProduct_with_ref()
         {
             // Create a new builder
-            IBuilder builder = NCase.NCase.CreateBuilder();
+            IBuilder builder = CaseBuilder.Create();
 
             // create a case contributor
             var o = builder.CreateContributor<IMyTestvalues>("o");

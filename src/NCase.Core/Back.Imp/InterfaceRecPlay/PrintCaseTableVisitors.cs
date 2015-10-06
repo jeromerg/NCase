@@ -7,10 +7,6 @@ namespace NCase.Back.Imp.InterfaceRecPlay
 {
     public class PrintCaseTableVisitors : IPrintCaseTableVisitor<IInterfaceRecPlayNode>
     {
-        #region inner types
-
-        #endregion
-
         public void Visit(IPrintCaseTableDirector director, IInterfaceRecPlayNode node)
         {
             director.Print(node.CodeLocation,
@@ -26,6 +22,16 @@ namespace NCase.Back.Imp.InterfaceRecPlay
         public InterfaceRecPlayNodeColumn(IInterfaceRecPlayNode node)
         {
             mNode = node;
+        }
+
+        public HorizontalAlignment HorizontalAlignment
+        {
+            get { return HorizontalAlignment.Right; }
+        }
+
+        public string Title
+        {
+            get { return mNode.PrintInvocation(); }
         }
 
         protected bool Equals(InterfaceRecPlayNodeColumn other)
@@ -44,16 +50,6 @@ namespace NCase.Back.Imp.InterfaceRecPlay
         public override int GetHashCode()
         {
             return mNode.PropertyCallKey.GetHashCode();
-        }
-
-        public HorizontalAlignment HorizontalAlignment
-        {
-            get { return HorizontalAlignment.Right; }
-        }
-
-        public string Title
-        {
-            get { return mNode.PrintInvocation(); }
         }
     }
 }

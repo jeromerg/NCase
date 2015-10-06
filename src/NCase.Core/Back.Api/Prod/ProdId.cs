@@ -4,7 +4,9 @@ namespace NCase.Back.Api.Prod
 {
     public class ProdId : DefId
     {
-        private string mDefTypeName;
+        public ProdId()
+        {
+        }
 
         public ProdId(string name)
             : base(name)

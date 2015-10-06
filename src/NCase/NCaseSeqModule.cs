@@ -2,7 +2,7 @@
 using NCase.Back.Imp.Seq;
 using NCase.Front.Imp.Artefact;
 
-namespace NCase
+namespace NCase.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule </summary>
     public class NCaseSeqModule : Module

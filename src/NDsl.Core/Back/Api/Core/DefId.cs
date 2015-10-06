@@ -5,8 +5,15 @@ namespace NDsl.Back.Api.Core
 {
     public abstract class DefId : IDefId
     {
+        private static int sAnonymousDefCounter;
+
         [NotNull] private readonly string mName;
-        private string mDefTypeName;
+
+        protected DefId()
+        {
+            mName = "anonymous_def" + sAnonymousDefCounter;
+            sAnonymousDefCounter++;
+        }
 
         protected DefId([NotNull] string name)
         {

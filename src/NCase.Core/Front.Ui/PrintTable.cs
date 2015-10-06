@@ -11,6 +11,6 @@ namespace NCase.Front.Ui
             IsRecursive = true;
         }
 
-        public bool IsRecursive { get;set; }
+        public bool IsRecursive { get; set; }
     }
 }
