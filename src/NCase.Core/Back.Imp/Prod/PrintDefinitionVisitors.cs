@@ -10,7 +10,7 @@ namespace NCase.Back.Imp.Prod
     {
         public void Visit(IPrintDefinitionDirector dir, IProdNode node)
         {
-            dir.Print(node.CodeLocation, "Prod '{0}'", node.Id.Name);
+            dir.PrintLine(node.CodeLocation, "Prod '{0}'", node.Id.Name);
 
             dir.Indent();
 
@@ -22,7 +22,7 @@ namespace NCase.Back.Imp.Prod
 
         public void Visit(IPrintDefinitionDirector dir, ProdDimNode node)
         {
-            dir.Print("Implicit Seq");
+            dir.PrintLine(node.CodeLocation, "Implicit Seq");
 
             dir.Indent();
 

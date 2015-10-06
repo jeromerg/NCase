@@ -286,15 +286,15 @@ namespace NCaseTest
             string defString = testCasesDef.PrintDefinition();
             Console.WriteLine(defString);
 
-            Console.WriteLine("---------- NOW WITH OPTION IsRecursive");
+            WriteTitle("WITH OPTION IsRecursive");
             string defString2 = testCasesDef.PrintDefinition(isRecursive : true);
             Console.WriteLine(defString2);
 
-            Console.WriteLine("---------- NOW WITH OPTION IncludeFileInfo");
+            WriteTitle("WITH OPTION IncludeFileInfo");
             string defString3 = testCasesDef.PrintDefinition(includeFileInfo : true);
             Console.WriteLine(defString3);
 
-            Console.WriteLine("---------- NOW WITH OPTION IsRecursive and IncludeFileInfo");
+            WriteTitle("WITH OPTIONS IsRecursive and IncludeFileInfo");
             string defString4 = testCasesDef.PrintDefinition(isRecursive : true, includeFileInfo : true);
             Console.WriteLine(defString4);
         }
@@ -303,7 +303,7 @@ namespace NCaseTest
         public void PrintCaseTableTest()
         {
             var testCasesDef = GetTipicalMixOfTreeAndProd();
-            string defString = testCasesDef.PrintTable();
+            string defString = testCasesDef.PrintTable(isRecursive: true);
             Console.WriteLine(defString);
         }
 
@@ -346,14 +346,24 @@ namespace NCaseTest
                                 cardsAndBanks.Ref();
             }
 
-            Console.WriteLine("THIS IS PrintTable with option IsRecursive = true");
-            Console.WriteLine("-------------------------------------------------");
+
+            WriteTitle("WITH DEFAULT OPTIONS");
+            Console.WriteLine(transfers.PrintTable(isRecursive:false));
+
+            WriteTitle("WITH OPTIONS IsRecursive");
             Console.WriteLine(transfers.PrintTable(isRecursive:true));
+        }
+
+        private static void WriteTitle(string title)
+        {
+            int totalLength = 64;
+            var centeredString = title.PadLeft(((totalLength - title.Length) / 2) + title.Length).PadRight(totalLength);
 
             Console.WriteLine();
-            Console.WriteLine("THIS IS PrintTable with option IsRecursive = false");
-            Console.WriteLine("-------------------------------------------------");
-            Console.WriteLine(transfers.PrintTable(isRecursive:false));
+            Console.WriteLine(new string('-', totalLength + 4));
+            Console.WriteLine(string.Format("--{0}--", centeredString));
+            Console.WriteLine(new string('-', totalLength + 4));
+            Console.WriteLine();
         }
 
         private IProd GetTipicalMixOfTreeAndProd()

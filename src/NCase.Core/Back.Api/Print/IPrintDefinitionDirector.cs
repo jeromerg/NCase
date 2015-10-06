@@ -7,7 +7,7 @@ namespace NCase.Back.Api.Print
     public interface IPrintDefinitionDirector : IActionDirector<INode, IPrintDefinitionDirector>
     {
         bool IsRecursive { get; set; }
-        bool IncludeFileInfo { get; set; }
+        bool IncludeFileInfo { set; }
         string IndentationString { get; set; }
 
         void Indent();
@@ -15,10 +15,7 @@ namespace NCase.Back.Api.Print
         void Dedent();
 
         [StringFormatMethod("args")]
-        void Print(CodeLocation codeLocation, string format, params object[] args);
-
-        [StringFormatMethod("args")]
-        void Print(string format, params object[] args);
+        void PrintLine(CodeLocation codeLocation, string format, params object[] args);
 
         string GetString();
     }

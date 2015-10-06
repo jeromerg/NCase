@@ -8,10 +8,13 @@ namespace NDsl.Back.Imp.Util
 {
     public class TableBuilder : ITableBuilder
     {
-        private const int MARGIN_LEFT_AND_RIGHT = 1;
-
         private readonly List<Dictionary<ITableColumn, List<string>>> mCellContentByRowAndColumn =
             new List<Dictionary<ITableColumn, List<string>>>();
+
+        private readonly int MARGIN_LEFT_AND_RIGHT = 1;
+        private readonly string COLUMN_SEPARATOR = "|";
+        private readonly char HEADER_CONTENT_SEPARATOR = '-';
+        private readonly string ROW_SEPARATOR = "";
 
         public void NewRow()
         {
@@ -64,36 +67,65 @@ namespace NDsl.Back.Imp.Util
             // Fill table line by line, column by column
             //--------------------
 
-            // HEADER
-            foreach (KeyValuePair<ITableColumn, int> columnAndWidth in allColumnAndWidthMax)
-            {
-                sb.Append(new string(' ', MARGIN_LEFT_AND_RIGHT));
-                sb.Append(columnAndWidth.Key.ToString().PadRight(columnAndWidth.Value));
-                sb.Append(new string(' ', MARGIN_LEFT_AND_RIGHT));
-            }
-            sb.AppendLine();
+            PrintRow(allColumnAndWidthMax, sb, (column, width) => column.Title);
+            PrintRow(allColumnAndWidthMax, sb, (column, width) => new string(HEADER_CONTENT_SEPARATOR, width));
 
             foreach (Dictionary<ITableColumn, List<string>> row in mCellContentByRowAndColumn)
             {
-                foreach (KeyValuePair<ITableColumn, int> col in allColumnAndWidthMax)
-                {
-                    int colWidth = allColumnAndWidthMax[col.Key];
+                Dictionary<ITableColumn, List<string>> row1 = row;
+                PrintRow(allColumnAndWidthMax, sb, (col, width) => AggregatedCellContent(row1, col));
+            }
+        }
 
-                    List<string> cellContent;
-                    {
-                        row.TryGetValue(col.Key, out cellContent);
-                        cellContent = cellContent ?? new List<string>();
-                    }
+        private void PrintRow(Dictionary<ITableColumn, int> allColumnAndWidthMax,
+                              StringBuilder sb,
+                              Func<ITableColumn, int, string> printCellContent
+            )
+        {
+            bool isFirstColumn = true;
+            foreach (KeyValuePair<ITableColumn, int> columnAndWidth in allColumnAndWidthMax)
+            {
+                ITableColumn column = columnAndWidth.Key;
+                int width = columnAndWidth.Value;
 
-                    string aggregatedCellContent = string.Join("/", cellContent);
-                    if (cellContent.Count > 1)
-                        aggregatedCellContent = "!! " + aggregatedCellContent;
+                if (!isFirstColumn)
+                    sb.Append(COLUMN_SEPARATOR);
+                sb.Append(new string(' ', MARGIN_LEFT_AND_RIGHT));
+                sb.Append(Align(printCellContent(column, width), width, column.HorizontalAlignment));
+                sb.Append(new string(' ', MARGIN_LEFT_AND_RIGHT));
 
-                    sb.Append(new string(' ', MARGIN_LEFT_AND_RIGHT));
-                    sb.Append(aggregatedCellContent.PadRight(colWidth));
-                    sb.Append(new string(' ', MARGIN_LEFT_AND_RIGHT));
-                }
-                sb.AppendLine();
+                isFirstColumn = false;
+            }
+            sb.AppendLine();
+        }
+
+        private static string AggregatedCellContent(Dictionary<ITableColumn, List<string>> row, ITableColumn col)
+        {
+            List<string> cellContent;
+            {
+                row.TryGetValue(col, out cellContent);
+                cellContent = cellContent ?? new List<string>();
+            }
+
+            string aggregatedCellContent = string.Join("/", cellContent);
+            if (cellContent.Count > 1)
+                aggregatedCellContent = "!! " + aggregatedCellContent;
+
+            return aggregatedCellContent;
+        }
+
+        private string Align(string cellContent, int width, HorizontalAlignment horizontalAlignment)
+        {
+            switch (horizontalAlignment)
+            {
+                case HorizontalAlignment.Left:
+                    return cellContent.PadRight(width);
+                case HorizontalAlignment.Center:
+                    return cellContent.PadLeft(((width - cellContent.Length)/2) + cellContent.Length).PadRight(width);
+                case HorizontalAlignment.Right:
+                    return cellContent.PadLeft(width);
+                default:
+                    throw new ArgumentOutOfRangeException("horizontalAlignment", horizontalAlignment, null);
             }
         }
     }

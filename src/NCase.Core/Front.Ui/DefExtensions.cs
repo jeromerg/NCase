@@ -14,7 +14,7 @@ namespace NCase.Front.Ui
             return setDef.Perform<PrintDefinition, string>(new PrintDefinition{IncludeFileInfo = includeFileInfo, IsRecursive = isRecursive});
         }
 
-        public static string PrintTable<TSetDef>(this TSetDef setDef, bool isRecursive = true)
+        public static string PrintTable<TSetDef>(this TSetDef setDef, bool isRecursive = false)
             where TSetDef : class, ISetDef<TSetDef>
         {
             return setDef.Perform<PrintTable, string>(new PrintTable {IsRecursive = isRecursive});

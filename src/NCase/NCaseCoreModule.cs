@@ -45,12 +45,12 @@ namespace NCase
             builder.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
             builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
-            // Print Definition
+            // PrintLine Definition
             builder.RegisterType<PrintDefinitionImpl>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().InstancePerDependency(); // stateful !!
             builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 
-            // Print Case Table
+            // PrintLine Case Table
             builder.RegisterType<PrintTableImpl>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
             builder.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();

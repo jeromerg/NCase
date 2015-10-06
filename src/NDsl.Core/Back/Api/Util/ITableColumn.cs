@@ -5,5 +5,7 @@ namespace NDsl.Back.Api.Util
     /// </summary>
     public interface ITableColumn
     {
+        HorizontalAlignment HorizontalAlignment { get; }
+        string Title { get; }
     }
 }

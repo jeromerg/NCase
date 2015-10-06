@@ -79,8 +79,10 @@
     <Compile Include="Back\Api\RecPlay\IInterfaceRecPlayContributorFactory.cs" />
     <Compile Include="Back\Api\Core\ITokenWriter.cs" />
     <Compile Include="Back\Api\Core\CaseValueNotFoundException.cs" />
+    <Compile Include="Back\Api\Util\HorizontalAlignment.cs" />
     <Compile Include="Back\Api\Util\ITableBuilder.cs" />
     <Compile Include="Back\Api\Util\ITableColumn.cs" />
+    <Compile Include="Back\Api\Util\SimpleTableColumn.cs" />
     <Compile Include="Back\Imp\Core\TokenStream.cs" />
     <Compile Include="Back\Api\Core\INode.cs" />
     <Compile Include="Back\Api\Core\InvalidCaseRecordException.cs" />

@@ -1,24 +1,93 @@
 ﻿using System;
 using System.Text;
+using JetBrains.Annotations;
 using NCase.Back.Api.Print;
 using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Util;
 using NVisitor.Api.Action;
 
 namespace NCase.Back.Imp.Print
 {
     public class PrintDefinitionDirector : ActionDirector<INode, IPrintDefinitionDirector>, IPrintDefinitionDirector
     {
-        private readonly StringBuilder mStringBuilder = new StringBuilder();
-        private int mIndentation;
+        #region inner types
 
-        public PrintDefinitionDirector(IActionVisitMapper<INode, IPrintDefinitionDirector> visitMapper)
+        private interface IStragegy
+        {
+            void AppendLine(CodeLocation codeLocation, string txt);
+            string GetString();
+        }
+
+        private class StrategyWithoutFileInfo : IStragegy
+        {
+            private readonly StringBuilder mStringBuilder = new StringBuilder();
+
+            public void AppendLine(CodeLocation codeLocation, string txt)
+            {
+                mStringBuilder.AppendLine(txt);
+            }
+
+            public string GetString()
+            {
+                return mStringBuilder.ToString();
+            }
+        }
+
+        private class StrategyWithFileInfo : IStragegy
+        {
+            private static readonly ITableColumn sDefinitionColumn = new SimpleTableColumn("Definition");
+            private static readonly ITableColumn sFileInfoColumn = new SimpleTableColumn("Location");
+
+            private readonly ITableBuilder mStringBuilder;
+
+            public StrategyWithFileInfo(ITableBuilder stringBuilder)
+            {
+                mStringBuilder = stringBuilder;
+            }
+
+            public void AppendLine(CodeLocation codeLocation, string txt)
+            {
+                mStringBuilder.NewRow();
+                mStringBuilder.Print(sDefinitionColumn, txt);
+                mStringBuilder.Print(sFileInfoColumn, codeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
+            }
+
+            public string GetString()
+            {
+                var sb = new StringBuilder();
+                mStringBuilder.GenerateTable(sb);
+                return sb.ToString();
+            }
+        }
+
+        #endregion
+
+        [NotNull] private readonly ITableBuilder mStringBuilder;
+
+        private int mIndentation;
+        private IStragegy mStragegy = new StrategyWithoutFileInfo();
+
+        public PrintDefinitionDirector([NotNull] IActionVisitMapper<INode, IPrintDefinitionDirector> visitMapper,
+                                       [NotNull] ITableBuilder stringBuilder)
             : base(visitMapper)
         {
+            if (stringBuilder == null) throw new ArgumentNullException("stringBuilder");
+            mStringBuilder = stringBuilder;
         }
 
         public string IndentationString { get; set; }
         public bool IsRecursive { get; set; }
-        public bool IncludeFileInfo { get; set; }
+
+        public bool IncludeFileInfo
+        {
+            set
+            {
+                if (value)
+                    mStragegy = new StrategyWithFileInfo(mStringBuilder);
+                else
+                    mStragegy = new StrategyWithoutFileInfo();
+            }
+        }
 
         public void Indent()
         {
@@ -30,32 +99,27 @@ namespace NCase.Back.Imp.Print
             mIndentation--;
         }
 
-        public void Print(CodeLocation codeLocation, string format, params object[] args)
+        public void PrintLine(CodeLocation codeLocation, string format, params object[] args)
         {
-            if (IncludeFileInfo)
-                Print("{0}  in {1}", string.Format(format, args), codeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
-            else
-                Print(format, args);
-        }
-
-        public void Print(string format, params object[] args)
-        {
-            string s = string.Format(format, args);
-            string[] lines = s.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
-
-
-            foreach (string line in lines)
-            {
-                for (int i = 0; i < mIndentation; i++)
-                    mStringBuilder.Append(IndentationString);
-
-                mStringBuilder.AppendLine(line);
-            }
+            string indentedTxt = IndentTxt(format, args);
+            mStragegy.AppendLine(codeLocation, indentedTxt);
         }
 
         public string GetString()
         {
-            return mStringBuilder.ToString();
+            return mStragegy.GetString();
+        }
+
+        private string IndentTxt(string format, object[] args)
+        {
+            var sb = new StringBuilder();
+            for (int i = 0; i < mIndentation; i++)
+                sb.Append(IndentationString);
+
+            sb.AppendFormat(format, args);
+
+            string txt = sb.ToString();
+            return txt;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace NCase.Back.Imp.Seq
     {
         public void Visit(IPrintDefinitionDirector dir, ISeqNode node)
         {
-            dir.Print(node.CodeLocation, "Seq '{0}'", node.Id.Name);
+            dir.PrintLine(node.CodeLocation, "Seq '{0}'", node.Id.Name);
 
             dir.Indent();
 
