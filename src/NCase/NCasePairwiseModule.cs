@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using NCase.Back.Imp.Pairwise;
-using NCase.Front.Imp.Artefact;
+using NCase.Front.Imp.Op;
 
 namespace NCase.Front.Ui
 {
@@ -11,8 +11,8 @@ namespace NCase.Front.Ui
         {
             base.Load(builder);
 
-            // Case sets
-            builder.RegisterType<PairwiseImp.Factory>().AsImplementedInterfaces().SingleInstance();
+            // UI Factory
+            builder.RegisterType<CreatePairwiseImp>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

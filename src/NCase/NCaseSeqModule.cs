@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using NCase.Back.Imp.Seq;
-using NCase.Front.Imp.Artefact;
+using NCase.Front.Imp.Op;
 
 namespace NCase.Front.Ui
 {
@@ -12,7 +12,7 @@ namespace NCase.Front.Ui
             base.Load(builder);
 
             // Case sets
-            builder.RegisterType<SeqImp.Factory>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<CreateSeqImp>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

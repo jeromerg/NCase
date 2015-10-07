@@ -6,11 +6,6 @@ namespace NCase.Front.Ui
     {
         public static readonly PrintTable Default = new PrintTable();
 
-        public PrintTable()
-        {
-            IsRecursive = true;
-        }
-
         public bool IsRecursive { get; set; }
     }
 }

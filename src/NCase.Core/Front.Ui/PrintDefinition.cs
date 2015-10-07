@@ -9,8 +9,6 @@ namespace NCase.Front.Ui
         public PrintDefinition()
         {
             Indentation = "    ";
-            IsRecursive = false;
-            IncludeFileInfo = false;
         }
 
         public string Indentation { get; set; }

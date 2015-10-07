@@ -44,7 +44,7 @@ namespace NCaseTest
             IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
-            var transfers = builder.CreateDef<ITree>("transfers");
+            var transfers = builder.CreateTree("transfers");
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;
@@ -90,7 +90,7 @@ namespace NCaseTest
             IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
-            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
+            var cardsAndBanks = builder.CreateProd("cardsAndBank");
             using (cardsAndBanks.Define())
             {
                 t.DestBank = "HSBC";
@@ -116,7 +116,7 @@ namespace NCaseTest
             IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
-            var transfers = builder.CreateDef<ITree>("transfers");
+            var transfers = builder.CreateTree("transfers");
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;
@@ -144,7 +144,7 @@ namespace NCaseTest
                             t.Accepted = false;
             }
 
-            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
+            var cardsAndBanks = builder.CreateProd("cardsAndBank");
             using (cardsAndBanks.Define())
             {
                 t.DestBank = "HSBC";
@@ -156,7 +156,7 @@ namespace NCaseTest
                 t.Card = Card.Maestro;
             }
 
-            var transfersForAllcardsAndBanks = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
+            var transfersForAllcardsAndBanks = builder.CreateProd("transferForAllcardsAndBanks");
             using (transfersForAllcardsAndBanks.Define())
             {
                 transfers.Ref();
@@ -200,8 +200,8 @@ namespace NCaseTest
         {
             ITree transfers = GetTypicalTreeWithReferences();
 
-            WriteTitle("DEFAULT OPTION: transfers.PrintTable(isRecursive:false)");
-            Console.WriteLine(transfers.PrintTable(isRecursive:false));
+            WriteTitle("DEFAULT OPTION: transfers.PrintTable()");
+            Console.WriteLine(transfers.PrintTable());
 
             WriteTitle("OPTION: transfers.PrintTable(isRecursive:true)");
             Console.WriteLine(transfers.PrintTable(isRecursive:true));
@@ -214,7 +214,7 @@ namespace NCaseTest
             IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
-            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
+            var cardsAndBanks = builder.CreateProd("cardsAndBank");
             using (cardsAndBanks.Define())
             {
                 t.DestBank = "HSBC";
@@ -226,7 +226,7 @@ namespace NCaseTest
                 t.Card = Card.Maestro;
             }
 
-            var transfers = builder.CreateDef<ITree>("transfers");
+            var transfers = builder.CreateTree("transfers");
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;
@@ -254,7 +254,7 @@ namespace NCaseTest
             IBuilder builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
-            var transfers = builder.CreateDef<ITree>("transfers");
+            var transfers = builder.CreateTree("transfers");
             using (transfers.Define())
             {
                 t.Currency = Curr.USD;
@@ -282,7 +282,7 @@ namespace NCaseTest
                             t.Accepted = false;
             }
 
-            var cardsAndBanks = builder.CreateDef<IProd>("cardsAndBank");
+            var cardsAndBanks = builder.CreateProd("cardsAndBank");
             using (cardsAndBanks.Define())
             {
                 t.DestBank = "HSBC";
@@ -294,7 +294,7 @@ namespace NCaseTest
                 t.Card = Card.Maestro;
             }
 
-            var testCasesDef = builder.CreateDef<IProd>("transferForAllcardsAndBanks");
+            var testCasesDef = builder.CreateProd("transferForAllcardsAndBanks");
             using (testCasesDef.Define())
             {
                 transfers.Ref();

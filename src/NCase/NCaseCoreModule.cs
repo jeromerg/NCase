@@ -6,7 +6,7 @@ using NCase.Back.Api.Replay;
 using NCase.Back.Imp.Parse;
 using NCase.Back.Imp.Print;
 using NCase.Back.Imp.Replay;
-using NCase.Front.Imp.Artefact;
+using NCase.Front.Imp;
 using NCase.Front.Imp.Op;
 using NDsl.Front.Api;
 
@@ -23,10 +23,10 @@ namespace NCase.Front.Ui
               .As<IOperationDirector>().SingleInstance()
               .OnActivated(e => e.Instance.InitializeDirector(e.Context.Resolve<IEnumerable<IOperationVisitorClass>>()));
 
-            cb.RegisterType<BuilderImp>().As<IBuilder>().InstancePerDependency();
+            cb.RegisterType<Builder>().As<IBuilder>().InstancePerDependency();
 
             // CaseEnumerable, Case, Fact factories
-            cb.RegisterType<CaseEnumerableImp.Factory>().AsSelf().SingleInstance();
+            cb.RegisterType<CaseEnumerable.Factory>().AsSelf().SingleInstance();
             cb.RegisterType<CaseImp.Factory>().AsSelf().SingleInstance();
             cb.RegisterType<FactImp.Factory>().AsSelf().SingleInstance();
 
@@ -44,17 +44,17 @@ namespace NCase.Front.Ui
             cb.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // PrintLine Definition
-            cb.RegisterType<PrintDefinitionImpl>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintDefinitionImp>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // PrintLine Case Table
-            cb.RegisterType<PrintTableImpl>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintTableImp>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // GetCases
-            cb.RegisterType<GetCasesImpl>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<GetCasesImp>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

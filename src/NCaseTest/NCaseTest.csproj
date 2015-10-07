@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CartesianProductTests.cs" />
+    <Compile Include="Demo1Tests.cs" />
     <Compile Include="DemoTests.cs" />
     <Compile Include="TreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

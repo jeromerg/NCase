@@ -19,7 +19,6 @@ namespace NCase.Back.Imp.Tree
                         [CanBeNull] INode fact)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
-
             mCodeLocation = codeLocation;
 
             mId = id;

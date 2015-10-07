@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using NCase.Front.Api;
 using NDsl.Front.Ui;
 
 namespace NCase.Front.Ui
 {
-    public interface ICaseEnumerable : IArtefact<ICaseEnumerable>, IEnumerable<ICase>
+    public interface ICaseEnumerable : IArtefact<ICaseEnumerableApi>, IEnumerable<ICase>
     {
     }
 }
