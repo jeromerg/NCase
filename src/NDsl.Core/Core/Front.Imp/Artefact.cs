@@ -23,9 +23,9 @@ namespace NDsl.Front.Imp
 
         #region IArtefactApi Implementation
 
-        public T Toolbox<T>() //where T : ITool<TApi>
+        public IToolBox<TApi> Toolbox
         {
-            return mToolbox.GetTool<T>(); 
+            get { return mToolbox; }
         }
 
         #endregion

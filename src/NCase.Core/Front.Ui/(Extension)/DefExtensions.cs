@@ -8,21 +8,21 @@ namespace NCase.Front.Ui
     {
         public static ICaseEnumerable Cases(this ISetDef<ISetDefApi<ISetDefApi, ISetDefId>> setDef)
         {
-            return setDef.Api.Toolbox<IGetCases>().Perform(setDef.Api);
+            return setDef.Api.Toolbox.GetTool<IGetCases>().Perform(setDef.Api);
         }
 
         public static string PrintDef(this ISetDef<ISetDefApi<ISetDefApi, ISetDefId>> setDef,
                                       bool isFileInfo = false,
                                       bool isRecursive = false)
         {
-            return setDef.Api.Toolbox<IPrintDef>().Perform(setDef.Api, isFileInfo, isRecursive);
+            return setDef.Api.Toolbox.GetTool<IPrintDef>().Perform(setDef.Api, isFileInfo, isRecursive);
         }
 
         public static string PrintTable(this ISetDef<ISetDefApi<ISetDefApi, ISetDefId>> setDef,
                                       bool isFileInfo = false,
                                       bool isRecursive = false)
         {
-            return setDef.Api.Toolbox<IPrintTable>().Perform(setDef.Api, isRecursive);
+            return setDef.Api.Toolbox.GetTool<IPrintTable>().Perform(setDef.Api, isRecursive);
         }
     }
 }

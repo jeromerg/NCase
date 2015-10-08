@@ -6,6 +6,6 @@ namespace NDsl.Front.Ui
     public interface IArtefactApi<out TApi> : IArtefactApi
         where TApi : IArtefactApi
     {
-        T Toolbox<T>();//where T : ITool<TApi>;
+        IToolBox<TApi> Toolbox { get; }
     }
 }
