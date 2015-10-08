@@ -12,11 +12,11 @@ namespace NCase.Front.Ui
         #region inner types
 
         [UsedImplicitly]
-        private class Tools : ITools
+        private class ToolBox : IToolBox
         {
             [NotNull] private readonly IComponentContext mComponentContext;
 
-            public Tools([NotNull] IComponentContext componentContext)
+            public ToolBox([NotNull] IComponentContext componentContext)
             {
                 if (componentContext == null) throw new ArgumentNullException("componentContext");
                 mComponentContext = componentContext;
@@ -43,7 +43,7 @@ namespace NCase.Front.Ui
             cb.RegisterModule<NCaseProdModule>();
             cb.RegisterModule<NCasePairwiseModule>();
 
-            cb.RegisterType<Tools>().As<ITools>();
+            cb.RegisterType<ToolBox>().As<IToolBox>();
 
             IContainer container = cb.Build();
             return container.Resolve<IBuilder>();

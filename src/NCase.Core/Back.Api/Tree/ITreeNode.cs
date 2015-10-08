@@ -4,9 +4,9 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Api.Tree
 {
-    public interface ITreeNode : IDefNode
+    public interface ITreeNode : ISetDefNode
     {
-        [NotNull] TreeId Id { get; }
+        [NotNull] new TreeId Id { get; }
 
         [CanBeNull] INode Fact { get; }
 

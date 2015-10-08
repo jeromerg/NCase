@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using NCase.Back.Api.Tree;
 using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Api.Prod
@@ -6,9 +7,9 @@ namespace NCase.Back.Api.Prod
     /// <summary>
     ///     A child corresponds to a set of cases, which will be used in the cartesian product
     /// </summary>
-    public interface IProdNode : IDefNode
+    public interface IProdNode : ISetDefNode
     {
-        [NotNull] ProdId Id { get; }
+        [NotNull] new ProdId Id { get; }
         void AddChild(INode child);
     }
 }

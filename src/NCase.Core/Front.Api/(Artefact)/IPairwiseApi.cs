@@ -2,7 +2,7 @@
 
 namespace NCase.Front.Api
 {
-    public interface IPairwiseApi : ISetDefApi<PairwiseId>
+    public interface IPairwiseApi : ISetDefApi<PairwiseId, IPairwiseApi>
     {
     }
 }

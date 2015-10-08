@@ -1,11 +1,12 @@
 using JetBrains.Annotations;
+using NCase.Back.Api.Tree;
 using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Api.Seq
 {
-    public interface ISeqNode : IDefNode
+    public interface ISeqNode : ISetDefNode
     {
-        [NotNull] SeqId Id { get; }
+        [NotNull] new SeqId Id { get; }
         void AddChild(INode child);
     }
 }

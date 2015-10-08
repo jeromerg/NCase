@@ -1,9 +1,9 @@
 using JetBrains.Annotations;
-using NDsl.Back.Api.Core;
+using NCase.Back.Api.Tree;
 
 namespace NCase.Back.Api.Pairwise
 {
-    public class PairwiseId : DefId
+    public class PairwiseId : SetDefId
     {
         public PairwiseId()
         {

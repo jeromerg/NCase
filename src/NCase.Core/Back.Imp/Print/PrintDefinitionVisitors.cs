@@ -17,7 +17,7 @@ namespace NCase.Back.Imp.Print
 
         public void Visit(IPrintDefinitionDirector dir, IRefNode<IDefNode> node)
         {
-            IDefId defId = node.Reference.DefId;
+            IDefId defId = node.Reference.Id;
 
             if (dir.IsRecursive)
                 dir.Visit(node.Reference);

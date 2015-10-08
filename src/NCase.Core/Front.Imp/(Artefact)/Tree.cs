@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using NCase.Back.Api.Tree;
 using NCase.Front.Api;
 using NCase.Front.Ui;
@@ -9,14 +10,36 @@ namespace NCase.Front.Imp
 {
     public class Tree : SetDef<TreeId, ITreeApi>, ITree, ITreeApi
     {
-        public Tree([NotNull] string defName, [NotNull] IBook book, [NotNull] ITools tools)
-            : base(new TreeId(defName), book, tools)
+        public class Factory : ITreeFactory
+        {
+            [NotNull] private readonly IToolBox<ITreeApi> mToolBox;
+            [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+
+            public Factory([NotNull] IToolBox<ITreeApi> toolBox, [NotNull] ICodeLocationUtil codeLocationUtil)
+            {
+                if (toolBox == null) throw new ArgumentNullException("toolBox");
+                if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
+                mToolBox = toolBox;
+                mCodeLocationUtil = codeLocationUtil;
+            }
+
+            public ITree Create(string defName, IBook book)
+            {
+                return new Tree(defName, book, mToolBox, mCodeLocationUtil);
+            }
+        }
+
+        public Tree([NotNull] string defName,
+                    [NotNull] IBook book,
+                    [NotNull] IToolBox<ITreeApi> toolBox,
+                    [NotNull] ICodeLocationUtil codeLocationUtil)
+            : base(new TreeId(defName), book, toolBox, codeLocationUtil)
         {
         }
 
-        public override ITreeApi Api
+        protected override ITreeApi GetApi()
         {
-            get { return this; }
+            return this;
         }
     }
 }

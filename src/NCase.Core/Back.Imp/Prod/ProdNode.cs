@@ -24,7 +24,7 @@ namespace NCase.Back.Imp.Prod
             mId = id;
         }
 
-        public IDefId DefId
+        IDefId IDefNode.Id
         {
             get { return mId; }
         }

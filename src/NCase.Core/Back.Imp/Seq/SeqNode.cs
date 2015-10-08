@@ -19,12 +19,12 @@ namespace NCase.Back.Imp.Seq
             mId = id;
         }
 
-        public SeqId Id
+        IDefId IDefNode.Id
         {
             get { return mId; }
         }
 
-        public IDefId DefId
+        public SeqId Id
         {
             get { return mId; }
         }

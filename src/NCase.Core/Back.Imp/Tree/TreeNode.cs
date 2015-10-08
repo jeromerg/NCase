@@ -25,12 +25,12 @@ namespace NCase.Back.Imp.Tree
             mFact = fact;
         }
 
-        public TreeId Id
+        IDefId IDefNode.Id
         {
             get { return mId; }
         }
 
-        public IDefId DefId
+        public TreeId Id
         {
             get { return mId; }
         }

@@ -1,8 +1,9 @@
+using NCase.Back.Api.Tree;
 using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Api.Seq
 {
-    public class SeqId : DefId
+    public class SeqId : SetDefId
     {
         public SeqId()
         {

@@ -12,21 +12,21 @@ namespace NCase.Front.Imp
     {
         [NotNull] private readonly IBook mBook;
 
-        public Builder([NotNull] IBook book, ITools tools)
-            : base(tools)
+        public Builder([NotNull] IBook book, [NotNull] IToolBox<IBuilderApi> toolBox)
+            : base(toolBox)
         {
             if (book == null) throw new ArgumentNullException("book");
             mBook = book;
         }
 
-        [NotNull] public IBook Book
+        public IBook Book
         {
             get { return mBook; }
         }
 
-        public override IBuilderApi Api
+        protected override IBuilderApi GetApi()
         {
-            get { return this; }
+            return this;
         }
     }
 }

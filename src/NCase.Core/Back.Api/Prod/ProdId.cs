@@ -1,8 +1,9 @@
+using NCase.Back.Api.Tree;
 using NDsl.Back.Api.Core;
 
 namespace NCase.Back.Api.Prod
 {
-    public class ProdId : DefId
+    public class ProdId : SetDefId
     {
         public ProdId()
         {
