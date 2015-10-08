@@ -6,6 +6,7 @@ using NDsl.Front.Ui;
 namespace NCase.Front.Ui
 {
     public interface ISetDef<out TApi> : IDef<TApi>
+        where TApi : ISetDefApi
     {
     }
 }
