@@ -3,7 +3,7 @@ using NDsl.All;
 
 namespace NCase.Front.Ui
 {
-    public interface IContributorFactory : ITool<IBuilder>
+    public interface IContributorFactory : ITool<IBuilderApi>
     {
         T Create<T>(IBuilderApi builderApi, string name);
     }

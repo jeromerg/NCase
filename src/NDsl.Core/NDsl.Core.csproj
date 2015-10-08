@@ -52,6 +52,7 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\All\ToolBox.cs" />
     <Compile Include="Core\All\ITool.cs" />
     <Compile Include="Core\All\IToolBox.cs" />
     <Compile Include="Core\Back.Api\%28Book%29\IBookFactory.cs" />

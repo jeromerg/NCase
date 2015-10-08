@@ -2,6 +2,6 @@
 {
     public interface IToolBox<out TClass>
     {
-        T GetTool<T>();// where T : ITool<TClass>;
+        TTool GetTool<TTool>() where TTool : ITool<TClass>;
     }
 }

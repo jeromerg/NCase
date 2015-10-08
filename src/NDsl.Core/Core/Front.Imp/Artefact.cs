@@ -8,11 +8,11 @@ namespace NDsl.Front.Imp
     public abstract class Artefact<TApi> : IArtefact<TApi>, IArtefactApi<TApi>
         where TApi : IArtefactApi<TApi>
     {
-        [NotNull] private readonly IToolBox<TApi> mToolbox;
+        [NotNull] private readonly IToolBox<TApi> mToolBox;
 
         protected Artefact(IToolBox<TApi> toolbox)
         {
-            mToolbox = toolbox;
+            mToolBox = toolbox;
         }
 
         #region IArtefact Implementation
@@ -23,9 +23,9 @@ namespace NDsl.Front.Imp
 
         #region IArtefactApi Implementation
 
-        public IToolBox<TApi> Toolbox
+        public IToolBox<TApi> ToolBox
         {
-            get { return mToolbox; }
+            get { return mToolBox; }
         }
 
         #endregion
