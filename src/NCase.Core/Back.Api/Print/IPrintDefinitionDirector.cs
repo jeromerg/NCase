@@ -7,9 +7,8 @@ namespace NCase.Back.Api.Print
     public interface IPrintDefinitionDirector : IActionDirector<INode, IPrintDefinitionDirector>
     {
         bool IsRecursive { get; set; }
-        bool IncludeFileInfo { set; }
-        string IndentationString { get; set; }
-
+        bool IsFileInfo { set; }
+        
         void Indent();
 
         void Dedent();

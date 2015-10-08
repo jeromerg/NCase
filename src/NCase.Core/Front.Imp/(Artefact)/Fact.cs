@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using NCase.Front.Api;
 using NCase.Front.Ui;
 using NDsl.All;
@@ -11,15 +13,32 @@ namespace NCase.Front.Imp
     {
         private readonly INode mFactNode;
 
+        public class Factory : IFactFactory
+        {
+            [NotNull]
+            private readonly IToolBox<IFactApi> mToolBox;
+
+            public Factory([NotNull] IToolBox<IFactApi> toolBox)
+            {
+                if (toolBox == null) throw new ArgumentNullException("toolBox");
+                mToolBox = toolBox;
+            }
+
+            public IFact Create(INode fact)
+            {
+                return new Fact(fact, mToolBox);
+            }
+        }
+
         public Fact([NotNull] INode factNode, [NotNull] IToolBox<IFactApi> toolBox)
             : base(toolBox)
         {
             mFactNode = factNode;
         }
 
-        protected override IFactApi GetApi()
+        public override IFactApi Api
         {
-            return this;
+            get { return this; }
         }
 
         public INode FactNode

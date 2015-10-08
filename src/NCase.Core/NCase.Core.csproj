@@ -113,7 +113,7 @@
     <Compile Include="Front.Api\%28Tools%29\IPrintDef.cs" />
     <Compile Include="Front.Api\%28Tools%29\IPrintTable.cs" />
     <Compile Include="Front.Api\%28Tools%29\IProdFactory.cs" />
-    <Compile Include="Front.Api\%28Tools%29\IReplayCaseEnumerable.cs" />
+    <Compile Include="Front.Api\%28Tools%29\IReplayCases.cs" />
     <Compile Include="Front.Api\%28Tools%29\ISeqFactory.cs" />
     <Compile Include="Front.Api\%28Tools%29\ITreeFactory.cs" />
     <Compile Include="Front.Imp\%28Artefact%29\CaseEnumerable.cs" />
@@ -134,10 +134,6 @@
     <Compile Include="Front.Ui\%28Artefact%29\ISeq.cs" />
     <Compile Include="Front.Api\%28Artefact%29\ISetDefApi.cs" />
     <Compile Include="Front.Ui\%28Tool%29\IContributorFactory.cs" />
-    <Compile Include="Front.Ui\%28Tool%29\PrintTable.cs" />
-    <Compile Include="Front.Ui\%28Tool%29\Replay.cs" />
-    <Compile Include="Front.Ui\%28Tool%29\PrintDefinition.cs" />
-    <Compile Include="Front.Ui\%28Tool%29\GetCases.cs" />
     <Compile Include="Front.Ui\%28Artefact%29\ISetDef.cs" />
     <Compile Include="Front.Imp\%28Tool%29\GetCases.cs" />
     <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
@@ -173,7 +169,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.nsdepcop" />
+    <None Include="config.nsdepcop">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@ using NCase.Front.Api;
 
 namespace NCase.Front.Ui
 {
-    public interface ITree : ISetDef<TreeId, ITreeApi>
+    public interface ITree : ISetDef<ITreeApi>
     {
     }
 }

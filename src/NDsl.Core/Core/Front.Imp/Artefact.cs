@@ -5,16 +5,29 @@ using NDsl.Front.Ui;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class Artefact : IArtefact, IArtefactApi
+    public abstract class Artefact<TApi> : IArtefact<TApi>, IArtefactApi<TApi>
+        where TApi : IArtefactApi<TApi>
     {
-        public IArtefactApi Api
+        [NotNull] private readonly IToolBox<TApi> mToolbox;
+
+        protected Artefact(IToolBox<TApi> toolbox)
         {
-            get { return this; }
+            mToolbox = toolbox;
         }
 
-        public abstract IToolBox<IArtefactApi> Toolbox
+        #region IArtefact Implementation
+
+        public abstract TApi Api { get; }
+
+        #endregion
+
+        #region IArtefactApi Implementation
+
+        public T Toolbox<T>() //where T : ITool<TApi>
         {
-            get { throw new NotImplementedException(); }
+            return mToolbox.GetTool<T>(); 
         }
+
+        #endregion
     }
 }

@@ -78,7 +78,7 @@ namespace NCase.Back.Imp.Print
         public string IndentationString { get; set; }
         public bool IsRecursive { get; set; }
 
-        public bool IncludeFileInfo
+        public bool IsFileInfo
         {
             set
             {

@@ -8,7 +8,6 @@ using NCase.Back.Imp.Print;
 using NCase.Back.Imp.Replay;
 using NCase.Front.Imp;
 using NCase.Front.Imp.Op;
-using NDsl.Front.Api;
 
 namespace NCase.Front.Ui
 {
@@ -17,11 +16,6 @@ namespace NCase.Front.Ui
         protected override void Load(ContainerBuilder cb)
         {
             base.Load(cb);
-
-            // OPERATION DIRECTOR
-            cb.RegisterType<OperationDirector>()
-              .As<IOperationDirector>().SingleInstance()
-              .OnActivated(e => e.Instance.InitializeDirector(e.Context.Resolve<IEnumerable<IOperationVisitorClass>>()));
 
             cb.RegisterType<Builder>().As<IBuilder>().InstancePerDependency();
 
@@ -39,7 +33,7 @@ namespace NCase.Front.Ui
             cb.RegisterType<GenerateCasesVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Replay Director and default visitor
-            cb.RegisterType<ReplayImp>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<ReplayCases>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
             cb.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
@@ -54,7 +48,7 @@ namespace NCase.Front.Ui
             cb.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // GetCases
-            cb.RegisterType<GetCasesImp>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<GetCases>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

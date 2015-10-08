@@ -8,17 +8,17 @@ using NDsl.Front.Ui;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class Def<TDefId, TApi> : Artefact<TApi>, IDef<TApi>, IDefApi<TDefId, TApi>
-        where TDefId : IDefId
-        where TApi : IDefApi<TDefId, TApi>
+    public abstract class Def<TApi, TId> : Artefact<TApi>, IDef<TApi>, IDefApi<TApi, TId>
+        where TId : IDefId
+        where TApi : IDefApi<TApi, TId>
     {
-        private readonly TDefId mId;
+        private readonly TId mId;
         [NotNull] private readonly IBook mBook;
         private readonly ICodeLocationUtil mCodeLocationUtil;
 
-        protected Def([NotNull] TDefId id,
-                      [NotNull] IBook book,
+        protected Def([NotNull] TId id,
                       [NotNull] IToolBox<TApi> toolBox,
+                      [NotNull] IBook book,
                       [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(toolBox)
         {
@@ -32,14 +32,9 @@ namespace NDsl.Front.Imp
 
         private DefState State { get; set; }
 
-        #region IDefApi, IDefApi<TDefId>
+        #region IDefApi
 
-        IDefId IDefApi.Id
-        {
-            get { return mId; }
-        }
-
-        public TDefId Id
+        public TId Id
         {
             get { return mId; }
         }
@@ -60,7 +55,7 @@ namespace NDsl.Front.Imp
 
         public void Ref()
         {
-            Book.Append(new RefToken<TDefId>(Id, Loc()));
+            Book.Append(new RefToken<TId>(Id, Loc()));
         }
 
         #endregion
@@ -73,7 +68,7 @@ namespace NDsl.Front.Imp
                 throw new InvalidSyntaxException(Loc(), "Def {0} not in NotDefined state", Id.Name);
 
             State = DefState.Defining;
-            Book.Append(new BeginToken<TDefId>(Id, Loc()));
+            Book.Append(new BeginToken<TId>(Id, Loc()));
         }
 
         private void End()
@@ -81,7 +76,7 @@ namespace NDsl.Front.Imp
             if (State != DefState.Defining)
                 throw new InvalidSyntaxException(Loc(), "Def {0} not in Defining state", Id.Name);
 
-            Book.Append(new EndToken<TDefId>(Id, Loc()));
+            Book.Append(new EndToken<TId>(Id, Loc()));
             State = DefState.Defined;
         }
 

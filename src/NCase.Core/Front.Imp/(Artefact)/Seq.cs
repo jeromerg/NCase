@@ -8,7 +8,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class Seq : SetDef<SeqId, ISeqApi>, ISeq, ISeqApi
+    public class Seq : SetDef<ISeqApi, SeqId>, ISeq, ISeqApi
     {
 
                 public class Factory : ISeqFactory
@@ -36,9 +36,9 @@ namespace NCase.Front.Imp
         {
         }
 
-        protected override ISeqApi GetApi()
+        public override ISeqApi Api
         {
-            return this;
+            get { return this; }
         }
     }
 }

@@ -2,8 +2,10 @@ using NDsl.All;
 
 namespace NDsl.Front.Ui
 {
-    public interface IArtefactApi
+    public interface IArtefactApi { }
+    public interface IArtefactApi<out TApi> : IArtefactApi
+        where TApi : IArtefactApi
     {
-        IToolBox<IArtefactApi> Toolbox { get; }      
+        T Toolbox<T>();//where T : ITool<TApi>;
     }
 }

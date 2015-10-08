@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Print;
-using NCase.Front.Ui;
+using NCase.Back.Api.Tree;
+using NCase.Front.Api;
 using NDsl.Back.Api.Core;
-using NDsl.Front.Api;
 
 namespace NCase.Front.Imp.Op
 {
-    public class PrintTable : IOperationImp<ISetDef, Ui.PrintTable, ISetDefImp, string>
+    public class PrintTable : IPrintTable
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly Func<IPrintCaseTableDirector> mPrintCaseTableDirectorFactory;
@@ -24,10 +24,10 @@ namespace NCase.Front.Imp.Op
             mPrintCaseTableDirectorFactory = printCaseTableDirectorFactory;
         }
 
-        public string Perform(IOperationDirector director, Ui.PrintTable printTable, ISetDefImp setDef)
+        public string Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi, bool isRecursive)
         {
-            INode setDefNode = mParserGenerator.Parse(setDef.DefId, setDef.Book);
-            IEnumerable<List<INode>> cases = mParserGenerator.Generate(setDefNode, new GenerateOptions(printTable.IsRecursive));
+            INode setDefNode = mParserGenerator.Parse(setDefApi.Id, setDefApi.Book);
+            IEnumerable<List<INode>> cases = mParserGenerator.Generate(setDefNode, new GenerateOptions(isRecursive));
 
             IPrintCaseTableDirector printCaseTableDirector = mPrintCaseTableDirectorFactory();
 

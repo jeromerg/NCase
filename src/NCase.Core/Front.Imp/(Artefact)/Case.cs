@@ -36,9 +36,9 @@ namespace NCase.Front.Imp
             mFactNodes = factNodes;
         }
 
-        protected override ICaseApi GetApi()
+        public override ICaseApi Api
         {
-            return this;
+            get { return this; }
         }
 
         [NotNull] public IEnumerable<INode> FactNodes

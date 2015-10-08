@@ -1,7 +1,7 @@
 ﻿namespace NDsl.All
 {
-    public interface IToolBox<out TClass>
+    public interface IToolBox<TClass>
     {
-        T Resolve<T>() where T : ITool<TClass>;
+        T GetTool<T>();// where T : ITool<TClass>;
     }
 }

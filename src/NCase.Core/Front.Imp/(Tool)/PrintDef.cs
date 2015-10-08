@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Print;
+using NCase.Back.Api.Tree;
 using NCase.Front.Api;
 using NCase.Front.Ui;
 using NDsl.All;
@@ -10,7 +11,7 @@ using NDsl.Back.Api.Core;
 namespace NCase.Front.Imp.Op
 {
 
-    public class PrintDef : ITool<ISetDefApi>, IPrintDef
+    public class PrintDef : IPrintDef
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
         private readonly Func<IPrintDefinitionDirector> mPrintDefinitionDirectorFactory;
@@ -24,28 +25,18 @@ namespace NCase.Front.Imp.Op
             mPrintDefinitionDirectorFactory = printDefinitionDirectorFactory;
         }
 
-        public ICaseEnumerable Perform(ISetDefApi setDefApi)
+        public string Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi, bool isFileInfo, bool isRecursive)
         {
-            throw new NotImplementedException();
-        }
+            INode caseSetNode = mParserGenerator.Parse(setDefApi.Id, setDefApi.Book);
 
-        public string Perform(IOperationDirector director, PrintDefinition printDefinition, ISetDefImp setDefImp)
-        {
-            INode caseSetNode = mParserGenerator.Parse(setDefImp.DefId, setDefImp.Book);
+            IPrintDefinitionDirector dir = mPrintDefinitionDirectorFactory();
 
-            IPrintDefinitionDirector printDefinitionDirector = mPrintDefinitionDirectorFactory();
+            dir.IsFileInfo = isFileInfo;
+            dir.IsRecursive = isRecursive;
 
-            CopyProperties(printDefinition, printDefinitionDirector);
-            printDefinitionDirector.Visit(caseSetNode);
+            dir.Visit(caseSetNode);
 
-            return printDefinitionDirector.GetString();
-        }
-
-        private void CopyProperties(PrintDefinition uiDef, IPrintDefinitionDirector dir)
-        {
-            dir.IncludeFileInfo = uiDef.IncludeFileInfo;
-            dir.IndentationString = uiDef.Indentation;
-            dir.IsRecursive = uiDef.IsRecursive;
+            return dir.GetString();
         }
     }
 }

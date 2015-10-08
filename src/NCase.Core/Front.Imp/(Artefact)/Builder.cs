@@ -24,9 +24,9 @@ namespace NCase.Front.Imp
             get { return mBook; }
         }
 
-        protected override IBuilderApi GetApi()
+        public override IBuilderApi Api
         {
-            return this;
+            get { return this; }
         }
     }
 }

@@ -51,9 +51,9 @@ namespace NCase.Front.Imp
             get { return mCases; }
         }
 
-        protected override ICaseEnumerableApi GetApi()
+        public override ICaseEnumerableApi Api
         {
-            return this;
+            get { return this; }
         }
 
         #region IEnumerable implementation

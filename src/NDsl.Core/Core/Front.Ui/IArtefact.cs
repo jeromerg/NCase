@@ -2,9 +2,8 @@ using JetBrains.Annotations;
 
 namespace NDsl.Front.Ui
 {
-    public interface IArtefact
+    public interface IArtefact<out TApi>
     {
-        [NotNull] 
-        IArtefactApi Api { get; }
+        [NotNull] TApi Api { get; }
     }
 }

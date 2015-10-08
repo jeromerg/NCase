@@ -8,7 +8,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class Prod : SetDef<ProdId, IProdApi>, IProd, IProdApi
+    public class Prod : SetDef<IProdApi, ProdId>, IProd, IProdApi
     {
         public class Factory : IProdFactory
         {
@@ -37,9 +37,9 @@ namespace NCase.Front.Imp
         {
         }
 
-        protected override IProdApi GetApi()
+        public override IProdApi Api
         {
-            return this;
+            get { return this; }
         }
     }
 }

@@ -8,7 +8,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class Tree : SetDef<TreeId, ITreeApi>, ITree, ITreeApi
+    public class Tree : SetDef<ITreeApi, TreeId>, ITree, ITreeApi
     {
         public class Factory : ITreeFactory
         {
@@ -37,9 +37,9 @@ namespace NCase.Front.Imp
         {
         }
 
-        protected override ITreeApi GetApi()
+        public override ITreeApi Api
         {
-            return this;
+            get { return this; }
         }
     }
 }

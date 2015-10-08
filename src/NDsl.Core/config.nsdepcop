@@ -1,4 +1,4 @@
-﻿<NsDepCopConfig IsEnabled="True" CodeIssueKind="Error">
+﻿<NsDepCopConfig IsEnabled="False" CodeIssueKind="Error">
 
   <Allowed From="*" To="System.*" />
   <Allowed From="*" To="JetBrains.*" />

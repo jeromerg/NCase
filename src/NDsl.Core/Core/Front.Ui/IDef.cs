@@ -3,9 +3,8 @@ using JetBrains.Annotations;
 
 namespace NDsl.Front.Ui
 {
-    public interface IDef : IArtefact
+    public interface IDef<out TApi> : IArtefact<TApi>
     {
-        [NotNull] new IDefApi Api { get; }
         IDisposable Define();
         void Ref();
     }

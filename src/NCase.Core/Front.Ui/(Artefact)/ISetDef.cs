@@ -5,15 +5,7 @@ using NDsl.Front.Ui;
 
 namespace NCase.Front.Ui
 {
-    public interface ISetDef : IDef
+    public interface ISetDef<out TApi> : IDef<TApi>
     {
-        [NotNull] new ISetDefApi Api { get; }
-        [NotNull] ISetDefId Id { get; }
-    }   
-    
-    public interface ISetDef<TDefId> : IDef
-    {
-        [NotNull] new ISetDefApi<TDefId> Api { get; }
-        [NotNull] TDefId Id { get; }
     }
 }

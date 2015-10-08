@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Parse;
+using NCase.Back.Api.Tree;
 using NCase.Front.Api;
 using NCase.Front.Ui;
 using NDsl.All;
@@ -9,7 +10,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp.Op
 {
-    public class GetCases : ITool<ISetDefApi>, IGetCases
+    public class GetCases : IGetCases
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly CaseEnumerable.Factory mCaseEnumerableFactory;
@@ -23,13 +24,13 @@ namespace NCase.Front.Imp.Op
             mCaseEnumerableFactory = caseEnumerableFactory;
         }
 
-        public ICaseEnumerable Perform(ISetDefApi setDefApi)
+        public ICaseEnumerable Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi)
         {
             IEnumerable<List<INode>> cases = Getcases(setDefApi);
             return mCaseEnumerableFactory.Create(cases);
         }
 
-        public IEnumerable<List<INode>> Getcases(ISetDefApi setDefApi)
+        public IEnumerable<List<INode>> Getcases(ISetDefApi<ISetDefApi, ISetDefId> setDefApi)
         {
             INode caseSetNode = mParserGenerator.Parse(setDefApi.Id, setDefApi.Book);
 

@@ -6,7 +6,6 @@ namespace NCase.Front.Api
 {
     public interface IBuilderApi : IArtefactApi<IBuilderApi>
     {
-        [NotNull] 
-        IBook Book { get; }
+        [NotNull] IBook Book { get; }
     }
 }

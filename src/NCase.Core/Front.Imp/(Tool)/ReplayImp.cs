@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Replay;
+using NCase.Front.Api;
 using NCase.Front.Ui;
 using NDsl.Back.Api.Core;
-using NDsl.Front.Api;
 
 namespace NCase.Front.Imp.Op
 {
-    public class ReplayImp : IOperationImp<ICaseEnumerable, Replay, CaseEnumerable, ICaseEnumerable>
+    public class ReplayCases : IReplayCases
     {
         [NotNull] private readonly IReplayDirector mReplayDirector;
         [NotNull] private readonly CaseEnumerable.Factory mCaseEnumerableFactory;
 
-        public ReplayImp([NotNull] IReplayDirector replayDirector, [NotNull] CaseEnumerable.Factory caseEnumerableFactory)
+        public ReplayCases([NotNull] IReplayDirector replayDirector, [NotNull] CaseEnumerable.Factory caseEnumerableFactory)
         {
             if (replayDirector == null) throw new ArgumentNullException("replayDirector");
             if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");
@@ -21,9 +21,9 @@ namespace NCase.Front.Imp.Op
             mCaseEnumerableFactory = caseEnumerableFactory;
         }
 
-        public ICaseEnumerable Perform(IOperationDirector director, Replay replay, CaseEnumerable caseEnumerable)
-        {
-            IEnumerable<List<INode>> cases = Replay(caseEnumerable.Cases);
+        public ICaseEnumerable Perform(ICaseEnumerableApi caseEnumerableApi)
+        {            
+            IEnumerable<List<INode>> cases = Replay(caseEnumerableApi.Cases);
             return mCaseEnumerableFactory.Create(cases);
         }
 

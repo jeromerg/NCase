@@ -1,10 +1,14 @@
+using NCase.Back.Api.Tree;
 using NCase.Front.Api;
 using NCase.Front.Ui;
+using NDsl.All;
 
 namespace NCase.Front.Imp.Op
 {
-    public interface IPrintDef
+    public interface IPrintDef 
+        : ITool<ISetDefApi<ISetDefApi, ISetDefId>>
+
     {
-        ICaseEnumerable Perform(ISetDefApi setDefApi);
+        string Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi, bool isFileInfo, bool isRecursive);
     }
 }

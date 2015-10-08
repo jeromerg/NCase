@@ -178,21 +178,21 @@ namespace NCaseTest
         }
 
         [Test]
-        public void PrintDefinition()
+        public void PrintDef()
         {
             IProd prod = GetTipicalMixOfTreeAndProd();
 
-            WriteTitle("DEFAULT OPTIONS: prod.PrintDefinition()");
-            Console.WriteLine(prod.PrintDefinition());
+            WriteTitle("DEFAULT OPTIONS: prod.PrintDef()");
+            Console.WriteLine(prod.PrintDef());
 
-            WriteTitle("OPTION prod.PrintDefinition(isRecursive : true)");
-            Console.WriteLine(prod.PrintDefinition(isRecursive: true));
+            WriteTitle("OPTION prod.PrintDef(isRecursive : true)");
+            Console.WriteLine(prod.PrintDef(isRecursive: true));
 
-            WriteTitle("OPTION: prod.PrintDefinition(includeFileInfo : true)");
-            Console.WriteLine(prod.PrintDefinition(true));
+            WriteTitle("OPTION: prod.PrintDef(includeFileInfo : true)");
+            Console.WriteLine(prod.PrintDef(true));
 
-            WriteTitle("OPTION: prod.PrintDefinition(isRecursive : true, includeFileInfo : true)");
-            Console.WriteLine(prod.PrintDefinition(isRecursive: true, includeFileInfo: true));
+            WriteTitle("OPTION: prod.PrintDef(isRecursive : true, includeFileInfo : true)");
+            Console.WriteLine(prod.PrintDef(isRecursive: true, isFileInfo: true));
         }
 
         [Test]

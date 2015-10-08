@@ -1,10 +1,13 @@
+using NCase.Front.Imp.Op;
+
 namespace NCase.Front.Ui
 {
     public static class CaseEnumerableExtensions
     {
         public static ICaseEnumerable Replay(this ICaseEnumerable caseEnumerable)
         {
-            return caseEnumerable.Perform<Replay, ICaseEnumerable>(Ui.Replay.Default);
+            var replayCases = caseEnumerable.Api.Toolbox<IReplayCases>();
+            return replayCases.Perform(caseEnumerable.Api);
         }
     }
 }

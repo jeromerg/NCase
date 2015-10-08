@@ -9,7 +9,7 @@ using NDsl.Front.Ui;
 
 namespace NCase.Front.Imp
 {
-    public class Pairwise : SetDef<PairwiseId, IPairwiseApi>, IPairwise, IPairwiseApi
+    public class Pairwise : SetDef<IPairwiseApi, PairwiseId>, IPairwise, IPairwiseApi
     {
         public class Factory : IPairwiseFactory
         {
@@ -37,10 +37,9 @@ namespace NCase.Front.Imp
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
         }
 
-        protected override IPairwiseApi GetApi()
+        public override IPairwiseApi Api
         {
-            return this;
+            get { return this; }
         }
-
     }
 }

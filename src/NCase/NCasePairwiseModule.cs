@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using NCase.Back.Imp.Pairwise;
+using NCase.Front.Imp;
 using NCase.Front.Imp.Op;
 
 namespace NCase.Front.Ui
@@ -12,7 +13,7 @@ namespace NCase.Front.Ui
             base.Load(builder);
 
             // UI Factory
-            builder.RegisterType<CreatePairwiseImp>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<Pairwise.Factory>().As<IPairwiseFactory>().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

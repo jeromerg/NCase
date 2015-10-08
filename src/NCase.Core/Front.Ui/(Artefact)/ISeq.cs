@@ -3,7 +3,7 @@ using NCase.Front.Api;
 
 namespace NCase.Front.Ui
 {
-    public interface ISeq : ISetDef<SeqId, ISeqApi>
+    public interface ISeq : ISetDef<ISeqApi>
     {
     }
 }
