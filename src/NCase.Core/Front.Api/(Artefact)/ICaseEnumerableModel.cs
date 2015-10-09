@@ -4,7 +4,7 @@ using NDsl.Front.Ui;
 
 namespace NCase.Front.Api
 {
-    public interface ICaseEnumerableApi : IArtefactApi<ICaseEnumerableApi>
+    public interface ICaseEnumerableModel : IArtefactModel
     {
         IEnumerable<List<INode>> Cases { get; }
     }

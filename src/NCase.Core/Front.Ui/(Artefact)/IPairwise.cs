@@ -3,7 +3,7 @@ using NCase.Front.Api;
 
 namespace NCase.Front.Ui
 {
-    public interface IPairwise : ISetDef<IPairwiseApi>
+    public interface IPairwise : ISetDef<IPairwiseModel, PairwiseId>
     {
     }
 }

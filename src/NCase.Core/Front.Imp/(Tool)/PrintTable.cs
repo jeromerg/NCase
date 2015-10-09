@@ -24,9 +24,9 @@ namespace NCase.Front.Imp.Op
             mPrintCaseTableDirectorFactory = printCaseTableDirectorFactory;
         }
 
-        public string Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi, bool isRecursive)
+        public string Perform(ISetDefModel<ISetDefId> setDefModel, bool isRecursive)
         {
-            INode setDefNode = mParserGenerator.Parse(setDefApi.Id, setDefApi.Book);
+            INode setDefNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.Book);
             IEnumerable<List<INode>> cases = mParserGenerator.Generate(setDefNode, new GenerateOptions(isRecursive));
 
             IPrintCaseTableDirector printCaseTableDirector = mPrintCaseTableDirectorFactory();

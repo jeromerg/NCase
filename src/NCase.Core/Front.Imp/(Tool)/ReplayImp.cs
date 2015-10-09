@@ -11,9 +11,9 @@ namespace NCase.Front.Imp.Op
     public class ReplayCases : IReplayCases
     {
         [NotNull] private readonly IReplayDirector mReplayDirector;
-        [NotNull] private readonly CaseEnumerable.Factory mCaseEnumerableFactory;
+        [NotNull] private readonly CaseEnumerablefactory mCaseEnumerableFactory;
 
-        public ReplayCases([NotNull] IReplayDirector replayDirector, [NotNull] CaseEnumerable.Factory caseEnumerableFactory)
+        public ReplayCases([NotNull] IReplayDirector replayDirector, [NotNull] CaseEnumerablefactory caseEnumerableFactory)
         {
             if (replayDirector == null) throw new ArgumentNullException("replayDirector");
             if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");
@@ -21,9 +21,9 @@ namespace NCase.Front.Imp.Op
             mCaseEnumerableFactory = caseEnumerableFactory;
         }
 
-        public ICaseEnumerable Perform(ICaseEnumerableApi caseEnumerableApi)
+        public ICaseEnumerable Perform(ICaseEnumerableModel caseEnumerableModel)
         {            
-            IEnumerable<List<INode>> cases = Replay(caseEnumerableApi.Cases);
+            IEnumerable<List<INode>> cases = Replay(caseEnumerableModel.Cases);
             return mCaseEnumerableFactory.Create(cases);
         }
 

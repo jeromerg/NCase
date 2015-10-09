@@ -16,9 +16,9 @@ namespace NCase.Front.Ui
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
         }
 
-        public T Create<T>(IBuilderApi builderApi, string name)
+        public T Create<T>(IBuilderModel builderModel, string name)
         {
-            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(builderApi.Book, name);
+            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(builderModel.Book, name);
         }
     }
 }

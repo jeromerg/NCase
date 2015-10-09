@@ -7,7 +7,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public interface IProdFactory : ITool<IBuilderApi>
+    public interface IProdFactory : ITool<IBuilderModel>
     {
         IProd Create([NotNull] string defName, [NotNull] IBook book);
     }

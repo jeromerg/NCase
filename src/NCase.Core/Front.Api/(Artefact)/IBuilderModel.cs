@@ -4,7 +4,7 @@ using NDsl.Front.Ui;
 
 namespace NCase.Front.Api
 {
-    public interface IBuilderApi : IArtefactApi<IBuilderApi>
+    public interface IBuilderModel : IArtefactModel
     {
         [NotNull] IBook Book { get; }
     }

@@ -8,36 +8,36 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class Prod : SetDef<IProdApi, ProdId>, IProd, IProdApi
+    public class Prod : SetDef<IProdModel, ProdId>, IProd, IProdModel
     {
         public class Factory : IProdFactory
         {
-            [NotNull] private readonly IToolBox<IProdApi> mToolBox;
+            [NotNull] private readonly IServices<IProdModel> mServices;
             [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-            public Factory([NotNull] IToolBox<IProdApi> toolBox, [NotNull] ICodeLocationUtil codeLocationUtil)
+            public Factory([NotNull] IServices<IProdModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
             {
-                if (toolBox == null) throw new ArgumentNullException("toolBox");
+                if (services == null) throw new ArgumentNullException("services");
                 if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
-                mToolBox = toolBox;
+                mServices = services;
                 mCodeLocationUtil = codeLocationUtil;
             }
 
             public IProd Create(string defName, IBook book)
             {
-                return new Prod(defName, book, mToolBox, mCodeLocationUtil);
+                return new Prod(defName, book, mServices, mCodeLocationUtil);
             }
         }
 
         public Prod([NotNull] string defName,
                     [NotNull] IBook book,
-                    [NotNull] IToolBox<IProdApi> toolBox,
+                    [NotNull] IServices<IProdModel> services,
                     [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new ProdId(defName), book, toolBox, codeLocationUtil)
+            : base(new ProdId(defName), book, services, codeLocationUtil)
         {
         }
 
-        public override IProdApi Api
+        public override IProdModel Model
         {
             get { return this; }
         }

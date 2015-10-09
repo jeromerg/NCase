@@ -4,7 +4,7 @@ using NDsl.All;
 
 namespace NCase.Front.Api
 {
-    public interface IProdApi : ISetDefApi<IProdApi, ProdId>
+    public interface IProdModel : ISetDefModel<ProdId>
     {
     }
 }

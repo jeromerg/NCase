@@ -20,8 +20,8 @@ namespace NCase.Front.Ui
             cb.RegisterType<Builder>().As<IBuilder>().InstancePerDependency();
 
             // CaseEnumerable, Case, Fact factories
-            cb.RegisterType<CaseEnumerable.Factory>().AsSelf().SingleInstance();
-            cb.RegisterType<Case.Factory>().AsSelf().SingleInstance();
+            cb.RegisterType<CaseEnumerablefactory>().AsSelf().SingleInstance();
+            cb.RegisterType<CaseFactory>().AsSelf().SingleInstance();
             cb.RegisterType<Fact.Factory>().AsSelf().SingleInstance();
 
             // Parser

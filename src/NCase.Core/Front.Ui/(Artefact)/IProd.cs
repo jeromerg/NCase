@@ -3,7 +3,7 @@ using NCase.Front.Api;
 
 namespace NCase.Front.Ui
 {
-    public interface IProd : ISetDef<IProdApi>
+    public interface IProd : ISetDef<IProdModel, ProdId>
     {
     }
 }

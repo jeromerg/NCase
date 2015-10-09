@@ -7,7 +7,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public interface ISeqFactory: ITool<IBuilderApi>
+    public interface ISeqFactory: ITool<IBuilderModel>
     {
         ISeq Create([NotNull] string defName, [NotNull] IBook book);
     }

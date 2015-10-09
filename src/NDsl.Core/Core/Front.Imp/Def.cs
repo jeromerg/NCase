@@ -8,19 +8,19 @@ using NDsl.Front.Ui;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class Def<TApi, TId> : Artefact<TApi>, IDef<TApi>, IDefApi<TApi, TId>
+    public abstract class Def<TModel, TId> : Artefact<TModel>, IDef<TModel, TId>
         where TId : IDefId
-        where TApi : IDefApi<TApi, TId>
+        where TModel : IDefModel<TId>
     {
         private readonly TId mId;
         [NotNull] private readonly IBook mBook;
         private readonly ICodeLocationUtil mCodeLocationUtil;
 
         protected Def([NotNull] TId id,
-                      [NotNull] IToolBox<TApi> toolBox,
+                      [NotNull] IServices<TModel> services,
                       [NotNull] IBook book,
                       [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(toolBox)
+            : base(services)
         {
             if (id == null) throw new ArgumentNullException("id");
             if (book == null) throw new ArgumentNullException("book");
@@ -32,7 +32,7 @@ namespace NDsl.Front.Imp
 
         private DefState State { get; set; }
 
-        #region IDefApi
+        #region IDefModel
 
         public TId Id
         {

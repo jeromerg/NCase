@@ -62,6 +62,7 @@
     <Compile Include="Core\Back.Api\%28NodeAndToken%29\IDefId.cs" />
     <Compile Include="Core\Back.Api\%28NodeAndToken%29\IDefNode.cs" />
     <Compile Include="Core\Back.Api\%28NodeAndToken%29\ITypedId.cs" />
+    <Compile Include="Core\Front.Ui\Api.cs" />
     <Compile Include="RecPlay\Back.Api\InterfaceRecPlayNodeExtensions.cs" />
     <Compile Include="RecPlay\Back.Api\IInterfaceRecPlayNodeFactory.cs" />
     <Compile Include="Core\Back.Api\%28NodeAndToken%29\IRefNode.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Core\Front.Ui\IArtefact.cs" />
     <Compile Include="Core\Front.Api\IArtefactApi.cs" />
     <Compile Include="Core\Front.Ui\IDef.cs" />
-    <Compile Include="Core\Front.Api\IDefApi.cs" />
+    <Compile Include="Core\Front.Api\IDefModel.cs" />
     <Compile Include="Core\Front.Imp\Artefact.cs" />
     <Compile Include="Core\Front.Imp\DefState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

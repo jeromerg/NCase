@@ -3,7 +3,7 @@ using NDsl.Front.Ui;
 
 namespace NCase.Front.Api
 {
-    public interface IFactApi : IArtefactApi<IFactApi>
+    public interface IFactModel : IArtefactModel
     {
         INode FactNode { get; }
     }

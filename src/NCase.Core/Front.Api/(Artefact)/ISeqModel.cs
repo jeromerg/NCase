@@ -4,7 +4,7 @@ using NDsl.All;
 
 namespace NCase.Front.Api
 {
-    public interface ISeqApi : ISetDefApi<ISeqApi, SeqId>
+    public interface ISeqModel : ISetDefModel<SeqId>
     {
     }
 }

@@ -13,10 +13,10 @@ namespace NCase.Front.Imp.Op
     public class GetCases : IGetCases
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
-        [NotNull] private readonly CaseEnumerable.Factory mCaseEnumerableFactory;
+        [NotNull] private readonly CaseEnumerablefactory mCaseEnumerableFactory;
 
         public GetCases([NotNull] IParserGenerator parserGenerator,
-                            [NotNull] CaseEnumerable.Factory caseEnumerableFactory)
+                            [NotNull] CaseEnumerablefactory caseEnumerableFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");
@@ -24,15 +24,15 @@ namespace NCase.Front.Imp.Op
             mCaseEnumerableFactory = caseEnumerableFactory;
         }
 
-        public ICaseEnumerable Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi)
+        public ICaseEnumerable Perform(ISetDefModel<ISetDefId> setDefModel)
         {
-            IEnumerable<List<INode>> cases = Getcases(setDefApi);
+            IEnumerable<List<INode>> cases = Getcases(setDefModel);
             return mCaseEnumerableFactory.Create(cases);
         }
 
-        public IEnumerable<List<INode>> Getcases(ISetDefApi<ISetDefApi, ISetDefId> setDefApi)
+        public IEnumerable<List<INode>> Getcases(ISetDefModel<ISetDefId> setDefModel)
         {
-            INode caseSetNode = mParserGenerator.Parse(setDefApi.Id, setDefApi.Book);
+            INode caseSetNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.Book);
 
             IEnumerable<List<INode>> cases = mParserGenerator.Generate(caseSetNode, new GenerateOptions(true));
 

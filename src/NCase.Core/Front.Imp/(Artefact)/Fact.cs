@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Front.Api;
 using NCase.Front.Ui;
@@ -9,42 +8,44 @@ using NDsl.Front.Imp;
 
 namespace NCase.Front.Imp
 {
-    public class Fact : Artefact<IFactApi>, IFact, IFactApi
+    public class Fact : Artefact<IFactModel>, IFact, IFactModel
     {
         private readonly INode mFactNode;
 
         public class Factory : IFactFactory
         {
-            [NotNull]
-            private readonly IToolBox<IFactApi> mToolBox;
+            [NotNull] private readonly IServices<IFactModel> mServices;
 
-            public Factory([NotNull] IToolBox<IFactApi> toolBox)
+            public Factory([NotNull] IServices<IFactModel> services)
             {
-                if (toolBox == null) throw new ArgumentNullException("toolBox");
-                mToolBox = toolBox;
+                if (services == null) throw new ArgumentNullException("services");
+                mServices = services;
             }
 
             public IFact Create(INode fact)
             {
-                return new Fact(fact, mToolBox);
+                return new Fact(fact, mServices);
             }
         }
 
-        public Fact([NotNull] INode factNode, [NotNull] IToolBox<IFactApi> toolBox)
-            : base(toolBox)
+        public Fact([NotNull] INode factNode, [NotNull] IServices<IFactModel> services)
+            : base(services)
         {
             mFactNode = factNode;
         }
 
-        public override IFactApi Api
+        public override IFactModel Model
         {
             get { return this; }
         }
+
+        #region IFactModel
 
         public INode FactNode
         {
             get { return mFactNode; }
         }
 
+        #endregion
     }
 }

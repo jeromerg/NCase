@@ -3,8 +3,8 @@ using NDsl.All;
 
 namespace NCase.Front.Ui
 {
-    public interface IContributorFactory : ITool<IBuilderApi>
+    public interface IContributorFactory : ITool<IBuilderModel>
     {
-        T Create<T>(IBuilderApi builderApi, string name);
+        T Create<T>(IBuilderModel builderModel, string name);
     }
 }

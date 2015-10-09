@@ -6,9 +6,9 @@ using NDsl.All;
 namespace NCase.Front.Imp.Op
 {
     public interface IPrintDef 
-        : ITool<ISetDefApi<ISetDefApi, ISetDefId>>
+        : ITool<ISetDefModel<ISetDefId>>
 
     {
-        string Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi, bool isFileInfo, bool isRecursive);
+        string Perform(ISetDefModel<ISetDefId> setDefModel, bool isFileInfo, bool isRecursive);
     }
 }

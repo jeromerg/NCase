@@ -9,15 +9,15 @@ using NDsl.Front.Imp;
 
 namespace NCase.Front.Imp
 {
-    public abstract class SetDef<TApi, TId> : Def<TApi, TId>, ISetDef<TApi>, ISetDefApi<TApi, TId>
+    public abstract class SetDef<TModel, TId> : Def<TModel, TId>, ISetDef<TModel, TId>, ISetDefModel<TId>
         where TId : ISetDefId
-        where TApi : ISetDefApi<TApi, TId>
+        where TModel : ISetDefModel<TId>
     {
         protected SetDef([NotNull] TId id,
                          [NotNull] IBook book,
-                         [NotNull] IToolBox<TApi> toolBox,
+                         [NotNull] IServices<TModel> services,
                          [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(id, toolBox, book, codeLocationUtil)
+            : base(id, services, book, codeLocationUtil)
         {
         }
     }

@@ -4,7 +4,7 @@ using NDsl.All;
 
 namespace NCase.Front.Api
 {
-    public interface IPairwiseApi : ISetDefApi<IPairwiseApi, PairwiseId>
+    public interface IPairwiseModel : ISetDefModel<PairwiseId>
     {
     }
 }

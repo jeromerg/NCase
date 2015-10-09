@@ -4,7 +4,7 @@ using NDsl.Front.Ui;
 
 namespace NCase.Front.Api
 {
-    public interface ICaseApi : IArtefactApi<ICaseApi>
+    public interface ICaseModel : IArtefactModel
     {
         IEnumerable<INode> FactNodes { get; }
     }

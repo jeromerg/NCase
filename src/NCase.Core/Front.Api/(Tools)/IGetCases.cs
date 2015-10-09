@@ -6,8 +6,8 @@ using NDsl.All;
 namespace NCase.Front.Imp.Op
 {
     public interface IGetCases 
-        : ITool<ISetDefApi<ISetDefApi, ISetDefId>>
+        : ITool<ISetDefModel<ISetDefId>>
     {
-        ICaseEnumerable Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi);
+        ICaseEnumerable Perform(ISetDefModel<ISetDefId> setDefModel);
     }
 }

@@ -9,41 +9,29 @@ using NDsl.Front.Imp;
 
 namespace NCase.Front.Imp
 {
-    public class Case : Artefact<ICaseApi>, ICase, ICaseApi
+    public class Case : Artefact<ICaseModel>, ICase, ICaseModel
     {
         [NotNull] private readonly IEnumerable<INode> mFactNodes;
 
-        public class Factory : ICaseFactory
-        {
-            [NotNull] private readonly IToolBox<ICaseApi> mToolBox;
-
-            public Factory([NotNull] IToolBox <ICaseApi> toolBox)
-            {
-                if (toolBox == null) throw new ArgumentNullException("toolBox");
-                mToolBox = toolBox;
-            }
-
-            public ICase Create(IEnumerable<INode> factNodes)
-            {
-                return new Case(factNodes, mToolBox);
-            }
-        }
-
-        public Case([NotNull] IEnumerable<INode> factNodes, [NotNull] IToolBox<ICaseApi> toolBox)
-            : base(toolBox)
+        public Case([NotNull] IEnumerable<INode> factNodes, [NotNull] IServices<ICaseModel> services)
+            : base(services)
         {
             if (factNodes == null) throw new ArgumentNullException("factNodes");
             mFactNodes = factNodes;
         }
 
-        public override ICaseApi Api
+        public override ICaseModel Model
         {
             get { return this; }
         }
+
+        #region ICaseModel
 
         [NotNull] public IEnumerable<INode> FactNodes
         {
             get { return mFactNodes; }
         }
+
+        #endregion
     }
 }

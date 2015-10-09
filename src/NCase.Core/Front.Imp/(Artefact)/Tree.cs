@@ -8,36 +8,36 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class Tree : SetDef<ITreeApi, TreeId>, ITree, ITreeApi
+    public class Tree : SetDef<ITreeModel, TreeId>, ITree, ITreeModel
     {
         public class Factory : ITreeFactory
         {
-            [NotNull] private readonly IToolBox<ITreeApi> mToolBox;
+            [NotNull] private readonly IServices<ITreeModel> mServices;
             [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-            public Factory([NotNull] IToolBox<ITreeApi> toolBox, [NotNull] ICodeLocationUtil codeLocationUtil)
+            public Factory([NotNull] IServices<ITreeModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
             {
-                if (toolBox == null) throw new ArgumentNullException("toolBox");
+                if (services == null) throw new ArgumentNullException("services");
                 if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
-                mToolBox = toolBox;
+                mServices = services;
                 mCodeLocationUtil = codeLocationUtil;
             }
 
             public ITree Create(string defName, IBook book)
             {
-                return new Tree(defName, book, mToolBox, mCodeLocationUtil);
+                return new Tree(defName, book, mServices, mCodeLocationUtil);
             }
         }
 
         public Tree([NotNull] string defName,
                     [NotNull] IBook book,
-                    [NotNull] IToolBox<ITreeApi> toolBox,
+                    [NotNull] IServices<ITreeModel> services,
                     [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new TreeId(defName), book, toolBox, codeLocationUtil)
+            : base(new TreeId(defName), book, services, codeLocationUtil)
         {
         }
 
-        public override ITreeApi Api
+        public override ITreeModel Model
         {
             get { return this; }
         }

@@ -4,8 +4,8 @@ using NDsl.All;
 
 namespace NCase.Front.Imp.Op
 {
-    public interface IReplayCases : ITool<ICaseEnumerableApi>
+    public interface IReplayCases : ITool<ICaseEnumerableModel>
     {
-        ICaseEnumerable Perform(ICaseEnumerableApi caseEnumerableApi);
+        ICaseEnumerable Perform(ICaseEnumerableModel caseEnumerableModel);
     }
 }

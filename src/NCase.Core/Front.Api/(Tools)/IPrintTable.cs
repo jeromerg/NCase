@@ -6,8 +6,8 @@ using NDsl.All;
 namespace NCase.Front.Imp.Op
 {
     public interface IPrintTable
-        : ITool<ISetDefApi<ISetDefApi, ISetDefId>>
+        : ITool<ISetDefModel<ISetDefId>>
     {
-        string Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi, bool isRecursive);
+        string Perform(ISetDefModel<ISetDefId> setDefModel, bool isRecursive);
     }
 }

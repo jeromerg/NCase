@@ -3,7 +3,7 @@ using NDsl.Front.Ui;
 
 namespace NCase.Front.Ui
 {
-    public interface IBuilder : IArtefact<IBuilderApi>
+    public interface IBuilder : IArtefact<IBuilderModel>
     {
     }
 }

@@ -6,8 +6,8 @@ namespace NCase.Front.Ui
     {
         public static ICaseEnumerable Replay(this ICaseEnumerable caseEnumerable)
         {
-            var replayCases = caseEnumerable.Api.ToolBox.GetTool<IReplayCases>();
-            return replayCases.Perform(caseEnumerable.Api);
+            var replayCases = caseEnumerable.Api.Services.GetTool<IReplayCases>();
+            return replayCases.Perform(caseEnumerable.Api.Model);
         }
     }
 }

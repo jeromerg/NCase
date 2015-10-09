@@ -1,31 +1,35 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using NDsl.All;
 using NDsl.Front.Ui;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class Artefact<TApi> : IArtefact<TApi>, IArtefactApi<TApi>
-        where TApi : IArtefactApi<TApi>
+    public abstract class Artefact<TModel> : IArtefact<TModel>, IArtefactModel, IApi<TModel>
+        where TModel : IArtefactModel
     {
-        [NotNull] private readonly IToolBox<TApi> mToolBox;
+        [NotNull] private readonly IServices<TModel> mServices;
 
-        protected Artefact(IToolBox<TApi> toolbox)
+        protected Artefact(IServices<TModel> toolbox)
         {
-            mToolBox = toolbox;
+            mServices = toolbox;
         }
 
         #region IArtefact Implementation
 
-        public abstract TApi Api { get; }
+        public IApi<TModel> Api
+        {
+            get { return this; }
+        }
 
         #endregion
 
-        #region IArtefactApi Implementation
+        #region IApi<TModel> Implementation
 
-        public IToolBox<TApi> ToolBox
+        public abstract TModel Model { get; }
+
+        public IServices<TModel> Services
         {
-            get { return mToolBox; }
+            get { return mServices; }
         }
 
         #endregion

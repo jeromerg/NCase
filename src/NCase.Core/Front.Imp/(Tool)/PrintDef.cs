@@ -25,9 +25,9 @@ namespace NCase.Front.Imp.Op
             mPrintDefinitionDirectorFactory = printDefinitionDirectorFactory;
         }
 
-        public string Perform(ISetDefApi<ISetDefApi, ISetDefId> setDefApi, bool isFileInfo, bool isRecursive)
+        public string Perform(ISetDefModel<ISetDefId> setDefModel, bool isFileInfo, bool isRecursive)
         {
-            INode caseSetNode = mParserGenerator.Parse(setDefApi.Id, setDefApi.Book);
+            INode caseSetNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.Book);
 
             IPrintDefinitionDirector dir = mPrintDefinitionDirectorFactory();
 

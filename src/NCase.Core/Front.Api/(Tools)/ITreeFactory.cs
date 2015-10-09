@@ -7,7 +7,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public interface ITreeFactory : ITool<IBuilderApi>
+    public interface ITreeFactory : ITool<IBuilderModel>
     {
         ITree Create([NotNull] string defName, [NotNull] IBook book);
     }

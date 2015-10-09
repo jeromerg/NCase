@@ -6,7 +6,7 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public interface IPairwiseFactory : ITool<IBuilderApi>
+    public interface IPairwiseFactory : ITool<IBuilderModel>
     {
         IPairwise Create([NotNull] string defName, [NotNull] IBook book);
     }

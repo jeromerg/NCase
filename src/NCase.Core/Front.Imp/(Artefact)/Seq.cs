@@ -8,35 +8,35 @@ using NDsl.Back.Api.Core;
 
 namespace NCase.Front.Imp
 {
-    public class Seq : SetDef<ISeqApi, SeqId>, ISeq, ISeqApi
+    public class Seq : SetDef<ISeqModel, SeqId>, ISeq, ISeqModel
     {
 
                 public class Factory : ISeqFactory
         {
-            [NotNull] private readonly IToolBox<ISeqApi> mToolBox;
+            [NotNull] private readonly IServices<ISeqModel> mServices;
             [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-            public Factory([NotNull] IToolBox<ISeqApi> toolBox, [NotNull] ICodeLocationUtil codeLocationUtil)
+            public Factory([NotNull] IServices<ISeqModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
             {
-                if (toolBox == null) throw new ArgumentNullException("toolBox");
+                if (services == null) throw new ArgumentNullException("services");
                 if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
-                mToolBox = toolBox;
+                mServices = services;
                 mCodeLocationUtil = codeLocationUtil;
             }
 
             public ISeq Create(string defName, IBook book)
             {
-                return new Seq(defName, book, mToolBox, mCodeLocationUtil);
+                return new Seq(defName, book, mServices, mCodeLocationUtil);
             }
         }
 
 
-        public Seq([NotNull] string defName, [NotNull] IBook book, [NotNull] IToolBox<ISeqApi> toolBox, [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new SeqId(defName), book, toolBox, codeLocationUtil)
+        public Seq([NotNull] string defName, [NotNull] IBook book, [NotNull] IServices<ISeqModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
+            : base(new SeqId(defName), book, services, codeLocationUtil)
         {
         }
 
-        public override ISeqApi Api
+        public override ISeqModel Model
         {
             get { return this; }
         }
