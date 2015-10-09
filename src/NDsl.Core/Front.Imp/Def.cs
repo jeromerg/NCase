@@ -14,20 +14,20 @@ namespace NDsl.Front.Imp
         where TModel : IDefModel<TId>
     {
         private readonly TId mId;
-        [NotNull] private readonly IBook mBook;
+        [NotNull] private readonly ITokenStream mTokenStream;
         private readonly ICodeLocationUtil mCodeLocationUtil;
 
         protected Def([NotNull] TId id,
                       [NotNull] IServices<TModel> services,
-                      [NotNull] IBook book,
+                      [NotNull] ITokenStream tokenStream,
                       [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(services)
         {
             if (id == null) throw new ArgumentNullException("id");
-            if (book == null) throw new ArgumentNullException("book");
+            if (tokenStream == null) throw new ArgumentNullException("tokenStream");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
             mId = id;
-            mBook = book;
+            mTokenStream = tokenStream;
             mCodeLocationUtil = codeLocationUtil;
         }
 
@@ -40,9 +40,9 @@ namespace NDsl.Front.Imp
             get { return mId; }
         }
 
-        [NotNull] public IBook Book
+        [NotNull] public ITokenStream TokenStream
         {
-            get { return mBook; }
+            get { return mTokenStream; }
         }
 
         #endregion
@@ -56,7 +56,7 @@ namespace NDsl.Front.Imp
 
         public void Ref()
         {
-            Book.Append(new RefToken<TId>(Id, Loc()));
+            TokenStream.Append(new RefToken<TId>(Id, Loc()));
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace NDsl.Front.Imp
                 throw new InvalidSyntaxException(Loc(), "Def {0} not in NotDefined state", Id.Name);
 
             State = DefState.Defining;
-            Book.Append(new BeginToken<TId>(Id, Loc()));
+            TokenStream.Append(new BeginToken<TId>(Id, Loc()));
         }
 
         private void End()
@@ -77,7 +77,7 @@ namespace NDsl.Front.Imp
             if (State != DefState.Defining)
                 throw new InvalidSyntaxException(Loc(), "Def {0} not in Defining state", Id.Name);
 
-            Book.Append(new EndToken<TId>(Id, Loc()));
+            TokenStream.Append(new EndToken<TId>(Id, Loc()));
             State = DefState.Defined;
         }
 

@@ -20,9 +20,9 @@ namespace NCase.Front.Imp.Seq
             mCodeLocationUtil = codeLocationUtil;
         }
 
-        public ISeq Create(string defName, IBook book)
+        public ISeq Create(string defName, ITokenStream tokenStream)
         {
-            return new Seq(defName, book, mServices, mCodeLocationUtil);
+            return new Seq(defName, tokenStream, mServices, mCodeLocationUtil);
         }
     }
 }

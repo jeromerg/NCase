@@ -11,10 +11,10 @@ namespace NCase.Front.Imp.Prod
     public class Prod : SetDef<IProdModel, ProdId>, IProd, IProdModel
     {
         public Prod([NotNull] string defName,
-                    [NotNull] IBook book,
+                    [NotNull] ITokenStream tokenStream,
                     [NotNull] IServices<IProdModel> services,
                     [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new ProdId(defName), book, services, codeLocationUtil)
+            : base(new ProdId(defName), tokenStream, services, codeLocationUtil)
         {
         }
 

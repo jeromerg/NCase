@@ -6,7 +6,7 @@ using NDsl.Back.Api.Common;
 
 namespace NDsl.Back.Imp.Common
 {
-    public class TokenStream : IBook
+    public class TokenStream : ITokenStream
     {
         private readonly Queue<IToken> mTokens = new Queue<IToken>();
 

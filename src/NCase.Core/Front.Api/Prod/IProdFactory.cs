@@ -8,6 +8,6 @@ namespace NCase.Front.Api.Prod
 {
     public interface IProdFactory : IService<IBuilderModel>
     {
-        IProd Create([NotNull] string defName, [NotNull] IBook book);
+        IProd Create([NotNull] string defName, [NotNull] ITokenStream tokenStream);
     }
 }

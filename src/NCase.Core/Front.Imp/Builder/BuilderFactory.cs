@@ -9,20 +9,20 @@ namespace NCase.Front.Imp.Builder
 {
     public class BuilderFactory : IBuilderFactory
     {
-        private readonly IBookFactory mBookFactory;
+        private readonly ITokenStreamFactory mTokenStreamFactory;
         private readonly IServices<IBuilderModel> mServices;
 
-        public BuilderFactory([NotNull] IBookFactory bookFactory, [NotNull] IServices<IBuilderModel> services)
+        public BuilderFactory([NotNull] ITokenStreamFactory tokenStreamFactory, [NotNull] IServices<IBuilderModel> services)
         {
-            if (bookFactory == null) throw new ArgumentNullException("bookFactory");
+            if (tokenStreamFactory == null) throw new ArgumentNullException("tokenStreamFactory");
             if (services == null) throw new ArgumentNullException("services");
-            mBookFactory = bookFactory;
+            mTokenStreamFactory = tokenStreamFactory;
             mServices = services;
         }
 
         public IBuilder Create()
         {
-            return new Builder(mBookFactory.Create(), mServices);
+            return new Builder(mTokenStreamFactory.Create(), mServices);
         }
     }
 }

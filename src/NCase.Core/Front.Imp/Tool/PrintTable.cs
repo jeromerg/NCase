@@ -26,7 +26,7 @@ namespace NCase.Front.Imp.Tool
 
         public string Perform(ISetDefModel<ISetDefId> setDefModel, bool isRecursive)
         {
-            INode setDefNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.Book);
+            INode setDefNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
             IEnumerable<List<INode>> cases = mParserGenerator.Generate(setDefNode, new GenerateOptions(isRecursive));
 
             IPrintCaseTableDirector printCaseTableDirector = mPrintCaseTableDirectorFactory();

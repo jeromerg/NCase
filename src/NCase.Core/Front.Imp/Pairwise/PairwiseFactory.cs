@@ -20,9 +20,9 @@ namespace NCase.Front.Imp.Pairwise
             mCodeLocationUtil = codeLocationUtil;
         }
 
-        public IPairwise Create(string defName, IBook book)
+        public IPairwise Create(string defName, ITokenStream tokenStream)
         {
-            return new Pairwise(defName, book, mServices, mCodeLocationUtil);
+            return new Pairwise(defName, tokenStream, mServices, mCodeLocationUtil);
         }
     }
 }

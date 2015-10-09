@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Replay;
 using NCase.Front.Api.CaseEnumerable;
-using NCase.Front.Imp.CaseEnumerable;
 using NCase.Front.Ui;
 using NDsl.Back.Api.Common;
 
@@ -12,9 +11,9 @@ namespace NCase.Front.Imp.Tool
     public class ReplayCases : IReplayCases
     {
         [NotNull] private readonly IReplayDirector mReplayDirector;
-        [NotNull] private readonly CaseEnumerablefactory mCaseEnumerableFactory;
+        [NotNull] private readonly ICaseEnumerableFactory mCaseEnumerableFactory;
 
-        public ReplayCases([NotNull] IReplayDirector replayDirector, [NotNull] CaseEnumerablefactory caseEnumerableFactory)
+        public ReplayCases([NotNull] IReplayDirector replayDirector, [NotNull] ICaseEnumerableFactory caseEnumerableFactory)
         {
             if (replayDirector == null) throw new ArgumentNullException("replayDirector");
             if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");

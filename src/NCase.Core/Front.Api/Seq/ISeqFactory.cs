@@ -8,6 +8,6 @@ namespace NCase.Front.Api.Seq
 {
     public interface ISeqFactory : IService<IBuilderModel>
     {
-        ISeq Create([NotNull] string defName, [NotNull] IBook book);
+        ISeq Create([NotNull] string defName, [NotNull] ITokenStream tokenStream);
     }
 }

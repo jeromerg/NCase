@@ -17,25 +17,25 @@ namespace NCase.Front.Ui
         public static ITree CreateTree(this IBuilder builder, string name)
         {
             var treeFactory = builder.Api.Services.GetTool<ITreeFactory>();
-            return treeFactory.Create(name, builder.Api.Model.Book);
+            return treeFactory.Create(name, builder.Api.Model.TokenStream);
         }
 
         public static IProd CreateProd(this IBuilder builder, string name)
         {
             var treeFactory = builder.Api.Services.GetTool<IProdFactory>();
-            return treeFactory.Create(name, builder.Api.Model.Book);
+            return treeFactory.Create(name, builder.Api.Model.TokenStream);
         }
 
         public static ISeq CreateSeq(this IBuilder builder, string name)
         {
             var treeFactory = builder.Api.Services.GetTool<ISeqFactory>();
-            return treeFactory.Create(name, builder.Api.Model.Book);
+            return treeFactory.Create(name, builder.Api.Model.TokenStream);
         }
 
         public static IPairwise CreatePairwise(this IBuilder builder, string name)
         {
             var treeFactory = builder.Api.Services.GetTool<IPairwiseFactory>();
-            return treeFactory.Create(name, builder.Api.Model.Book);
+            return treeFactory.Create(name, builder.Api.Model.TokenStream);
         }
     }
 }

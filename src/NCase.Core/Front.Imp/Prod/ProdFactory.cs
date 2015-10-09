@@ -20,9 +20,9 @@ namespace NCase.Front.Imp.Prod
             mCodeLocationUtil = codeLocationUtil;
         }
 
-        public IProd Create(string defName, IBook book)
+        public IProd Create(string defName, ITokenStream tokenStream)
         {
-            return new Prod(defName, book, mServices, mCodeLocationUtil);
+            return new Prod(defName, tokenStream, mServices, mCodeLocationUtil);
         }
     }
 }

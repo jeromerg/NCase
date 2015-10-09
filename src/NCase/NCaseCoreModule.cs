@@ -5,11 +5,18 @@ using NCase.Back.Api.Replay;
 using NCase.Back.Imp.Parse;
 using NCase.Back.Imp.Print;
 using NCase.Back.Imp.Replay;
+using NCase.Front.Api.Builder;
+using NCase.Front.Api.Case;
+using NCase.Front.Api.CaseEnumerable;
+using NCase.Front.Api.Fact;
+using NCase.Front.Api.SetDef;
 using NCase.Front.Imp.Builder;
 using NCase.Front.Imp.Case;
 using NCase.Front.Imp.CaseEnumerable;
 using NCase.Front.Imp.Fact;
 using NCase.Front.Imp.Tool;
+using NDsl.Back.Api.Book;
+using NDsl.Back.Imp.Common;
 
 namespace NCase.Front.Ui
 {
@@ -18,13 +25,18 @@ namespace NCase.Front.Ui
         protected override void Load(ContainerBuilder cb)
         {
             base.Load(cb);
+            
+            cb.RegisterType<BuilderFactory>().As<IBuilderFactory>().SingleInstance();
 
-            cb.RegisterType<Builder>().As<IBuilder>().InstancePerDependency();
+            cb.RegisterType<TokenStreamFactory>().As<ITokenStreamFactory>().SingleInstance();
+            cb.RegisterType<CreateContributor>().As<ICreateContributor>().SingleInstance();
 
             // CaseEnumerable, Case, Fact factories
-            cb.RegisterType<CaseEnumerablefactory>().AsSelf().SingleInstance();
-            cb.RegisterType<CaseFactory>().AsSelf().SingleInstance();
-            cb.RegisterType<FactFactory>().AsSelf().SingleInstance();
+            cb.RegisterType<CaseEnumerablefactory>().As<ICaseEnumerableFactory>().SingleInstance();
+            cb.RegisterType<CaseFactory>().As<ICaseFactory>().SingleInstance();
+            cb.RegisterType<FactFactory>().As<IFactFactory>().SingleInstance();
+            cb.RegisterType<GetCases>().As<IGetCases>().SingleInstance();
+            cb.RegisterType<ReplayCases>().As<IReplayCases>().SingleInstance();
 
             // Parser
             cb.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();

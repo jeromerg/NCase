@@ -24,17 +24,17 @@ namespace NCase.Front.Imp.Tree
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            public ITree Create(string defName, IBook book)
+            public ITree Create(string defName, ITokenStream tokenStream)
             {
-                return new Tree(defName, book, mServices, mCodeLocationUtil);
+                return new Tree(defName, tokenStream, mServices, mCodeLocationUtil);
             }
         }
 
         public Tree([NotNull] string defName,
-                    [NotNull] IBook book,
+                    [NotNull] ITokenStream tokenStream,
                     [NotNull] IServices<ITreeModel> services,
                     [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new TreeId(defName), book, services, codeLocationUtil)
+            : base(new TreeId(defName), tokenStream, services, codeLocationUtil)
         {
         }
 

@@ -10,13 +10,13 @@ namespace NCase.Front.Imp.Builder
 {
     public class Builder : Artefact<IBuilderModel>, IBuilder, IBuilderModel
     {
-        [NotNull] private readonly IBook mBook;
+        [NotNull] private readonly ITokenStream mTokenStream;
 
-        public Builder([NotNull] IBook book, [NotNull] IServices<IBuilderModel> services)
+        public Builder([NotNull] ITokenStream tokenStream, [NotNull] IServices<IBuilderModel> services)
             : base(services)
         {
-            if (book == null) throw new ArgumentNullException("book");
-            mBook = book;
+            if (tokenStream == null) throw new ArgumentNullException("tokenStream");
+            mTokenStream = tokenStream;
         }
 
         public override IBuilderModel Model
@@ -26,9 +26,9 @@ namespace NCase.Front.Imp.Builder
 
         #region IBuilderModel
 
-        public IBook Book
+        public ITokenStream TokenStream
         {
-            get { return mBook; }
+            get { return mTokenStream; }
         }
 
         #endregion

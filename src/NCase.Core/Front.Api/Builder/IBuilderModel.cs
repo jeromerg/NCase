@@ -6,6 +6,6 @@ namespace NCase.Front.Api.Builder
 {
     public interface IBuilderModel : IArtefactModel
     {
-        [NotNull] IBook Book { get; }
+        [NotNull] ITokenStream TokenStream { get; }
     }
 }

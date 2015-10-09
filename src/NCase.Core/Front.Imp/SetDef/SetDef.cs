@@ -13,10 +13,10 @@ namespace NCase.Front.Imp.SetDef
         where TModel : ISetDefModel<TId>
     {
         protected SetDef([NotNull] TId id,
-                         [NotNull] IBook book,
+                         [NotNull] ITokenStream tokenStream,
                          [NotNull] IServices<TModel> services,
                          [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(id, services, book, codeLocationUtil)
+            : base(id, services, tokenStream, codeLocationUtil)
         {
         }
     }

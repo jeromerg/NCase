@@ -17,7 +17,7 @@ namespace NCase.Front.Imp.Builder
 
         public T Create<T>(IBuilderModel builderModel, string name)
         {
-            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(builderModel.Book, name);
+            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(builderModel.TokenStream, name);
         }
     }
 }

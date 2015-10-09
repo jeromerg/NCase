@@ -8,6 +8,6 @@ namespace NCase.Front.Api.Pairwise
 {
     public interface IPairwiseFactory : IService<IBuilderModel>
     {
-        IPairwise Create([NotNull] string defName, [NotNull] IBook book);
+        IPairwise Create([NotNull] string defName, [NotNull] ITokenStream tokenStream);
     }
 }

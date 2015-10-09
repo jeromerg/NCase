@@ -8,6 +8,6 @@ namespace NCase.Front.Api.Tree
 {
     public interface ITreeFactory : IService<IBuilderModel>
     {
-        ITree Create([NotNull] string defName, [NotNull] IBook book);
+        ITree Create([NotNull] string defName, [NotNull] ITokenStream tokenStream);
     }
 }
