@@ -1,4 +1,4 @@
-﻿<NsDepCopConfig IsEnabled="False" CodeIssueKind="Error">
+﻿<NsDepCopConfig IsEnabled="True" CodeIssueKind="Error">
 
   <Allowed From="*" To="System.*" />
   <Allowed From="*" To="JetBrains.*" />
@@ -14,6 +14,6 @@
   <Allowed From="NDsl.Front.Api.*" To="NDsl.Back.Api.*" />
 
   <Allowed From="NDsl.Back.Imp.*" To="NDsl.Back.Api.*" />
-  <Allowed From="NDsl.Back.Api.*" To="NDsl.Back.Api.Core" />
+  <Allowed From="NDsl.Back.Api.*" To="NDsl.Back.Api.*" />
 
 </NsDepCopConfig>

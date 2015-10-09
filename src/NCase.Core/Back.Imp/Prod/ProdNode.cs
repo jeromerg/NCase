@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCase.Back.Api.Prod;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
+using NDsl.Back.Api.Def;
+using NDsl.Back.Api.Util;
 
 namespace NCase.Back.Imp.Prod
 {

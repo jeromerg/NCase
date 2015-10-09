@@ -1,4 +1,4 @@
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
 
 namespace NCase.Back.Api.Pairwise
 {

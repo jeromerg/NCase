@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
 using NDsl.Back.Api.RecPlay;
 
 namespace NCase.Back.Imp.InterfaceRecPlay

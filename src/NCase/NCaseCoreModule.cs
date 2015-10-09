@@ -6,8 +6,11 @@ using NCase.Back.Api.Replay;
 using NCase.Back.Imp.Parse;
 using NCase.Back.Imp.Print;
 using NCase.Back.Imp.Replay;
-using NCase.Front.Imp;
-using NCase.Front.Imp.Op;
+using NCase.Front.Imp.Builder;
+using NCase.Front.Imp.Case;
+using NCase.Front.Imp.CaseEnumerable;
+using NCase.Front.Imp.Fact;
+using NCase.Front.Imp.Tool;
 
 namespace NCase.Front.Ui
 {
@@ -22,7 +25,7 @@ namespace NCase.Front.Ui
             // CaseEnumerable, Case, Fact factories
             cb.RegisterType<CaseEnumerablefactory>().AsSelf().SingleInstance();
             cb.RegisterType<CaseFactory>().AsSelf().SingleInstance();
-            cb.RegisterType<Fact.Factory>().AsSelf().SingleInstance();
+            cb.RegisterType<FactFactory>().AsSelf().SingleInstance();
 
             // Parser
             cb.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();
@@ -43,7 +46,7 @@ namespace NCase.Front.Ui
             cb.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // PrintLine Case Table
-            cb.RegisterType<Imp.Op.PrintTable>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintTable>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
 

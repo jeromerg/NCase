@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
 using NCase.Back.Api.Print;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
-using NDsl.Back.Api.Util;
+using NDsl.Back.Api.Util.Table;
 
 namespace NCase.Back.Imp.Print
 {

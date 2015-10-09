@@ -1,7 +1,7 @@
 using System.Linq;
 using NCase.Back.Api.Pairwise;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
 using NDsl.Back.Api.RecPlay;
 
 namespace NCase.Back.Imp.Pairwise

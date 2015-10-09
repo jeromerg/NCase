@@ -1,6 +1,6 @@
 using NCase.Back.Api.Pairwise;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Block;
+using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 
 namespace NCase.Back.Imp.Pairwise

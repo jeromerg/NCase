@@ -1,6 +1,6 @@
 ﻿using NCase.Back.Api.Print;
 using NCase.Back.Api.Prod;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
 
 namespace NCase.Back.Imp.Prod
 {

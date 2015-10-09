@@ -1,7 +1,8 @@
 using Castle.DynamicProxy;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.RecPlay;
+using NDsl.Back.Api.Util;
 
 namespace NCase.Back.Imp.InterfaceRecPlay
 {
@@ -20,7 +21,7 @@ namespace NCase.Back.Imp.InterfaceRecPlay
             CodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
 
-            PropertyCallKey setterCallKey = InvocationUtil.TryGetPropertyCallKeyFromSetter(invocation);
+            PropertyCallKey setterCallKey = InvocationExtensions.TryGetPropertyCallKeyFromSetter(invocation);
             if (setterCallKey == null)
             {
                 throw new InvalidSyntaxException(token.CodeLocation,

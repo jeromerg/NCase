@@ -1,6 +1,6 @@
 using NCase.Back.Api.Parse;
 using NCase.Back.Api.Prod;
-using NDsl.Back.Api.Block;
+using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 
 namespace NCase.Back.Imp.Prod

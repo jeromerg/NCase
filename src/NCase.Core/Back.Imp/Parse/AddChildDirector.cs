@@ -1,5 +1,5 @@
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
 using NVisitor.Api.ActionPair;
 
 namespace NCase.Back.Imp.Parse

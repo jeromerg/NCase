@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NDsl.Back.Api.Core;
+using NCase.Back.Api.SetDef;
+using NDsl.Back.Api.Common;
 
 namespace NCase.Back.Api.Tree
 {

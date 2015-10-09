@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
 using NVisitor.Api.FuncPayload;
 
 namespace NCase.Back.Imp.Parse

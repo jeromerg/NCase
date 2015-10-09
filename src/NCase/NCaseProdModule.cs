@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using NCase.Back.Imp.Prod;
-using NCase.Front.Imp;
-using NCase.Front.Imp.Op;
+using NCase.Front.Api.Prod;
+using NCase.Front.Imp.Prod;
 
 namespace NCase.Front.Ui
 {
@@ -13,7 +13,7 @@ namespace NCase.Front.Ui
             base.Load(builder);
 
             // Case sets
-            builder.RegisterType<Prod.Factory>().As<IProdFactory>().SingleInstance();
+            builder.RegisterType<ProdFactory>().As<IProdFactory>().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

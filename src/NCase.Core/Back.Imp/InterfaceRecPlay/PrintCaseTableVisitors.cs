@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using NCase.Back.Api.Print;
 using NDsl.Back.Api.RecPlay;
-using NDsl.Back.Api.Util;
+using NDsl.Back.Api.Util.Table;
 
 namespace NCase.Back.Imp.InterfaceRecPlay
 {

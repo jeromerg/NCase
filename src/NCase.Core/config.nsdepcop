@@ -1,4 +1,4 @@
-﻿<NsDepCopConfig IsEnabled="False" CodeIssueKind="Error">
+﻿<NsDepCopConfig IsEnabled="True" CodeIssueKind="Error">
   <Allowed From="*" To="System.*" />
   <Allowed From="*" To="JetBrains.*" />
   <Allowed From="*" To="NVisitor.Api.*" />
@@ -16,8 +16,17 @@
   <Allowed From="NCase.Front.Imp.Op.*" To="NCase.Front.Imp.Artefact.*" />
 
   <!-- FRONT - internal -->
-  <Allowed From="NCase.Front.Api.*" To="NCase.Front.Ui.*" />
+  <Allowed From="NCase.Front.Ui.*" To="NCase.Front.Api.*" />
+  <Allowed From="NCase.Front.Ui.*" To="NCase.Back.Api.*" />
+  <Allowed From="NCase.Front.Ui.*" To="NDsl.Front.Api.*" />
+  <Allowed From="NCase.Front.Ui.*" To="NDsl.Back.Api.*" />
 
+  <Allowed From="NCase.Front.Api.*" To="NCase.Front.Ui.*" />
+  <Allowed From="NCase.Front.Api.*" To="NCase.Front.Api.*" />
+  <Allowed From="NCase.Front.Api.*" To="NCase.Back.Api.*" />
+  <Allowed From="NCase.Front.Api.*" To="NDsl.Back.Api.*" />
+
+  <Allowed From="NCase.Front.Imp.*" To="NCase.Front.Imp.*" />
   <Allowed From="NCase.Front.Imp.*" To="NCase.Front.Ui.*" />
   <Allowed From="NCase.Front.Imp.*" To="NCase.Front.Api.*" />
   <Allowed From="NCase.Front.Imp.*" To="NCase.Back.Api.*" />
@@ -29,7 +38,7 @@
   <Allowed From="NCase.Back.Imp.*"  To="NDsl.Back.Imp.*" />
 
   <!-- BACK - internal -->
-  <Allowed From="NCase.Back.Api.*"  To="NCase.Back.Api.Core" />
+  <Allowed From="NCase.Back.Api.*"  To="NCase.Back.Api.*" />
   <Allowed From="NCase.Back.Imp.*"  To="NCase.Back.Api.*" />
 
   <!-- BACK - Castle -->

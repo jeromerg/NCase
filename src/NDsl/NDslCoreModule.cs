@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using Autofac;
-using NDsl.Back.Api.Core;
 using NDsl.Back.Api.Util;
-using NDsl.Back.Imp.Core;
+using NDsl.Back.Api.Util.Table;
+using NDsl.Back.Imp.Common;
 using NDsl.Back.Imp.Util;
+using NDsl.Back.Imp.Util.Table;
 using NVisitor.Api.Action;
 using NVisitor.Api.ActionPair;
 using NVisitor.Api.ActionPayload;

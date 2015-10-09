@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using NCase.Back.Imp.Tree;
-using NCase.Front.Imp;
-using NCase.Front.Imp.Op;
+using NCase.Front.Api.Tree;
+using NCase.Front.Imp.Tree;
 
 namespace NCase.Front.Ui
 {

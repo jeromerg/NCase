@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NCase.Back.Api.Parse;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
+using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 
 namespace NCase.Back.Imp.Parse

@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
+using NCase.Back.Api.SetDef;
 using NCase.Back.Api.Tree;
-using NDsl.Back.Api.Core;
+using NDsl.Back.Api.Common;
 
 namespace NCase.Back.Api.Prod
 {
