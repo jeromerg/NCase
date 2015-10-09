@@ -82,7 +82,7 @@ namespace NDsl.Back.Imp.RecPlay
 
         private void InterceptInReplayMode(IInvocation invocation)
         {
-            PropertyCallKey propertyCallKey = InvocationExtensions.TryGetPropertyCallKeyFromGetter(invocation);
+            PropertyCallKey propertyCallKey = invocation.TryGetPropertyCallKeyFromGetter();
             if (propertyCallKey == null)
                 throw new InvalidCaseRecordException("Invalid call to {0} in replay mode. Only property getter allowed",
                                                      invocation.Method);

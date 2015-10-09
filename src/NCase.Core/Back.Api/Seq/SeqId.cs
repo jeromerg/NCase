@@ -1,5 +1,4 @@
 using NCase.Back.Api.SetDef;
-using NCase.Back.Api.Tree;
 
 namespace NCase.Back.Api.Seq
 {

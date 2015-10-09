@@ -5,6 +5,5 @@ namespace NDsl.Back.Api.Util
     [SuppressMessage("ReSharper", "UnusedTypeParameter")]
     public interface IService<in TModel>
     {
-        
     }
 }

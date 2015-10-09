@@ -9,7 +9,14 @@ namespace NDsl.Back.Imp.RecPlay
 {
     public class InterfaceRecPlayNode : IInterfaceRecPlayNode
     {
-        #region inner types
+        [NotNull] private readonly IInterfaceRecPlayInterceptor mParentInterceptor;
+
+        [NotNull] private readonly string mContributorName;
+        [NotNull] private readonly PropertyCallKey mPropertyCallKey;
+        [CanBeNull] private readonly object mPropertyValue;
+        [NotNull] private readonly CodeLocation mCodeLocation;
+
+        private bool mIsReplay;
 
         public class Factory : IInterfaceReIInterfaceRecPlayNodeFactory
         {
@@ -22,17 +29,6 @@ namespace NDsl.Back.Imp.RecPlay
                 return new InterfaceRecPlayNode(parentInterceptor, contributorName, propertyCallKey, propertyValue, codeLocation);
             }
         }
-
-        #endregion
-
-        [NotNull] private readonly IInterfaceRecPlayInterceptor mParentInterceptor;
-
-        [NotNull] private readonly string mContributorName;
-        [NotNull] private readonly PropertyCallKey mPropertyCallKey;
-        [CanBeNull] private readonly object mPropertyValue;
-        [NotNull] private readonly CodeLocation mCodeLocation;
-
-        private bool mIsReplay;
 
         public InterfaceRecPlayNode([NotNull] IInterfaceRecPlayInterceptor parentInterceptor,
                                     [NotNull] string contributorName,

@@ -3,7 +3,7 @@ using NDsl.Back.Api.Util;
 
 namespace NCase.Front.Api.SetDef
 {
-    public interface IPrintDef 
+    public interface IPrintDef
         : IService<ISetDefModel<ISetDefId>>
 
     {

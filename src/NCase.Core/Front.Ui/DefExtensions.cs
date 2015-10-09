@@ -1,6 +1,4 @@
 using NCase.Back.Api.SetDef;
-using NCase.Back.Api.Tree;
-using NCase.Front.Api;
 using NCase.Front.Api.SetDef;
 
 namespace NCase.Front.Ui

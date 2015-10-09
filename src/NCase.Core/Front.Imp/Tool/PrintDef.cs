@@ -8,14 +8,13 @@ using NDsl.Back.Api.Common;
 
 namespace NCase.Front.Imp.Tool
 {
-
     public class PrintDef : IPrintDef
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
         private readonly Func<IPrintDefinitionDirector> mPrintDefinitionDirectorFactory;
 
         public PrintDef([NotNull] IParserGenerator parserGenerator,
-                                   [NotNull] Func<IPrintDefinitionDirector> printDefinitionDirectorFactory)
+                        [NotNull] Func<IPrintDefinitionDirector> printDefinitionDirectorFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (printDefinitionDirectorFactory == null) throw new ArgumentNullException("printDefinitionDirectorFactory");

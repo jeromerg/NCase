@@ -12,7 +12,7 @@ namespace NCase.Front.Imp.Case
     {
         [NotNull] private readonly IServices<ICaseModel> mServices;
 
-        public CaseFactory([NotNull] IServices <ICaseModel> services)
+        public CaseFactory([NotNull] IServices<ICaseModel> services)
         {
             if (services == null) throw new ArgumentNullException("services");
             mServices = services;

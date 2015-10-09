@@ -11,7 +11,9 @@ namespace NCase.Front.Imp.Pairwise
 {
     public class Pairwise : SetDef<IPairwiseModel, PairwiseId>, IPairwise, IPairwiseModel
     {
-        public Pairwise([NotNull] string defName, [NotNull] IBook book, [NotNull] IServices<IPairwiseModel> services,
+        public Pairwise([NotNull] string defName,
+                        [NotNull] IBook book,
+                        [NotNull] IServices<IPairwiseModel> services,
                         [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(new PairwiseId(defName), book, services, codeLocationUtil)
         {
@@ -22,6 +24,5 @@ namespace NCase.Front.Imp.Pairwise
         {
             get { return this; }
         }
-
     }
 }

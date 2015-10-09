@@ -9,7 +9,7 @@ namespace NCase.Back.Api.Print
     {
         bool IsRecursive { get; set; }
         bool IsFileInfo { set; }
-        
+
         void Indent();
 
         void Dedent();

@@ -21,7 +21,7 @@ namespace NCase.Back.Imp.InterfaceRecPlay
             CodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;
 
-            PropertyCallKey setterCallKey = InvocationExtensions.TryGetPropertyCallKeyFromSetter(invocation);
+            PropertyCallKey setterCallKey = invocation.TryGetPropertyCallKeyFromSetter();
             if (setterCallKey == null)
             {
                 throw new InvalidSyntaxException(token.CodeLocation,

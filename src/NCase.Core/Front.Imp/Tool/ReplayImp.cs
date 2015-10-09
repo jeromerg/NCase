@@ -23,7 +23,7 @@ namespace NCase.Front.Imp.Tool
         }
 
         public ICaseEnumerable Perform(ICaseEnumerableModel caseEnumerableModel)
-        {            
+        {
             IEnumerable<List<INode>> cases = Replay(caseEnumerableModel.Cases);
             return mCaseEnumerableFactory.Create(cases);
         }

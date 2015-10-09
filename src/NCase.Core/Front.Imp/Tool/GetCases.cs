@@ -16,7 +16,7 @@ namespace NCase.Front.Imp.Tool
         [NotNull] private readonly CaseEnumerablefactory mCaseEnumerableFactory;
 
         public GetCases([NotNull] IParserGenerator parserGenerator,
-                            [NotNull] CaseEnumerablefactory caseEnumerableFactory)
+                        [NotNull] CaseEnumerablefactory caseEnumerableFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");

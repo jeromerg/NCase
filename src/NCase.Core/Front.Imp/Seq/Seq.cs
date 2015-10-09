@@ -10,7 +10,10 @@ namespace NCase.Front.Imp.Seq
 {
     public class Seq : SetDef<ISeqModel, SeqId>, ISeq, ISeqModel
     {
-        public Seq([NotNull] string defName, [NotNull] IBook book, [NotNull] IServices<ISeqModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
+        public Seq([NotNull] string defName,
+                   [NotNull] IBook book,
+                   [NotNull] IServices<ISeqModel> services,
+                   [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(new SeqId(defName), book, services, codeLocationUtil)
         {
         }
