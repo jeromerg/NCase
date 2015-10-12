@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using NCase.Front.Ui;
 using NUnit.Framework;
 
-namespace NCaseTest
+namespace NCase.Test
 {
     [TestFixture]
     public class CartesianProductTests

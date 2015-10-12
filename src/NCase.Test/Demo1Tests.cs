@@ -3,13 +3,13 @@ using System.Diagnostics.CodeAnalysis;
 using NCase.Front.Ui;
 using NUnit.Framework;
 
-namespace NCaseTest
+namespace NCase.Test
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "UnusedVariable")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public class DemoTests
+    public class Demo1Tests
     {
         public enum Curr
         {
@@ -40,7 +40,7 @@ namespace NCaseTest
         [Test]
         public void SimpleTreeTest()
         {
-            IBuilder builder = CaseBuilder.Create();
+            var builder = CaseBuilder.Create();
             var t = builder.CreateContributor<ITransfer>("t");
 
             var transfers = builder.CreateTree("transfers");
