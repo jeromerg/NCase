@@ -63,6 +63,8 @@ namespace NCase.Back.Imp.Print
 
         #endregion
 
+        private const string INDENTATION_STRING = "    ";
+
         [NotNull] private readonly ITableBuilder mStringBuilder;
 
         private int mIndentation;
@@ -76,7 +78,6 @@ namespace NCase.Back.Imp.Print
             mStringBuilder = stringBuilder;
         }
 
-        public string IndentationString { get; set; }
         public bool IsRecursive { get; set; }
 
         public bool IsFileInfo
@@ -115,7 +116,7 @@ namespace NCase.Back.Imp.Print
         {
             var sb = new StringBuilder();
             for (int i = 0; i < mIndentation; i++)
-                sb.Append(IndentationString);
+                sb.Append(INDENTATION_STRING);
 
             sb.AppendFormat(format, args);
 

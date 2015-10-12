@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using NCase.Front.Ui;
 using NUnit.Framework;
 
@@ -71,15 +72,15 @@ namespace NCase.Test
                             t.Accepted = false;
             }
 
-            Console.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
-            Console.WriteLine("---------|-------------|--------|---------");
+            ConsoleWithOutputExtractor.WriteLine("CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
+            ConsoleWithOutputExtractor.WriteLine("---------|-------------|--------|---------");
             foreach (ICase cas in transfers.Cases().Replay())
             {
-                Console.WriteLine("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}",
+                ConsoleWithOutputExtractor.WriteLine(string.Format("{0,8} | {1,11:000.00} | {2,6:000.00} | {3,-8}",
                                   t.Currency,
                                   t.BalanceUsd,
                                   t.Amount,
-                                  t.Accepted);
+                                  t.Accepted));
             }
         }
 
@@ -101,11 +102,11 @@ namespace NCase.Test
                 t.Card = Card.Maestro;
             }
 
-            Console.WriteLine("DEST_BANK     | CARD       ");
-            Console.WriteLine("--------------|------------");
+            ConsoleWithOutputExtractor.WriteLine("DEST_BANK     | CARD       ");
+            ConsoleWithOutputExtractor.WriteLine("--------------|------------");
             foreach (ICase cas in cardsAndBanks.Cases().Replay())
             {
-                Console.WriteLine("{0,-13} | {1,-10}", t.DestBank, t.Card);
+                ConsoleWithOutputExtractor.WriteLine(string.Format("{0,-13} | {1,-10}", t.DestBank, t.Card));
             }
         }
 
@@ -162,17 +163,17 @@ namespace NCase.Test
                 cardsAndBanks.Ref();
             }
 
-            Console.WriteLine("DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
-            Console.WriteLine("--------------|------------|----------|-------------|--------|---------");
+            ConsoleWithOutputExtractor.WriteLine("DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED");
+            ConsoleWithOutputExtractor.WriteLine("--------------|------------|----------|-------------|--------|---------");
             foreach (ICase cas in transfersForAllcardsAndBanks.Cases().Replay())
             {
-                Console.WriteLine("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}",
+                ConsoleWithOutputExtractor.WriteLine(string.Format("{0,-13} | {1,-10} | {2,8} | {3,11:000.00} | {4,6:000.00} | {5,-8}",
                                   t.DestBank,
                                   t.Card,
                                   t.Currency,
                                   t.BalanceUsd,
                                   t.Amount,
-                                  t.Accepted);
+                                  t.Accepted));
             }
         }
 
@@ -181,17 +182,17 @@ namespace NCase.Test
         {
             IProd prod = GetTipicalMixOfTreeAndProd();
 
-            WriteTitle("DEFAULT OPTIONS: prod.PrintDef()");
-            Console.WriteLine(prod.PrintDef());
+            WriteLine("# DEFAULT OPTIONS: prod.PrintDef()");
+            ConsoleWithOutputExtractor.WriteLine(prod.PrintDef());
 
-            WriteTitle("OPTION prod.PrintDef(isRecursive : true)");
-            Console.WriteLine(prod.PrintDef(isRecursive: true));
+            WriteLine("# OPTION prod.PrintDef(isRecursive : true)");
+            ConsoleWithOutputExtractor.WriteLine(prod.PrintDef(isRecursive: true));
 
-            WriteTitle("OPTION: prod.PrintDef(includeFileInfo : true)");
-            Console.WriteLine(prod.PrintDef(true));
+            WriteLine("# OPTION: prod.PrintDef(includeFileInfo : true)");
+            ConsoleWithOutputExtractor.WriteLine(prod.PrintDef(true));
 
-            WriteTitle("OPTION: prod.PrintDef(isRecursive : true, includeFileInfo : true)");
-            Console.WriteLine(prod.PrintDef(isRecursive: true, isFileInfo: true));
+            WriteLine("# OPTION: prod.PrintDef(isRecursive : true, includeFileInfo : true)");
+            ConsoleWithOutputExtractor.WriteLine(prod.PrintDef(isRecursive: true, isFileInfo: true));
         }
 
         [Test]
@@ -199,11 +200,11 @@ namespace NCase.Test
         {
             ITree transfers = GetTypicalTreeWithReferences();
 
-            WriteTitle("DEFAULT OPTION: transfers.PrintTable()");
-            Console.WriteLine(transfers.PrintTable());
+            WriteLine("# DEFAULT OPTION: transfers.PrintTable()");
+            ConsoleWithOutputExtractor.WriteLine(transfers.PrintTable());
 
-            WriteTitle("OPTION: transfers.PrintTable(isRecursive:true)");
-            Console.WriteLine(transfers.PrintTable(isRecursive:true));
+            WriteLine("# OPTION: transfers.PrintTable(isRecursive:true)");
+            ConsoleWithOutputExtractor.WriteLine(transfers.PrintTable(isRecursive:true));
         }
 
         #region Helpers
@@ -302,15 +303,13 @@ namespace NCase.Test
 
             return testCasesDef;
         }
-
-        private static void WriteTitle(string title)
-        {
-            Console.WriteLine();
-            Console.WriteLine(title);
-            Console.WriteLine(new string('=', title.Length));
-            Console.WriteLine();
-        }
-
         #endregion
+               
+        private static void WriteLine(string txt, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null)
+        {
+            // ReSharper disable ExplicitCallerInfoArgument
+            ConsoleWithOutputExtractor.WriteLine(txt, filePath, memberName);
+            // ReSharper restore ExplicitCallerInfoArgument
+        }
     }
 }
