@@ -306,7 +306,7 @@ namespace NCase.Test
         private static void WriteLine(string txt, [CallerFilePath] string filePath = null, [CallerMemberName] string memberName = null)
         {
             // ReSharper disable ExplicitCallerInfoArgument
-            ConsoleWithOutputExtractor.WriteLine(txt, filePath, memberName);
+            ConsoleAndBlockExtractor.WriteLine(txt, filePath, memberName);
             // ReSharper restore ExplicitCallerInfoArgument
         }
 

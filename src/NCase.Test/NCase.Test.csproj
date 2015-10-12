@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CartesianProductTests.cs" />
-    <Compile Include="ConsoleWithOutputExtractor.cs" />
+    <Compile Include="ConsoleAndBlockExtractor.cs" />
     <Compile Include="Demo1Tests.cs" />
     <Compile Include="DemoTests.cs" />
     <Compile Include="TreeTests.cs" />
