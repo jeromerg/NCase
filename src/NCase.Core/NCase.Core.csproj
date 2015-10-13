@@ -54,6 +54,7 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Back.Api\Pairwise\IPairwiseGenerator.cs" />
     <Compile Include="Back.Api\Parse\GenerateOptions.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableDirector.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
@@ -69,10 +70,11 @@
     <Compile Include="Back.Imp\InterfaceRecPlay\ReplayVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\GenerateCaseVisitors.cs" />
-    <Compile Include="Back.Imp\Pairwise\IntDictionaryHelper.cs" />
+    <Compile Include="Back.Imp\Pairwise\%28Algo%29\IntDictionaryHelper.cs" />
+    <Compile Include="Back.Imp\Pairwise\%28Algo%29\PairDictionary.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
-    <Compile Include="Back.Imp\Pairwise\PairwiseGenerator.cs" />
+    <Compile Include="Back.Imp\Pairwise\%28Algo%29\PairwiseGenerator.cs" />
     <Compile Include="Back.Imp\Pairwise\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Parse\GenerateCasesVisitors.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableDirector.cs" />

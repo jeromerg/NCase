@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using NCase.Back.Api.Pairwise;
 using NCase.Back.Imp.Pairwise;
 using NCase.Front.Api.Pairwise;
 using NCase.Front.Imp.Pairwise;
@@ -24,6 +25,9 @@ namespace NCase.Front.Ui
 
             // PrintDefinition
             builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
+            
+            // pairwise algorithm
+            builder.RegisterType<PairwiseGenerator>().As<IPairwiseGenerator>().SingleInstance();
         }
     }
 }
