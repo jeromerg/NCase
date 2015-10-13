@@ -69,8 +69,10 @@
     <Compile Include="Back.Imp\InterfaceRecPlay\ReplayVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\GenerateCaseVisitors.cs" />
+    <Compile Include="Back.Imp\Pairwise\IntDictionaryHelper.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
+    <Compile Include="Back.Imp\Pairwise\PairwiseGenerator.cs" />
     <Compile Include="Back.Imp\Pairwise\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Parse\GenerateCasesVisitors.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableDirector.cs" />
