@@ -11,46 +11,141 @@ namespace NCase.Back.Imp.Pairwise
         public IEnumerable<int[]> Generate([NotNull] int[] dimSizes)
         {
             if (dimSizes == null) throw new ArgumentNullException("dimSizes");
-            
-            var pairGenerations = new List<PairDictionary> { new PairDictionary(dimSizes) };
-            while (pairGenerations.First(/*generation*/).Any(/*pair*/))
-                yield return GenerateSingleTuple(dimSizes, pairGenerations);
+            if (dimSizes.Length < 2)
+                throw new ArgumentOutOfRangeException("dimSizes", "dimSizes.length must be greater or equal to 2");
+            if (dimSizes.Any(s => s <= 0)) throw new ArgumentOutOfRangeException("dimSizes", "Some dimension has no value");
+
+            var pairGenerations = new List<PairDictionary> {new PairDictionary(dimSizes)};
+
+            // while any pair exists in first generation (unused pair)
+            while (pairGenerations.First().Any())
+                yield return GenerateNextTuple(dimSizes, pairGenerations);
         }
 
-        private int[] GenerateSingleTuple(int[] dimSizes, List<PairDictionary> pairGenerations)
+        private int[] GenerateNextTuple(int[] dimSizes, List<PairDictionary> pairGenerations)
         {
-            int[] result = new int[dimSizes.Length];
+            int[] tupleUnderConstruction = Enumerable.Repeat(-1, dimSizes.Length).ToArray();
+
             var remainingDims = new HashSet<int>(Enumerable.Range(0, dimSizes.Length));
 
             while (remainingDims.Any())
             {
                 int dim1, val1, dim2, val2;
-                TakeMostUnused(pairGenerations, remainingDims, out dim1, out val1, out dim2, out val2);
+                RemoveLessUsedPair(pairGenerations, remainingDims.ToList(), tupleUnderConstruction, out dim1, out val1, out dim2, out val2);
                 remainingDims.Remove(dim1);
                 remainingDims.Remove(dim2);
-                result[dim1] = val1;
-                result[dim2] = val2;
+                tupleUnderConstruction[dim1] = val1;
+                tupleUnderConstruction[dim2] = val2;
             }
-            return result;
+            return tupleUnderConstruction;
         }
 
-        private void TakeMostUnused(List<PairDictionary> pairGenerations, HashSet<int> remainingDims, out int dim1, out int val1, out int dim2, out int val2)
+        private void RemoveLessUsedPair(
+            List<PairDictionary> generations,
+            List<int> remainingDims,
+            int[] tupleUnderConstruction,
+            out int dim1,
+            out int val1,
+            out int dim2,
+            out int val2)
         {
-            for (int generationIndex = 0; generationIndex < pairGenerations.Count; generationIndex++)
+            for (int generationIndex = 0; generationIndex < generations.Count; generationIndex++)
             {
-                PairDictionary pairGeneration = pairGenerations[generationIndex];
+                PairDictionary pairGeneration = generations[generationIndex];
 
-                bool removed = pairGeneration.TryRemoveFirst(dim1, out val1, out dim2, out val2);
-                if (removed)
+                bool ok = TryRemoveSomePair(pairGeneration, remainingDims.ToList(), out dim1, out val1, out dim2, out val2);
+                if (ok)
                 {
-                    if (generationIndex >= pairGenerations.Count)
-                        pairGenerations.Add(new PairDictionary());
-
-                    pairGenerations[generationIndex + 1].Add(dim1, val1, dim2, val2);
+                    // perfect, pair found => move pair to next generation and returns it
+                    PairDictionary nextGeneration = GetOrCreateNextGeneration(generations, generationIndex);
+                    nextGeneration.Add(dim1, val1, dim2, val2);
                     return;
                 }
+
+                ok = TryRemoveSomePairWithAlreadyFrozenDims(pairGeneration,
+                                                           remainingDims,
+                                                           tupleUnderConstruction,
+                                                           out dim1,
+                                                           out val1,
+                                                           out dim2,
+                                                           out val2);
+                if (ok)
+                    return;
             }
-            throw new ArgumentException();
+            throw new ArgumentException("This case should never happen");
+        }
+
+        private bool TryRemoveSomePair(PairDictionary generation,
+                                       List<int> remainingDims,
+                                       out int dim1,
+                                       out int val1,
+                                       out int dim2,
+                                       out int val2)
+        {
+            // for each possible pair of dimensions (dim1, dim2) !inside! remainingDims 
+            // lookup whether the generation contains a pair
+            for (int i = 0; i < remainingDims.Count; i++)
+            {
+                dim1 = remainingDims[i];
+
+                for (int j = i + 1; j < remainingDims.Count; j++)
+                {
+                    dim2 = remainingDims[j];
+
+                    bool ok = generation.TryRemoveFirst(dim1, out val1, dim2, out val2);
+                    if (ok)
+                        return true;
+                }
+            }
+
+            dim1 = val1 = dim2 = val2 = -1;
+            return false;
+        }
+
+        private bool TryRemoveSomePairWithAlreadyFrozenDims(PairDictionary generation,
+                                                           List<int> remainingDims,
+                                                           int[] tupleUnderConstruction,
+                                                           out int dim1,
+                                                           out int val1,
+                                                           out int dim2,
+                                                           out int val2)
+        {
+            // for each possible pair of dimensions (dim1, dim2) !inside! remainingDims 
+            // lookup whether the generation contains a pair
+            for (int i = 0; i < remainingDims.Count; i++)
+            {
+                dim1 = remainingDims[i];
+
+                for (dim2 = 0; dim2 < tupleUnderConstruction.Length; dim2++)
+                {
+                    val2 = tupleUnderConstruction[dim2];
+
+                    if (val2 < 0)
+                        continue; // dimension is not frozen
+
+                    bool ok = generation.TryRemoveFirst(dim2, val2, dim1, out val1);
+                    if (ok)
+                        return true;
+                }
+            }
+
+            dim1 = val1 = dim2 = val2 = -1;
+            return false;
+        }
+
+        private static PairDictionary GetOrCreateNextGeneration(List<PairDictionary> generations, int generationIndex)
+        {
+            PairDictionary newGeneration;
+            if (generationIndex == generations.Count - 1)
+            {
+                newGeneration = new PairDictionary();
+                generations.Add(newGeneration);
+            }
+            else
+            {
+                newGeneration = generations[generationIndex + 1];
+            }
+            return newGeneration;
         }
     }
 }

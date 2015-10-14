@@ -70,7 +70,7 @@
     <Compile Include="Back.Imp\InterfaceRecPlay\ReplayVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\GenerateCaseVisitors.cs" />
-    <Compile Include="Back.Imp\Pairwise\%28Algo%29\IntDictionaryHelper.cs" />
+    <Compile Include="Back.Imp\Pairwise\%28Algo%29\DictionaryCascadeExtensions.cs" />
     <Compile Include="Back.Imp\Pairwise\%28Algo%29\PairDictionary.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
