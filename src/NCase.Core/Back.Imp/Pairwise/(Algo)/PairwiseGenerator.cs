@@ -42,7 +42,7 @@ namespace NCase.Back.Imp.Pairwise
             {
                 PairSet pairGeneration = generations[generationIndex];
 
-                Pair pair = TryPeakPair(pairGeneration, tuple);
+                Pair pair = TryPeakBestPair(pairGeneration, tuple);
                 if (pair == null)
                     continue;
 
@@ -66,7 +66,7 @@ namespace NCase.Back.Imp.Pairwise
         }
 
         [CanBeNull]
-        private Pair TryPeakPair(PairSet pairs, Tuple tuple)
+        private Pair TryPeakBestPair(PairSet pairs, Tuple tuple)
         {
             return TryPeakPairInFreeDims(pairs, tuple)
                    ?? TryPeakPairInFreeAndFrozenDims(pairs, tuple);

@@ -34,5 +34,10 @@
         {
             get { return mVal2; }
         }
+
+        public override string ToString()
+        {
+            return string.Format("dim1 ({0}, {1}) dim2: ({2}, {3})", mDim1, mVal1, mDim2, mVal2);
+        }
     }
 }

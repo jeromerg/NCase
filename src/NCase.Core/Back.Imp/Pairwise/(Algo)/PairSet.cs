@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace NCase.Back.Imp.Pairwise
@@ -93,6 +94,21 @@ namespace NCase.Back.Imp.Pairwise
         {
             mPairs.CascadeRemove(dim1).CascadeRemove(dim2).CascadeRemove(val1).CascadeRemove(val2);
             mPairs.CascadeRemove(dim2).CascadeRemove(dim1).CascadeRemove(val2).CascadeRemove(val1);
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            foreach (var dim1 in mPairs)
+                foreach (var dim2 in dim1.Value)
+                    foreach (var val1 in dim2.Value)
+                        foreach (var val2 in val1.Value)
+                        {
+                            sb.AppendFormat("({0}, {1};{2},{3}) ", dim1.Key, val1.Key, dim2.Key, val2);
+                        }
+
+            return sb.ToString();
         }
     }
 }
