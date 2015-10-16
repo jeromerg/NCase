@@ -24,6 +24,7 @@ namespace NCase.Back.Imp.Pairwise
             // while any pair exists in first generation (unused pair)
             while (pairGenerations.First().Any())
                 yield return GenerateNextTuple(dimSizes, pairGenerations);
+
         }
 
         private int[] GenerateNextTuple(int[] dimSizes, List<PairSet> pairGenerations)
@@ -61,6 +62,7 @@ namespace NCase.Back.Imp.Pairwise
                 // add the one or two new dimValues
                 tuple.Add(pair.Dim1, pair.Val1);
                 tuple.Add(pair.Dim2, pair.Val2);
+                return;
             }
             throw new ArgumentException("This case should never happen");
         }
