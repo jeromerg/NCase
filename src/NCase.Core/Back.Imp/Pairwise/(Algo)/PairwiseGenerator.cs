@@ -9,7 +9,7 @@ namespace NCase.Back.Imp.Pairwise
 {
     public class PairwiseGenerator : IPairwiseGenerator
     {
-        public IEnumerable<int[]> Generate([NotNull] int[] dimSizes)
+        public IEnumerable<int[]> Generate(int[] dimSizes)
         {
             if (dimSizes == null)
                 throw new ArgumentNullException("dimSizes");
