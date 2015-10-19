@@ -120,39 +120,55 @@ namespace NCase.Test
         [Test]
         public void TestAlgorithmPerformance_DimsWithIdenticalSizes()
         {
+            Console.WriteLine("Name; Info; Sum Repetitions; Max Repetitions; pairProdCard; cartProdCard; rate(log10)"); 
+
             for (int dimAmount = 2; dimAmount < 10; dimAmount++)
             {
                 for (int valAmount = 1; valAmount < 10; valAmount++)
                 {
                     int[] dimSizes = Enumerable.Repeat(valAmount, dimAmount).ToArray();
-                    TestAlgorithmPerformance_SingleRun(dimSizes, string.Format("IdenticalSize, dims,vals: {0,2},{1,2}", dimAmount, valAmount));
+                    TestAlgorithmPerformance_SingleRun(dimSizes, string.Format("IdenticalSize;  ({0}:{1})", dimAmount, valAmount));
+
+                    dimSizes = Enumerable.Range(1, dimAmount).ToArray();
+                    TestAlgorithmPerformance_SingleRun(dimSizes, string.Format("IncreasingSize; ({0}:1-{1})", dimAmount, valAmount));
+
+                    dimSizes = dimSizes.Reverse().ToArray();
+                    TestAlgorithmPerformance_SingleRun(dimSizes, string.Format("DecreasingSize; ({0}:{1}-1)", dimAmount, valAmount));
                 }
             }
+
         }
 
 
         public void TestAlgorithmPerformance_SingleRun(int[] dimSizes, string name)
         {
-            int repetitions = 0;
+            int sumRepetitions = 0;
+            int maxRepetitions = 0;
 
             int[][] tuples = Generate(dimSizes);
 
             // check that all pairs are covered
-            for(int dim1=0; dim1<3; dim1++)
+            for (int dim1 = 0; dim1 < 3; dim1++)
                 for (int dim2 = dim1 + 1; dim2 < dimSizes.Length; dim2++)
                     for (int val1 = 0; val1 < dimSizes[dim1]; val1++)
                         for (int val2 = 0; val2 < dimSizes[dim2]; val2++)
                         {
                             int amountOfPairOccurence = tuples.Count(t => t[dim1] == val1 && t[dim2] == val2);
                             Assert.Greater(amountOfPairOccurence, 0);
-                            repetitions += amountOfPairOccurence - 1;
+                            sumRepetitions += amountOfPairOccurence - 1;
+                            maxRepetitions = Math.Max(maxRepetitions, amountOfPairOccurence - 1);
                         }
 
-            long cartesianProductCardinal = dimSizes.Select(s => (long)s).Aggregate((acc, val) => acc * val);
+            long cartesianProductCardinal = dimSizes.Select(s => (long) s).Aggregate((acc, val) => acc*val);
             int pairwiseProductCardinal = tuples.Length;
 
-            Console.WriteLine("{0,-20}: repetitions: {1,8}, pairProdCard: {2,8:E2}, cartProdCard: {3,12:E2}, rate(log10): {4, 6:0.00}", 
-                name, repetitions, pairwiseProductCardinal, (double)cartesianProductCardinal, Math.Log10((double)pairwiseProductCardinal / cartesianProductCardinal));
+            Console.WriteLine("{0};{1};{2};{3:E2};{4:E2};  {5}",
+                              name,
+                              sumRepetitions,
+                              maxRepetitions,
+                              pairwiseProductCardinal,
+                              (double) cartesianProductCardinal,
+                              Math.Log10((double) pairwiseProductCardinal/cartesianProductCardinal));
         }
 
         private static int[][] Generate(int[] dimSizes)
