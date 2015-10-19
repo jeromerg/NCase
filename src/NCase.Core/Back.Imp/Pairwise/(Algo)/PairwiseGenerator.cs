@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
 using NCase.Back.Api.Pairwise;
@@ -47,16 +48,20 @@ namespace NCase.Back.Imp.Pairwise
                 if (pair == null)
                     continue;
 
-                // move pair to next generation 
+                // Get next generation 
                 PairSet nextGeneration = GetOrCreateNextGeneration(generations, generationIndex);
+
+                // move pair to next generation
+                pairGeneration.Remove(pair);
                 nextGeneration.Add(pair);
 
-                // remove all pair built with the one or two new dimValues
-                pairGeneration.Remove(pair);
+                // remove all pair built with the one or two new dimValues to next generation
                 foreach (DimValue dimValue in tuple.FrozenDimValues)
                 {
                     pairGeneration.Remove(dimValue.Dim, dimValue.Val, pair.Dim1, pair.Val1);
+                    nextGeneration.Add(dimValue.Dim, dimValue.Val, pair.Dim1, pair.Val1);
                     pairGeneration.Remove(dimValue.Dim, dimValue.Val, pair.Dim2, pair.Val2);
+                    nextGeneration.Add(dimValue.Dim, dimValue.Val, pair.Dim2, pair.Val2);
                 }
 
                 // add the one or two new dimValues

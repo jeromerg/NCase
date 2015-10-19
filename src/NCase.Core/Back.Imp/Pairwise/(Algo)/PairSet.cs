@@ -100,15 +100,28 @@ namespace NCase.Back.Imp.Pairwise
         {
             var sb = new StringBuilder();
 
+            int count = 0;
             foreach (var dim1 in mPairs)
                 foreach (var dim2 in dim1.Value)
                     foreach (var val1 in dim2.Value)
                         foreach (var val2 in val1.Value)
                         {
-                            sb.AppendFormat("({0}, {1};{2},{3}) ", dim1.Key, val1.Key, dim2.Key, val2);
+                            count++;
+                            sb.AppendFormat("({0},{1};{2},{3})\n", dim1.Key, val1.Key, dim2.Key, val2);
                         }
 
-            return sb.ToString();
+            return string.Format("Count:{0}, List:{1}", count, sb);
+        }
+
+        public int GetCount()
+        {
+            int count = 0;
+            foreach (var dim1 in mPairs)
+                foreach (var dim2 in dim1.Value)
+                    foreach (var val1 in dim2.Value)
+                        count += val1.Value.Count;
+
+            return count;
         }
     }
 }

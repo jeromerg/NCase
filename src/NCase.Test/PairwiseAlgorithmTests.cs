@@ -21,13 +21,13 @@ namespace NCase.Test
         [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         [TestCase(new int[]{})]
-        [TestCase(new int[]{0})]
-        [TestCase(new int[]{1})]
-        [TestCase(new int[]{5})]
-        [TestCase(new int[]{0, 0})]
-        [TestCase(new int[]{5, 0})]
-        [TestCase(new int[]{0, 5})]
-        [TestCase(new int[]{1, 1, 1, 1, 0})]
+        [TestCase(new []{0})]
+        [TestCase(new []{1})]
+        [TestCase(new []{5})]
+        [TestCase(new []{0, 0})]
+        [TestCase(new []{5, 0})]
+        [TestCase(new []{0, 5})]
+        [TestCase(new []{1, 1, 1, 1, 0})]
         public void TestLessThanTwoDimsOrAtLeastOneEmptyDim(int[] dimSizes)
         {
             Generate(dimSizes);
@@ -108,13 +108,51 @@ namespace NCase.Test
 
             // check that all pairs are covered
             for(int dim1=0; dim1<3; dim1++)
-                for (int dim2 = dim1 + 1; dim2 < 4; dim2++)
+                for (int dim2 = dim1 + 1; dim2 < dimSizes.Length; dim2++)
                     for (int val1 = 0; val1 < dimSizes[dim1]; val1++)
                         for (int val2 = 0; val2 < dimSizes[dim2]; val2++)
                         {
                             int count = tuples.Count(t => t[dim1] == val1 && t[dim2] == val2);
-                            Assert.Greater(0, count);
+                            Assert.Greater(count, 0);
                         }
+        }
+
+        [Test]
+        public void TestAlgorithmPerformance_DimsWithIdenticalSizes()
+        {
+            for (int dimAmount = 2; dimAmount < 10; dimAmount++)
+            {
+                for (int valAmount = 1; valAmount < 10; valAmount++)
+                {
+                    int[] dimSizes = Enumerable.Repeat(valAmount, dimAmount).ToArray();
+                    TestAlgorithmPerformance_SingleRun(dimSizes, string.Format("IdenticalSize, dims,vals: {0,2},{1,2}", dimAmount, valAmount));
+                }
+            }
+        }
+
+
+        public void TestAlgorithmPerformance_SingleRun(int[] dimSizes, string name)
+        {
+            int repetitions = 0;
+
+            int[][] tuples = Generate(dimSizes);
+
+            // check that all pairs are covered
+            for(int dim1=0; dim1<3; dim1++)
+                for (int dim2 = dim1 + 1; dim2 < dimSizes.Length; dim2++)
+                    for (int val1 = 0; val1 < dimSizes[dim1]; val1++)
+                        for (int val2 = 0; val2 < dimSizes[dim2]; val2++)
+                        {
+                            int amountOfPairOccurence = tuples.Count(t => t[dim1] == val1 && t[dim2] == val2);
+                            Assert.Greater(amountOfPairOccurence, 0);
+                            repetitions += amountOfPairOccurence - 1;
+                        }
+
+            long cartesianProductCardinal = dimSizes.Select(s => (long)s).Aggregate((acc, val) => acc * val);
+            int pairwiseProductCardinal = tuples.Length;
+
+            Console.WriteLine("{0,-20}: repetitions: {1,8}, pairProdCard: {2,8:E2}, cartProdCard: {3,12:E2}, rate(log10): {4, 6:0.00}", 
+                name, repetitions, pairwiseProductCardinal, (double)cartesianProductCardinal, Math.Log10((double)pairwiseProductCardinal / cartesianProductCardinal));
         }
 
         private static int[][] Generate(int[] dimSizes)
