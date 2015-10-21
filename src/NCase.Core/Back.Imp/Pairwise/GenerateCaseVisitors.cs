@@ -20,6 +20,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
         public IEnumerable<List<INode>> Visit(IGenerateCasesDirector dir, IPairwiseDimNode node, GenerateOptions options)
         {
             foreach (INode child in node.Children)
+                // TODO: AddRange instead??
                 foreach (List<INode> nodes in dir.Visit(child, options))
                     yield return nodes;
         }

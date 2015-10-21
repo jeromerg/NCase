@@ -10,14 +10,14 @@ namespace NCaseFramework.Front.Ui
             return setDef.Api.Services.GetService<IGetCases>().Perform(setDef.Api.Model);
         }
 
-        public static string PrintDef(this SetDefImp<ISetDefModel<ISetDefId>, ISetDefId> setDef,
+        public static string PrintDefinition(this SetDefImp<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                       bool isFileInfo = false,
                                       bool isRecursive = false)
         {
             return setDef.Api.Services.GetService<IPrintDef>().Perform(setDef.Api.Model, isFileInfo, isRecursive);
         }
 
-        public static string PrintTable(this SetDefImp<ISetDefModel<ISetDefId>, ISetDefId> setDef,
+        public static string PrintCasesAsTable(this SetDefImp<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                         bool isRecursive = false)
         {
             return setDef.Api.Services.GetService<IPrintTable>().Perform(setDef.Api.Model, isRecursive);
