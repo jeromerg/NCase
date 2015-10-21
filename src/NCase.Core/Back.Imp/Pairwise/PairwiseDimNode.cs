@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCase.Back.Api.Pairwise;
+using NCaseFramework.Back.Api.Pairwise;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Pairwise
+namespace NCaseFramework.Back.Imp.Pairwise
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>
     public class PairwiseDimNode : IPairwiseDimNode

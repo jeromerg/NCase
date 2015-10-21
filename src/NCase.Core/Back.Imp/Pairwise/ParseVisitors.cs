@@ -1,9 +1,9 @@
-using NCase.Back.Api.Pairwise;
-using NCase.Back.Api.Parse;
+using NCaseFramework.Back.Api.Pairwise;
+using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 
-namespace NCase.Back.Imp.Pairwise
+namespace NCaseFramework.Back.Imp.Pairwise
 {
     public class ParseVisitors
         : IParseVisitor<BeginToken<PairwiseId>>,

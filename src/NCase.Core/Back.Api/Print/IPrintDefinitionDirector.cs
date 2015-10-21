@@ -3,7 +3,7 @@ using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Util;
 using NVisitor.Api.Action;
 
-namespace NCase.Back.Api.Print
+namespace NCaseFramework.Back.Api.Print
 {
     public interface IPrintDefinitionDirector : IActionDirector<INode, IPrintDefinitionDirector>
     {

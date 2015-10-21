@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
-using NCase.Back.Api.Pairwise;
+using NCaseFramework.Back.Api.Pairwise;
 
-namespace NCase.Back.Imp.Pairwise
+namespace NCaseFramework.Back.Imp.Pairwise
 {
     public class PairwiseGenerator : IPairwiseGenerator
     {

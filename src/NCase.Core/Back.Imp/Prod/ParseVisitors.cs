@@ -1,9 +1,9 @@
-using NCase.Back.Api.Parse;
-using NCase.Back.Api.Prod;
+using NCaseFramework.Back.Api.Parse;
+using NCaseFramework.Back.Api.Prod;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 
-namespace NCase.Back.Imp.Prod
+namespace NCaseFramework.Back.Imp.Prod
 {
     public class ParseVisitors
         : IParseVisitor<BeginToken<ProdId>>,

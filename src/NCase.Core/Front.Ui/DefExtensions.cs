@@ -1,26 +1,26 @@
-using NCase.Back.Api.SetDef;
-using NCase.Front.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
+using NCaseFramework.Front.Api.SetDef;
 
-namespace NCase.Front.Ui
+namespace NCaseFramework.Front.Ui
 {
     public static class DefExtensions
     {
-        public static ICaseEnumerable Cases(this ISetDef<ISetDefModel<ISetDefId>, ISetDefId> setDef)
+        public static CaseEnumerable Cases(this SetDefImp<ISetDefModel<ISetDefId>, ISetDefId> setDef)
         {
-            return setDef.Api.Services.GetTool<IGetCases>().Perform(setDef.Api.Model);
+            return setDef.Api.Services.GetService<IGetCases>().Perform(setDef.Api.Model);
         }
 
-        public static string PrintDef(this ISetDef<ISetDefModel<ISetDefId>, ISetDefId> setDef,
+        public static string PrintDef(this SetDefImp<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                       bool isFileInfo = false,
                                       bool isRecursive = false)
         {
-            return setDef.Api.Services.GetTool<IPrintDef>().Perform(setDef.Api.Model, isFileInfo, isRecursive);
+            return setDef.Api.Services.GetService<IPrintDef>().Perform(setDef.Api.Model, isFileInfo, isRecursive);
         }
 
-        public static string PrintTable(this ISetDef<ISetDefModel<ISetDefId>, ISetDefId> setDef,
+        public static string PrintTable(this SetDefImp<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                         bool isRecursive = false)
         {
-            return setDef.Api.Services.GetTool<IPrintTable>().Perform(setDef.Api.Model, isRecursive);
+            return setDef.Api.Services.GetService<IPrintTable>().Perform(setDef.Api.Model, isRecursive);
         }
     }
 }

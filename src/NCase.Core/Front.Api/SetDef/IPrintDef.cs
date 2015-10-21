@@ -1,7 +1,7 @@
-using NCase.Back.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Front.Api.SetDef
+namespace NCaseFramework.Front.Api.SetDef
 {
     public interface IPrintDef
         : IService<ISetDefModel<ISetDefId>>

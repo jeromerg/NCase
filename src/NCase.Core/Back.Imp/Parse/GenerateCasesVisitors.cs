@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using NCase.Back.Api.Parse;
+using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 
-namespace NCase.Back.Imp.Parse
+namespace NCaseFramework.Back.Imp.Parse
 {
     public class GenerateCasesVisitors
         : IGenerateCaseVisitor<IRefNode<IDefNode>>

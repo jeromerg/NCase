@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Castle.DynamicProxy;
-using NCase.Back.Imp.InterfaceRecPlay;
+using NCaseFramework.Back.Imp.InterfaceRecPlay;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Back.Imp.RecPlay;
 

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NCase.Back.Api.Parse;
-using NCase.Back.Api.Tree;
-using NCase.Back.Api.Util;
+using NCaseFramework.Back.Api.Parse;
+using NCaseFramework.Back.Api.Tree;
+using NCaseFramework.Back.Api.Util;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Imp.Tree
+namespace NCaseFramework.Back.Imp.Tree
 {
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<ITreeNode>

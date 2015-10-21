@@ -1,12 +1,12 @@
-﻿using NCase.Back.Api.SetDef;
-using NCase.Front.Ui;
+﻿using NCaseFramework.Back.Api.SetDef;
+using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Front.Api.SetDef
+namespace NCaseFramework.Front.Api.SetDef
 {
     public interface IGetCases
         : IService<ISetDefModel<ISetDefId>>
     {
-        ICaseEnumerable Perform(ISetDefModel<ISetDefId> setDefModel);
+        Ui.CaseEnumerable Perform(ISetDefModel<ISetDefId> setDefModel);
     }
 }

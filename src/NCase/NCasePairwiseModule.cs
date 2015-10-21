@@ -1,10 +1,9 @@
 ﻿using Autofac;
-using NCase.Back.Api.Pairwise;
-using NCase.Back.Imp.Pairwise;
-using NCase.Front.Api.Pairwise;
-using NCase.Front.Imp.Pairwise;
+using NCaseFramework.Back.Api.Pairwise;
+using NCaseFramework.Back.Imp.Pairwise;
+using NCaseFramework.Front.Imp;
 
-namespace NCase.Front.Ui
+namespace NCaseFramework.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule </summary>
     public class NCasePairwiseModule : Module
@@ -14,7 +13,7 @@ namespace NCase.Front.Ui
             base.Load(builder);
 
             // UI Factory
-            builder.RegisterType<PairwiseFactory>().As<IPairwiseFactory>().SingleInstance();
+            builder.RegisterType<PairwiseCombinationsImp.Factory>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

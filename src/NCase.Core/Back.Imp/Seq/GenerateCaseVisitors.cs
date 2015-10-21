@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using NCase.Back.Api.Parse;
-using NCase.Back.Api.Seq;
+using NCaseFramework.Back.Api.Parse;
+using NCaseFramework.Back.Api.Seq;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Imp.Seq
+namespace NCaseFramework.Back.Imp.Seq
 {
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<ISeqNode>

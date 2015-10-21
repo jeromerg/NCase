@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace NCase.Back.Api.Pairwise
+namespace NCaseFramework.Back.Api.Pairwise
 {
     public interface IPairwiseGenerator
     {

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCase.Back.Api.Tree;
+using NCaseFramework.Back.Api.Tree;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Tree
+namespace NCaseFramework.Back.Imp.Tree
 {
     public class TreeNode : ITreeNode
     {

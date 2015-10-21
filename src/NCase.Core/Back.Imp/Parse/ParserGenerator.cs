@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCase.Back.Api.Parse;
+using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Book;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Parse
+namespace NCaseFramework.Back.Imp.Parse
 {
     public class ParserGenerator : IParserGenerator
     {

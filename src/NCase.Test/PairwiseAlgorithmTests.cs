@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using NCase.Back.Imp.Pairwise;
+using NCaseFramework.Back.Imp.Pairwise;
 using NUnit.Framework;
 
-namespace NCase.Test
+namespace NCaseFramework.Test
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "IteratorMethodResultIsIgnored")]

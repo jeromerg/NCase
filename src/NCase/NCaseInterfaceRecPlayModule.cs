@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using NCase.Back.Imp.InterfaceRecPlay;
+using NCaseFramework.Back.Imp.InterfaceRecPlay;
 
-namespace NCase.Front.Ui
+namespace NCaseFramework.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule </summary>
     public class NCaseInterfaceRecPlayModule : Module

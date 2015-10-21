@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using NCase.Back.Api.Parse;
+using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
 using NVisitor.Api.FuncPayload;
 
-namespace NCase.Back.Imp.Parse
+namespace NCaseFramework.Back.Imp.Parse
 {
     public class GenerateCasesDirector
         : FuncPayloadDirector<INode, IGenerateCasesDirector, GenerateOptions, IEnumerable<List<INode>>>, IGenerateCasesDirector

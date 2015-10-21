@@ -7,7 +7,7 @@
     <ProjectGuid>{CD3AB3F0-16C5-48AA-8297-6EAA8E8CC99A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NDsl.Test</RootNamespace>
+    <RootNamespace>NDsl.test</RootNamespace>
     <AssemblyName>NDsl.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,6 +1,6 @@
-using NCase.Back.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
 
-namespace NCase.Back.Api.Tree
+namespace NCaseFramework.Back.Api.Tree
 {
     public class TreeId : SetDefId
     {

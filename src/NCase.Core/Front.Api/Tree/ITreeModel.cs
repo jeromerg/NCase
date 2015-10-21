@@ -1,7 +1,7 @@
-using NCase.Back.Api.Tree;
-using NCase.Front.Api.SetDef;
+using NCaseFramework.Back.Api.Tree;
+using NCaseFramework.Front.Api.SetDef;
 
-namespace NCase.Front.Api.Tree
+namespace NCaseFramework.Front.Api.Tree
 {
     public interface ITreeModel : ISetDefModel<TreeId>
     {

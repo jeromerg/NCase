@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCase.Back.Api.Parse;
+using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.Util;
 using NVisitor.Api.Action;
 
-namespace NCase.Back.Imp.Parse
+namespace NCaseFramework.Back.Imp.Parse
 {
     public class ParseDirector : ActionDirector<IToken, IParseDirector>, IParseDirector
     {

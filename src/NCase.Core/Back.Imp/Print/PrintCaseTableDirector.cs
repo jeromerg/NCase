@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Text;
 using JetBrains.Annotations;
-using NCase.Back.Api.Print;
+using NCaseFramework.Back.Api.Print;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Util;
 using NDsl.Back.Api.Util.Table;
 using NVisitor.Api.Action;
 
-namespace NCase.Back.Imp.Print
+namespace NCaseFramework.Back.Imp.Print
 {
     public class PrintCaseTableDirector : ActionDirector<INode, IPrintCaseTableDirector>, IPrintCaseTableDirector
     {

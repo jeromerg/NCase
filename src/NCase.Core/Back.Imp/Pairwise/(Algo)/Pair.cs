@@ -1,4 +1,4 @@
-﻿namespace NCase.Back.Imp.Pairwise
+﻿namespace NCaseFramework.Back.Imp.Pairwise
 {
     public class Pair
     {

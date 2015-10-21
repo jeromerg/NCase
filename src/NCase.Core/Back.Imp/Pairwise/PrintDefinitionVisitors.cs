@@ -1,8 +1,8 @@
 ﻿using System;
-using NCase.Back.Api.Pairwise;
-using NCase.Back.Api.Print;
+using NCaseFramework.Back.Api.Pairwise;
+using NCaseFramework.Back.Api.Print;
 
-namespace NCase.Back.Imp.Pairwise
+namespace NCaseFramework.Back.Imp.Pairwise
 {
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<IPairwiseNode>,

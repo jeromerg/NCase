@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCase.Back.Api.Seq;
+using NCaseFramework.Back.Api.Seq;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Seq
+namespace NCaseFramework.Back.Imp.Seq
 {
     public class SeqNode : ISeqNode
     {

@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
-using NCase.Back.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
 
-namespace NCase.Back.Api.Pairwise
+namespace NCaseFramework.Back.Api.Pairwise
 {
     public class PairwiseId : SetDefId
     {

@@ -7,7 +7,7 @@
     <ProjectGuid>{CCBBEFB2-B93B-4FDF-A401-3B1044F01032}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NCaseDoc</RootNamespace>
+    <RootNamespace>NCaseFramework.doc</RootNamespace>
     <AssemblyName>NCaseDoc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

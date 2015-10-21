@@ -1,7 +1,7 @@
 using NDsl.Back.Api.Common;
 using NDsl.Front.Api;
 
-namespace NCase.Front.Api.Fact
+namespace NCaseFramework.Front.Api.Fact
 {
     public interface IFactModel : IArtefactModel
     {

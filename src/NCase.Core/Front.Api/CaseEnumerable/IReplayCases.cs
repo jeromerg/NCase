@@ -1,10 +1,10 @@
-using NCase.Front.Ui;
+using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Front.Api.CaseEnumerable
+namespace NCaseFramework.Front.Api.CaseEnumerable
 {
     public interface IReplayCases : IService<ICaseEnumerableModel>
     {
-        ICaseEnumerable Perform(ICaseEnumerableModel caseEnumerableModel);
+        Ui.CaseEnumerable Perform(ICaseEnumerableModel caseEnumerableModel);
     }
 }

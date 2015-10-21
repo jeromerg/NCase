@@ -1,10 +1,10 @@
-using NCase.Back.Api.Parse;
-using NCase.Back.Api.Tree;
+using NCaseFramework.Back.Api.Parse;
+using NCaseFramework.Back.Api.Tree;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Tree
+namespace NCaseFramework.Back.Imp.Tree
 {
     public class ParseVisitors
         : IParseVisitor<BeginToken<TreeId>>,

@@ -1,6 +1,6 @@
-using NCase.Back.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
 
-namespace NCase.Back.Api.Seq
+namespace NCaseFramework.Back.Api.Seq
 {
     public class SeqId : SetDefId
     {

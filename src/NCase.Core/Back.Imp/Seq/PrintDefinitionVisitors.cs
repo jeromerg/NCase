@@ -1,8 +1,8 @@
-﻿using NCase.Back.Api.Print;
-using NCase.Back.Api.Seq;
+﻿using NCaseFramework.Back.Api.Print;
+using NCaseFramework.Back.Api.Seq;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Imp.Seq
+namespace NCaseFramework.Back.Imp.Seq
 {
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<ISeqNode>

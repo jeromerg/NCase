@@ -1,10 +1,10 @@
 using Castle.DynamicProxy;
-using NCase.Back.Api.Parse;
+using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.InterfaceRecPlay
+namespace NCaseFramework.Back.Imp.InterfaceRecPlay
 {
     public class ParseVisitors
         : IParseVisitor<InvocationToken<IInterfaceRecPlayInterceptor>>

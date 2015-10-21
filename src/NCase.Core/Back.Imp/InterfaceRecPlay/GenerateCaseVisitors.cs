@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using NCase.Back.Api.Parse;
+using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.RecPlay;
 
-namespace NCase.Back.Imp.InterfaceRecPlay
+namespace NCaseFramework.Back.Imp.InterfaceRecPlay
 {
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<IInterfaceRecPlayNode>

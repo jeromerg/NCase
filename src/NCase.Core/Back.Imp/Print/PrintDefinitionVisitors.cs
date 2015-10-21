@@ -1,9 +1,9 @@
-﻿using NCase.Back.Api.Print;
+﻿using NCaseFramework.Back.Api.Print;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 
-namespace NCase.Back.Imp.Print
+namespace NCaseFramework.Back.Imp.Print
 {
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<INode>,

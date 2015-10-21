@@ -1,10 +1,10 @@
 using System.Linq;
-using NCase.Back.Api.Pairwise;
-using NCase.Back.Api.Parse;
+using NCaseFramework.Back.Api.Pairwise;
+using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.RecPlay;
 
-namespace NCase.Back.Imp.Pairwise
+namespace NCaseFramework.Back.Imp.Pairwise
 {
     public class AddChildVisitors
         : IAddChildVisitor<IPairwiseNode, INode>,

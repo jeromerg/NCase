@@ -7,7 +7,7 @@
     <ProjectGuid>{02C99571-1D56-4883-963B-62B747D6B08C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NCase.Test</RootNamespace>
+    <RootNamespace>NCaseFramework.Test</RootNamespace>
     <AssemblyName>NCase.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -72,8 +72,7 @@
     <Compile Include="PairwiseAlgorithmTests.cs" />
     <Compile Include="CartesianProductTests.cs" />
     <Compile Include="ConsoleAndBlockExtractor.cs" />
-    <Compile Include="Demo1Tests.cs" />
-    <Compile Include="DemoTests.cs" />
+    <Compile Include="DemoForReadmePage.doc.cs" />
     <Compile Include="TreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

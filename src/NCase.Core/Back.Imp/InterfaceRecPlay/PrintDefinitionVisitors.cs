@@ -1,7 +1,7 @@
-﻿using NCase.Back.Api.Print;
+﻿using NCaseFramework.Back.Api.Print;
 using NDsl.Back.Api.RecPlay;
 
-namespace NCase.Back.Imp.InterfaceRecPlay
+namespace NCaseFramework.Back.Imp.InterfaceRecPlay
 {
     public class PrintDefinitionVisitors : IPrintDefinitionVisitor<IInterfaceRecPlayNode>
     {

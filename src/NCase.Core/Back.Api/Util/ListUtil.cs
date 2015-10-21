@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Api.Util
+namespace NCaseFramework.Back.Api.Util
 {
     public static class ListUtil
     {

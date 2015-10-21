@@ -2,6 +2,6 @@
 {
     public interface IServices<out TClass>
     {
-        TTool GetTool<TTool>() where TTool : IService<TClass>;
+        TTool GetService<TTool>() where TTool : IService<TClass>;
     }
 }

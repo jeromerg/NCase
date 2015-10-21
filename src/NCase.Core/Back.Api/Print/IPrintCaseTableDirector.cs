@@ -4,7 +4,7 @@ using NDsl.Back.Api.Util;
 using NDsl.Back.Api.Util.Table;
 using NVisitor.Api.Action;
 
-namespace NCase.Back.Api.Print
+namespace NCaseFramework.Back.Api.Print
 {
     public interface IPrintCaseTableDirector : IActionDirector<INode, IPrintCaseTableDirector>
     {

@@ -1,12 +1,12 @@
 using System.Linq;
-using NCase.Back.Api.Parse;
-using NCase.Back.Api.Tree;
+using NCaseFramework.Back.Api.Parse;
+using NCaseFramework.Back.Api.Tree;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Tree
+namespace NCaseFramework.Back.Imp.Tree
 {
     public class AddChildVisitors
         : IAddChildVisitor<ITreeNode, INode>,

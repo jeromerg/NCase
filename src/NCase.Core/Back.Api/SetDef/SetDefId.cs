@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using NDsl.Back.Api.Def;
 
-namespace NCase.Back.Api.SetDef
+namespace NCaseFramework.Back.Api.SetDef
 {
     public abstract class SetDefId : DefId, ISetDefId
     {

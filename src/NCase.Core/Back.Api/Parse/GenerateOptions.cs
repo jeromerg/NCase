@@ -1,4 +1,4 @@
-namespace NCase.Back.Api.Parse
+namespace NCaseFramework.Back.Api.Parse
 {
     public class GenerateOptions
     {

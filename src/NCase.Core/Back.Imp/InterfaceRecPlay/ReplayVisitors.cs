@@ -1,8 +1,8 @@
 ﻿using Castle.Core.Internal;
-using NCase.Back.Api.Replay;
+using NCaseFramework.Back.Api.Replay;
 using NDsl.Back.Api.RecPlay;
 
-namespace NCase.Back.Imp.InterfaceRecPlay
+namespace NCaseFramework.Back.Imp.InterfaceRecPlay
 {
     public class ReplayVisitors
         : IReplayVisitor<IInterfaceRecPlayNode>

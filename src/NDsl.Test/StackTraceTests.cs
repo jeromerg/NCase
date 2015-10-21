@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace NDsl.Test
+namespace NDsl.test
 {
     [TestFixture]
     public class StackTraceTests

@@ -1,6 +1,6 @@
-using NCase.Back.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
 
-namespace NCase.Back.Api.Prod
+namespace NCaseFramework.Back.Api.Prod
 {
     public class ProdId : SetDefId
     {
@@ -15,7 +15,7 @@ namespace NCase.Back.Api.Prod
 
         public override string DefTypeName
         {
-            get { return "Prod"; }
+            get { return "AllCombinations"; }
         }
     }
 }

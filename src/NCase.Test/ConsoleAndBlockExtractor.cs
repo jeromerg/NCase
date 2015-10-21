@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace NCase.Test
+namespace NCaseFramework.Test
 {
     public class ConsoleAndBlockExtractor
     {
@@ -17,7 +17,7 @@ namespace NCase.Test
 
         private static readonly Dictionary<string, int> sLastUsedIndexbyFilePathMember = new Dictionary<string, int>();
         
-        public static void DumpAllExtractOfThisFile([CallerFilePath] string callerFilePath = null)
+        public void DumpAllExtractOfThisFile([CallerFilePath] string callerFilePath = null)
         {
             string fileTxt = File.ReadAllText(callerFilePath);
             MatchCollection blocks = sFileBlockRegex.Matches(fileTxt);

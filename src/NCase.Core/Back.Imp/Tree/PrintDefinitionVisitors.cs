@@ -1,8 +1,8 @@
-﻿using NCase.Back.Api.Print;
-using NCase.Back.Api.Tree;
+﻿using NCaseFramework.Back.Api.Print;
+using NCaseFramework.Back.Api.Tree;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Imp.Tree
+namespace NCaseFramework.Back.Imp.Tree
 {
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<ITreeNode>

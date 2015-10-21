@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Prod
+namespace NCaseFramework.Back.Imp.Prod
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>
     public class ProdDimNode : INode

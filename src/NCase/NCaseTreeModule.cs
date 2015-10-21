@@ -1,9 +1,8 @@
 ﻿using Autofac;
-using NCase.Back.Imp.Tree;
-using NCase.Front.Api.Tree;
-using NCase.Front.Imp.Tree;
+using NCaseFramework.Back.Imp.Tree;
+using NCaseFramework.Front.Imp;
 
-namespace NCase.Front.Ui
+namespace NCaseFramework.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule </summary>
     public class NCaseTreeModule : Module
@@ -13,7 +12,7 @@ namespace NCase.Front.Ui
             base.Load(builder);
 
             // Case sets
-            builder.RegisterType<Tree.Factory>().As<ITreeFactory>().SingleInstance();
+            builder.RegisterType<TreeImp.Factory>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

@@ -2,7 +2,7 @@ using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Util;
 using NVisitor.Api.Action;
 
-namespace NCase.Back.Api.Parse
+namespace NCaseFramework.Back.Api.Parse
 {
     public interface IParseDirector : IActionDirector<IToken, IParseDirector>
     {

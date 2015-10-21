@@ -1,8 +1,8 @@
-﻿using NCase.Back.Api.Print;
-using NCase.Back.Api.Prod;
+﻿using NCaseFramework.Back.Api.Print;
+using NCaseFramework.Back.Api.Prod;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Imp.Prod
+namespace NCaseFramework.Back.Imp.Prod
 {
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<IProdNode>,

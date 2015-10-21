@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
-using NCase.Back.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Api.Seq
+namespace NCaseFramework.Back.Api.Seq
 {
     public interface ISeqNode : ISetDefNode
     {

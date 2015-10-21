@@ -1,24 +1,21 @@
 ﻿using Autofac;
-using NCase.Back.Api.Parse;
-using NCase.Back.Api.Print;
-using NCase.Back.Api.Replay;
-using NCase.Back.Imp.Parse;
-using NCase.Back.Imp.Print;
-using NCase.Back.Imp.Replay;
-using NCase.Front.Api.Builder;
-using NCase.Front.Api.Case;
-using NCase.Front.Api.CaseEnumerable;
-using NCase.Front.Api.Fact;
-using NCase.Front.Api.SetDef;
-using NCase.Front.Imp.Builder;
-using NCase.Front.Imp.Case;
-using NCase.Front.Imp.CaseEnumerable;
-using NCase.Front.Imp.Fact;
-using NCase.Front.Imp.Tool;
+using NCaseFramework.Back.Api.Parse;
+using NCaseFramework.Back.Api.Print;
+using NCaseFramework.Back.Api.Replay;
+using NCaseFramework.Back.Imp.Parse;
+using NCaseFramework.Back.Imp.Print;
+using NCaseFramework.Back.Imp.Replay;
+using NCaseFramework.Front.Api.Case;
+using NCaseFramework.Front.Api.CaseEnumerable;
+using NCaseFramework.Front.Api.Fact;
+using NCaseFramework.Front.Api.SetDef;
+using NCaseFramework.Front.Imp;
 using NDsl.Back.Api.Book;
 using NDsl.Back.Imp.Common;
+using NDsl.Front.Api;
+using NDsl.Front.Imp;
 
-namespace NCase.Front.Ui
+namespace NCaseFramework.Front.Ui
 {
     public class NCaseCoreModule : Module
     {
@@ -32,10 +29,10 @@ namespace NCase.Front.Ui
             cb.RegisterType<CreateContributor>().As<ICreateContributor>().SingleInstance();
 
             // CaseEnumerable, Case, Fact factories
-            cb.RegisterType<CaseEnumerablefactory>().As<ICaseEnumerableFactory>().SingleInstance();
-            cb.RegisterType<CaseFactory>().As<ICaseFactory>().SingleInstance();
-            cb.RegisterType<FactFactory>().As<IFactFactory>().SingleInstance();
-            cb.RegisterType<GetCases>().As<IGetCases>().SingleInstance();
+            cb.RegisterType<CaseEnumerableImp.Factory>().As<ICaseEnumerableFactory>().SingleInstance();
+            cb.RegisterType<CaseImp.Factory>().As<ICaseFactory>().SingleInstance();
+            cb.RegisterType<FactImp.Factory>().As<IFactFactory>().SingleInstance();
+            cb.RegisterType<GetCasesImp>().As<IGetCases>().SingleInstance();
             cb.RegisterType<ReplayCases>().As<IReplayCases>().SingleInstance();
 
             // Parser
@@ -52,17 +49,17 @@ namespace NCase.Front.Ui
             cb.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // PrintLine Definition
-            cb.RegisterType<PrintDef>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintDefImp>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // PrintLine Case Table
-            cb.RegisterType<PrintTable>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintTableImp>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // GetCases
-            cb.RegisterType<GetCases>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<GetCasesImp>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

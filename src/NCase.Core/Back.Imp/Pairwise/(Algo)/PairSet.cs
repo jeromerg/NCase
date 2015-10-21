@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 
-namespace NCase.Back.Imp.Pairwise
+namespace NCaseFramework.Back.Imp.Pairwise
 {
     public class PairSet
     {

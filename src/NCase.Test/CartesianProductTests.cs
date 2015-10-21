@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using NCase.Front.Ui;
+using NCaseFramework.Front.Ui;
+using NDsl.Front.Api;
 using NUnit.Framework;
 
-namespace NCase.Test
+namespace NCaseFramework.Test
 {
     [TestFixture]
     public class CartesianProductTests
@@ -19,12 +20,12 @@ namespace NCase.Test
         public void Test_CartesianProduct()
         {
             // Create a new builder
-            IBuilder builder = CaseBuilder.Create();
+            IBuilder builder = NCase.NewBuilder();
 
             // create a case contributor
-            var o = builder.CreateContributor<IMyTestvalues>("o");
+            var o = builder.NewContributor<IMyTestvalues>("o");
 
-            var allPersonsAllAges = builder.CreateProd("allPersonsAllAges");
+            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {
@@ -38,7 +39,7 @@ namespace NCase.Test
             }
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
-            IEnumerator<ICase> enumerator = allPersonsAllAges.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> enumerator = allPersonsAllAges.Cases().Replay().GetEnumerator();
 
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);
@@ -83,13 +84,13 @@ namespace NCase.Test
         public void Test_CartesianProduct_with_ref()
         {
             // Create a new builder
-            IBuilder builder = CaseBuilder.Create();
+            IBuilder builder = NCase.NewBuilder();
 
             // create a case contributor
-            var o = builder.CreateContributor<IMyTestvalues>("o");
+            var o = builder.NewContributor<IMyTestvalues>("o");
 
             // define a first set of cases
-            var names = builder.CreateTree("person_set");
+            var names = builder.NewDefinition<Tree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";
@@ -98,7 +99,7 @@ namespace NCase.Test
             }
 
             // transplant the first set into a second one
-            var ages = builder.CreateTree("age_set");
+            var ages = builder.NewDefinition<Tree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -106,7 +107,7 @@ namespace NCase.Test
                 o.Age = 30;
             }
 
-            var allPersonsAllAges = builder.CreateProd("allPersonsAllAges");
+            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {
@@ -115,7 +116,7 @@ namespace NCase.Test
             }
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
-            IEnumerator<ICase> enumerator = allPersonsAllAges.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> enumerator = allPersonsAllAges.Cases().Replay().GetEnumerator();
 
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);

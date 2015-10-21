@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCase.Back.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Api.Tree
+namespace NCaseFramework.Back.Api.Tree
 {
     public interface ITreeNode : ISetDefNode
     {

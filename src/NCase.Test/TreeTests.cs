@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using NCase.Front.Ui;
+using NCaseFramework.Front.Ui;
+using NDsl.Front.Api;
 using NUnit.Framework;
 
-namespace NCase.Test
+namespace NCaseFramework.Test
 {
     [TestFixture]
     public class TreeTests
@@ -20,13 +21,13 @@ namespace NCase.Test
         public void Test_Properties_1Contrib()
         {
             // Create a new builder
-            IBuilder builder = CaseBuilder.Create();
+            IBuilder builder = NCase.NewBuilder();
 
             // create a case contributor
-            var o = builder.CreateContributor<IMyTestvalues>("o");
+            var o = builder.NewContributor<IMyTestvalues>("o");
 
-            // initialize a new case set of type ITree
-            var tree = builder.CreateTree("Environment");
+            // initialize a new case set of type Tree
+            var tree = builder.NewDefinition<Tree>("Environment");
 
             // define the content of the tree
             using (tree.Define())
@@ -55,7 +56,7 @@ namespace NCase.Test
             }
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
-            IEnumerator<ICase> enumerator = tree.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> enumerator = tree.Cases().Replay().GetEnumerator();
 
             // case 1
             enumerator.MoveNext();
@@ -92,13 +93,13 @@ namespace NCase.Test
         public void Test_Properties_2Contribs()
         {
             // Create a new builder
-            IBuilder builder = CaseBuilder.Create();
+            IBuilder builder = NCase.NewBuilder();
 
             // you can use multiple contributors, contributing to the definition of cases
-            var m = builder.CreateContributor<IMyTestvalues>("man");
-            var w = builder.CreateContributor<IMyTestvalues>("woman");
+            var m = builder.NewContributor<IMyTestvalues>("man");
+            var w = builder.NewContributor<IMyTestvalues>("woman");
 
-            var tree = builder.CreateTree("children");
+            var tree = builder.NewDefinition<Tree>("children");
             using (tree.Define())
             {
                 {
@@ -120,7 +121,7 @@ namespace NCase.Test
                     }
                 }
             }
-            IEnumerator<ICase> enumerator = tree.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> enumerator = tree.Cases().Replay().GetEnumerator();
 
             // case 1
             enumerator.MoveNext();
@@ -154,13 +155,13 @@ namespace NCase.Test
         public void TestTreeWithRef()
         {
             // Create a new builder
-            IBuilder builder = CaseBuilder.Create();
+            IBuilder builder = NCase.NewBuilder();
 
             // create a case contributor
-            var o = builder.CreateContributor<IMyTestvalues>("o");
+            var o = builder.NewContributor<IMyTestvalues>("o");
 
             // define a first set of cases
-            var ages = builder.CreateTree("age_set");
+            var ages = builder.NewDefinition<Tree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -168,7 +169,7 @@ namespace NCase.Test
             }
 
             // transplant the first set into a second one
-            var names = builder.CreateTree("person_set");
+            var names = builder.NewDefinition<Tree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";
@@ -182,7 +183,7 @@ namespace NCase.Test
             }
 
             // Then you can iterate through the cases defined by the tree, by calling ParseAndGenerate() 
-            IEnumerator<ICase> enumerator = names.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> enumerator = names.Cases().Replay().GetEnumerator();
 
             enumerator.MoveNext();
             Assert.AreEqual("Raoul", o.Name);

@@ -1,10 +1,10 @@
-using NCase.Back.Api.Parse;
-using NCase.Back.Api.Seq;
+using NCaseFramework.Back.Api.Parse;
+using NCaseFramework.Back.Api.Seq;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ref;
 using NDsl.Back.Api.Util;
 
-namespace NCase.Back.Imp.Seq
+namespace NCaseFramework.Back.Imp.Seq
 {
     public class ParseVisitors
         : IParseVisitor<BeginToken<SeqId>>,

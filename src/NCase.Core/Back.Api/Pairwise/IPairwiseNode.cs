@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
-using NCase.Back.Api.SetDef;
+using NCaseFramework.Back.Api.SetDef;
 using NDsl.Back.Api.Common;
 
-namespace NCase.Back.Api.Pairwise
+namespace NCaseFramework.Back.Api.Pairwise
 {
     /// <summary>
     ///     A child corresponds to a set of cases, which will be used to produce the pairwise tests

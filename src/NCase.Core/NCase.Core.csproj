@@ -7,7 +7,7 @@
     <ProjectGuid>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NCase</RootNamespace>
+    <RootNamespace>NCaseFramework</RootNamespace>
     <AssemblyName>NCase.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -109,49 +109,34 @@
     <Compile Include="Back.Imp\Tree\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Tree\TreeNode.cs" />
     <Compile Include="Front.Api\Fact\IFactModel.cs" />
-    <Compile Include="Front.Api\Prod\IProdModel.cs" />
-    <Compile Include="Front.Api\Seq\ISeqModel.cs" />
-    <Compile Include="Front.Api\Builder\IBuilderModel.cs" />
+    <Compile Include="Front.Api\Prod\IAllCombinationsModel.cs" />
+    <Compile Include="Front.Api\Seq\ISequenceModel.cs" />
     <Compile Include="Front.Api\CaseEnumerable\ICaseEnumerableModel.cs" />
     <Compile Include="Front.Api\Case\ICaseModel.cs" />
     <Compile Include="Front.Api\Tree\ITreeModel.cs" />
-    <Compile Include="Front.Api\Builder\IBuilderFactory.cs" />
     <Compile Include="Front.Api\CaseEnumerable\ICaseEnumerableFactory.cs" />
     <Compile Include="Front.Api\Fact\IFactFactory.cs" />
-    <Compile Include="Front.Api\Pairwise\IPairwiseFactory.cs" />
     <Compile Include="Front.Api\SetDef\IPrintDef.cs" />
     <Compile Include="Front.Api\SetDef\IPrintTable.cs" />
-    <Compile Include="Front.Api\Prod\IProdFactory.cs" />
     <Compile Include="Front.Api\CaseEnumerable\IReplayCases.cs" />
-    <Compile Include="Front.Api\Seq\ISeqFactory.cs" />
-    <Compile Include="Front.Api\Tree\ITreeFactory.cs" />
-    <Compile Include="Front.Imp\Builder\BuilderFactory.cs" />
-    <Compile Include="Front.Imp\CaseEnumerable\CaseEnumerable.cs" />
-    <Compile Include="Front.Api\Pairwise\IPairwiseModel.cs" />
+    <Compile Include="Front.Imp\%28Artefact%29\CaseEnumerableImp.cs" />
+    <Compile Include="Front.Api\Pairwise\IPairwiseCombinationsModel.cs" />
     <Compile Include="Front.Api\Case\ICaseFactory.cs" />
-    <Compile Include="Front.Imp\CaseEnumerable\CaseEnumerablefactory.cs" />
-    <Compile Include="Front.Imp\Case\CaseFactory.cs" />
-    <Compile Include="Front.Imp\Fact\FactFactory.cs" />
-    <Compile Include="Front.Imp\Pairwise\Pairwise.cs" />
-    <Compile Include="Front.Imp\Pairwise\PairwiseFactory.cs" />
-    <Compile Include="Front.Imp\Prod\Prod.cs" />
-    <Compile Include="Front.Imp\Prod\ProdFactory.cs" />
-    <Compile Include="Front.Imp\Seq\SeqFactory.cs" />
-    <Compile Include="Front.Imp\Tree\Tree.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\PairwiseCombinationsImp.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\AllCombinationsImp.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\TreeImp.cs" />
     <Compile Include="Front.Api\SetDef\IGetCases.cs" />
-    <Compile Include="Front.Imp\Tool\PrintTable.cs" />
-    <Compile Include="Front.Imp\Tool\ReplayImp.cs" />
-    <Compile Include="Front.Imp\Tool\PrintDef.cs" />
-    <Compile Include="Front.Imp\Seq\Seq.cs" />
+    <Compile Include="Front.Imp\%28Service%29\PrintTableImp.cs" />
+    <Compile Include="Front.Imp\%28Service%29\ReplayImp.cs" />
+    <Compile Include="Front.Imp\%28Service%29\PrintDefImp.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\SequenceImp.cs" />
     <Compile Include="Front.Ui\BuilderExtensions.cs" />
-    <Compile Include="Front.Imp\Builder\CreateContributor.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />
-    <Compile Include="Front.Ui\ICaseEnumerable.cs" />
-    <Compile Include="Front.Ui\ISeq.cs" />
+    <Compile Include="Front.Ui\CaseEnumerable.cs" />
+    <Compile Include="Front.Ui\Sequence.cs" />
     <Compile Include="Front.Api\SetDef\ISetDefModel.cs" />
-    <Compile Include="Front.Api\Builder\ICreateContributor.cs" />
-    <Compile Include="Front.Ui\ISetDef.cs" />
-    <Compile Include="Front.Imp\Tool\GetCases.cs" />
+    <Compile Include="Front.Ui\SetDefImp.cs" />
+    <Compile Include="Front.Imp\%28Service%29\GetCasesImp.cs" />
     <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
     <Compile Include="Back.Api\Prod\ProdId.cs" />
     <Compile Include="Back.Api\Tree\TreeId.cs" />
@@ -167,20 +152,18 @@
     <Compile Include="Back.Api\Pairwise\IPairwiseDimNode.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseNode.cs" />
     <Compile Include="Front.Ui\IFact.cs" />
-    <Compile Include="Front.Ui\IPairwise.cs" />
-    <Compile Include="Front.Ui\IProd.cs" />
-    <Compile Include="Front.Ui\ITree.cs" />
-    <Compile Include="Front.Imp\Fact\Fact.cs" />
-    <Compile Include="Front.Imp\Case\Case.cs" />
-    <Compile Include="Front.Ui\ICase.cs" />
+    <Compile Include="Front.Ui\PairwiseCombinations.cs" />
+    <Compile Include="Front.Ui\AllCombinations.cs" />
+    <Compile Include="Front.Ui\Tree.cs" />
+    <Compile Include="Front.Imp\%28Artefact%29\FactImp.cs" />
+    <Compile Include="Front.Imp\%28Artefact%29\CaseImp.cs" />
+    <Compile Include="Front.Ui\Case.cs" />
     <Compile Include="Back.Api\Util\ListUtil.cs" />
     <Compile Include="Back.Api\Prod\IProdNode.cs" />
     <Compile Include="Back.Api\Tree\ITreeNode.cs" />
     <Compile Include="Back.Api\Replay\IReplayDirector.cs" />
     <Compile Include="Back.Api\Parse\IParseDirector.cs" />
-    <Compile Include="Front.Imp\SetDef\SetDef.cs" />
-    <Compile Include="Front.Imp\Builder\Builder.cs" />
-    <Compile Include="Front.Ui\IBuilder.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\SetDefBaseImp.cs" />
     <Compile Include="Back.Api\Parse\IGenerateCasesDirector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
