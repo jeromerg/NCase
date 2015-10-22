@@ -12,7 +12,7 @@ namespace NCaseFramework.Front.Ui
     {
         #region inner types
 
-        private class Services<T> : IServices<T>
+        private class Services<T> : IServiceSet<T>
         {
             private readonly IComponentContext mComponentContext;
 
@@ -42,7 +42,7 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterModule<NCaseTreeModule>();
             cb.RegisterModule<NCaseProdModule>();
             cb.RegisterModule<NCasePairwiseModule>();
-            cb.RegisterGeneric(typeof (Services<>)).As(typeof (IServices<>));
+            cb.RegisterGeneric(typeof (Services<>)).As(typeof (IServiceSet<>));
             IContainer container = cb.Build();
             return container.Resolve<IBuilderFactory>().Create();
         }

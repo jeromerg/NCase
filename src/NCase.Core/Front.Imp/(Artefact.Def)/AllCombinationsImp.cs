@@ -16,10 +16,10 @@ namespace NCaseFramework.Front.Imp
     {
         public class Factory : IDefFactory<AllCombinations>
         {
-            [NotNull] private readonly IServices<IAllCombinationsModel> mServices;
+            [NotNull] private readonly IServiceSet<IAllCombinationsModel> mServices;
             [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-            public Factory([NotNull] IServices<IAllCombinationsModel> services,
+            public Factory([NotNull] IServiceSet<IAllCombinationsModel> services,
                                           [NotNull] ICodeLocationUtil codeLocationUtil)
             {
                 if (services == null) throw new ArgumentNullException("services");
@@ -36,7 +36,7 @@ namespace NCaseFramework.Front.Imp
 
         public AllCombinationsImp([NotNull] string defName,
                                   [NotNull] ITokenStream tokenStream,
-                                  [NotNull] IServices<IAllCombinationsModel> services,
+                                  [NotNull] IServiceSet<IAllCombinationsModel> services,
                                   [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(new ProdId(defName), tokenStream, services, codeLocationUtil)
         {

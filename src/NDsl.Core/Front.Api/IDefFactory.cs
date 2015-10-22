@@ -5,7 +5,7 @@ using NDsl.Back.Api.Util;
 namespace NDsl.Front.Api
 {
     public interface IDefFactory<out TDef> : IService<IBuilderModel>
-        where TDef : IDef
+        where TDef : DefBase
     {
         TDef Create([NotNull] string defName, [NotNull] ITokenStream tokenStream);
     }

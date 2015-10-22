@@ -6,7 +6,7 @@ using NDsl.Front.Api;
 namespace NCaseFramework.Front.Ui
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public interface CaseEnumerable : IArtefact<ICaseEnumerableModel>, IEnumerable<Case>
+    public interface CaseEnumerable : Artefact<ICaseEnumerableModel>, IEnumerable<Case>
     {
     }
 }

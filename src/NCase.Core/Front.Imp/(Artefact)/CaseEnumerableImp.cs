@@ -11,17 +11,17 @@ using NDsl.Front.Imp;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class CaseEnumerableImp : Artefact<ICaseEnumerableModel>, CaseEnumerable, ICaseEnumerableModel
+    public class CaseEnumerableImp : ArtefactImp<ICaseEnumerableModel>, CaseEnumerable, ICaseEnumerableModel
     {
         [NotNull] private readonly IEnumerable<List<INode>> mCases;
         [NotNull] private readonly ICaseFactory mCaseFactory;
 
         public class Factory : ICaseEnumerableFactory
         {
-            [NotNull] private readonly IServices<ICaseEnumerableModel> mServices;
+            [NotNull] private readonly IServiceSet<ICaseEnumerableModel> mServices;
             [NotNull] private readonly ICaseFactory mCaseFactory;
 
-            public Factory([NotNull] IServices<ICaseEnumerableModel> services, [NotNull] ICaseFactory caseFactory)
+            public Factory([NotNull] IServiceSet<ICaseEnumerableModel> services, [NotNull] ICaseFactory caseFactory)
             {
                 if (services == null) throw new ArgumentNullException("services");
                 if (caseFactory == null) throw new ArgumentNullException("caseFactory");
@@ -37,7 +37,7 @@ namespace NCaseFramework.Front.Imp
 
         public CaseEnumerableImp([NotNull] IEnumerable<List<INode>> cases,
                               [NotNull] ICaseFactory caseFactory,
-                              [NotNull] IServices<ICaseEnumerableModel> services)
+                              [NotNull] IServiceSet<ICaseEnumerableModel> services)
             : base(services)
         {
             if (cases == null) throw new ArgumentNullException("cases");

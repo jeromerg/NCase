@@ -1,6 +1,6 @@
 ﻿namespace NDsl.Front.Api
 {
-    public interface IBuilder : IArtefact<IBuilderModel>
+    public interface IBuilder : Artefact<IBuilderModel>
     {
     }
 }

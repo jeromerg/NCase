@@ -13,10 +13,10 @@ namespace NCaseFramework.Front.Imp
     {
         public class Factory : IDefFactory<Sequence>
         {
-            [NotNull] private readonly IServices<ISequenceModel> mServices;
+            [NotNull] private readonly IServiceSet<ISequenceModel> mServices;
             [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-            public Factory([NotNull] IServices<ISequenceModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
+            public Factory([NotNull] IServiceSet<ISequenceModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
             {
                 if (services == null) throw new ArgumentNullException("services");
                 if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
@@ -32,7 +32,7 @@ namespace NCaseFramework.Front.Imp
 
         public SequenceImp([NotNull] string defName,
                            [NotNull] ITokenStream tokenStream,
-                           [NotNull] IServices<ISequenceModel> services,
+                           [NotNull] IServiceSet<ISequenceModel> services,
                            [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(new SeqId(defName), tokenStream, services, codeLocationUtil)
         {

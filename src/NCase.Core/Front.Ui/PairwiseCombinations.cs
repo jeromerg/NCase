@@ -5,7 +5,7 @@ using NCaseFramework.Front.Api.Pairwise;
 namespace NCaseFramework.Front.Ui
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public interface PairwiseCombinations : SetDefImp<IPairwiseCombinationsModel, PairwiseId>
+    public interface PairwiseCombinations : SetDefBase<IPairwiseCombinationsModel, PairwiseId>
     {
     }
 }

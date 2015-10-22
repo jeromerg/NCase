@@ -13,10 +13,10 @@ namespace NCaseFramework.Front.Imp
     {
         public class Factory : IDefFactory<Tree>
         {
-            [NotNull] private readonly IServices<ITreeModel> mServices;
+            [NotNull] private readonly IServiceSet<ITreeModel> mServices;
             [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-            public Factory([NotNull] IServices<ITreeModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
+            public Factory([NotNull] IServiceSet<ITreeModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
             {
                 if (services == null) throw new ArgumentNullException("services");
                 if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
@@ -32,7 +32,7 @@ namespace NCaseFramework.Front.Imp
 
         public TreeImp([NotNull] string defName,
                        [NotNull] ITokenStream tokenStream,
-                       [NotNull] IServices<ITreeModel> services,
+                       [NotNull] IServiceSet<ITreeModel> services,
                        [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(new TreeId(defName), tokenStream, services, codeLocationUtil)
         {

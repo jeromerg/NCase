@@ -9,15 +9,15 @@ using NDsl.Front.Imp;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class CaseImp : Artefact<ICaseModel>, Case, ICaseModel
+    public class CaseImp : ArtefactImp<ICaseModel>, Case, ICaseModel
     {
         [NotNull] private readonly IEnumerable<INode> mFactNodes;
 
         public class Factory : ICaseFactory
         {
-            [NotNull] private readonly IServices<ICaseModel> mServices;
+            [NotNull] private readonly IServiceSet<ICaseModel> mServices;
 
-            public Factory([NotNull] IServices<ICaseModel> services)
+            public Factory([NotNull] IServiceSet<ICaseModel> services)
             {
                 if (services == null) throw new ArgumentNullException("services");
                 mServices = services;
@@ -29,7 +29,7 @@ namespace NCaseFramework.Front.Imp
             }
         }
 
-        public CaseImp([NotNull] IEnumerable<INode> factNodes, [NotNull] IServices<ICaseModel> services)
+        public CaseImp([NotNull] IEnumerable<INode> factNodes, [NotNull] IServiceSet<ICaseModel> services)
             : base(services)
         {
             if (factNodes == null) throw new ArgumentNullException("factNodes");

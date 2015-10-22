@@ -9,9 +9,9 @@ namespace NDsl.Front.Imp
     public class BuilderFactory : IBuilderFactory
     {
         private readonly ITokenStreamFactory mTokenStreamFactory;
-        private readonly IServices<IBuilderModel> mServices;
+        private readonly IServiceSet<IBuilderModel> mServices;
 
-        public BuilderFactory([NotNull] ITokenStreamFactory tokenStreamFactory, [NotNull] IServices<IBuilderModel> services)
+        public BuilderFactory([NotNull] ITokenStreamFactory tokenStreamFactory, [NotNull] IServiceSet<IBuilderModel> services)
         {
             if (tokenStreamFactory == null) throw new ArgumentNullException("tokenStreamFactory");
             if (services == null) throw new ArgumentNullException("services");

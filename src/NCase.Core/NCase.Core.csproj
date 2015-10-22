@@ -130,12 +130,11 @@
     <Compile Include="Front.Imp\%28Service%29\ReplayImp.cs" />
     <Compile Include="Front.Imp\%28Service%29\PrintDefImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\SequenceImp.cs" />
-    <Compile Include="Front.Ui\BuilderExtensions.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />
     <Compile Include="Front.Ui\CaseEnumerable.cs" />
     <Compile Include="Front.Ui\Sequence.cs" />
     <Compile Include="Front.Api\SetDef\ISetDefModel.cs" />
-    <Compile Include="Front.Ui\SetDefImp.cs" />
+    <Compile Include="Front.Ui\SetDefBase.cs" />
     <Compile Include="Front.Imp\%28Service%29\GetCasesImp.cs" />
     <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
     <Compile Include="Back.Api\Prod\ProdId.cs" />
@@ -151,7 +150,7 @@
     <Compile Include="Back.Api\Replay\IReplayVisitor.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseDimNode.cs" />
     <Compile Include="Back.Api\Pairwise\IPairwiseNode.cs" />
-    <Compile Include="Front.Ui\IFact.cs" />
+    <Compile Include="Front.Ui\Fact.cs" />
     <Compile Include="Front.Ui\PairwiseCombinations.cs" />
     <Compile Include="Front.Ui\AllCombinations.cs" />
     <Compile Include="Front.Ui\Tree.cs" />

@@ -6,6 +6,6 @@ namespace NCaseFramework.Front.Api.Fact
 {
     public interface IFactFactory
     {
-        IFact Create([NotNull] INode fact);
+        Ui.Fact Create([NotNull] INode fact);
     }
 }

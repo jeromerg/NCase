@@ -5,7 +5,7 @@ using NDsl.Front.Api;
 namespace NCaseFramework.Front.Ui
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public interface IFact : IArtefact<IFactModel>
+    public interface Fact : Artefact<IFactModel>
     {
     }
 }

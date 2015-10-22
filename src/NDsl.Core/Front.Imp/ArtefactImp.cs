@@ -4,14 +4,14 @@ using NDsl.Front.Api;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class Artefact<TModel> : IArtefact<TModel>, IArtefactModel, IApi<TModel>
+    public abstract class ArtefactImp<TModel> : Artefact<TModel>, IArtefactModel, IApi<TModel>
         where TModel : IArtefactModel
     {
-        [NotNull] private readonly IServices<TModel> mServices;
+        [NotNull] private readonly IServiceSet<TModel> mServices;
 
-        protected Artefact(IServices<TModel> toolbox)
+        protected ArtefactImp(IServiceSet<TModel> services)
         {
-            mServices = toolbox;
+            mServices = services;
         }
 
         #region IArtefact Implementation
@@ -27,7 +27,7 @@ namespace NDsl.Front.Imp
 
         public abstract TModel Model { get; }
 
-        public IServices<TModel> Services
+        public IServiceSet<TModel> Services
         {
             get { return mServices; }
         }

@@ -16,10 +16,10 @@ namespace NCaseFramework.Front.Imp
     {
         public class Factory : IDefFactory<PairwiseCombinations>
         {
-            [NotNull] private readonly IServices<IPairwiseCombinationsModel> mServices;
+            [NotNull] private readonly IServiceSet<IPairwiseCombinationsModel> mServices;
             [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
-            public Factory([NotNull] IServices<IPairwiseCombinationsModel> services,
+            public Factory([NotNull] IServiceSet<IPairwiseCombinationsModel> services,
                                    [NotNull] ICodeLocationUtil codeLocationUtil)
             {
                 if (services == null) throw new ArgumentNullException("services");
@@ -36,7 +36,7 @@ namespace NCaseFramework.Front.Imp
 
         public PairwiseCombinationsImp([NotNull] string defName,
                                        [NotNull] ITokenStream tokenStream,
-                                       [NotNull] IServices<IPairwiseCombinationsModel> services,
+                                       [NotNull] IServiceSet<IPairwiseCombinationsModel> services,
                                        [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(new PairwiseId(defName), tokenStream, services, codeLocationUtil)
         {

@@ -6,6 +6,6 @@ namespace NDsl.Front.Api
     public interface IApi<out TModel>
     {
         [NotNull] TModel Model { get; }
-        IServices<TModel> Services { get; }
+        IServiceSet<TModel> Services { get; }
     }
 }

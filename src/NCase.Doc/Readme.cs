@@ -1,36 +1,47 @@
 ﻿using System;
 using NCaseFramework.Front.Ui;
+using NDsl.Front.Api;
 using NUnit.Framework;
 
-namespace NCaseFramework.Test
+namespace NCaseFramework.doc
 {
     [TestFixture]
-    public class DemoForReadMePage
+    public class Readme
     {
-        [Test]
-        public void ExtractSnippets()
+        // ReSharper disable once InconsistentNaming
+        private readonly SourceAndConsoleSnippets Console;
+
+        public Readme()
         {
-            new ConsoleAndBlockExtractor().DumpAllExtractOfThisFile();
+            Console = new SourceAndConsoleSnippets();
         }
 
-        //BeginExtract TodoInterface
+        [TestFixtureTearDown]
+        public void ActualizeMarkdownFile()
+        {
+            Console.ExportAllSnippetsOfThisFile();
+            Console.InflateMarkdownFile();
+        }
+
+        //# TodoInterface
         public interface ITodo
         {
             string Task { get; set; }
             bool IsDone { get; set; }
             DateTime DueDate { get; set; }
         }
-        //EndExtract
+
+        //#
 
         [Test]
         public void AllCombinations()
-        {            
+        {
             DateTime now = DateTime.Now;
             DateTime yesterday = now.AddDays(-1);
             DateTime tomorrow = now.AddDays(+1);
 
-            //BeginExtract AllCombinations
-            var builder = NCase.NewBuilder();
+            //# AllCombinations
+            IBuilder builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
 
             var all = builder.NewDefinition<AllCombinations>("all");
@@ -44,28 +55,28 @@ namespace NCaseFramework.Test
                 todo.DueDate = yesterday;
                 todo.DueDate = now;
                 todo.DueDate = tomorrow;
-                
+
                 todo.IsDone = false;
                 todo.IsDone = true;
             }
 
             Console.WriteLine(all.PrintCasesAsTable());
-            //EndExtract
+            //#
         }
 
         [Test]
         public void PairwiseCombinations()
-        {            
+        {
             DateTime now = DateTime.Now;
             DateTime yesterday = now.AddDays(-1);
             DateTime tomorrow = now.AddDays(+1);
 
-            //BeginExtract AllCombinations
-            var builder = NCase.NewBuilder();
+            //# AllCombinations
+            IBuilder builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
 
-            var all = builder.NewDefinition<PairwiseCombinations>("all");
-            using (all.Define())
+            var allPairs = builder.NewDefinition<PairwiseCombinations>("allPairs");
+            using (allPairs.Define())
             {
                 todo.Task = "Don't forget to forget";
                 todo.Task = "";
@@ -75,34 +86,39 @@ namespace NCaseFramework.Test
                 todo.DueDate = yesterday;
                 todo.DueDate = now;
                 todo.DueDate = tomorrow;
-                
+
                 todo.IsDone = false;
                 todo.IsDone = true;
             }
 
-            Console.WriteLine(all.PrintCasesAsTable());
-            //EndExtract
+            Console.WriteLine(allPairs.PrintCasesAsTable());
+            //#
         }
 
         [Test]
         public void Tree()
-        {            
+        {
             DateTime now = DateTime.Now;
             DateTime yesterday = now.AddDays(-1);
             DateTime tomorrow = now.AddDays(+1);
 
-            var builder = NCase.NewBuilder();
+            //# Tree
+            IBuilder builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
 
-            Tree tree = builder.NewDefinition<Tree>("tree");
+            var tree = builder.NewDefinition<Tree>("tree");
             using (tree.Define())
             {
                 todo.Task = "Don't forget to forget";
-                    todo.DueDate = yesterday;
-                        todo.IsDone = true;
-
+                todo.DueDate = yesterday;
+                todo.IsDone = true;
+                todo.IsDone = false;
+                todo.DueDate = now;
+                todo.IsDone = true;
+                todo.DueDate = tomorrow;
+                todo.IsDone = false;
             }
+            //#
         }
-
     }
 }

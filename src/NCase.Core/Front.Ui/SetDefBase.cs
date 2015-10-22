@@ -6,7 +6,7 @@ using NDsl.Front.Api;
 namespace NCaseFramework.Front.Ui
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public interface SetDefImp<out TModel, out TId> : IDef<TModel, TId>
+    public interface SetDefBase<out TModel, out TId> : DefBase<TModel, TId>
         where TModel : ISetDefModel<TId>
         where TId : ISetDefId
     {

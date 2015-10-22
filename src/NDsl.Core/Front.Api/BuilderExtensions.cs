@@ -1,6 +1,4 @@
-using NDsl.Front.Api;
-
-namespace NCaseFramework.Front.Ui
+namespace NDsl.Front.Api
 {
     public static class BuilderExtensions
     {
@@ -10,7 +8,7 @@ namespace NCaseFramework.Front.Ui
             return contributorFactory.Create<T>(builder.Api.Model, name);
         }
 
-        public static T NewDefinition<T>(this IBuilder builder, string name) where T : IDef
+        public static T NewDefinition<T>(this IBuilder builder, string name) where T : DefBase
         {
             var treeFactory = builder.Api.Services.GetService<IDefFactory<T>>();
             return treeFactory.Create(name, builder.Api.Model.TokenStream);

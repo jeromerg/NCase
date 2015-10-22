@@ -3,13 +3,13 @@ using NDsl.Back.Api.Def;
 
 namespace NDsl.Front.Api
 {
-    public interface IDef
+    public interface DefBase
     {
         IDisposable Define();
         void Ref();
     }
 
-    public interface IDef<out TModel, out TId> : IArtefact<TModel>, IDef
+    public interface DefBase<out TModel, out TId> : Artefact<TModel>, DefBase
         where TModel : IDefModel<TId>
         where TId : IDefId
     {

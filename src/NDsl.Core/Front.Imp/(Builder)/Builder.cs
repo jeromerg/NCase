@@ -6,11 +6,11 @@ using NDsl.Front.Api;
 
 namespace NDsl.Front.Imp
 {
-    public class Builder : Artefact<IBuilderModel>, IBuilder, IBuilderModel
+    public class Builder : ArtefactImp<IBuilderModel>, IBuilder, IBuilderModel
     {
         [NotNull] private readonly ITokenStream mTokenStream;
 
-        public Builder([NotNull] ITokenStream tokenStream, [NotNull] IServices<IBuilderModel> services)
+        public Builder([NotNull] ITokenStream tokenStream, [NotNull] IServiceSet<IBuilderModel> services)
             : base(services)
         {
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");

@@ -8,27 +8,27 @@ using NDsl.Front.Imp;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class FactImp : Artefact<IFactModel>, IFact, IFactModel
+    public class FactImp : ArtefactImp<IFactModel>, Fact, IFactModel
     {
         private readonly INode mFactNode;
 
         public class Factory : IFactFactory
         {
-            [NotNull] private readonly IServices<IFactModel> mServices;
+            [NotNull] private readonly IServiceSet<IFactModel> mServices;
 
-            public Factory([NotNull] IServices<IFactModel> services)
+            public Factory([NotNull] IServiceSet<IFactModel> services)
             {
                 if (services == null) throw new ArgumentNullException("services");
                 mServices = services;
             }
 
-            public IFact Create(INode fact)
+            public Fact Create(INode fact)
             {
                 return new FactImp(fact, mServices);
             }
         }
 
-        public FactImp([NotNull] INode factNode, [NotNull] IServices<IFactModel> services)
+        public FactImp([NotNull] INode factNode, [NotNull] IServiceSet<IFactModel> services)
             : base(services)
         {
             mFactNode = factNode;

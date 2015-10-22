@@ -9,7 +9,7 @@ using NDsl.Front.Api;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class Def<TModel, TId> : Artefact<TModel>, IDef<TModel, TId>
+    public abstract class DefBaseImp<TModel, TId> : ArtefactImp<TModel>, DefBase<TModel, TId>
         where TId : IDefId
         where TModel : IDefModel<TId>
     {
@@ -17,8 +17,8 @@ namespace NDsl.Front.Imp
         [NotNull] private readonly ITokenStream mTokenStream;
         private readonly ICodeLocationUtil mCodeLocationUtil;
 
-        protected Def([NotNull] TId id,
-                      [NotNull] IServices<TModel> services,
+        protected DefBaseImp([NotNull] TId id,
+                      [NotNull] IServiceSet<TModel> services,
                       [NotNull] ITokenStream tokenStream,
                       [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(services)

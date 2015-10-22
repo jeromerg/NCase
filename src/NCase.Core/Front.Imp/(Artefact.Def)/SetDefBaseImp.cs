@@ -8,13 +8,13 @@ using NDsl.Front.Imp;
 
 namespace NCaseFramework.Front.Imp
 {
-    public abstract class SetDefBaseImp<TModel, TId> : Def<TModel, TId>, SetDefImp<TModel, TId>, ISetDefModel<TId>
+    public abstract class SetDefBaseImp<TModel, TId> : DefBaseImp<TModel, TId>, SetDefBase<TModel, TId>, ISetDefModel<TId>
         where TId : ISetDefId
         where TModel : ISetDefModel<TId>
     {
         protected SetDefBaseImp([NotNull] TId id,
                          [NotNull] ITokenStream tokenStream,
-                         [NotNull] IServices<TModel> services,
+                         [NotNull] IServiceSet<TModel> services,
                          [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(id, services, tokenStream, codeLocationUtil)
         {
