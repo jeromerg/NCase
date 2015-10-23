@@ -21,7 +21,7 @@ namespace NCaseFramework.doc
             : this(outputDirRelatedToCallerFileDir: "Generated",
                    consoleBlockBegin: "#",
                    fileBlockRegexString: @"(\r\n|^)[\t ]*//#\s+(?<name>[^\r\n]+)\r\n(?<body>.*?)\r\n[\t ]*//#",
-                   markdownInjectionRegexString: @"(\r\n|^)[\t ]*<!--#\s+(?<name>[^-]+)-->\s*\r\n(?<body>.*?)(\r\n)?[\t ]*<!--#-->"
+                   markdownInjectionRegexString: @"(?<=(<!--#\s+(?<name>[^-]+)-->\s*\r\n))(?<body>.*?(\r\n)?)(?=([\t ]*<!--#-->))"
                 )
         {
         }
@@ -131,7 +131,8 @@ namespace NCaseFramework.doc
             string outputMarkdownContent = mMarkdownFileInjectionBlockRegex.Replace(inputMarkdownContent,
                                                                       match => ReplaceMarkdownMatchBySnippet(callerFilePath, match));
 
-            File.WriteAllText(markdownFile, outputMarkdownContent);
+            if(inputMarkdownContent != outputMarkdownContent)
+                File.WriteAllText(markdownFile, outputMarkdownContent);
         }
 
         private string ReplaceMarkdownMatchBySnippet(string callerFilePath, Match match)

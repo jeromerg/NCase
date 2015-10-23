@@ -2,7 +2,9 @@ TEST
 ----
 
 
-```C#IBuilder builder = NCase.NewBuilder();
+```C#
+<!--# AllCombinations -->
+IBuilder builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
 
 var allPairs = builder.NewDefinition<PairwiseCombinations>("allPairs");
@@ -22,5 +24,5 @@ using (allPairs.Define())
 }
 
 Console.WriteLine(allPairs.PrintCasesAsTable());
-
+<!--#-->
 ```
