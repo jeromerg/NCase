@@ -9,11 +9,11 @@ namespace NCaseFramework.doc
     public class Readme
     {
         // ReSharper disable once InconsistentNaming
-        private readonly SourceAndConsoleSnippets Console;
+        private readonly SnippetUtil Console;
 
         public Readme()
         {
-            Console = new SourceAndConsoleSnippets();
+            Console = new SnippetUtil();
         }
 
         [TestFixtureTearDown]
@@ -30,7 +30,6 @@ namespace NCaseFramework.doc
             bool IsDone { get; set; }
             DateTime DueDate { get; set; }
         }
-
         //#
 
         [Test]
@@ -110,13 +109,13 @@ namespace NCaseFramework.doc
             using (tree.Define())
             {
                 todo.Task = "Don't forget to forget";
-                todo.DueDate = yesterday;
-                todo.IsDone = true;
-                todo.IsDone = false;
-                todo.DueDate = now;
-                todo.IsDone = true;
-                todo.DueDate = tomorrow;
-                todo.IsDone = false;
+                    todo.DueDate = yesterday;
+                        todo.IsDone = true;
+                        todo.IsDone = false;
+                    todo.DueDate = now;
+                        todo.IsDone = true;
+                    todo.DueDate = tomorrow;
+                        todo.IsDone = false;
             }
             //#
         }

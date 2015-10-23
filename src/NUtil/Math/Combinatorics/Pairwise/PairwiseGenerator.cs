@@ -24,7 +24,6 @@ namespace NCaseFramework.Back.Imp.Pairwise
             // while any pair exists in first generation (unused pair)
             while (pairGenerations.First().Any())
                 yield return GenerateNextTuple(dimSizes, pairGenerations);
-
         }
 
         private int[] GenerateNextTuple(int[] dimSizes, List<PairSet> pairGenerations)
@@ -57,10 +56,12 @@ namespace NCaseFramework.Back.Imp.Pairwise
                 // remove all pair built with the one or two new dimValues to next generation
                 foreach (DimValue dimValue in tuple.FrozenDimValues)
                 {
-                    pairGeneration.Remove(dimValue.Dim, dimValue.Val, pair.Dim1, pair.Val1);
-                    nextGeneration.Add(dimValue.Dim, dimValue.Val, pair.Dim1, pair.Val1);
-                    pairGeneration.Remove(dimValue.Dim, dimValue.Val, pair.Dim2, pair.Val2);
-                    nextGeneration.Add(dimValue.Dim, dimValue.Val, pair.Dim2, pair.Val2);
+                    var p1 = new Pair(dimValue.Dim, dimValue.Val, pair.Dim1, pair.Val1);
+                    var p2 = new Pair(dimValue.Dim, dimValue.Val, pair.Dim2, pair.Val2);
+                    pairGeneration.Remove(p1);
+                    pairGeneration.Remove(p2);
+                    nextGeneration.Add(p1);
+                    nextGeneration.Add(p2);
                 }
 
                 // add the one or two new dimValues
@@ -89,9 +90,9 @@ namespace NCaseFramework.Back.Imp.Pairwise
         [CanBeNull]
         private Pair TryPeakPairInFreeAndFrozenDims(PairSet pairs, Tuple tuple)
         {
-            return tuple.FreeDims
-                        .Product(tuple.FrozenDimValues, (dim1, dimValue) => pairs.FirstOrDefault(dimValue.Dim, dimValue.Val, dim1))
-                        .FirstOrDefault(pair => pair != null);
+            return tuple.FreeDims.CartesianProduct(tuple.FrozenDimValues,
+                                                   (dim1, val1) => pairs.FirstOrDefault(val1.Dim, val1.Val, dim1))
+                                 .FirstOrDefault(pair => pair != null);
         }
 
         private static PairSet GetOrCreateNextGeneration(List<PairSet> generations, int generationIndex)

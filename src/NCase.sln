@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDsl.Test", "NDsl.Test\NDsl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Doc", "NCase.Doc\NCase.Doc.csproj", "{CCBBEFB2-B93B-4FDF-A401-3B1044F01032}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUtil", "NUtil\NUtil.csproj", "{80D9F218-E936-48AD-8C16-3D16B8218A0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{CCBBEFB2-B93B-4FDF-A401-3B1044F01032}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCBBEFB2-B93B-4FDF-A401-3B1044F01032}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCBBEFB2-B93B-4FDF-A401-3B1044F01032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80D9F218-E936-48AD-8C16-3D16B8218A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80D9F218-E936-48AD-8C16-3D16B8218A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80D9F218-E936-48AD-8C16-3D16B8218A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80D9F218-E936-48AD-8C16-3D16B8218A0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

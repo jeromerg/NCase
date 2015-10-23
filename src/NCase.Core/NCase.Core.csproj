@@ -54,7 +54,6 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Back.Api\Pairwise\IPairwiseGenerator.cs" />
     <Compile Include="Back.Api\Parse\GenerateOptions.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableDirector.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
@@ -68,17 +67,10 @@
     <Compile Include="Back.Imp\InterfaceRecPlay\PrintCaseTableVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ReplayVisitors.cs" />
-    <Compile Include="Back.Imp\Pairwise\%28Algo%29\DimValue.cs" />
-    <Compile Include="Back.Imp\Pairwise\%28Algo%29\Pair.cs" />
-    <Compile Include="Back.Imp\Pairwise\%28Algo%29\QuadraticEnumerationExtensions.cs" />
-    <Compile Include="Back.Imp\Pairwise\%28Algo%29\Tuple.cs" />
     <Compile Include="Back.Imp\Pairwise\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\GenerateCaseVisitors.cs" />
-    <Compile Include="Back.Imp\Pairwise\%28Algo%29\DictionaryCascadeExtensions.cs" />
-    <Compile Include="Back.Imp\Pairwise\%28Algo%29\PairSet.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseDimNode.cs" />
     <Compile Include="Back.Imp\Pairwise\PairwiseNode.cs" />
-    <Compile Include="Back.Imp\Pairwise\%28Algo%29\PairwiseGenerator.cs" />
     <Compile Include="Back.Imp\Pairwise\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Parse\GenerateCasesVisitors.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableDirector.cs" />
@@ -177,8 +169,14 @@
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
       <Name>NDsl.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NUtil\NUtil.csproj">
+      <Project>{80d9f218-e936-48ad-8c16-3d16b8218a0c}</Project>
+      <Name>NUtil</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Back.Imp\Pairwise\%28Algo%29\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

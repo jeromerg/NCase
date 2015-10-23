@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CCBBEFB2-B93B-4FDF-A401-3B1044F01032}</ProjectGuid>
+    <ProjectGuid>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NCaseFramework.doc</RootNamespace>
-    <AssemblyName>NCaseDoc</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>NUtil</RootNamespace>
+    <AssemblyName>NUtil</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,29 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Readme.cs" />
+    <Compile Include="Linq\DictionaryCascadeExtensions.cs" />
+    <Compile Include="Math\Combinatorics\Pairwise\DimValue.cs" />
+    <Compile Include="Math\Combinatorics\Pairwise\IPairwiseGenerator.cs" />
+    <Compile Include="Math\Combinatorics\Pairwise\Pair.cs" />
+    <Compile Include="Math\Combinatorics\Pairwise\PairSet.cs" />
+    <Compile Include="Math\Combinatorics\Pairwise\PairwiseGenerator.cs" />
+    <Compile Include="Linq\QuadraticExtensions.cs" />
+    <Compile Include="Math\Combinatorics\Pairwise\Tuple.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Snippet\ConsoleRecord.cs" />
+    <Compile Include="Snippet\ConsoleRecorder.cs" />
+    <Compile Include="Snippet\Snippet.cs" />
+    <Compile Include="Snippet\SnippetUtil.cs" />
+    <Compile Include="Text\TextUtil.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NCase.Core\NCase.Core.csproj">
-      <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
-      <Name>NCase.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NCase\NCase.csproj">
-      <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
-      <Name>NCase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
-      <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
-      <Name>NDsl.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Readme.md" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
