@@ -10,7 +10,7 @@ namespace NCaseFramework.doc
   
         public void WriteLine(string txt, [CallerMemberName] string callerMemberName = null)
         {
-            Write(txt + Environment.NewLine, callerMemberName);
+            Write(txt + Environment.NewLine, callerMemberName : callerMemberName);
         }
 
         public void Write(string txt, 

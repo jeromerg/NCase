@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NCaseFramework.Front.Ui</RootNamespace>
     <AssemblyName>NCase</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\NCase.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
@@ -72,6 +75,10 @@
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
       <Name>NDsl.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NUtil\NUtil.csproj">
+      <Project>{80d9f218-e936-48ad-8c16-3d16b8218a0c}</Project>
+      <Name>NUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

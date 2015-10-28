@@ -62,6 +62,10 @@
       <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
       <Name>NDsl.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NUtil\NUtil.csproj">
+      <Project>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</Project>
+      <Name>NUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />

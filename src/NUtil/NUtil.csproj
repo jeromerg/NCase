@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NUtil</RootNamespace>
     <AssemblyName>NUtil</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
@@ -44,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="File\CallerUtil.cs" />
     <Compile Include="Linq\DictionaryCascadeExtensions.cs" />
     <Compile Include="Math\Combinatorics\Pairwise\DimValue.cs" />
     <Compile Include="Math\Combinatorics\Pairwise\IPairwiseGenerator.cs" />
@@ -53,10 +57,11 @@
     <Compile Include="Linq\QuadraticExtensions.cs" />
     <Compile Include="Math\Combinatorics\Pairwise\Tuple.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Snippet\ConsoleRecord.cs" />
-    <Compile Include="Snippet\ConsoleRecorder.cs" />
-    <Compile Include="Snippet\Snippet.cs" />
-    <Compile Include="Snippet\SnippetUtil.cs" />
+    <Compile Include="Doc\ConsoleRecord.cs" />
+    <Compile Include="Doc\ConsoleRecorder.cs" />
+    <Compile Include="Doc\Snippet.cs" />
+    <Compile Include="Doc\DocUtil.cs" />
+    <Compile Include="Doc\SnippetParser.cs" />
     <Compile Include="Text\TextUtil.cs" />
   </ItemGroup>
   <ItemGroup />

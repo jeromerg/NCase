@@ -2,6 +2,7 @@
 using NCaseFramework.Front.Ui;
 using NDsl.Front.Api;
 using NUnit.Framework;
+using NUtil.Snippet;
 
 namespace NCaseFramework.doc
 {
@@ -9,18 +10,12 @@ namespace NCaseFramework.doc
     public class Readme
     {
         // ReSharper disable once InconsistentNaming
-        private readonly SnippetUtil Console;
-
-        public Readme()
-        {
-            Console = new SnippetUtil();
-        }
+        private readonly ConsoleRecorder Console = new ConsoleRecorder();
 
         [TestFixtureTearDown]
-        public void ActualizeMarkdownFile()
+        public void UpdateMarkdownFile()
         {
-            Console.ExportAllSnippetsOfThisFile();
-            Console.InflateMarkdownFile();
+            DocUtil.UpdateDocSnippets(Console);
         }
 
         //# TodoInterface
@@ -59,6 +54,7 @@ namespace NCaseFramework.doc
                 todo.IsDone = true;
             }
 
+            Console.WriteLine("# AllCombinationsConsole");
             Console.WriteLine(all.PrintCasesAsTable());
             //#
         }
@@ -70,14 +66,14 @@ namespace NCaseFramework.doc
             DateTime yesterday = now.AddDays(-1);
             DateTime tomorrow = now.AddDays(+1);
 
-            //# AllCombinations
+            //# PairwiseCombinations
             IBuilder builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
 
             var allPairs = builder.NewDefinition<PairwiseCombinations>("allPairs");
             using (allPairs.Define())
             {
-                todo.Task = "Don't forget to forget";
+                todo.Task = "Don't forget to forget this";
                 todo.Task = "";
                 todo.Task = "@()/&%$§ ß üäö ÖÄÜ éè";
                 todo.Task = "@(SELECT * FROM USERS)";

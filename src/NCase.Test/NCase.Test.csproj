@@ -92,6 +92,10 @@
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
       <Name>NDsl.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NUtil\NUtil.csproj">
+      <Project>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</Project>
+      <Name>NUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
