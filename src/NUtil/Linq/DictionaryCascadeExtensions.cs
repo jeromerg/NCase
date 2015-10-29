@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace NCaseFramework.Back.Imp.Pairwise
+namespace NUtil.Linq
 {
     public static class DictionaryCascadeExtensions
     {
@@ -32,7 +32,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
         public static IEnumerable<T> CascadeRemove<T>([NotNull] this IEnumerable<Dictionary<int, T>> dictEnumerable, int key)
             where T : IEnumerable
         {
-            foreach (var dict in dictEnumerable)
+            foreach (Dictionary<int, T> dict in dictEnumerable)
             {
                 T t;
                 if (!dict.TryGetValue(key, out t))
@@ -113,7 +113,5 @@ namespace NCaseFramework.Back.Imp.Pairwise
 
             return hashSet.Contains(key);
         }
-
-
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using NCaseFramework.Back.Imp.Pairwise;
 using NUnit.Framework;
+using NUtil.Math.Combinatorics.Pairwise;
 
 namespace NCaseFramework.Test
 {

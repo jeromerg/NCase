@@ -36,8 +36,8 @@ namespace NCaseFramework.Front.Imp
         }
 
         public CaseEnumerableImp([NotNull] IEnumerable<List<INode>> cases,
-                              [NotNull] ICaseFactory caseFactory,
-                              [NotNull] IServiceSet<ICaseEnumerableModel> services)
+                                 [NotNull] ICaseFactory caseFactory,
+                                 [NotNull] IServiceSet<ICaseEnumerableModel> services)
             : base(services)
         {
             if (cases == null) throw new ArgumentNullException("cases");

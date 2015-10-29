@@ -15,7 +15,7 @@ namespace NCaseFramework.doc
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            new DocUtil().UpdateSnippetsOfAssociatedDocumentation(Console);
+            new DocUtil().UpdateDocAssociatedToThisFile(Console);
         }
 
         //# TodoInterface
@@ -25,6 +25,7 @@ namespace NCaseFramework.doc
             bool IsDone { get; set; }
             DateTime DueDate { get; set; }
         }
+
         //#
 
         [Test]
@@ -105,13 +106,13 @@ namespace NCaseFramework.doc
             using (tree.Define())
             {
                 todo.Task = "Don't forget to forget";
-                    todo.DueDate = yesterday;
-                        todo.IsDone = true;
-                        todo.IsDone = false;
-                    todo.DueDate = now;
-                        todo.IsDone = true;
-                    todo.DueDate = tomorrow;
-                        todo.IsDone = false;
+                todo.DueDate = yesterday;
+                todo.IsDone = true;
+                todo.IsDone = false;
+                todo.DueDate = now;
+                todo.IsDone = true;
+                todo.DueDate = tomorrow;
+                todo.IsDone = false;
             }
             //#
         }

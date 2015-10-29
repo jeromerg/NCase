@@ -3,6 +3,7 @@ using System.Linq;
 using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
+using NUtil.Math.Combinatorics.Pairwise;
 
 namespace NCaseFramework.Back.Imp.Pairwise
 {

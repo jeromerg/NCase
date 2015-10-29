@@ -20,7 +20,7 @@ namespace NCaseFramework.Front.Imp
             [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
             public Factory([NotNull] IServiceSet<IPairwiseCombinationsModel> services,
-                                   [NotNull] ICodeLocationUtil codeLocationUtil)
+                           [NotNull] ICodeLocationUtil codeLocationUtil)
             {
                 if (services == null) throw new ArgumentNullException("services");
                 if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");

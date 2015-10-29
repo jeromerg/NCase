@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NCaseFramework.Back.Api.Pairwise;
+using NUtil.Linq;
 
-namespace NCaseFramework.Back.Imp.Pairwise
+namespace NUtil.Math.Combinatorics.Pairwise
 {
     public class PairwiseGenerator : IPairwiseGenerator
     {
@@ -92,7 +92,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
         {
             return tuple.FreeDims.CartesianProduct(tuple.FrozenDimValues,
                                                    (dim1, val1) => pairs.FirstOrDefault(val1.Dim, val1.Val, dim1))
-                                 .FirstOrDefault(pair => pair != null);
+                        .FirstOrDefault(pair => pair != null);
         }
 
         private static PairSet GetOrCreateNextGeneration(List<PairSet> generations, int generationIndex)

@@ -13,9 +13,9 @@ namespace NCaseFramework.Front.Imp
         where TModel : ISetDefModel<TId>
     {
         protected SetDefBaseImp([NotNull] TId id,
-                         [NotNull] ITokenStream tokenStream,
-                         [NotNull] IServiceSet<TModel> services,
-                         [NotNull] ICodeLocationUtil codeLocationUtil)
+                                [NotNull] ITokenStream tokenStream,
+                                [NotNull] IServiceSet<TModel> services,
+                                [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(id, services, tokenStream, codeLocationUtil)
         {
         }

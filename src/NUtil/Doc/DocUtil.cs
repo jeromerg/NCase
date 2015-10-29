@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
-using NCaseFramework.doc;
 
 namespace NUtil.Doc
 {
@@ -36,19 +35,19 @@ namespace NUtil.Doc
             {
                 string snippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CODE_SNIPPET_MARKER);
                 var snippetRegex = new Regex(snippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
-                mCodeSnippetParser = new SnippetParser( snippetRegex, null);
+                mCodeSnippetParser = new SnippetParser(snippetRegex, null);
             }
 
             {
                 string snippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CONSOLE_SNIPPET_MARKER);
                 var snippetRegex = new Regex(snippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
                 var excludedLineRegex = new Regex(CODE_EXCLUDED_LINE_REGEX);
-                mConsoleSnippetParser = new SnippetParser( snippetRegex, excludedLineRegex);
+                mConsoleSnippetParser = new SnippetParser(snippetRegex, excludedLineRegex);
             }
         }
 
-        public void UpdateSnippetsOfAssociatedDocumentation([CanBeNull] ConsoleRecorder consoleRecorder = null,
-                                          [CallerFilePath] string callerFilePath = null)
+        public void UpdateDocAssociatedToThisFile([CanBeNull] ConsoleRecorder consoleRecorder = null,
+                                                  [CallerFilePath] string callerFilePath = null)
         {
             var allSnippets = new List<Snippet>();
             allSnippets.AddRange(ExtractCodeSnippets(callerFilePath));

@@ -15,7 +15,7 @@ namespace NCaseFramework.Front.Imp
         [NotNull] private readonly Func<IPrintCaseTableDirector> mPrintCaseTableDirectorFactory;
 
         public PrintTableImp([NotNull] IParserGenerator parserGenerator,
-                          [NotNull] Func<IPrintCaseTableDirector> printCaseTableDirectorFactory
+                             [NotNull] Func<IPrintCaseTableDirector> printCaseTableDirectorFactory
             )
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");

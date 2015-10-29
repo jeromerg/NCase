@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Back.Imp.Pairwise;
 using NCaseFramework.Front.Imp;
+using NUtil.Math.Combinatorics.Pairwise;
 
 namespace NCaseFramework.Front.Ui
 {
@@ -24,7 +24,7 @@ namespace NCaseFramework.Front.Ui
 
             // PrintDefinition
             builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
-            
+
             // pairwise algorithm
             builder.RegisterType<PairwiseGenerator>().As<IPairwiseGenerator>().SingleInstance();
         }

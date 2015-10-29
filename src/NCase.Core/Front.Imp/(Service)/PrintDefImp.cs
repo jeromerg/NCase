@@ -14,7 +14,7 @@ namespace NCaseFramework.Front.Imp
         private readonly Func<IPrintDefinitionDirector> mPrintDefinitionDirectorFactory;
 
         public PrintDefImp([NotNull] IParserGenerator parserGenerator,
-                        [NotNull] Func<IPrintDefinitionDirector> printDefinitionDirectorFactory)
+                           [NotNull] Func<IPrintDefinitionDirector> printDefinitionDirectorFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (printDefinitionDirectorFactory == null) throw new ArgumentNullException("printDefinitionDirectorFactory");

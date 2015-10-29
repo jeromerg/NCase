@@ -22,7 +22,7 @@ namespace NCaseFramework.Front.Ui
         protected override void Load(ContainerBuilder cb)
         {
             base.Load(cb);
-            
+
             cb.RegisterType<BuilderFactory>().As<IBuilderFactory>().SingleInstance();
 
             cb.RegisterType<TokenStreamFactory>().As<ITokenStreamFactory>().SingleInstance();

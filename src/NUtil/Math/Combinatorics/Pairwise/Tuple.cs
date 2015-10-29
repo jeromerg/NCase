@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NCaseFramework.Back.Imp.Pairwise
+namespace NUtil.Math.Combinatorics.Pairwise
 {
     public class Tuple
     {
@@ -11,15 +11,6 @@ namespace NCaseFramework.Back.Imp.Pairwise
         public Tuple(int amountOfDims)
         {
             mResult = Enumerable.Repeat(-1, amountOfDims).ToArray();
-        }
-
-        public void Add(int dim, int val)
-        {
-            int existingVal = mResult[dim];
-            if (existingVal != -1 && existingVal != val)
-                throw new ArgumentException(string.Format("dim {0} is already set to another value", dim));
-
-            mResult[dim] = val;
         }
 
         public IEnumerable<int> FreeDims
@@ -49,6 +40,15 @@ namespace NCaseFramework.Back.Imp.Pairwise
         public int[] Result
         {
             get { return mResult; }
+        }
+
+        public void Add(int dim, int val)
+        {
+            int existingVal = mResult[dim];
+            if (existingVal != -1 && existingVal != val)
+                throw new ArgumentException(string.Format("dim {0} is already set to another value", dim));
+
+            mResult[dim] = val;
         }
     }
 }

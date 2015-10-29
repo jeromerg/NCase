@@ -71,7 +71,6 @@
     <Compile Include="PairwiseProductTests.cs" />
     <Compile Include="PairwiseAlgorithmTests.cs" />
     <Compile Include="CartesianProductTests.cs" />
-    <Compile Include="ConsoleAndBlockExtractor.cs" />
     <Compile Include="TreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

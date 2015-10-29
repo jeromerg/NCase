@@ -16,7 +16,7 @@ namespace NCaseFramework.Front.Imp
         [NotNull] private readonly ICaseEnumerableFactory mCaseEnumerableFactory;
 
         public GetCasesImp([NotNull] IParserGenerator parserGenerator,
-                        [NotNull] ICaseEnumerableFactory caseEnumerableFactory)
+                           [NotNull] ICaseEnumerableFactory caseEnumerableFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
             if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");

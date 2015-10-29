@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using NUtil.Linq;
 
-namespace NCaseFramework.Back.Imp.Pairwise
+namespace NUtil.Math.Combinatorics.Pairwise
 {
     public class PairSet
     {
@@ -90,6 +91,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
         {
             Remove(pair.Dim1, pair.Val1, pair.Dim2, pair.Val2);
         }
+
         public void Remove(int dim1, int val1, int dim2, int val2)
         {
             mPairs.CascadeRemove(dim1).CascadeRemove(dim2).CascadeRemove(val1).CascadeRemove(val2);
@@ -101,10 +103,10 @@ namespace NCaseFramework.Back.Imp.Pairwise
             var sb = new StringBuilder();
 
             int count = 0;
-            foreach (var dim1 in mPairs)
-                foreach (var dim2 in dim1.Value)
-                    foreach (var val1 in dim2.Value)
-                        foreach (var val2 in val1.Value)
+            foreach (KeyValuePair<int, Dictionary<int, Dictionary<int, HashSet<int>>>> dim1 in mPairs)
+                foreach (KeyValuePair<int, Dictionary<int, HashSet<int>>> dim2 in dim1.Value)
+                    foreach (KeyValuePair<int, HashSet<int>> val1 in dim2.Value)
+                        foreach (int val2 in val1.Value)
                         {
                             count++;
                             sb.AppendFormat("({0},{1};{2},{3})\n", dim1.Key, val1.Key, dim2.Key, val2);
@@ -116,9 +118,9 @@ namespace NCaseFramework.Back.Imp.Pairwise
         public int GetCount()
         {
             int count = 0;
-            foreach (var dim1 in mPairs)
-                foreach (var dim2 in dim1.Value)
-                    foreach (var val1 in dim2.Value)
+            foreach (KeyValuePair<int, Dictionary<int, Dictionary<int, HashSet<int>>>> dim1 in mPairs)
+                foreach (KeyValuePair<int, Dictionary<int, HashSet<int>>> dim2 in dim1.Value)
+                    foreach (KeyValuePair<int, HashSet<int>> val1 in dim2.Value)
                         count += val1.Value.Count;
 
             return count;

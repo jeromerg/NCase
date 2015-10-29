@@ -18,9 +18,9 @@ namespace NDsl.Front.Imp
         private readonly ICodeLocationUtil mCodeLocationUtil;
 
         protected DefBaseImp([NotNull] TId id,
-                      [NotNull] IServiceSet<TModel> services,
-                      [NotNull] ITokenStream tokenStream,
-                      [NotNull] ICodeLocationUtil codeLocationUtil)
+                             [NotNull] IServiceSet<TModel> services,
+                             [NotNull] ITokenStream tokenStream,
+                             [NotNull] ICodeLocationUtil codeLocationUtil)
             : base(services)
         {
             if (id == null) throw new ArgumentNullException("id");

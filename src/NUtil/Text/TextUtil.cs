@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 
-namespace NCaseFramework.doc
+namespace NUtil.Text
 {
     public class TextUtil
     {

@@ -1,4 +1,4 @@
-﻿namespace NCaseFramework.Back.Imp.Pairwise
+﻿namespace NUtil.Math.Combinatorics.Pairwise
 {
     public class Pair
     {

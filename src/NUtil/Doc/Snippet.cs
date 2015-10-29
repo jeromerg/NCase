@@ -1,4 +1,4 @@
-﻿namespace NCaseFramework.doc
+﻿namespace NUtil.Doc
 {
     public class Snippet
     {
