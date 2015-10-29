@@ -14,7 +14,7 @@ namespace NCaseFramework.Front.Ui
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
             // remark: AddChild visitors are located in Parse and Tree modules
 
-            // Replay
+            // SetReplay
             builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Case Generator

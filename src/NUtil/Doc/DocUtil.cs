@@ -27,23 +27,17 @@ namespace NUtil.Doc
 
         public DocUtil()
         {
-            {
-                var snippetRegex = new Regex(MARKDOWN_SNIPPET_REGEX_STRING, RegexOptions.Singleline | RegexOptions.Multiline);
-                mMarkdownSnippetParser = new SnippetParser(snippetRegex, null);
-            }
+            var markdownSnippetRegex = new Regex(MARKDOWN_SNIPPET_REGEX_STRING, RegexOptions.Singleline | RegexOptions.Multiline);
+            mMarkdownSnippetParser = new SnippetParser(markdownSnippetRegex, null);
 
-            {
-                string snippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CODE_SNIPPET_MARKER);
-                var snippetRegex = new Regex(snippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
-                mCodeSnippetParser = new SnippetParser(snippetRegex, null);
-            }
+            string codeSnippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CODE_SNIPPET_MARKER);
+            var codeSnippetRegex = new Regex(codeSnippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
+            var codeExcludedLineRegex = new Regex(CODE_EXCLUDED_LINE_REGEX);
+            mCodeSnippetParser = new SnippetParser(codeSnippetRegex, codeExcludedLineRegex);
 
-            {
-                string snippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CONSOLE_SNIPPET_MARKER);
-                var snippetRegex = new Regex(snippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
-                var excludedLineRegex = new Regex(CODE_EXCLUDED_LINE_REGEX);
-                mConsoleSnippetParser = new SnippetParser(snippetRegex, excludedLineRegex);
-            }
+            string consoleSnippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CONSOLE_SNIPPET_MARKER);
+            var consoleSnippetRegex = new Regex(consoleSnippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
+            mConsoleSnippetParser = new SnippetParser(consoleSnippetRegex, null);
         }
 
         public void UpdateDocAssociatedToThisFile([CanBeNull] ConsoleRecorder consoleRecorder = null,

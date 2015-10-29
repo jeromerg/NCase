@@ -43,7 +43,7 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterType<GenerateCasesDirector>().As<IGenerateCasesDirector>().SingleInstance();
             cb.RegisterType<GenerateCasesVisitors>().AsImplementedInterfaces().SingleInstance();
 
-            // Replay Director and default visitor
+            // SetReplay Director and default visitor
             cb.RegisterType<ReplayCases>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
             cb.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();

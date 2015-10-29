@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Castle.DynamicProxy;
 using JetBrains.Annotations;
 using NDsl.Back.Api.Book;
@@ -19,8 +20,6 @@ namespace NDsl.Back.Imp.RecPlay
         [NotNull] private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues =
             new Dictionary<PropertyCallKey, object>();
 
-        private RecPlayMode mMode;
-
         public InterfaceRecPlayInterceptor(
             [NotNull] ITokenWriter tokenWriter,
             [NotNull] string contributorName,
@@ -37,18 +36,13 @@ namespace NDsl.Back.Imp.RecPlay
 
         public void Intercept(IInvocation invocation)
         {
-            switch (mMode)
+            if (mReplayPropertyValues.Any())
             {
-                case RecPlayMode.Recording:
-                    InterceptInRecordingMode(invocation);
-                    break;
-
-                case RecPlayMode.Playing:
-                    InterceptInReplayMode(invocation);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+                InterceptInReplayMode(invocation);
+            }
+            else
+            {
+                InterceptInRecordingMode(invocation);
             }
         }
 
@@ -57,18 +51,29 @@ namespace NDsl.Back.Imp.RecPlay
             get { return mContributorName; }
         }
 
-        public void SetMode(RecPlayMode mode)
-        {
-            mMode = mode;
-        }
-
+        /// <exception cref="InvalidRecPlayStateException">
+        ///     InterfaceRecPlayInterceptor is already in mode '{0}' and cannot be set
+        ///     twice
+        /// </exception>
         public void AddReplayPropertyValue(PropertyCallKey callKey, object value)
         {
+            if (mReplayPropertyValues.ContainsKey(callKey))
+                throw new InvalidRecPlayStateException(
+                    "Property {0} has already been set to replay mode and cannot be set twice",
+                    callKey);
+
             mReplayPropertyValues[callKey] = value;
         }
 
+        /// <exception cref="InvalidRecPlayStateException">
+        ///     InterfaceRecPlayInterceptor is already in mode '{0}' and cannot be set
+        ///     twice
+        /// </exception>
         public void RemoveReplayPropertyValue(PropertyCallKey callKey)
         {
+            if (!mReplayPropertyValues.ContainsKey(callKey))
+                throw new InvalidRecPlayStateException("Property {0} was not set to replay mode", callKey);
+
             mReplayPropertyValues.Remove(callKey);
         }
 
@@ -84,8 +89,8 @@ namespace NDsl.Back.Imp.RecPlay
         {
             PropertyCallKey propertyCallKey = invocation.TryGetPropertyCallKeyFromGetter();
             if (propertyCallKey == null)
-                throw new InvalidCaseRecordException("Invalid call to {0} in replay mode. Only property getter allowed",
-                                                     invocation.Method);
+                throw new InvalidRecPlayStateException("Invalid call to {0} in replay mode. Only property getter allowed",
+                                                       invocation.Method);
 
             object value;
             if (!mReplayPropertyValues.TryGetValue(propertyCallKey, out value))

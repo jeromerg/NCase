@@ -97,7 +97,7 @@
     <Compile Include="Back.Api\Util\Table\SimpleTableColumn.cs" />
     <Compile Include="Back.Imp\Common\TokenStream.cs" />
     <Compile Include="Back.Api\Common\INode.cs" />
-    <Compile Include="Back.Api\Ex\InvalidCaseRecordException.cs" />
+    <Compile Include="Back.Api\Ex\InvalidRecPlayStateException.cs" />
     <Compile Include="Back.Imp\RecPlay\InterfaceRecPlayContributorFactory.cs" />
     <Compile Include="Back.Imp\RecPlay\InterfaceRecPlayNode.cs" />
     <Compile Include="Back.Api\RecPlay\IInterfaceRecPlayInterceptor.cs" />

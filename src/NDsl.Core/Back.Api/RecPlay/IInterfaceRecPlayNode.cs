@@ -9,6 +9,6 @@ namespace NDsl.Back.Api.RecPlay
         [NotNull] PropertyCallKey PropertyCallKey { get; }
         string ContributorName { get; }
 
-        bool IsReplay { get; set; }
+        void SetReplay(bool value);
     }
 }

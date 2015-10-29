@@ -9,7 +9,7 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
     {
         public void Visit(IReplayDirector dir, IInterfaceRecPlayNode node, bool isReplay)
         {
-            node.IsReplay = isReplay;
+            node.SetReplay(isReplay);
             node.Children.ForEach(c => dir.Visit(c, isReplay));
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NDsl.Back.Api.Common;
+using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Back.Api.Util;
 
@@ -15,8 +16,6 @@ namespace NDsl.Back.Imp.RecPlay
         [NotNull] private readonly PropertyCallKey mPropertyCallKey;
         [CanBeNull] private readonly object mPropertyValue;
         [NotNull] private readonly CodeLocation mCodeLocation;
-
-        private bool mIsReplay;
 
         public class Factory : IInterfaceReIInterfaceRecPlayNodeFactory
         {
@@ -73,26 +72,23 @@ namespace NDsl.Back.Imp.RecPlay
             get { yield break; }
         }
 
-        public bool IsReplay
+        public void SetReplay(bool value)
         {
-            get { return mIsReplay; }
-            set
+            try
             {
-                if (mIsReplay == value)
-                    return;
-
-                mIsReplay = value;
-
                 if (value)
                 {
-                    mParentInterceptor.SetMode(RecPlayMode.Playing);
                     mParentInterceptor.AddReplayPropertyValue(mPropertyCallKey, mPropertyValue);
                 }
                 else
                 {
-                    mParentInterceptor.SetMode(RecPlayMode.Recording);
                     mParentInterceptor.RemoveReplayPropertyValue(mPropertyCallKey);
                 }
+            }
+            catch (InvalidRecPlayStateException e)
+            {
+                // add statement location
+                throw new InvalidRecPlayStateException(e, "{0}: {1}", e.Message, mCodeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
             }
         }
 
