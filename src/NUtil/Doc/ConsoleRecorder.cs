@@ -15,6 +15,7 @@ namespace NUtil.Doc
 
         public void WriteLine(string txt, [CallerMemberName] string callerMemberName = null)
         {
+            // ReSharper disable once ExplicitCallerInfoArgument
             Write(txt + Environment.NewLine, callerMemberName: callerMemberName);
         }
 

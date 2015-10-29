@@ -1,3 +1,5 @@
+using NDsl.Front.Ui;
+
 namespace NDsl.Front.Api
 {
     public static class BuilderExtensions

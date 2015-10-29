@@ -112,9 +112,9 @@
     <Compile Include="Front.Imp\%28Builder%29\BuilderFactory.cs" />
     <Compile Include="Front.Imp\%28Builder%29\CreateContributor.cs" />
     <Compile Include="Front.Imp\DefBaseImp.cs" />
-    <Compile Include="Front.Api\Artefact.cs" />
+    <Compile Include="Front.Ui\Artefact.cs" />
     <Compile Include="Front.Api\IArtefactApi.cs" />
-    <Compile Include="Front.Api\DefBase.cs" />
+    <Compile Include="Front.Ui\DefBase.cs" />
     <Compile Include="Front.Api\IDefModel.cs" />
     <Compile Include="Front.Imp\ArtefactImp.cs" />
     <Compile Include="Front.Imp\DefState.cs" />
