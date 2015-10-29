@@ -3,75 +3,96 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using NCaseFramework.doc;
-using NUtil.File;
 
-namespace NUtil.Snippet
+namespace NUtil.Doc
 {
-    public static class DocUtil
+    public class DocUtil
     {
-        public static void UpdateDocSnippets(
-            [CanBeNull] ConsoleRecorder consoleRecorder = null,
-            [NotNull] string docFileExtension = ".md", 
-            [CallerFilePath] string callerFilePath = null,
-            string codeSnippetMarker = @"//#",
-            [CanBeNull] string codeExcludedLineRegex = "#",
-            string consoleSnippetMarker = @"#",
-            string documentSnippetMarker = @"<!--#")
+        private const string SNIPPET_REGEX_STRING_ARG0_MARKER =
+            @"(?<=^\s*{0}\s+(?<name>\w+)\W*?\r\n)(?<body>.*?)(?=\r\n[ \t]*(?:{0}|\Z))";
+
+        private const string MARKDOWN_SNIPPET_REGEX_STRING =
+            @"(?<=^\s*<!--#\s+(?<name>\w+)\s*-->[^\r\n]*\r\n```[^\r\n]*\r\n)(?<body>.*?)(?=\r\n\s*```)";
+
+        private const string DOC_FILE_EXTENSION = ".md";
+        private const string CODE_SNIPPET_MARKER = @"//#";
+        private const string CODE_EXCLUDED_LINE_REGEX = "//#";
+        private const string CONSOLE_SNIPPET_MARKER = @"//#";
+
+        private readonly SnippetParser mMarkdownSnippetParser;
+        private readonly SnippetParser mCodeSnippetParser;
+        private readonly SnippetParser mConsoleSnippetParser;
+
+        public DocUtil()
         {
-            Dictionary<string, string> allSnippets = new Dictionary<string, string>();
+            {
+                var snippetRegex = new Regex(MARKDOWN_SNIPPET_REGEX_STRING, RegexOptions.Singleline | RegexOptions.Multiline);
+                mMarkdownSnippetParser = new SnippetParser(snippetRegex, null);
+            }
 
-            Console.WriteLine("Parsing code snippets");
-            string thisFileContent = System.IO.File.ReadAllText(callerFilePath);
-            var codeSnippets = new SnippetParser(codeSnippetMarker, codeExcludedLineRegex);
-            Dictionary<string, string> snippets = codeSnippets.ParseSnippets(thisFileContent);
+            {
+                string snippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CODE_SNIPPET_MARKER);
+                var snippetRegex = new Regex(snippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
+                mCodeSnippetParser = new SnippetParser( snippetRegex, null);
+            }
 
-            foreach (var snippetPair in snippets)
-                allSnippets.Add(snippetPair.Key, snippetPair.Value);
+            {
+                string snippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CONSOLE_SNIPPET_MARKER);
+                var snippetRegex = new Regex(snippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
+                var excludedLineRegex = new Regex(CODE_EXCLUDED_LINE_REGEX);
+                mConsoleSnippetParser = new SnippetParser( snippetRegex, excludedLineRegex);
+            }
+        }
 
+        public void UpdateSnippetsOfAssociatedDocumentation([CanBeNull] ConsoleRecorder consoleRecorder = null,
+                                          [CallerFilePath] string callerFilePath = null)
+        {
+            var allSnippets = new List<Snippet>();
+            allSnippets.AddRange(ExtractCodeSnippets(callerFilePath));
+            allSnippets.AddRange(ExtractConsoleSnippets(consoleRecorder));
+
+            Console.WriteLine("All available snippets:");
+            foreach (Snippet s in allSnippets)
+                Console.WriteLine("Snippet '{0}', Body Length {1}, Source '{2}'", s.Name, s.Body.Length, s.Source);
+
+            Dictionary<string, Snippet> allSnippetDictionary = allSnippets.ToDictionary(s => s.Name);
+
+            string docPath = GetAssociatedDocPath(callerFilePath);
+            mMarkdownSnippetParser.SubstituteFileSnippets(docPath, allSnippetDictionary);
+        }
+
+        private List<Snippet> ExtractCodeSnippets(string callerFilePath)
+        {
+            return mCodeSnippetParser.ParseFileSnippets(callerFilePath);
+        }
+
+        private IEnumerable<Snippet> ExtractConsoleSnippets([CanBeNull] ConsoleRecorder consoleRecorder)
+        {
             if (consoleRecorder == null)
-            {
-                Console.WriteLine("No console snippet to parse");
-            }
-            else
-            {
-                Console.WriteLine("Parsing console snippets");
-                var consoleSnippets = new SnippetParser(consoleSnippetMarker);
-                var recordsByMember = consoleRecorder
-                    .Records
-                    .GroupBy(r => new { r.CallerFilePath, r.CallerMemberName }, r => r.Text);
+                return Enumerable.Empty<Snippet>();
 
-                foreach (var memberRecords in recordsByMember)
-                {
-                    string memberConsole = string.Join("", memberRecords);
-                    Console.WriteLine("Parsing console record of method '{0}'", memberRecords.Key.CallerMemberName);
-                    Dictionary<string, string> recordSnippets = consoleSnippets.ParseSnippets(memberConsole);
-                    foreach (var recordSnippet in recordSnippets)
-                        allSnippets.Add(recordSnippet.Key, recordSnippet.Value);
-                }
+            return consoleRecorder
+                .Records
+                .GroupBy(r => new {r.CallerFilePath, r.CallerMemberName}, r => r.Text)
+                .Select(g => new
+                             {
+                                 source = string.Format("Method output '{0}'", g.Key.CallerMemberName),
+                                 output = string.Join("", g)
+                             })
+                .SelectMany(g => mConsoleSnippetParser.ParseSnippets(g.source, g.output));
+        }
 
-            }
-
-            string documentFilePath = Path.GetDirectoryName(callerFilePath)
-                                  + Path.DirectorySeparatorChar
-                                  + Path.GetFileNameWithoutExtension(callerFilePath)
-                                  + docFileExtension;
-
-            Console.WriteLine("Updating snippets within '{0}'", documentFilePath);
-            string docFileContent = System.IO.File.ReadAllText(documentFilePath);
-            var docSnippetParser = new SnippetParser(documentSnippetMarker);
-            string updatedDocFileContent = docSnippetParser.SubstituteSnippets(docFileContent, allSnippets);
-
-            if(updatedDocFileContent == docFileContent)
-            {
-                Console.WriteLine("Document didn't change. No update performed");
-                return;
-            }
-
-            Console.WriteLine("Document changed. Saving new document file content");
-            System.IO.File.Delete(documentFilePath); // TODO DELETE USING WINDOWS SAFE DELETE FUNCTION
-            System.IO.File.WriteAllText(documentFilePath, updatedDocFileContent);
+        private static string GetAssociatedDocPath(string callerFilePath)
+        {
+            string docPath = string.Format("{0}{1}{2}{3}",
+                                           Path.GetDirectoryName(callerFilePath),
+                                           Path.DirectorySeparatorChar,
+                                           Path.GetFileNameWithoutExtension(callerFilePath),
+                                           DOC_FILE_EXTENSION);
+            return docPath;
         }
     }
 }

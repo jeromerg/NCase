@@ -1,9 +1,8 @@
 TEST
 ----
 
-
-```C#
 <!--# AllCombinations -->
+```C#
 IBuilder builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
 
@@ -23,40 +22,39 @@ using (all.Define())
     todo.IsDone = true;
 }
 
+Console.WriteLine("//# AllCombinationsConsole");
 Console.WriteLine(all.PrintCasesAsTable());
-<!--#-->
 ```
 
 Console:
-```
 <!--# AllCombinationsConsole -->
+```
   # |              todo.Task |        todo.DueDate | todo.IsDone 
  -- | ---------------------- | ------------------- | ----------- 
-  1 | Don't forget to forget | 27.10.2015 23:17:29 |       False 
-  2 | Don't forget to forget | 27.10.2015 23:17:29 |        True 
-  3 | Don't forget to forget | 28.10.2015 23:17:29 |       False 
-  4 | Don't forget to forget | 28.10.2015 23:17:29 |        True 
-  5 | Don't forget to forget | 29.10.2015 23:17:29 |       False 
-  6 | Don't forget to forget | 29.10.2015 23:17:29 |        True 
-  7 |                        | 27.10.2015 23:17:29 |       False 
-  8 |                        | 27.10.2015 23:17:29 |        True 
-  9 |                        | 28.10.2015 23:17:29 |       False 
- 10 |                        | 28.10.2015 23:17:29 |        True 
- 11 |                        | 29.10.2015 23:17:29 |       False 
- 12 |                        | 29.10.2015 23:17:29 |        True 
- 13 |  @()/&%$§ ß üäö ÖÄÜ éè | 27.10.2015 23:17:29 |       False 
- 14 |  @()/&%$§ ß üäö ÖÄÜ éè | 27.10.2015 23:17:29 |        True 
- 15 |  @()/&%$§ ß üäö ÖÄÜ éè | 28.10.2015 23:17:29 |       False 
- 16 |  @()/&%$§ ß üäö ÖÄÜ éè | 28.10.2015 23:17:29 |        True 
- 17 |  @()/&%$§ ß üäö ÖÄÜ éè | 29.10.2015 23:17:29 |       False 
- 18 |  @()/&%$§ ß üäö ÖÄÜ éè | 29.10.2015 23:17:29 |        True 
- 19 | @(SELECT * FROM USERS) | 27.10.2015 23:17:29 |       False 
- 20 | @(SELECT * FROM USERS) | 27.10.2015 23:17:29 |        True 
- 21 | @(SELECT * FROM USERS) | 28.10.2015 23:17:29 |       False 
- 22 | @(SELECT * FROM USERS) | 28.10.2015 23:17:29 |        True 
- 23 | @(SELECT * FROM USERS) | 29.10.2015 23:17:29 |       False 
- 24 | @(SELECT * FROM USERS) | 29.10.2015 23:17:29 |        True 
+  1 | Don't forget to forget | 28.10.2015 14:01:05 |       False 
+  2 | Don't forget to forget | 28.10.2015 14:01:05 |        True 
+  3 | Don't forget to forget | 29.10.2015 14:01:05 |       False 
+  4 | Don't forget to forget | 29.10.2015 14:01:05 |        True 
+  5 | Don't forget to forget | 30.10.2015 14:01:05 |       False 
+  6 | Don't forget to forget | 30.10.2015 14:01:05 |        True 
+  7 |                        | 28.10.2015 14:01:05 |       False 
+  8 |                        | 28.10.2015 14:01:05 |        True 
+  9 |                        | 29.10.2015 14:01:05 |       False 
+ 10 |                        | 29.10.2015 14:01:05 |        True 
+ 11 |                        | 30.10.2015 14:01:05 |       False 
+ 12 |                        | 30.10.2015 14:01:05 |        True 
+ 13 |  @()/&%$§ ß üäö ÖÄÜ éè | 28.10.2015 14:01:05 |       False 
+ 14 |  @()/&%$§ ß üäö ÖÄÜ éè | 28.10.2015 14:01:05 |        True 
+ 15 |  @()/&%$§ ß üäö ÖÄÜ éè | 29.10.2015 14:01:05 |       False 
+ 16 |  @()/&%$§ ß üäö ÖÄÜ éè | 29.10.2015 14:01:05 |        True 
+ 17 |  @()/&%$§ ß üäö ÖÄÜ éè | 30.10.2015 14:01:05 |       False 
+ 18 |  @()/&%$§ ß üäö ÖÄÜ éè | 30.10.2015 14:01:05 |        True 
+ 19 | @(SELECT * FROM USERS) | 28.10.2015 14:01:05 |       False 
+ 20 | @(SELECT * FROM USERS) | 28.10.2015 14:01:05 |        True 
+ 21 | @(SELECT * FROM USERS) | 29.10.2015 14:01:05 |       False 
+ 22 | @(SELECT * FROM USERS) | 29.10.2015 14:01:05 |        True 
+ 23 | @(SELECT * FROM USERS) | 30.10.2015 14:01:05 |       False 
+ 24 | @(SELECT * FROM USERS) | 30.10.2015 14:01:05 |        True 
 
 TOTAL: 24 TEST CASES
-<!--#-->
 ```

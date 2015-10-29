@@ -2,7 +2,7 @@
 using NCaseFramework.Front.Ui;
 using NDsl.Front.Api;
 using NUnit.Framework;
-using NUtil.Snippet;
+using NUtil.Doc;
 
 namespace NCaseFramework.doc
 {
@@ -15,7 +15,7 @@ namespace NCaseFramework.doc
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            DocUtil.UpdateDocSnippets(Console);
+            new DocUtil().UpdateSnippetsOfAssociatedDocumentation(Console);
         }
 
         //# TodoInterface
@@ -54,7 +54,7 @@ namespace NCaseFramework.doc
                 todo.IsDone = true;
             }
 
-            Console.WriteLine("# AllCombinationsConsole");
+            Console.WriteLine("//# AllCombinationsConsole");
             Console.WriteLine(all.PrintCasesAsTable());
             //#
         }
