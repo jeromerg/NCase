@@ -9,12 +9,12 @@ using NDsl.Back.Api.Common;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class PrintTableImp : IPrintTable
+    public class PrintCaseTableImp : IPrintCaseTable
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
         [NotNull] private readonly Func<IPrintCaseTableDirector> mPrintCaseTableDirectorFactory;
 
-        public PrintTableImp([NotNull] IParserGenerator parserGenerator,
+        public PrintCaseTableImp([NotNull] IParserGenerator parserGenerator,
                              [NotNull] Func<IPrintCaseTableDirector> printCaseTableDirectorFactory
             )
         {

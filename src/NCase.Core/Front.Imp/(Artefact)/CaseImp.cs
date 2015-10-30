@@ -11,7 +11,7 @@ namespace NCaseFramework.Front.Imp
 {
     public class CaseImp : ArtefactImp<ICaseModel>, Case, ICaseModel
     {
-        [NotNull] private readonly IEnumerable<INode> mFactNodes;
+        [NotNull] private readonly List<INode> mFactNodes;
 
         public class Factory : ICaseFactory
         {
@@ -23,13 +23,13 @@ namespace NCaseFramework.Front.Imp
                 mServices = services;
             }
 
-            public Case Create(IEnumerable<INode> factNodes)
+            public Case Create(List<INode> factNodes)
             {
                 return new CaseImp(factNodes, mServices);
             }
         }
 
-        public CaseImp([NotNull] IEnumerable<INode> factNodes, [NotNull] IServiceSet<ICaseModel> services)
+        public CaseImp([NotNull] List<INode> factNodes, [NotNull] IServiceSet<ICaseModel> services)
             : base(services)
         {
             if (factNodes == null) throw new ArgumentNullException("factNodes");
@@ -43,7 +43,7 @@ namespace NCaseFramework.Front.Imp
 
         #region ICaseModel
 
-        [NotNull] public IEnumerable<INode> FactNodes
+        [NotNull] public List<INode> FactNodes
         {
             get { return mFactNodes; }
         }

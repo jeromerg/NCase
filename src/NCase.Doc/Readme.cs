@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Moq;
 using NCaseFramework.Front.Ui;
+using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Front.Api;
 using NUnit.Framework;
 using NUtil.Doc;
@@ -48,13 +49,16 @@ namespace NCaseFramework.doc
             //# MoqExample1
             // ARRANGE
             var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Don't forget to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
+
+            todo.Task = "Don't forget to forget";
+            todo.DueDate = now;
+            todo.IsDone = false;
 
             // ACT
             var taskManager = new TaskManager();
-            taskManager.CreateTask(mock.Object.Task, mock.Object.DueDate, mock.Object.IsDone);
+            taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
 
             // ASSERT
             //...
@@ -76,15 +80,15 @@ namespace NCaseFramework.doc
                 todo.IsDone = false;
             }
 
-            foreach (var cas in set.Cases().Replay())
+            set.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
                 var taskManager = new TaskManager();
                 taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
- 
+
                 // ASSERT
                 //...
-            }
+            });
             //#
         }
 
@@ -95,11 +99,14 @@ namespace NCaseFramework.doc
         {
             // ARRANGE
             var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Don't forget to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
 
-            //...
+            todo.Task = "Don't forget to forget";
+            todo.DueDate = now;
+            todo.IsDone = false;
+
+            // ACT ... ASSERT ...
         }
 
         [Test]
@@ -107,12 +114,14 @@ namespace NCaseFramework.doc
         {
             // ARRANGE
             var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Another task to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
 
-            // ACT
-            //...
+            todo.Task = "Another task to forget";
+            todo.DueDate = now;
+            todo.IsDone = false;
+
+            // ACT ... ASSERT ...
         }
         //#
 
@@ -133,15 +142,15 @@ namespace NCaseFramework.doc
                 todo.IsDone = false;
             }
 
-            foreach (var cas in set.Cases().Replay())
+            set.Cases().Replay().ActAndAssert( ea =>
             {
                 // ACT
                 var taskManager = new TaskManager();
                 taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
- 
+
                 // ASSERT
                 //...
-            }
+            });
             //#
         }
 
@@ -192,7 +201,7 @@ namespace NCaseFramework.doc
                 todo.IsDone = true;
             }
 
-            foreach (var cas in set.Cases().Replay())
+            set.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
                 var taskManager = new TaskManager();
@@ -200,7 +209,7 @@ namespace NCaseFramework.doc
  
                 // ASSERT
                 //...
-            }
+            });
             //#
         }
 

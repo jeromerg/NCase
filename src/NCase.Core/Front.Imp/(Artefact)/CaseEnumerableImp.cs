@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using NCaseFramework.Front.Api.Case;
 using NCaseFramework.Front.Api.CaseEnumerable;
@@ -69,8 +70,9 @@ namespace NCaseFramework.Front.Imp
 
         public IEnumerator<Case> GetEnumerator()
         {
-            foreach (List<INode> @case in Cases)
-                yield return mCaseFactory.Create(@case);
+            return Cases
+                .Select(cas => mCaseFactory.Create(cas))
+                .GetEnumerator();
         }
 
         #endregion

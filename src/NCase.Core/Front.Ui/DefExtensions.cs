@@ -20,7 +20,7 @@ namespace NCaseFramework.Front.Ui
         public static string PrintCasesAsTable(this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                                bool isRecursive = false)
         {
-            return setDef.Api.Services.GetService<IPrintTable>().Perform(setDef.Api.Model, isRecursive);
+            return setDef.Api.Services.GetService<IPrintCaseTable>().Perform(setDef.Api.Model, isRecursive);
         }
     }
 }

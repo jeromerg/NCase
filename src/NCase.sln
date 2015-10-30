@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Doc", "NCase.Doc\NCas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUtil", "NUtil\NUtil.csproj", "{80D9F218-E936-48AD-8C16-3D16B8218A0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.NUnitAdapter", "NCase.NUnitAdapter\NCase.NUnitAdapter.csproj", "{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{80D9F218-E936-48AD-8C16-3D16B8218A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80D9F218-E936-48AD-8C16-3D16B8218A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80D9F218-E936-48AD-8C16-3D16B8218A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

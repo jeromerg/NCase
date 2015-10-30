@@ -48,15 +48,20 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
             cb.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
-            // PrintLine Definition
+            // Print Definition
             cb.RegisterType<PrintDefImp>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 
-            // PrintLine Case Table
-            cb.RegisterType<PrintTableImp>().AsImplementedInterfaces().SingleInstance();
+            // Print Case Table
+            cb.RegisterType<PrintCaseTableImp>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
+
+            // Print Case
+            cb.RegisterType<PrintCaseImp>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintCasePayload.Factory>().As<IPrintCasePayloadFactory>().InstancePerDependency(); // stateful !!
+            cb.RegisterType<PrintCaseDirector>().As<IPrintCaseDirector>().InstancePerDependency(); // stateful !!
 
             // GetCases
             cb.RegisterType<GetCasesImp>().AsImplementedInterfaces().SingleInstance();

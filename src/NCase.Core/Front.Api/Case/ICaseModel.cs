@@ -6,6 +6,6 @@ namespace NCaseFramework.Front.Api.Case
 {
     public interface ICaseModel : IArtefactModel
     {
-        IEnumerable<INode> FactNodes { get; }
+        List<INode> FactNodes { get; }
     }
 }
