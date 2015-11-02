@@ -44,7 +44,7 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
                 Console.WriteLine("Definition");
                 Console.WriteLine("----------");
                 Console.WriteLine();
-                Console.WriteLine(mPrintCase.Perform(cas.Api.Model));
+                Console.WriteLine(mPrintCase.Perform(cas.Zapi.Model));
                 Console.WriteLine();
                 Console.WriteLine("Act and Assert");
                 Console.WriteLine("--------------");
@@ -75,7 +75,7 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
                     }
                 }
                 caseIndex++;
-                yield return cas.Api.Model.FactNodes;
+                yield return cas.Zapi.Model.FactNodes;
             }
 
             if (results.All(result => result == null))

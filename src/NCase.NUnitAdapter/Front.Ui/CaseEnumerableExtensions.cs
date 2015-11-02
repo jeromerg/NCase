@@ -12,7 +12,7 @@ namespace NCaseFramework.NunitAdapter.Front.Ui
             this CaseEnumerable caseEnumerable,
             Action<Holder<ExceptionAssert>> actAndAssertAction)
         {
-            var actAndAssert = caseEnumerable.Api.Services.GetService<IActAndAssert>();
+            var actAndAssert = caseEnumerable.Zapi.Services.GetService<IActAndAssert>();
             return actAndAssert.Perform(caseEnumerable, actAndAssertAction);
         }
     }

@@ -6,14 +6,14 @@ namespace NDsl.Front.Api
     {
         public static T NewContributor<T>(this IBuilder builder, string name)
         {
-            var contributorFactory = builder.Api.Services.GetService<ICreateContributor>();
-            return contributorFactory.Create<T>(builder.Api.Model, name);
+            var contributorFactory = builder.Zapi.Services.GetService<ICreateContributor>();
+            return contributorFactory.Create<T>(builder.Zapi.Model, name);
         }
 
         public static T NewDefinition<T>(this IBuilder builder, string name) where T : DefBase
         {
-            var treeFactory = builder.Api.Services.GetService<IDefFactory<T>>();
-            return treeFactory.Create(name, builder.Api.Model.TokenStream);
+            var treeFactory = builder.Zapi.Services.GetService<IDefFactory<T>>();
+            return treeFactory.Create(name, builder.Zapi.Model.TokenStream);
         }
     }
 }

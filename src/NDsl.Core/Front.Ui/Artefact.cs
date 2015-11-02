@@ -8,6 +8,6 @@ namespace NDsl.Front.Ui
     public interface Artefact<out TModel>
         where TModel : IArtefactModel
     {
-        [NotNull] IApi<TModel> Api { get; }
+        [NotNull] IApi<TModel> Zapi { get; }
     }
 }
