@@ -134,7 +134,7 @@
     <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
     <Compile Include="Back.Api\Prod\ProdId.cs" />
     <Compile Include="Back.Api\Tree\TreeId.cs" />
-    <Compile Include="Front.Ui\CaseExtensions.cs" />
+    <Compile Include="Front.Ui\CaseEnumerableExtensions.cs" />
     <Compile Include="Back.Api\Parse\IGenerateCaseVisitor.cs" />
     <Compile Include="Back.Api\Parse\IAddChildDirector.cs" />
     <Compile Include="Back.Api\Parse\IAddChildVisitor.cs" />
