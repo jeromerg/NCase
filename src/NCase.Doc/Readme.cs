@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using Moq;
-using NCaseFramework.Front.Ui;
-using NDsl.Front.Api;
 using NUnit.Framework;
 using NUtil.Doc;
 
@@ -22,187 +19,54 @@ namespace NCaseFramework.doc
             new DocUtil().UpdateDocAssociatedToThisFile(Console);
         }
 
-        //# TodoInterface
-        public interface ITodo
+        public enum Architecture { x86, x64, arm }
+        public struct Size
         {
-            string Task { get; set; }
-            DateTime DueDate { get; set; }
-            bool IsDone { get; set; }
+            int Horizontal {get;set;}
+            int Vertical {get;set;}
         }
-        //#
-
-        public class TaskManager
+        public interface IHardware
         {
-            public void CreateTask(string task, DateTime dueDate, bool isDone) { }
-        }
-
-        DateTime now = new DateTime(2011,11,11,11,11,11);
-        DateTime yesterday = new DateTime(2011,11,10,11,11,11);
-        DateTime tomorrow = new DateTime(2011,11,12,11,11,11);
-        DateTime daylightSavingTimeMissingTime = new DateTime(2011,11,12,11,11,11);
-        DateTime daylightSavingTimeAmbiguousTime = new DateTime(2011,11,12,11,11,11);
-
-        [Test]
-        public void MoqExample1()
-        {
-            //# MoqExample1
-            // ARRANGE
-            var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Don't forget to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
-
-            // ACT
-            var taskManager = new TaskManager();
-            taskManager.CreateTask(mock.Object.Task, mock.Object.DueDate, mock.Object.IsDone);
-
-            // ASSERT
-            //...
-            //#
+            Architecture Architecture { get; set; }
+            int RamInGb { get; set; }
+            int HardDriveInGb { get; set; }
+            Size ScreenResolution { get; set; }
         }
 
-        [Test]
-        public void NCaseExample1()
+        public enum Os
         {
-            //# NCaseExample1
-            // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
-            var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewDefinition<AllCombinations>("set");
-            using (set.Define())
-            {
-                todo.Task = "Don't forget to forget";
-                todo.DueDate = now;
-                todo.IsDone = false;
-            }
-
-            foreach (var cas in set.Cases().Replay())
-            {
-                // ACT
-                var taskManager = new TaskManager();
-                taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
- 
-                // ASSERT
-                //...
-            }
-            //#
+            Ios6,
+            Ios7,
+            Ios8,
+            Android4,
+            Android5,
+            Android6,
+            WindowsMobile7,
+            WindowsMobile8,
+            WindowsMobile10,
+            Windows7,
+            OsX
         }
 
-
-        //# MoqExample2
-        [Test]
-        public void MoqTest1()
+        public enum Browser
         {
-            // ARRANGE
-            var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Don't forget to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
-
-            //...
+            Chrome,
+            Safari,
+            Firefox,
+            Dolphin
         }
 
-        [Test]
-        public void MoqTest2()
+        public interface ISoftware
         {
-            // ARRANGE
-            var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Another task to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
-
-            // ACT
-            //...
-        }
-        //#
-
-        [Test]
-        public void NCaseExample2()
-        {
-            //# NCaseExample2
-            // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
-            var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewDefinition<AllCombinations>("set");
-            using (set.Define())
-            {
-                todo.Task = "Don't forget to forget";
-                todo.Task = "Another task to forget";
-
-                todo.DueDate = now;
-                todo.IsDone = false;
-            }
-
-            foreach (var cas in set.Cases().Replay())
-            {
-                // ACT
-                var taskManager = new TaskManager();
-                taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
- 
-                // ASSERT
-                //...
-            }
-            //#
+            Os Os { get; set; }
+            Browser Browser { get; set; }
+            bool IsFacebookInstalled { get; set; }
+            bool IsTwitterInstalled { get; set; }
         }
 
-        [Test]
-        public void NCaseExample2_AddedLine()
+        public interface IUser
         {
-            // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
-            var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewDefinition<AllCombinations>("set");
-            using (set.Define())
-            {
-                //# NCaseExample2_AddedLine
-                todo.Task = "Another task to forget";
-                //#
-
-                todo.DueDate = now;
-                todo.IsDone = false;
-            }
+            string Culture { get; set; }
         }
-
-        [Test]
-        public void NCaseExample3()
-        {
-            //# NCaseExample3
-            // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
-            var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewDefinition<AllCombinations>("set");
-            using (set.Define())
-            {
-                todo.Task = "Don't forget to forget";
-                todo.Task = "";
-                todo.Task = null;
-                todo.Task = "ß üöä ÜÖÄ !§$%&/()=?";
-                todo.Task = "SELECT USER_ID, PASSWORD FROM USER";
-                todo.Task = "Another Task";
-
-                todo.DueDate = yesterday;
-                todo.DueDate = now;
-                todo.DueDate = tomorrow;
-                todo.DueDate = DateTime.MaxValue;
-                todo.DueDate = DateTime.MinValue;
-                todo.DueDate = daylightSavingTimeMissingTime;
-                todo.DueDate = daylightSavingTimeAmbiguousTime;
-
-                todo.IsDone = false;
-                todo.IsDone = true;
-            }
-
-            foreach (var cas in set.Cases().Replay())
-            {
-                // ACT
-                var taskManager = new TaskManager();
-                taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
- 
-                // ASSERT
-                //...
-            }
-            //#
-        }
-
     }
 }
