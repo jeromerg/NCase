@@ -59,6 +59,10 @@
       <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
       <Name>NCase.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NCase.NUnitAdapter\NCase.NUnitAdapter.csproj">
+      <Project>{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}</Project>
+      <Name>NCase.NUnitAdapter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NCase\NCase.csproj">
       <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
       <Name>NCase</Name>

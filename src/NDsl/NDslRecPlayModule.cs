@@ -14,6 +14,7 @@ namespace NDsl
             builder.RegisterType<InterfaceRecPlayNode.Factory>().As<IInterfaceReIInterfaceRecPlayNodeFactory>().SingleInstance();
             builder.RegisterType<InterfaceRecPlayContributorFactory>().As<IInterfaceRecPlayContributorFactory>().SingleInstance();
             builder.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<PrintCaseVisitors>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="NCase.cs" />
     <Compile Include="NCaseCoreModule.cs" />
     <Compile Include="NCaseInterfaceRecPlayModule.cs" />
+    <Compile Include="NCaseNunitAdapterModule.cs" />
     <Compile Include="NCasePairwiseModule.cs" />
     <Compile Include="NCaseSeqModule.cs" />
     <Compile Include="NCaseTreeModule.cs" />
@@ -67,6 +68,10 @@
     <ProjectReference Include="..\NCase.Core\NCase.Core.csproj">
       <Project>{27c500d5-5781-47c9-8f64-fced56fddbbd}</Project>
       <Name>NCase.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NCase.NUnitAdapter\NCase.NUnitAdapter.csproj">
+      <Project>{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}</Project>
+      <Name>NCase.NUnitAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\NDsl\NDsl.csproj">
       <Project>{FD488CB0-EFEB-4E14-86D8-220D378A716F}</Project>

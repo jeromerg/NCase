@@ -6,6 +6,6 @@ namespace NCaseFramework.Front.Api.Case
 {
     public interface ICaseFactory
     {
-        Ui.Case Create([NotNull] IEnumerable<INode> factNodes);
+        Ui.Case Create([NotNull] List<INode> factNodes);
     }
 }

@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</ProjectGuid>
+    <ProjectGuid>{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NUtil</RootNamespace>
-    <AssemblyName>NUtil</AssemblyName>
+    <RootNamespace>NCaseFramework.NunitAdapter</RootNamespace>
+    <AssemblyName>NCaseFramework.NunitAdapter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,33 +37,41 @@
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NGitVersion.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVisitor, Version=1.1.0.70, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NVisitor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="File\CallerUtil.cs" />
-    <Compile Include="Generics\Holder.cs" />
-    <Compile Include="Generics\IHolder.cs" />
-    <Compile Include="Linq\DictionaryCascadeExtensions.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\DimValue.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\IPairwiseGenerator.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\Pair.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\PairSet.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\PairwiseGenerator.cs" />
-    <Compile Include="Linq\QuadraticExtensions.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\Tuple.cs" />
+    <Compile Include="Front.Imp\ActAndAssert.cs" />
+    <Compile Include="Front.Api\IActAndAssert.cs" />
+    <Compile Include="Front.Ui\CaseEnumerableExtensions.cs" />
+    <Compile Include="Front.Ui\ExceptionAssert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Doc\ConsoleRecord.cs" />
-    <Compile Include="Doc\ConsoleRecorder.cs" />
-    <Compile Include="Doc\Snippet.cs" />
-    <Compile Include="Doc\DocUtil.cs" />
-    <Compile Include="Doc\SnippetParser.cs" />
-    <Compile Include="Text\TextUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NCase.Core\NCase.Core.csproj">
+      <Project>{27c500d5-5781-47c9-8f64-fced56fddbbd}</Project>
+      <Name>NCase.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
+      <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
+      <Name>NDsl.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NUtil\NUtil.csproj">
+      <Project>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</Project>
+      <Name>NUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

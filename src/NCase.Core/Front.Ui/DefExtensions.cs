@@ -7,20 +7,20 @@ namespace NCaseFramework.Front.Ui
     {
         public static CaseEnumerable Cases(this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef)
         {
-            return setDef.Api.Services.GetService<IGetCases>().Perform(setDef.Api.Model);
+            return setDef.Zapi.Services.GetService<IGetCases>().Perform(setDef.Zapi.Model);
         }
 
         public static string PrintDefinition(this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                              bool isFileInfo = false,
                                              bool isRecursive = false)
         {
-            return setDef.Api.Services.GetService<IPrintDef>().Perform(setDef.Api.Model, isFileInfo, isRecursive);
+            return setDef.Zapi.Services.GetService<IPrintDef>().Perform(setDef.Zapi.Model, isFileInfo, isRecursive);
         }
 
         public static string PrintCasesAsTable(this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                                bool isRecursive = false)
         {
-            return setDef.Api.Services.GetService<IPrintTable>().Perform(setDef.Api.Model, isRecursive);
+            return setDef.Zapi.Services.GetService<IPrintCaseTable>().Perform(setDef.Zapi.Model, isRecursive);
         }
     }
 }

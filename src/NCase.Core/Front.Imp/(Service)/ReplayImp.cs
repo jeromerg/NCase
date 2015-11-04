@@ -29,14 +29,14 @@ namespace NCaseFramework.Front.Imp
 
         private IEnumerable<List<INode>> Replay(IEnumerable<List<INode>> cases)
         {
-            foreach (List<INode> @case in cases)
+            foreach (List<INode> cas in cases)
             {
-                foreach (INode node in @case)
+                foreach (INode node in cas)
                     mReplayDirector.Visit(node, true);
 
-                yield return @case;
+                yield return cas;
 
-                foreach (INode node in @case)
+                foreach (INode node in cas)
                     mReplayDirector.Visit(node, false);
             }
         }
