@@ -15,12 +15,12 @@ namespace NCaseFramework.doc
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     public class Readme
     {
-        private readonly DocUtil mDocUtil = new DocUtil("mDocUtil");
+        private readonly DocUtil docu = new DocUtil("docu");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            mDocUtil.UpdateDocAssociatedToThisFile();
+            docu.UpdateDocAssociatedToThisFile();
         }
 
         #region inner types
@@ -45,14 +45,9 @@ namespace NCaseFramework.doc
 
         public enum Os
         {
-            Ios7,
             Ios8,
-            Android5,
             Android6,
-            WindowsMobile8,
             WindowsMobile10,
-            Windows7,
-            OsX
         }
 
         public enum Browser
@@ -60,7 +55,6 @@ namespace NCaseFramework.doc
             Chrome,
             Safari,
             Firefox,
-            Dolphin
         }
 
         public interface IHardware
@@ -76,7 +70,6 @@ namespace NCaseFramework.doc
             Os Os { get; set; }
             Browser Browser { get; set; }
             bool IsFacebookInstalled { get; set; }
-            bool IsTwitterInstalled { get; set; }
         }
 
         public interface IUser
@@ -107,6 +100,60 @@ namespace NCaseFramework.doc
         }
         #endregion
 
+        public interface IPatient
+        {
+            int Age { get; set; }
+            Sex Sex { get; set; }
+            bool HasPenicillinAllergy { get; set; }
+        }
+
+        public enum Sex
+        {
+            Male,
+            Female
+        }
+
+        public class Pharmacy
+        {
+            public bool CanPrescribePenicillin(IPatient patient)
+            {
+                return true;
+            }
+        }
+
+        [Test]
+        public void ShortExample()
+        {
+            //# ShortExample
+            // ARRANGE
+            IBuilder builder = NCase.NewBuilder();            
+            var p = builder.NewContributor<IPatient>("patient");
+            var allPatients = builder.NewDefinition<AllCombinations>("swSet");
+
+            using (allPatients.Define())
+            {
+                p.Age = 10;
+                p.Age = 30;
+                p.Age = 60;
+
+                p.Sex = Sex.Female;
+                p.Sex = Sex.Male;
+
+                p.HasPenicillinAllergy = true;
+            }
+
+            allPatients.Cases().Replay().ActAndAssert(ctx =>
+            {
+                // ACT
+                var pharmacy = new Pharmacy();
+                bool canPrescribe = pharmacy.CanPrescribePenicillin(p);
+
+                // ASSERT
+                Assert.IsTrue(canPrescribe);
+            });
+            //#
+        }
+
         [Test]
         public void Demo()
         {
@@ -118,19 +165,13 @@ namespace NCaseFramework.doc
             var swSet = builder.NewDefinition<AllCombinations>("swSet");
             using (swSet.Define())
             {
-                sw.Os = Os.Ios7;
                 sw.Os = Os.Ios8;
-                sw.Os = Os.Android5;
                 sw.Os = Os.Android6;
-                sw.Os = Os.WindowsMobile8;
                 sw.Os = Os.WindowsMobile10;
-                sw.Os = Os.OsX;
-                sw.Os = Os.Windows7;
 
                 sw.Browser = Browser.Chrome;
                 sw.Browser = Browser.Firefox;
                 sw.Browser = Browser.Safari;
-                sw.Browser = Browser.Dolphin;
 
                 sw.IsFacebookInstalled = false;
                 sw.IsFacebookInstalled = true;
@@ -192,18 +233,18 @@ namespace NCaseFramework.doc
             //#
 
             //# Visualize_Def
-            mDocUtil.BeginRecordConsole("Visualize_Def_Console");
+            docu.BeginRecordConsole("Visualize_Def_Console");
             Console.WriteLine(userSet.PrintDefinition(isFileInfo: true));
-            mDocUtil.StopRecordConsole();
+            docu.StopRecordConsole();
             //#
 
             //# Visualize_Table
-            mDocUtil.BeginRecordConsole("Visualize_Table_Console");
+            docu.BeginRecordConsole("Visualize_Table_Console");
             Console.WriteLine(userSet.PrintCasesAsTable());
-            mDocUtil.StopRecordConsole();
+            docu.StopRecordConsole();
             //#
 
-            mDocUtil.BeginRecordConsole("Replay_Console", s => s.Lines().Skip(1).Reverse().Skip(20).Reverse().Concat(new[] {"(...)"}).JoinLines());
+            docu.BeginRecordConsole("Replay_Console", s => s.Lines().Skip(1).Reverse().Skip(20).Reverse().Concat(new[] {"(...)"}).JoinLines());
             try
             {
                 //# Replay
@@ -212,14 +253,14 @@ namespace NCaseFramework.doc
                     Environment env = GetHardwareAndSoftwareEnvironment(hw, sw);
                     SignInPage signInPage = env.GetSignInPage();
                     signInPage.FillInForm(user);
-                    if (ctx.TestCaseIndex >= 1) throw new OperationCanceledException(); //mDocUtil
+                    if (ctx.TestCaseIndex >= 1) throw new OperationCanceledException(); //docu
                 });
                 //#
             }
             catch (OperationCanceledException)
             {
             }
-            mDocUtil.StopRecordConsole();
+            docu.StopRecordConsole();
 
             Console.WriteLine("swSet.Cases().Count() : {0}", swSet.Cases().Count());
             Console.WriteLine("hwSet.Cases().Count() : {0}", hwSet.Cases().Count());
