@@ -6,6 +6,7 @@ using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Front.Api;
 using NUnit.Framework;
 using NUtil.Doc;
+using NUtil.Text;
 
 namespace NCaseFramework.doc
 {
@@ -34,6 +35,11 @@ namespace NCaseFramework.doc
             {
                 Horizontal = horizontal;
                 Vertical = vertical;
+            }
+
+            public override string ToString()
+            {
+                return string.Format("({0}, {1})", Horizontal, Vertical);
             }
         }
 
@@ -197,16 +203,23 @@ namespace NCaseFramework.doc
             mDocUtil.StopRecordConsole();
             //#
 
-            //# Replay
-            mDocUtil.BeginRecordConsole("Replay_Console");
-            allSet.Cases().Replay().ActAndAssert(ctx =>
+            mDocUtil.BeginRecordConsole("Replay_Console", s => s.Lines().Skip(1).Reverse().Skip(20).Reverse().Concat(new[] {"(...)"}).JoinLines());
+            try
             {
-                Environment env = GetHardwareAndSoftwareEnvironment(hw, sw);
-                SignInPage signInPage = env.GetSignInPage();
-                signInPage.FillInForm(user);
-            });
+                //# Replay
+                allSet.Cases().Replay().ActAndAssert(ctx =>
+                {
+                    Environment env = GetHardwareAndSoftwareEnvironment(hw, sw);
+                    SignInPage signInPage = env.GetSignInPage();
+                    signInPage.FillInForm(user);
+                    if (ctx.TestCaseIndex >= 1) throw new OperationCanceledException(); //mDocUtil
+                });
+                //#
+            }
+            catch (OperationCanceledException)
+            {
+            }
             mDocUtil.StopRecordConsole();
-            //#
 
             Console.WriteLine("swSet.Cases().Count() : {0}", swSet.Cases().Count());
             Console.WriteLine("hwSet.Cases().Count() : {0}", hwSet.Cases().Count());

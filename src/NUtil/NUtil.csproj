@@ -65,7 +65,7 @@
     <Compile Include="Doc\Snippet.cs" />
     <Compile Include="Doc\DocUtil.cs" />
     <Compile Include="Doc\SnippetParser.cs" />
-    <Compile Include="Text\TextUtil.cs" />
+    <Compile Include="Text\TextExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

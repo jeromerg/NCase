@@ -1,38 +1,40 @@
+using System;
+using JetBrains.Annotations;
+
 namespace NUtil.Doc
 {
     public class ConsoleRecord
     {
-        private readonly string mCallerMemberName;
-        private readonly string mCallerFilePath;
-        private readonly int mCallerLineNumber;
-        private readonly string mText;
+        private readonly ConsoleMirroring mConsoleMirroring;
+        private readonly string mRecordName;
+        [CanBeNull] private readonly Func<string, string> mPostProcessing;
 
-        public ConsoleRecord(string text, string callerMemberName, string callerFilePath, int callerLineNumber)
+        public ConsoleRecord(string recordName, [CanBeNull] Func<string, string> postProcessing = null)
         {
-            mCallerMemberName = callerMemberName;
-            mCallerFilePath = callerFilePath;
-            mCallerLineNumber = callerLineNumber;
-            mText = text;
+            mConsoleMirroring = new ConsoleMirroring();
+            mRecordName = recordName;
+            mPostProcessing = postProcessing;
         }
 
-        public string CallerMemberName
+        public void Stop()
         {
-            get { return mCallerMemberName; }
+            mConsoleMirroring.Flush();
+            mConsoleMirroring.Dispose();
         }
 
-        public string CallerFilePath
+        public string RecordName
         {
-            get { return mCallerFilePath; }
+            get { return mRecordName; }
         }
 
-        public int CallerLineNumber
+        public string ConsoleOutput
         {
-            get { return mCallerLineNumber; }
-        }
-
-        public string Text
-        {
-            get { return mText; }
+            get
+            {
+                return mPostProcessing != null
+                    ? mPostProcessing(mConsoleMirroring.ToString())
+                    : mConsoleMirroring.ToString();
+            }
         }
     }
 }

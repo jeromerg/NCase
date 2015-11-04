@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 
 namespace NUtil.Doc
 {
@@ -34,9 +35,9 @@ namespace NUtil.Doc
             mCodeSnippetParser = new SnippetParser(codeSnippetRegex, codeExcludedLineRegex);
         }
 
-        public void BeginRecordConsole(string snippetName)
+        public void BeginRecordConsole(string snippetName, [CanBeNull] Func<string, string> postProcessing = null)
         {
-            mConsoleRecorder.BeginRecord(snippetName);
+            mConsoleRecorder.BeginRecord(snippetName, postProcessing);
         }
 
         public void StopRecordConsole()

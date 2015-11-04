@@ -7,8 +7,7 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
     {
         public void Visit(IPrintCaseDirector director, IInterfaceRecPlayNode node, IPrintCasePayload payload)
         {
-            string fact = node.PropertyValue != null ? node.PropertyValue.ToString() : "null";
-            payload.PrintFact(node.CodeLocation, fact);
+            payload.PrintFact(node.CodeLocation, node.PrintAssignment());
         }
     }
 }

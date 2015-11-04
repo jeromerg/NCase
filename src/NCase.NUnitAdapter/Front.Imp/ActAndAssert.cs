@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
-using NCaseFramework.Front.Api.CaseEnumerable;
 using NCaseFramework.Front.Api.SetDef;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Api;
 using NCaseFramework.NunitAdapter.Front.Ui;
-using NDsl.Back.Api.Common;
 using NUnit.Framework;
 
 namespace NCaseFramework.NunitAdapter.Front.Imp
@@ -16,103 +14,133 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
     public class ActAndAssert : IActAndAssert
     {
         private readonly IPrintCase mPrintCase;
-        private readonly ICaseEnumerableFactory mCaseEnumerableFactory;
 
-        public ActAndAssert(IPrintCase printCase, ICaseEnumerableFactory caseEnumerableFactory)
+        public ActAndAssert(IPrintCase printCase)
         {
             mPrintCase = printCase;
-            mCaseEnumerableFactory = caseEnumerableFactory;
         }
 
-        public CaseEnumerable Perform(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction)
+        public void Perform(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction)
         {
-            IEnumerable<List<INode>> cases = PerformImp(caseEnumerable, actAndAssertAction);
-            return mCaseEnumerableFactory.Create(cases);
+            PerformImp(caseEnumerable, actAndAssertAction);
         }
 
-        public IEnumerable<List<INode>> PerformImp(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction)
+        public void PerformImp(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction)
         {
             var results = new List<Exception>();
 
             int caseIndex = 0;
             foreach (Case cas in caseEnumerable)
             {
-                Console.WriteLine("Case #{0,5}:", caseIndex);
-                Console.WriteLine("============");
-                Console.WriteLine();
-                Console.WriteLine("Definition");
-                Console.WriteLine("----------");
-                Console.WriteLine();
-                Console.WriteLine(mPrintCase.Perform(cas.Zapi.Model));
-                Console.WriteLine();
-                Console.WriteLine("Act and Assert");
-                Console.WriteLine("--------------");
-
-                var testCaseContext = new TestCaseContext(caseIndex, cas);
-                try
-                {
-                    actAndAssertAction(testCaseContext);
-                }
-                catch (SuccessException)
-                {
-                    PrintResultAndAddStore(results, null);
-                }
-                catch (AssertionException e)
-                {
-                    PrintResultAndAddStore(results, e);
-                }
-                catch (Exception e)
-                {
-                    if(testCaseContext.ExceptionAssert != null &&
-                       testCaseContext.ExceptionAssert.IsExpectedExceptionPredicate(e))
-                    {
-                        PrintResultAndAddStore(results, null);
-                    }
-                    else 
-                    {
-                        PrintResultAndAddStore(results, e);
-                    }
-                }
+                PerformCaseTest(actAndAssertAction, caseIndex, cas, results);
                 caseIndex++;
-                yield return cas.Zapi.Model.FactNodes;
             }
 
             if (results.All(result => result == null))
-                yield break;
+                return; // NO ERROR
 
-            var errorStrings = results
-                .Select((errorIfAny, index) => new { errorIfAny, index })
+            // CASE SOME ERROR:
+
+            IEnumerable<string> errorStrings = results
+                .Select((errorIfAny, index) => new {errorIfAny, index})
                 .Where(r => r.errorIfAny != null)
-                .Select(r => PrintError(r.index, r.errorIfAny, false));
+                .Select(r => CreateErrorText(r.errorIfAny, false));
 
             string msg = string.Format("Following test cases failed:\n{0}", string.Join("\n", errorStrings));
             throw new AssertionException(msg);
         }
 
+        private void PerformCaseTest(Action<TestCaseContext> actAndAssertAction, int caseIndex, Case cas, List<Exception> results)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Test Case #{0}", caseIndex);
+            Console.WriteLine("================");
+            Console.WriteLine();
+            Console.WriteLine("Definition");
+            Console.WriteLine("----------");
+            Console.WriteLine();
+            Console.WriteLine(mPrintCase.Perform(cas.Zapi.Model));
+            Console.WriteLine();
+            Console.WriteLine("Act and Assert");
+            Console.WriteLine("--------------");
+
+            var testCaseContext = new TestCaseContext(caseIndex, cas);
+            try
+            {
+                actAndAssertAction(testCaseContext);
+            }
+            catch (OperationCanceledException e)
+            {
+                PrintResultAndAddStore(results, e);
+                throw;
+            }
+            catch (SuccessException)
+            {
+                PrintResultAndAddStore(results, null);
+            }
+            catch (AssertionException e)
+            {
+                PrintResultAndAddStore(results, e);
+            }
+            catch (Exception e)
+            {
+                if (testCaseContext.ExceptionAssert != null &&
+                    testCaseContext.ExceptionAssert.IsExpectedExceptionPredicate(e))
+                {
+                    PrintResultAndAddStore(results, null);
+                }
+                else if (testCaseContext.ExceptionAssert != null)
+                {
+                    string message = string.Format("Expected an exception {0}, but thrown exception was {1}",
+                                                   testCaseContext.ExceptionAssert.Description,
+                                                   e);
+                    PrintResultAndAddStore(results, new AssertionException(message));
+                }
+                else
+                {
+                    string message = string.Format("No exception expected, but following exception was thrown: {0}", e);
+                    PrintResultAndAddStore(results, new AssertionException(message));
+                }
+            }
+
+            if (testCaseContext.ExceptionAssert != null)
+            {
+                string message = string.Format("Expected an exception {0}, but not exception was thrown",
+                                               testCaseContext.ExceptionAssert.Description);
+                PrintResultAndAddStore(results, new AssertionException(message));
+            }
+            else
+            {
+                PrintResultAndAddStore(results, null);
+            }
+        }
+
         private void PrintResultAndAddStore(List<Exception> results, [CanBeNull] Exception errorIfAny)
         {
             results.Add(errorIfAny);
-            PrintResult(results.Count-1, errorIfAny, true);
+            PrintResult(errorIfAny, true);
         }
 
-        private static void PrintResult(int caseIndex, Exception error, bool printErrorDetails)
+        private static void PrintResult(Exception error, bool printErrorDetails)
         {
-            string msg = error == null 
-                ? PrintSuccess(caseIndex) 
-                : PrintError(caseIndex, error, printErrorDetails);
+            string resultText = error == null
+                             ? CreateSuccessText()
+                             : CreateErrorText(error, printErrorDetails);
 
-            Console.WriteLine(msg);
+            Console.WriteLine();
+            Console.WriteLine(resultText);
+            Console.WriteLine();
         }
 
-        private static string PrintSuccess(int caseIndex)
+        private static string CreateSuccessText()
         {
-            return string.Format("Case #{0}: SUCCESS", caseIndex);
+            return "TEST CASE RESULT: SUCCESSFUL!";
         }
 
-        private static string PrintError(int caseIndex, Exception error, bool printErrorDetails)
+        private static string CreateErrorText(Exception error, bool printErrorDetails)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("Case #{0}: ERROR {1}", caseIndex, error.Message));
+            sb.AppendLine(string.Format("TEST CASE RESULT: ERROR {0}", error.Message));
             if (printErrorDetails)
                 sb.AppendLine(string.Format("Error Details: {0}", error));
 

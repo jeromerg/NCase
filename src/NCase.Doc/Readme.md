@@ -3,7 +3,12 @@ NCase
 
 Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code.
 
-NCase is a mix between a Mocking Framework like [Moq][Moq] and an advanced parametrized test framework, with powerful combinatorial engine.
+NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized test framework, having advanced combinatorial capabilities. 
+
+Use it in every test!
+-------------------------------
+
+The following example shows how to use NCase to test the method ``
 
 
 Define
@@ -119,15 +124,57 @@ Result:
 ```
  Definition                         | Location                                            
  ---------------------------------- | --------------------------------------------------- 
- Tree userSet                       | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 165 
-     user.UserName=Richard          | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 167 
-         user.Password=SomePass678; | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 168 
-             user.Age=24            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 169 
-             user.Age=36            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 170 
-     user.UserName=*+#&%$!$         | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 171 
-         user.Password=tooeasy      | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 172 
-             user.Age=-1            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 173 
-             user.Age=0             | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 174 
+ Tree userSet                       | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 171 
+     user.UserName=Richard          | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 173 
+         user.Password=SomePass678; | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 174 
+             user.Age=24            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 175 
+             user.Age=36            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 176 
+     user.UserName=*+#&%$!$         | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 177 
+         user.Password=tooeasy      | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 178 
+             user.Age=-1            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 179 
+             user.Age=0             | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 180 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ```
@@ -152,6 +199,27 @@ Result:
 
 TOTAL: 4 TEST CASES
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 
 
@@ -174,7 +242,43 @@ Here is the beginning of the console output:
 
 <!--# Replay_Console -->
 ```
+Test Case #0
+================
 
+Definition
+----------
+
+ Fact                           | Location                                            
+ ------------------------------ | --------------------------------------------------- 
+ hw.Architecture=arm            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 146 
+ hw.HardDriveInGb=10            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 150 
+ hw.RamInGb=1                   | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 154 
+ hw.ScreenResolution=(480, 320) | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 158 
+ sw.Os=Ios7                     | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 121 
+ sw.Browser=Chrome              | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 130 
+ sw.IsFacebookInstalled=False   | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 135 
+ user.UserName=Richard          | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 173 
+ user.Password=SomePass678;     | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 174 
+ user.Age=24                    | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 175 
+
+
+Act and Assert
+--------------
+
+TEST CASE RESULT: SUCCESSFUL!
+
+
+Test Case #1
+================
+
+Definition
+----------
+
+ Fact                           | Location                                            
+ ------------------------------ | --------------------------------------------------- 
+ hw.Architecture=arm            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 146 
+ hw.HardDriveInGb=10            | d:\src\test\NCase\src\NCase.Doc\Readme.cs: line 150 
+(...)
 ```
 
 

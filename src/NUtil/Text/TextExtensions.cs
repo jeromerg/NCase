@@ -1,12 +1,25 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace NUtil.Text
 {
-    public class TextUtil
+    public static class TextExtensions
     {
-        public static string Desindent(string txt)
+        public static IEnumerable<string> Lines(this string s)
+        {
+            string[] lines = s.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            return lines;
+        }
+
+        public static string JoinLines(this IEnumerable<string> lines)
+        {
+            string joined = string.Join(Environment.NewLine, lines);
+            return joined;
+        }
+
+        public static string Desindent(this string txt)
         {
             string[] lines = txt.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
 

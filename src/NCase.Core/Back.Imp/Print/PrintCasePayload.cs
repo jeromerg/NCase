@@ -2,6 +2,7 @@
 using NCaseFramework.Back.Api.Print;
 using NDsl.Back.Api.Util;
 using NDsl.Back.Api.Util.Table;
+using NDsl.Back.Imp.Util.Table;
 
 namespace NCaseFramework.Back.Imp.Print
 {
@@ -10,7 +11,7 @@ namespace NCaseFramework.Back.Imp.Print
         private static readonly ITableColumn sFactColumn = new SimpleTableColumn("Fact");
         private static readonly ITableColumn sFileInfoColumn = new SimpleTableColumn("Location");
 
-        private readonly ITableBuilder mTableBuilder;
+        private readonly ITableBuilder mTableBuilder = new TableBuilder();
 
         public class Factory : IPrintCasePayloadFactory
         {

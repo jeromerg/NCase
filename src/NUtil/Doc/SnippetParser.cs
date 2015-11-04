@@ -41,7 +41,7 @@ namespace NUtil.Doc
 
                 Console.WriteLine("Snippet: '{0}'", snippetName);
 
-                string unindentedBodyLines = TextUtil.Desindent(snippetBody);
+                string unindentedBodyLines = TextExtensions.Desindent(snippetBody);
 
                 IEnumerable<string> unindentedAndIncludedLines = unindentedBodyLines
                     .Split(new[] {Environment.NewLine}, StringSplitOptions.None)
