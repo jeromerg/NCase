@@ -57,6 +57,7 @@
     <Compile Include="Front.Api\IActAndAssert.cs" />
     <Compile Include="Front.Ui\CaseEnumerableExtensions.cs" />
     <Compile Include="Front.Ui\ExceptionAssert.cs" />
+    <Compile Include="Front.Ui\TestCaseContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

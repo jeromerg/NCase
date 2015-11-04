@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Doc\ConsoleMirroring.cs" />
     <Compile Include="File\CallerUtil.cs" />
     <Compile Include="Generics\Holder.cs" />
     <Compile Include="Generics\IHolder.cs" />

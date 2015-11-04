@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Moq;
 using NCaseFramework.Front.Ui;
+using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Front.Api;
 using NUnit.Framework;
 using NUtil.Doc;
@@ -14,33 +15,41 @@ namespace NCaseFramework.doc
     public class Presentation
     {
         // ReSharper disable once InconsistentNaming
-        private readonly ConsoleRecorder Console = new ConsoleRecorder();
+        private readonly DocUtil mDocUtil = new DocUtil("mDocUtil");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            new DocUtil().UpdateDocAssociatedToThisFile(Console);
+            mDocUtil.UpdateDocAssociatedToThisFile();
         }
 
         //# TodoInterface
         public interface ITodo
         {
-            string Task { get; set; }
+            string Title { get; set; }
             DateTime DueDate { get; set; }
             bool IsDone { get; set; }
         }
         //#
 
-        public class TaskManager
+        //# UserInterface
+        public interface IUser
         {
-            public void CreateTask(string task, DateTime dueDate, bool isDone) { }
+            bool IsActive { get; set; }
+            string NotificationEmail { get; set; }
+        }
+        //#
+
+        public class TodoManager
+        {
+            public void CreateTodo(ITodo todo) { }
         }
 
-        DateTime now = new DateTime(2011,11,11,11,11,11);
-        DateTime yesterday = new DateTime(2011,11,10,11,11,11);
-        DateTime tomorrow = new DateTime(2011,11,12,11,11,11);
-        DateTime daylightSavingTimeMissingTime = new DateTime(2011,11,12,11,11,11);
-        DateTime daylightSavingTimeAmbiguousTime = new DateTime(2011,11,12,11,11,11);
+        DateTime now = new DateTime(2011, 11, 11, 11, 11, 11);
+        DateTime yesterday = new DateTime(2011, 11, 10, 11, 11, 11);
+        DateTime tomorrow = new DateTime(2011, 11, 12, 11, 11, 11);
+        DateTime daylightSavingTimeMissingTime = new DateTime(2011, 11, 12, 11, 11, 11);
+        DateTime daylightSavingTimeAmbiguousTime = new DateTime(2011, 11, 12, 11, 11, 11);
 
         [Test]
         public void MoqExample1()
@@ -48,13 +57,16 @@ namespace NCaseFramework.doc
             //# MoqExample1
             // ARRANGE
             var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Don't forget to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
+
+            todo.Title = "Don't forget to forget";
+            todo.DueDate = now;
+            todo.IsDone = false;
 
             // ACT
-            var taskManager = new TaskManager();
-            taskManager.CreateTask(mock.Object.Task, mock.Object.DueDate, mock.Object.IsDone);
+            var todoManager = new TodoManager();
+            todoManager.CreateTodo(todo);
 
             // ASSERT
             //...
@@ -69,22 +81,24 @@ namespace NCaseFramework.doc
             IBuilder builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
             var set = builder.NewDefinition<AllCombinations>("set");
+
             using (set.Define())
             {
-                todo.Task = "Don't forget to forget";
+                todo.Title = "Don't forget to forget";
                 todo.DueDate = now;
                 todo.IsDone = false;
             }
 
-            foreach (var cas in set.Cases().Replay())
+            // REPLAY TEST CASES
+            set.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
-                var taskManager = new TaskManager();
-                taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
- 
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
+
                 // ASSERT
                 //...
-            }
+            });
             //#
         }
 
@@ -95,11 +109,14 @@ namespace NCaseFramework.doc
         {
             // ARRANGE
             var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Don't forget to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
 
-            //...
+            todo.Title = "Don't forget to forget";
+            todo.DueDate = now;
+            todo.IsDone = false;
+
+            // ACT ... ASSERT ...
         }
 
         [Test]
@@ -107,12 +124,14 @@ namespace NCaseFramework.doc
         {
             // ARRANGE
             var mock = new Mock<ITodo>();
-            mock.SetupProperty(todo => todo.Task, "Another task to forget");
-            mock.SetupProperty(todo => todo.DueDate, now);
-            mock.SetupProperty(todo => todo.IsDone, false);
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
 
-            // ACT
-            //...
+            todo.Title = "Another todo to forget";
+            todo.DueDate = now;
+            todo.IsDone = false;
+
+            // ACT ... ASSERT ...
         }
         //#
 
@@ -126,22 +145,22 @@ namespace NCaseFramework.doc
             var set = builder.NewDefinition<AllCombinations>("set");
             using (set.Define())
             {
-                todo.Task = "Don't forget to forget";
-                todo.Task = "Another task to forget";
+                todo.Title = "Don't forget to forget";
+                todo.Title = "Another todo to forget";
 
                 todo.DueDate = now;
                 todo.IsDone = false;
             }
 
-            foreach (var cas in set.Cases().Replay())
+            set.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
-                var taskManager = new TaskManager();
-                taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
- 
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
+
                 // ASSERT
                 //...
-            }
+            });
             //#
         }
 
@@ -155,7 +174,7 @@ namespace NCaseFramework.doc
             using (set.Define())
             {
                 //# NCaseExample2_AddedLine
-                todo.Task = "Another task to forget";
+                todo.Title = "Another todo to forget";
                 //#
 
                 todo.DueDate = now;
@@ -173,12 +192,12 @@ namespace NCaseFramework.doc
             var set = builder.NewDefinition<AllCombinations>("set");
             using (set.Define())
             {
-                todo.Task = "Don't forget to forget";
-                todo.Task = "";
-                todo.Task = null;
-                todo.Task = "ß üöä ÜÖÄ !§$%&/()=?";
-                todo.Task = "SELECT USER_ID, PASSWORD FROM USER";
-                todo.Task = "Another Task";
+                todo.Title = "Don't forget to forget";
+                todo.Title = "";
+                todo.Title = null;
+                todo.Title = "ß üöä ÜÖÄ !§$%&/()=?";
+                todo.Title = "SELECT USER_ID, PASSWORD FROM USER";
+                todo.Title = "Another Title";
 
                 todo.DueDate = yesterday;
                 todo.DueDate = now;
@@ -192,17 +211,136 @@ namespace NCaseFramework.doc
                 todo.IsDone = true;
             }
 
-            foreach (var cas in set.Cases().Replay())
+            set.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
-                var taskManager = new TaskManager();
-                taskManager.CreateTask(todo.Task, todo.DueDate, todo.IsDone);
- 
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
+
                 // ASSERT
                 //...
-            }
+            });
             //#
         }
 
+
+        [Test]
+        public void NCaseCombiningContributors()
+        {
+            // ARRANGE
+            IBuilder builder = NCase.NewBuilder();
+
+            var todo = builder.NewContributor<ITodo>("todo");
+
+            //# NCaseCombiningContributors_VAR
+            var user = builder.NewContributor<IUser>("user");
+            //# 
+
+            var set = builder.NewDefinition<AllCombinations>("set");
+
+            //# NCaseCombiningContributors_DEF
+            using (set.Define())
+            {
+                todo.Title = "Don't forget to forget";
+                //...
+                todo.DueDate = yesterday;
+                //...
+                todo.IsDone = false;
+                //...
+                user.IsActive = true;
+                //...
+                user.NotificationEmail = null;
+                //...
+            }
+            //#
+
+            set.Cases().Replay().ActAndAssert(ea =>
+            {
+                // ACT
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
+
+                // ASSERT
+                //...
+            });
+        }
+
+        [Test]
+        public void NCaseCombiningSets()
+        {
+            // ARRANGE
+            IBuilder builder = NCase.NewBuilder();
+
+            var todo = builder.NewContributor<ITodo>("todo");
+            var user = builder.NewContributor<IUser>("user");
+
+            //# NCaseCombiningSets_TODO_SET
+            var todoSet = builder.NewDefinition<AllCombinations>("todoSet");
+            using (todoSet.Define())
+            {
+                todo.Title = "Don't forget to forget";
+                //...
+                todo.DueDate = yesterday;
+                //...
+                todo.IsDone = false;
+                //...
+            }
+            //#
+
+            //# NCaseCombiningSets_USER_SET
+            var userSet = builder.NewDefinition<AllCombinations>("userSet");
+            using (userSet.Define())
+            {
+                user.IsActive = true;
+                //...
+                user.NotificationEmail = null;
+                //...
+            }
+            //#
+
+            //# NCaseCombiningSets_ALL_SET
+            var allSet = builder.NewDefinition<AllCombinations>("allSet");
+            using (allSet.Define())
+            {
+                todoSet.Ref();
+                userSet.Ref();
+            }
+            //#
+
+            allSet.Cases().Replay().ActAndAssert(ea =>
+            {
+                // ACT
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
+
+                // ASSERT
+                //...
+            });
+        }
+
+        [Test]
+        public void NCasePairwiseCombinations()
+        {
+            // ARRANGE
+            IBuilder builder = NCase.NewBuilder();
+
+            var todo = builder.NewContributor<ITodo>("todo");
+
+            //# NCasePairwiseCombinations
+            var todoSet = builder.NewDefinition<PairwiseCombinations>("todoSet");
+            using (todoSet.Define())
+            {
+                todo.Title = "Don't forget to forget";
+                //...
+                todo.DueDate = yesterday;
+                //...
+                todo.IsDone = false;
+                //...
+            }
+            //#
+
+        }
+
     }
+
 }

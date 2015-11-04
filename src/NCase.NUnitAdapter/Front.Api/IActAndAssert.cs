@@ -9,6 +9,6 @@ namespace NCaseFramework.NunitAdapter.Front.Api
 {
     public interface IActAndAssert : IService<ICaseEnumerableModel>
     {
-        CaseEnumerable Perform(CaseEnumerable caseEnumerable, Action<Holder<ExceptionAssert>> actAndAssertAction);
+        CaseEnumerable Perform(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction);
     }
 }

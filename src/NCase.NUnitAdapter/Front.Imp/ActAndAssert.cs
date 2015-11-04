@@ -10,7 +10,6 @@ using NCaseFramework.NunitAdapter.Front.Api;
 using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Back.Api.Common;
 using NUnit.Framework;
-using NUtil.Generics;
 
 namespace NCaseFramework.NunitAdapter.Front.Imp
 {
@@ -25,13 +24,13 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
             mCaseEnumerableFactory = caseEnumerableFactory;
         }
 
-        public CaseEnumerable Perform(CaseEnumerable caseEnumerable, Action<Holder<ExceptionAssert>> actAndAssertAction)
+        public CaseEnumerable Perform(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction)
         {
             IEnumerable<List<INode>> cases = PerformImp(caseEnumerable, actAndAssertAction);
             return mCaseEnumerableFactory.Create(cases);
         }
 
-        public IEnumerable<List<INode>> PerformImp(CaseEnumerable caseEnumerable, Action<Holder<ExceptionAssert>> actAndAssertAction)
+        public IEnumerable<List<INode>> PerformImp(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction)
         {
             var results = new List<Exception>();
 
@@ -49,10 +48,10 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
                 Console.WriteLine("Act and Assert");
                 Console.WriteLine("--------------");
 
-                var exceptionAsserter = new Holder<ExceptionAssert>();
+                var testCaseContext = new TestCaseContext(caseIndex, cas);
                 try
                 {
-                    actAndAssertAction(exceptionAsserter);
+                    actAndAssertAction(testCaseContext);
                 }
                 catch (SuccessException)
                 {
@@ -64,8 +63,8 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
                 }
                 catch (Exception e)
                 {
-                    if(exceptionAsserter.Value != null && 
-                       exceptionAsserter.Value.IsExpectedExceptionPredicate(e))
+                    if(testCaseContext.ExceptionAssert != null &&
+                       testCaseContext.ExceptionAssert.IsExpectedExceptionPredicate(e))
                     {
                         PrintResultAndAddStore(results, null);
                     }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using NCaseFramework.Front.Ui;
+using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Front.Api;
 using NUnit.Framework;
 using NUtil.Doc;
-using NUtil.Linq;
 
 namespace NCaseFramework.doc
 {
@@ -13,15 +14,15 @@ namespace NCaseFramework.doc
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     public class Readme
     {
-        // ReSharper disable once InconsistentNaming
-        private readonly ConsoleRecorder Console = new ConsoleRecorder();
+        private readonly DocUtil mDocUtil = new DocUtil("mDocUtil");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            new DocUtil().UpdateDocAssociatedToThisFile(Console);
+            mDocUtil.UpdateDocAssociatedToThisFile();
         }
 
+        #region inner types
         public enum Architecture { x86, x64, arm }
         public struct Size
         {
@@ -79,41 +80,36 @@ namespace NCaseFramework.doc
             int Age { get; set; }
         }
 
+        private Environment GetHardwareAndSoftwareEnvironment(IHardware hw, ISoftware sw)
+        {
+            return new Environment();
+        }
+
+        internal class Environment
+        {
+            public SignInPage GetSignInPage()
+            {
+                return new SignInPage();
+            }
+        }
+
+        internal class SignInPage
+        {
+            public void FillInForm(IUser user)
+            {
+            }
+        }
+        #endregion
+
+        [Test]
         public void Demo()
         {
             IBuilder builder = NCase.NewBuilder();
 
-            var hw = builder.NewContributor<IHardware>("hw");
-
-            //# All
-            var hwSet = builder.NewDefinition<AllCombinations>("hwSet");
-            using (hwSet.Define())
-            {
-                hw.Architecture = Architecture.arm;
-                hw.Architecture = Architecture.x64;
-                hw.Architecture = Architecture.x86;
-
-                hw.HardDriveInGb = 10;
-                hw.HardDriveInGb = 20;
-                hw.HardDriveInGb = 50;
-
-                hw.RamInGb = 1;
-                hw.RamInGb = 2;
-                hw.RamInGb = 5;
-
-                hw.ScreenResolution = new Size(480,320);
-                hw.ScreenResolution = new Size(320, 480);
-                hw.ScreenResolution = new Size(960, 640);
-                hw.ScreenResolution = new Size(640, 960);
-                hw.ScreenResolution = new Size(1136, 640);
-                hw.ScreenResolution = new Size(640, 1136);
-            }
-            //#
-
             var sw = builder.NewContributor<ISoftware>("sw");
 
-            //# Pairwise
-            var swSet = builder.NewDefinition<PairwiseCombinations>("swSet");
+            //# AllCombinations
+            var swSet = builder.NewDefinition<AllCombinations>("swSet");
             using (swSet.Define())
             {
                 sw.Os = Os.Ios7;
@@ -135,17 +131,44 @@ namespace NCaseFramework.doc
             }
             //#
 
+            var hw = builder.NewContributor<IHardware>("hw");
+
+            //# PairwiseCombinations
+            var hwSet = builder.NewDefinition<PairwiseCombinations>("hwSet");
+            using (hwSet.Define())
+            {
+                hw.Architecture = Architecture.arm;
+                hw.Architecture = Architecture.x64;
+                hw.Architecture = Architecture.x86;
+
+                hw.HardDriveInGb = 10;
+                hw.HardDriveInGb = 20;
+                hw.HardDriveInGb = 50;
+
+                hw.RamInGb = 1;
+                hw.RamInGb = 2;
+                hw.RamInGb = 5;
+
+                hw.ScreenResolution = new Size(480, 320);
+                hw.ScreenResolution = new Size(320, 480);
+                hw.ScreenResolution = new Size(960, 640);
+                hw.ScreenResolution = new Size(640, 960);
+                hw.ScreenResolution = new Size(1136, 640);
+                hw.ScreenResolution = new Size(640, 1136);
+            }
+            //#
+
             var user = builder.NewContributor<IUser>("user");
 
             //# Tree
-            var userSet = builder.NewDefinition<PairwiseCombinations>("userSet");
+            var userSet = builder.NewDefinition<Tree>("userSet");
             using (userSet.Define())
             {
                 user.UserName = "Richard";
                     user.Password = "SomePass678;";
                         user.Age = 24;
                         user.Age = 36;
-                user.UserName = "-----***";
+                user.UserName = "*+#&%$!$";
                     user.Password = "tooeasy";
                         user.Age = -1;
                         user.Age = 00;
@@ -153,7 +176,7 @@ namespace NCaseFramework.doc
             //#
 
             //# Combine
-            var allSet = builder.NewDefinition<PairwiseCombinations>("allSet");
+            var allSet = builder.NewDefinition<AllCombinations>("allSet");
             using (allSet.Define())
             {
                 hwSet.Ref();
@@ -163,18 +186,33 @@ namespace NCaseFramework.doc
             //#
 
             //# Visualize_Def
-            Console.WriteLine("//# Visualize_Def_Console");
+            mDocUtil.BeginRecordConsole("Visualize_Def_Console");
             Console.WriteLine(userSet.PrintDefinition(isFileInfo: true));
+            mDocUtil.StopRecordConsole();
             //#
 
             //# Visualize_Table
-            Console.WriteLine("//# Visualize_Table_Console");
+            mDocUtil.BeginRecordConsole("Visualize_Table_Console");
             Console.WriteLine(userSet.PrintCasesAsTable());
+            mDocUtil.StopRecordConsole();
             //#
 
             //# Replay
-            allSet.Cases().Replay();
+            mDocUtil.BeginRecordConsole("Replay_Console");
+            allSet.Cases().Replay().ActAndAssert(ctx =>
+            {
+                Environment env = GetHardwareAndSoftwareEnvironment(hw, sw);
+                SignInPage signInPage = env.GetSignInPage();
+                signInPage.FillInForm(user);
+            });
+            mDocUtil.StopRecordConsole();
             //#
+
+            Console.WriteLine("swSet.Cases().Count() : {0}", swSet.Cases().Count());
+            Console.WriteLine("hwSet.Cases().Count() : {0}", hwSet.Cases().Count());
+            Console.WriteLine("userSet.Cases().Count() : {0}", userSet.Cases().Count());
+            Console.WriteLine("all.Cases().Count() : {0}", allSet.Cases().Count());
         }
     }
+
 }

@@ -1,30 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace NUtil.Doc
 {
     public class ConsoleRecorder
     {
-        private readonly List<ConsoleRecord> mRecords = new List<ConsoleRecord>();
-
-        public IReadOnlyList<ConsoleRecord> Records
+        private readonly List<Snippet> mSnippets = new List<Snippet>(); 
+        private string mCurrentConsoleSnippetName;
+        private ConsoleMirroring mCurrentConsoleMirroring;
+        
+        public void BeginRecord(string snippetName)
         {
-            get { return mRecords; }
+            mCurrentConsoleSnippetName = snippetName;
+            mCurrentConsoleMirroring = new ConsoleMirroring();
+            Console.SetOut(mCurrentConsoleMirroring);
         }
 
-        public void WriteLine(string txt, [CallerMemberName] string callerMemberName = null)
+        public void EndRecord()
         {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            Write(txt + Environment.NewLine, callerMemberName: callerMemberName);
+            mCurrentConsoleMirroring.Flush();
+            
+            mSnippets.Add(new Snippet("Console", mCurrentConsoleSnippetName, mCurrentConsoleMirroring.ToString()));
+            mCurrentConsoleSnippetName = null;
+            mCurrentConsoleMirroring = null;
         }
 
-        public void Write(string txt,
-                          [CallerFilePath] string callerFilePath = null,
-                          [CallerMemberName] string callerMemberName = null,
-                          [CallerLineNumber] int callerLineNumber = -1)
+        public IEnumerable<Snippet> Snippets
         {
-            mRecords.Add(new ConsoleRecord(txt, callerMemberName, callerFilePath, callerLineNumber));
+            get { return mSnippets; }
         }
     }
 }

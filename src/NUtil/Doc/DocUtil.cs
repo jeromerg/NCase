@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using JetBrains.Annotations;
 
 namespace NUtil.Doc
 {
@@ -18,34 +17,38 @@ namespace NUtil.Doc
 
         private const string DOC_FILE_EXTENSION = ".md";
         private const string CODE_SNIPPET_MARKER = @"//#";
-        private const string CODE_EXCLUDED_LINE_REGEX = "//#";
-        private const string CONSOLE_SNIPPET_MARKER = @"//#";
 
         private readonly SnippetParser mMarkdownSnippetParser;
         private readonly SnippetParser mCodeSnippetParser;
-        private readonly SnippetParser mConsoleSnippetParser;
 
-        public DocUtil()
+        private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
+
+        public DocUtil(string codeExcludedLineRegexString)
         {
             var markdownSnippetRegex = new Regex(MARKDOWN_SNIPPET_REGEX_STRING, RegexOptions.Singleline | RegexOptions.Multiline);
             mMarkdownSnippetParser = new SnippetParser(markdownSnippetRegex, null);
 
             string codeSnippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CODE_SNIPPET_MARKER);
             var codeSnippetRegex = new Regex(codeSnippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
-            var codeExcludedLineRegex = new Regex(CODE_EXCLUDED_LINE_REGEX);
+            var codeExcludedLineRegex = new Regex(codeExcludedLineRegexString);
             mCodeSnippetParser = new SnippetParser(codeSnippetRegex, codeExcludedLineRegex);
-
-            string consoleSnippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CONSOLE_SNIPPET_MARKER);
-            var consoleSnippetRegex = new Regex(consoleSnippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
-            mConsoleSnippetParser = new SnippetParser(consoleSnippetRegex, null);
         }
 
-        public void UpdateDocAssociatedToThisFile([CanBeNull] ConsoleRecorder consoleRecorder = null,
-                                                  [CallerFilePath] string callerFilePath = null)
+        public void BeginRecordConsole(string snippetName)
+        {
+            mConsoleRecorder.BeginRecord(snippetName);
+        }
+
+        public void StopRecordConsole()
+        {
+            mConsoleRecorder.EndRecord();
+        }
+
+        public void UpdateDocAssociatedToThisFile([CallerFilePath] string callerFilePath = null)
         {
             var allSnippets = new List<Snippet>();
             allSnippets.AddRange(ExtractCodeSnippets(callerFilePath));
-            allSnippets.AddRange(ExtractConsoleSnippets(consoleRecorder));
+            allSnippets.AddRange(mConsoleRecorder.Snippets);
 
             Console.WriteLine("All available snippets:");
             foreach (Snippet s in allSnippets)
@@ -60,22 +63,6 @@ namespace NUtil.Doc
         private List<Snippet> ExtractCodeSnippets(string callerFilePath)
         {
             return mCodeSnippetParser.ParseFileSnippets(callerFilePath);
-        }
-
-        private IEnumerable<Snippet> ExtractConsoleSnippets([CanBeNull] ConsoleRecorder consoleRecorder)
-        {
-            if (consoleRecorder == null)
-                return Enumerable.Empty<Snippet>();
-
-            return consoleRecorder
-                .Records
-                .GroupBy(r => new {r.CallerFilePath, r.CallerMemberName}, r => r.Text)
-                .Select(g => new
-                             {
-                                 source = string.Format("Method output '{0}'", g.Key.CallerMemberName),
-                                 output = string.Join("", g)
-                             })
-                .SelectMany(g => mConsoleSnippetParser.ParseSnippets(g.source, g.output));
         }
 
         private static string GetAssociatedDocPath(string callerFilePath)
