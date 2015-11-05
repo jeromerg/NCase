@@ -5,8 +5,7 @@ namespace NCaseFramework.NunitAdapter.Front.Ui
     public class TestCaseContext
     {
         private readonly int mTestCaseIndex;
-        private readonly Case mCase;        
-        private ExceptionAssert mExceptionAssert;
+        private readonly Case mCase;
 
         public TestCaseContext(int testCaseIndex, Case cas)
         {
@@ -24,10 +23,6 @@ namespace NCaseFramework.NunitAdapter.Front.Ui
             get { return mCase; }
         }
 
-        public ExceptionAssert ExceptionAssert
-        {
-            get { return mExceptionAssert; }
-            set { mExceptionAssert = value; }
-        }
+        public ExceptionAssert ExceptionAssert { get; set; }
     }
 }

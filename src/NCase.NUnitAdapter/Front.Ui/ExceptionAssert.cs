@@ -17,7 +17,7 @@ namespace NCaseFramework.NunitAdapter.Front.Ui
 
         public static ExceptionAssert IsAssignableTo<T>() where T : Exception
         {
-            return IsAssignableTo(typeof(T));
+            return IsAssignableTo(typeof (T));
         }
 
         public static ExceptionAssert IsAssignableTo([NotNull] Type type)
@@ -29,9 +29,9 @@ namespace NCaseFramework.NunitAdapter.Front.Ui
 
         public static ExceptionAssert IsOfType<T>() where T : Exception
         {
-            return IsOfType(typeof(T));
+            return IsOfType(typeof (T));
         }
-        
+
         public static ExceptionAssert IsOfType(Type type)
         {
             string description = string.Format("of type '{0}'", type.FullName);

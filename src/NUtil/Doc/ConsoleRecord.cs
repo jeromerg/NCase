@@ -16,12 +16,6 @@ namespace NUtil.Doc
             mPostProcessing = postProcessing;
         }
 
-        public void Stop()
-        {
-            mConsoleMirroring.Flush();
-            mConsoleMirroring.Dispose();
-        }
-
         public string RecordName
         {
             get { return mRecordName; }
@@ -32,9 +26,15 @@ namespace NUtil.Doc
             get
             {
                 return mPostProcessing != null
-                    ? mPostProcessing(mConsoleMirroring.ToString())
-                    : mConsoleMirroring.ToString();
+                           ? mPostProcessing(mConsoleMirroring.ToString())
+                           : mConsoleMirroring.ToString();
             }
+        }
+
+        public void Stop()
+        {
+            mConsoleMirroring.Flush();
+            mConsoleMirroring.Dispose();
         }
     }
 }

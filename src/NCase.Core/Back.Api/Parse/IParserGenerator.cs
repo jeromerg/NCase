@@ -2,7 +2,6 @@
 using NDsl.All.Def;
 using NDsl.Back.Api.Book;
 using NDsl.Back.Api.Common;
-using NDsl.Back.Api.Def;
 
 namespace NCaseFramework.Back.Api.Parse
 {

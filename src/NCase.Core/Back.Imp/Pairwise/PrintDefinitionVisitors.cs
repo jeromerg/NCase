@@ -1,5 +1,4 @@
-﻿using System;
-using NCaseFramework.Back.Api.Pairwise;
+﻿using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Back.Api.Print;
 using NDsl.Back.Api.Common;
 

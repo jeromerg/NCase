@@ -9,7 +9,7 @@ namespace NUtil.Text
     {
         public static IEnumerable<string> Lines(this string s)
         {
-            string[] lines = s.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] lines = s.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
             return lines;
         }
 

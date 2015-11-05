@@ -88,7 +88,10 @@ namespace NDsl.Back.Imp.RecPlay
             catch (InvalidRecPlayStateException e)
             {
                 // add statement location
-                throw new InvalidRecPlayStateException(e, "{0}: {1}", e.Message, mCodeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
+                throw new InvalidRecPlayStateException(e,
+                                                       "{0}: {1}",
+                                                       e.Message,
+                                                       mCodeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
             }
         }
 

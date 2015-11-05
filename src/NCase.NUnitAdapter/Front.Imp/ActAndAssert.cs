@@ -124,8 +124,8 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
         private static void PrintResult(Exception error, bool printErrorDetails)
         {
             string resultText = error == null
-                             ? CreateSuccessText()
-                             : CreateErrorText(error, printErrorDetails);
+                                    ? CreateSuccessText()
+                                    : CreateErrorText(error, printErrorDetails);
 
             Console.WriteLine();
             Console.WriteLine(resultText);
