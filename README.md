@@ -48,9 +48,9 @@ allPatients.Cases().Replay().ActAndAssert(ctx =>
 });
 ```
 
-It looks very similar to a conventional unit tests with the three groups *Arrange, Act and Assert*. So you will easily adopt NCase in your daily work. But contrary to conventional tests, this one actually covers 6 test cases instead of 1! Why? Because the assignments of properties `Age`, `Sex` and `HasPenicillin` are located within a definition of type `AllCombinations`. So Ncase performs the cartesian product of all assignments grouped by property. In this case, it generates 6 test cases: 3 x 2 x 1 = 6. 
+It looks very similar to conventional unit tests with the three groups *Arrange, Act and Assert*. So you will easily adopt NCase in your daily work. But contrary to conventional tests, this one actually covers 6 test cases instead of 1! Why? Because the properties `Age`, `Sex` and `HasPenicillin` are assigned multiple times inside a definition of type `AllCombinations`. In that case, Ncase performs the cartesian product of all assignments grouped by property. Here, it generates 6 test cases: 3 x 2 x 1 = 6. 
 
-On every replayed test case, the `ActAndAssert` method invoke the Statement Lambda containing the act and asserts.
+NCase replays each test case one by one and calls the act and asserts declared in `ActAndAssert(...)`.
 
 Installation
 ------------
