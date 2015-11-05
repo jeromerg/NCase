@@ -2,234 +2,272 @@ Status:
 
 [![Build status](https://ci.appveyor.com/api/projects/status/5t819acpeymgqdoh/branch/master?svg=true)](https://ci.appveyor.com/project/jeromerg/ncase/branch/master)  [![NuGet](https://img.shields.io/nuget/dt/NCase.svg)](https://www.nuget.org/packages/NCase/)
 
+NCase
+=====
 
-NCase *(Pre-Alpha !!)*
-======================
+Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code.
 
-NCase allows you to define compact and readable test cases in C#.
+NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized test framework, having advanced combinatorial capabilities. 
 
-When you write tests, you quickly reach a few dozen of combinations to test. 3 parameters having 4 remarkable states and you already have 64 test cases to test. That's why test frameworks like NUnit support parametrized tests. But even parametrized tests are hard to maintain. The tabular syntax used to define test parameters lacks of readability. That's where NCase comes to rescue: it provides several compact and readable syntaxes to write test cases. NCase use a record/replay mechanism of C# statements, so that you can directly use NCase in your C# code or unit tests.
+NCase is not released yet! The API is now quite stable, but further commits may introduce breaking changes. Please give as much feedback as possible, positive, negative, critics!  
 
-Currently NCase supports following features:
-- `ITree` set: allows you to define test cases with a simplified tree syntax
-- `IProd` set: allows you to perform the cartesian product between multiple test dimensions
-- Reference: allows you to inject test cases into other test cases, allowing to mix many `ITree` and `IProd` sets together, as well as to re-use test combinations
-- Record/replay is supported on interface properties, including indexed properties
+Use NCase in all your tests!
+----------------------------
 
-Let's see with an example how it works...
+If you want to read the long story, [see here][presentation].
 
-Example 1: Generating test cases from a tree
---------------------------------------------
+The following example shows how to use NCase to test a method `Pharmacy.CanPrescribePenicillin(IPatient)`:
 
-All examples are from the [demo tests][demoTests].
-
-Let's say, you want to test a routine performing money transfer. The routine has 3 input: the account balance in USD, the currency and the amount to transfer. So first, you declare an interface `ITransfer`, which contain the parameters for a single test case, as following:
-
+<!--# ShortExample -->
 ```C#
-public enum Curr {  EUR, USD, YEN }
-public interface ITransfer
+// ARRANGE
+IBuilder builder = NCase.NewBuilder();            
+var p = builder.NewContributor<IPatient>("patient");
+var allPatients = builder.NewDefinition<AllCombinations>("swSet");
+
+using (allPatients.Define())
 {
-    double BalanceUsd { get; set; }   // the balance of the customer account in USD
-    Curr Currency { get; set; }       // currency of the transfer
-    double Amount { get; set; }       // amount of the transfer
-    bool Accepted { get; set; }       // ASSERT: Expected result of the routine under test
+    p.Age = 10;
+    p.Age = 30;
+    p.Age = 60;
+
+    p.Sex = Sex.Female;
+    p.Sex = Sex.Male;
+
+    p.HasPenicillinAllergy = true;
+}
+
+allPatients.Cases().Replay().ActAndAssert(ctx =>
+{
+    // ACT
+    var pharmacy = new Pharmacy();
+    bool canPrescribe = pharmacy.CanPrescribePenicillin(p);
+
+    // ASSERT
+    Assert.IsTrue(canPrescribe);
+});
+```
+
+It looks very similar to a conventional unit tests with the three groups *Arrange, Act and Assert*. So you will easily adopt NCase in your daily work. But contrary to conventional tests, this one actually covers 6 test cases instead of 1! Why? Because the assignments of properties `Age`, `Sex` and `HasPenicillin` are located within a definition of type `AllCombinations`. So Ncase performs the cartesian product of all assignments grouped by property. In this case, it generates 6 test cases: 3 x 2 x 1 = 6. 
+
+On every replayed test case, the `ActAndAssert` method invoke the Statement Lambda containing the act and asserts.
+
+Installation
+------------
+
+To install NCase, run the following command in the Nuget Package Manager Console:
+
+```
+Install-Package NCase
+```
+
+
+Further Examples
+----------------
+
+### Define
+
+#### All Combinations
+
+<!--# AllCombinations -->
+```C#
+var swSet = builder.NewDefinition<AllCombinations>("swSet");
+using (swSet.Define())
+{
+    sw.Os = Os.Ios8;
+    sw.Os = Os.Android6;
+    sw.Os = Os.WindowsMobile10;
+
+    sw.Browser = Browser.Chrome;
+    sw.Browser = Browser.Firefox;
+    sw.Browser = Browser.Safari;
+
+    sw.IsFacebookInstalled = false;
+    sw.IsFacebookInstalled = true;
 }
 ```
 
-Now, let's write a few tests with NCase:
+... generates 3 x 3 x 2 = 18 software configurations: the cartesian product between all groups of property assignments.
 
+#### Pairwise combinations
+
+<!--# PairwiseCombinations -->
 ```C#
-ICaseBuilder builder = Case.GetBuilder();
-ITransfer t = builder.GetContributor<ITransfer>("t");
-
-ITree transfers = builder.CreateSet<ITree>("transfers");
-using (transfers.Define())
+var hwSet = builder.NewDefinition<PairwiseCombinations>("hwSet");
+using (hwSet.Define())
 {
-    t.Currency = Curr.USD;
-        t.BalanceUsd = 100.00;
-            t.Amount =   0.01;  t.Accepted = true;
-            t.Amount = 100.00;  t.Accepted = true;
-            t.Amount = 100.01;  t.Accepted = false;
-        t.BalanceUsd =   0.00;  
-            t.Amount =   0.01;  t.Accepted = false;
-    t.Currency = Curr.YEN;      
-        t.BalanceUsd =   0.00;  
-            t.Amount =   0.01;  t.Accepted = false;
-    t.Currency = Curr.EUR;      
-        t.BalanceUsd = 100.00;  
-            t.Amount =   0.01;  t.Accepted = true;
-            t.Amount =  89.39;  t.Accepted = true;
-            t.Amount =  89.40;  t.Accepted = false;
-}
+    hw.Architecture = Architecture.arm;
+    hw.Architecture = Architecture.x64;
+    hw.Architecture = Architecture.x86;
 
-```
+    hw.HardDriveInGb = 10;
+    hw.HardDriveInGb = 20;
+    hw.HardDriveInGb = 50;
 
-First you call `Case.GetBuilder()` to get a builder, the swiss-knife of NCase.
+    hw.RamInGb = 1;
+    hw.RamInGb = 2;
+    hw.RamInGb = 5;
 
-Then you call `builder.GetContributor<ITransfer>()` in order to get a contributor of type `ITransfer`. A contributor is a variable that will contribute to the construction of the test cases. Under the hood, you get a dynamic proxy of type `ITransfer`, which will have the ability to record/replay assignments in the same way as mocks do in mocking frameworks.
-
-Then you call `builder.CreateSet<ITree>("treeName")` in order to create a set of test cases of type `ITree`. `ITree` enables you to define the test cases with a tree structure. Each single test case is represented by the path between a leaf and the root. `"treeName"` is simply a display name for the tree.
-
-Once you have created the `ITree` instance, you call `using (tree.Define())` and define the tree within the using block. The `ITree` set expects a well-defined syntax: Every time that a contributor's property is assigned, it extends the current test case with a new fact (the assignment itself). However, if the property was already defined on the way up to the root, then if performs a branching of the tree at the level where the last assignment was performed. As a result the assignment of a property are all siblings in the tree. In the example, we use indentation to highlight the tree structure.
-
-You can now generate the cases one by one, by calling `builder.GetAllCases(tree)` and iterating the returned enumerable: 
-```C#
-foreach (Pause pause in builder.GetAllCases(allTransfers))
-    Console.WriteLine("{0} | {1} | {2} | {3}", t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
-```
-
-At each iteration, the builder replays a test case, by settings the contributor's properties back to the expected values... So that you can use them for whatever you need... 
-
-The console shows all test cases, here with additional formatting: 
-```
-CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
----------|-------------|--------|---------
-     USD |      100,00 | 000,01 | True    
-     USD |      100,00 | 100,00 | True    
-     USD |      100,00 | 100,01 | False   
-     USD |      000,00 | 000,01 | False   
-     EUR |      000,00 | 000,01 | False   
-     EUR |      100,00 | 000,01 | True    
-     EUR |      100,00 | 089,39 | True    
-     EUR |      100,00 | 089,40 | False   
-```
-In practice, you would call the system under test (SUT) as following:
-
-```C#
-foreach (Pause pause in builder.GetAllCases(allTransfers))
-{
-    bool accepted = _sut.PerformTransfer(t.BalanceUsd, t.Currency, t.Amount);
-	Assert.AreEqual(t.Accepted, accepted);
+    hw.ScreenResolution = new Size(480, 320);
+    hw.ScreenResolution = new Size(320, 480);
+    hw.ScreenResolution = new Size(960, 640);
+    hw.ScreenResolution = new Size(640, 960);
+    hw.ScreenResolution = new Size(1136, 640);
+    hw.ScreenResolution = new Size(640, 1136);
 }
 ```
 
-Or equivalently inject the values into a parametrized test.
+... generates 24 hardware configurations, containing all pairs of property values. Remark: The `AllCombinations` definition *would produce 162 configurations* (3 x 3 x 3 x 6)!!
 
+#### Tree
 
-Example 2: Generating all combinations (cartesian product)
---------------------------------------
-
-If you want to get all combinations between different parameters, then you need the `IProd` set. `IProd` performs the cartesian product of all dimensions it finds in its definition. 
-
-For the purpose of this test, we add two properties to `ITransfer` as following:
+<!--# Tree -->
 ```C#
-public enum Card { Visa, Mastercard, Maestro } // new
-public interface ITransfer
+var userSet = builder.NewDefinition<Tree>("userSet");
+using (userSet.Define())
 {
-    (...)
-    string DestBank { get; set; }  // new: The name of the destination bank
-    Card Card { get; set; }        // new: the card type used to perform the payment
+    user.UserName = "Richard";
+        user.Password = "SomePass678;";
+            user.Age = 24;
+            user.Age = 36;
+    user.UserName = "*+#&%$!$";
+        user.Password = "tooeasy";
+            user.Age = -1;
+            user.Age = 00;
 }
 ```
 
-Now, you can define all combinations between a set of bank and the set of cards, as following:
+... generates 4 user configurations.
 
+### Combine
+
+You can combine existing sets together to generate a full test case scenario: 
+
+<!--# Combine -->
 ```C#
-IProd cardsAndBanks = builder.CreateSet<IProd>("cardsAndBank");
-using (cardsAndBanks.Define())
+var allSet = builder.NewDefinition<AllCombinations>("allSet");
+using (allSet.Define())
 {
-    t.DestBank = "HSBC";
-    t.DestBank = "Unicredit";
-    t.DestBank = "Bank of China";
-
-    t.Card = Card.Visa;
-    t.Card = Card.Mastercard;
-    t.Card = Card.Maestro;
+    hwSet.Ref();
+    swSet.Ref();
+    userSet.Ref();
 }
 ```
 
-`IProd` expects a well-defined syntax. All contiguous assignments to a contributor's property are grouped together. `IProd` performs the cartesian product between all these groups.
+... combines the previously defined sets of software, hardware and user configurations together. 
+Alltogether, it generates 6144 test cases (64 x 24 x 4)!
 
-Again, you can generate all test cases and print them out:
+### Visualize
 
+#### Visualize Definition
+
+<!--# Visualize_Def -->
 ```C#
-foreach (Pause pause in builder.GetAllCases(cardsAndBanks))
-    Console.WriteLine("{0} | {1}", t.DestBank, t.Card);
+Console.WriteLine(userSet.PrintDefinition(isFileInfo: true));
 ```
 
-The console shows all test cases, here with additional formatting: 
+Result:
+
+<!--# Visualize_Def_Console -->
 ```
-DEST_BANK     | CARD       
---------------|------------
-HSBC          | Visa      
-HSBC          | Mastercard
-HSBC          | Maestro   
-Unicredit     | Visa      
-Unicredit     | Mastercard
-Unicredit     | Maestro   
-Bank of China | Visa      
-Bank of China | Mastercard
-Bank of China | Maestro   
+ Definition                         | Location                              
+ ---------------------------------- | ------------------------------------- 
+ Tree userSet                       | d:\src\test\NCase\Readme.cs: line 212 
+     user.UserName=Richard          | d:\src\test\NCase\Readme.cs: line 214 
+         user.Password=SomePass678; | d:\src\test\NCase\Readme.cs: line 215 
+             user.Age=24            | d:\src\test\NCase\Readme.cs: line 216 
+             user.Age=36            | d:\src\test\NCase\Readme.cs: line 217 
+     user.UserName=*+#&%$!$         | d:\src\test\NCase\Readme.cs: line 218 
+         user.Password=tooeasy      | d:\src\test\NCase\Readme.cs: line 219 
+             user.Age=-1            | d:\src\test\NCase\Readme.cs: line 220 
+             user.Age=0             | d:\src\test\NCase\Readme.cs: line 221 
+
+
+
+
 ```
 
-Example 3: References to set of cases
---------------------------
+#### Visualize Test Cases as a Table
 
-NCase allows you to inject existing test cases by reference into other test cases. You can for example define the cartesian product between the test cases of *Example 1*, and *Example 2*, as following:
-
-```C# 
-IProd allTransfers = builder.CreateSet<IProd>("allTranfers");
-using (allTransfers.Define())
-{
-    transfers.Ref();
-    cardsAndBanks.Ref();
-}
-``` 
-
-You get now 72 test cases, which you can print out into the console:
-
+<!--# Visualize_Table -->
 ```C#
-foreach (Pause pause in builder.GetAllCases(allTransfers))
-{
-    Console.WriteLine("{0} | {1} | {2} | {3} | {4} | {5}", 
-        t.DestBank, t.Card, t.Currency, t.BalanceUsd, t.Amount, t.Accepted);
-}
+Console.WriteLine(userSet.PrintCasesAsTable());
 ```
 
-The console shows all test cases, here with additional formatting: 
+Result:
+
+<!--# Visualize_Table_Console -->
 ```
-DEST_BANK     | CARD       | CURRENCY | BALANCE_USD | AMOUNT | ACCEPTED
---------------|------------|----------|-------------|--------|---------
-HSBC          | Visa       |      USD |      100,00 | 000,01 | True    
-HSBC          | Mastercard |      USD |      100,00 | 000,01 | True    
-HSBC          | Maestro    |      USD |      100,00 | 000,01 | True    
-Unicredit     | Visa       |      USD |      100,00 | 000,01 | True    
-Unicredit     | Mastercard |      USD |      100,00 | 000,01 | True    
-Unicredit     | Maestro    |      USD |      100,00 | 000,01 | True    
+ # | user.UserName | user.Password | user.Age 
+ - | ------------- | ------------- | -------- 
+ 1 |       Richard |  SomePass678; |       24 
+ 2 |       Richard |  SomePass678; |       36 
+ 3 |      *+#&%$!$ |       tooeasy |       -1 
+ 4 |      *+#&%$!$ |       tooeasy |        0 
+
+TOTAL: 4 TEST CASES
 
 
-                ... 78 test cases ...
-
-
-Bank of China | Visa       |      EUR |      100,00 | 089,40 | False   
-Bank of China | Mastercard |      EUR |      100,00 | 089,40 | False   
-Bank of China | Maestro    |      EUR |      100,00 | 089,40 | False  
 ```
 
-Assuming that the destination bank and the card is required by the routine under test, but don't impact the `Accepted` asserts, you can re-write the test:
+### Replay
 
+<!--# Replay -->
 ```C#
-foreach (Pause pause in builder.GetAllCases(allTransfers))
+allSet.Cases().Replay().ActAndAssert(ctx =>
 {
-    bool accepted = _sut.PerformTransfer(t.BalanceUsd, t.Currency, t.Amount, t.Card, t.DestBank);
-	Assert.AreEqual(t.Accepted, accepted);
-}
+    Environment env = GetHardwareAndSoftwareEnvironment(hw, sw);
+    SignInPage signInPage = env.GetSignInPage();
+    signInPage.FillInForm(user);
+});
 ```
 
-And now you perform 78 tests of `PerformTransfer(...)` and keep the best overview over each tests individually.
+... replays all 6144 test cases one by one and calls the statement lambda of `ActAndAssert` for each test case!
 
-Refactoring with multiple contributors
---------------------------------------
+Here is the beginning of the console output:
 
-... example coming soon ...
+<!--# Replay_Console -->
+```
+Test Case #0
+================
 
-Coming features
----------------
+Definition
+----------
 
-- Support record/replay on class instances, including properties and methods
-- `IPairwise` case set: allows you to generate only the pairwise combinations between multiple test dimensions
-- `IPermutation` case set: allows you to generate all permutations within a set of actions
-- `IPairwisePermutation` case set: allows you to generate permutations to ensure that any pair of action A1 and A2 is tested in both order (A1, A2) and (A2, A1)
-- Improved tree syntax to support free tree structure
+ Fact                           | Location                              
+ ------------------------------ | ------------------------------------- 
+ hw.Architecture=arm            | d:\src\test\NCase\Readme.cs: line 187 
+ hw.HardDriveInGb=10            | d:\src\test\NCase\Readme.cs: line 191 
+ hw.RamInGb=1                   | d:\src\test\NCase\Readme.cs: line 195 
+ hw.ScreenResolution=(480, 320) | d:\src\test\NCase\Readme.cs: line 199 
+ sw.Os=Ios8                     | d:\src\test\NCase\Readme.cs: line 168 
+ sw.Browser=Chrome              | d:\src\test\NCase\Readme.cs: line 172 
+ sw.IsFacebookInstalled=False   | d:\src\test\NCase\Readme.cs: line 176 
+ user.UserName=Richard          | d:\src\test\NCase\Readme.cs: line 214 
+ user.Password=SomePass678;     | d:\src\test\NCase\Readme.cs: line 215 
+ user.Age=24                    | d:\src\test\NCase\Readme.cs: line 216 
 
-[demoTests]: https://github.com/jeromerg/NCase/blob/master/src/NCaseTest/DemoTests.cs
+
+Act and Assert
+--------------
+
+TEST CASE RESULT: SUCCESSFUL!
+
+
+Test Case #1
+================
+
+Definition
+----------
+
+ Fact                           | Location                              
+ ------------------------------ | ------------------------------------- 
+ hw.Architecture=arm            | d:\src\test\NCase\Readme.cs: line 187 
+ hw.HardDriveInGb=10            | d:\src\test\NCase\Readme.cs: line 191 
+(...)
+```
+
+
+[Moq]: https://github.com/Moq/moq4 
+[NUnit]: http://www.nunit.org/
+[presentation]: ./presentation.md

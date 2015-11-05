@@ -6,6 +6,7 @@ using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Front.Api;
 using NUnit.Framework;
 using NUtil.Doc;
+using NUtil.Generics;
 
 namespace NCaseFramework.doc
 {
@@ -243,12 +244,16 @@ namespace NCaseFramework.doc
             {
                 todo.Title = "Don't forget to forget";
                 //...
+
                 todo.DueDate = yesterday;
                 //...
+
                 todo.IsDone = false;
                 //...
+
                 user.IsActive = true;
                 //...
+
                 user.NotificationEmail = null;
                 //...
             }
@@ -280,8 +285,10 @@ namespace NCaseFramework.doc
             {
                 todo.Title = "Don't forget to forget";
                 //...
+
                 todo.DueDate = yesterday;
                 //...
+
                 todo.IsDone = false;
                 //...
             }
@@ -293,8 +300,10 @@ namespace NCaseFramework.doc
             {
                 user.IsActive = true;
                 //...
+
                 user.NotificationEmail = null;
                 //...
+
             }
             //#
 
@@ -332,10 +341,46 @@ namespace NCaseFramework.doc
             {
                 todo.Title = "Don't forget to forget";
                 //...
+
                 todo.DueDate = yesterday;
                 //...
+
                 todo.IsDone = false;
                 //...
+
+            }
+            //#
+
+        }
+
+        [Test]
+        public void NCaseTree()
+        {
+            // ARRANGE
+            IBuilder builder = NCase.NewBuilder();
+
+
+            //# NCaseTree
+            var todo = builder.NewContributor<ITodo>("todo");
+            var isValid = builder.NewContributor<IHolder<bool>>("isValid");
+
+            var todoSet = builder.NewDefinition<Tree>("todoSet");
+            using (todoSet.Define())
+            {
+                todo.Title = "Don't forget to forget";
+                    todo.DueDate = yesterday;
+                        todo.IsDone = false;
+                            isValid.Value = true;
+                        todo.IsDone = true;
+                            isValid.Value = false;
+                    todo.DueDate = tomorrow;
+                        isValid.Value = true;
+                            todo.IsDone = false;
+                            todo.IsDone = true;
+                    todo.DueDate = now;
+                        isValid.Value = true;
+                            todo.IsDone = false;
+                            todo.IsDone = true;                            
             }
             //#
 

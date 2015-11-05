@@ -199,12 +199,16 @@ using (set.Define())
 {
     todo.Title = "Don't forget to forget";
     //...
+
     todo.DueDate = yesterday;
     //...
+
     todo.IsDone = false;
     //...
+
     user.IsActive = true;
     //...
+
     user.NotificationEmail = null;
     //...
 }
@@ -226,8 +230,10 @@ using (todoSet.Define())
 {
     todo.Title = "Don't forget to forget";
     //...
+
     todo.DueDate = yesterday;
     //...
+
     todo.IsDone = false;
     //...
 }
@@ -240,8 +246,10 @@ using (userSet.Define())
 {
     user.IsActive = true;
     //...
+
     user.NotificationEmail = null;
     //...
+
 }
 ```
 
@@ -257,7 +265,7 @@ using (allSet.Define())
 }
 ```
 
-Subdividing the set of test cases into different parts has two imprtant advantages:
+Subdividing the set of test cases into different parts has two important advantages:
 
 -  You can re-use each set individually
 -  You can apply different combinatorial rules for each definition, as you will see below.
@@ -274,10 +282,13 @@ using (todoSet.Define())
 {
     todo.Title = "Don't forget to forget";
     //...
+
     todo.DueDate = yesterday;
     //...
+
     todo.IsDone = false;
     //...
+
 }
 ```
 
@@ -292,37 +303,44 @@ If you need to perform Asserts that depend on the input values, you have two alt
 - (Re-)Write a simplified logic of the system under test in your test, in order to calculate the expectations, given the input values
 - Or pass the expected values next to the input values
 
-With the latter solution, you cannot automatically generate test cases with combinatorial operators. For that purpose NCase contains an `Tree` definition, allowing to define a set of test cases by the mean of a tree.
+With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations`(cartesian product) or `PairwiseCombinations`. For that purpose NCase contains an `Tree` definition, allowing to define a set of test cases by the mean of a tree.
 
+The following lines of code show how it works:
 
+<!--# NCaseTree -->
+```C#
+var todo = builder.NewContributor<ITodo>("todo");
+var isValid = builder.NewContributor<IHolder<bool>>("isValid");
 
+var todoSet = builder.NewDefinition<Tree>("todoSet");
+using (todoSet.Define())
+{
+    todo.Title = "Don't forget to forget";
+        todo.DueDate = yesterday;
+            todo.IsDone = false;
+                isValid.Value = true;
+            todo.IsDone = true;
+                isValid.Value = false;
+        todo.DueDate = tomorrow;
+            isValid.Value = true;
+                todo.IsDone = false;
+                todo.IsDone = true;
+        todo.DueDate = now;
+            isValid.Value = true;
+                todo.IsDone = false;
+                todo.IsDone = true;                            
+}
+```
 
+The `Tree` definition performs an implicit fork every times it encounters an assignment of an already assigned property, at the level where the property was assigned for the first time. Every path from a leaf to the root builds a test case. 
 
+In the example, we mix input mocks with asserts: we can write dedicated assert to certain input combinations.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### `IHolder<T>` Wrapper 
+By the way, we use in this example the `IHolder<T>` interface. The purpose of this interface is to wrap a type like `int`, in order to be able to use it as a contributor.
 
 
 
 [Moq]: https://github.com/Moq/moq4 
 [NUnit]: http://www.nunit.org/
-[pair]: http://en.wikipedia.org/wiki/All-pairs_testing
+[pair]: http://en.wikipedia.org/wiki/All-pairs_testing

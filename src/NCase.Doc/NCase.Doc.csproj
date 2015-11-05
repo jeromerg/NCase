@@ -46,8 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Readme.cs" />
-    <Compile Include="Presentation.cs" />
+    <Compile Include="..\..\Presentation.cs">
+      <Link>Presentation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Readme.cs">
+      <Link>Readme.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +81,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Readme.md" />
+    <None Include="..\..\Presentation.md">
+      <Link>Presentation.md</Link>
+    </None>
+    <None Include="..\..\Readme.md">
+      <Link>Readme.md</Link>
+    </None>
     <None Include="packages.config" />
-    <None Include="Presentation.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
