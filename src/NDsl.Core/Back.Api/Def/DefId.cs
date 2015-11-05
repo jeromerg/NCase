@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using NDsl.All.Def;
 
 namespace NDsl.Back.Api.Def
 {

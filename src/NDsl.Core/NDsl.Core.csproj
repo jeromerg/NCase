@@ -64,9 +64,9 @@
     <Compile Include="Back.Api\Common\NullNode.cs" />
     <Compile Include="Back.Api\Ex\InvalidSyntaxException.cs" />
     <Compile Include="Back.Api\Def\DefId.cs" />
-    <Compile Include="Back.Api\Def\IDefId.cs" />
+    <Compile Include="All\Def\IDefId.cs" />
     <Compile Include="Back.Api\Def\IDefNode.cs" />
-    <Compile Include="Back.Api\Common\ITypedId.cs" />
+    <Compile Include="All\Common\ITypedId.cs" />
     <Compile Include="Front.Api\%28Builder%29\IBuilder.cs" />
     <Compile Include="Front.Api\Api.cs" />
     <Compile Include="Back.Api\Util\Table\ITableBuilderFactory.cs" />

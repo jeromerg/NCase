@@ -1,47 +1,55 @@
-﻿<NsDepCopConfig IsEnabled="True" CodeIssueKind="Warning">
+﻿<NsDepCopConfig IsEnabled="True" CodeIssueKind="Error">
   <Allowed From="*" To="System.*" />
   <Allowed From="*" To="JetBrains.*" />
   <Allowed From="*" To="NVisitor.Api.*" />
 
   <!-- FRONT - NCase to NDsl -->
-  <Allowed From="NCase.Front.Ui.*" To="NDsl.Front.Ui.*" />
+  <Allowed From="NCaseFramework.Front.Ui.*" To="NDsl.Front.Ui.*" />
 
-  <Allowed From="NCase.Front.Api.*" To="NDsl.Front.Ui.*" />
-  <Allowed From="NCase.Front.Api.*" To="NDsl.Front.Api.*" />
+  <Allowed From="NCaseFramework.Front.Api.*" To="NDsl.Front.Ui.*" />
+  <Allowed From="NCaseFramework.Front.Api.*" To="NDsl.Front.Api.*" />
 
-  <Allowed From="NCase.Front.Imp.*" To="NDsl.Front.Ui.*" />
-  <Allowed From="NCase.Front.Imp.*" To="NDsl.Front.Api.*" />
-  <Allowed From="NCase.Front.Imp.*" To="NDsl.Front.Imp.*" />
-  <Allowed From="NCase.Front.Imp.*" To="NDsl.Back.Api.*" />
-  <Allowed From="NCase.Front.Imp.Op.*" To="NCase.Front.Imp.Artefact.*" />
+  <Allowed From="NCaseFramework.Front.Imp.*" To="NDsl.Front.Ui.*" />
+  <Allowed From="NCaseFramework.Front.Imp.*" To="NDsl.Front.Api.*" />
+  <Allowed From="NCaseFramework.Front.Imp.*" To="NDsl.Front.Imp.*" />
+  <Allowed From="NCaseFramework.Front.Imp.*" To="NDsl.Back.Api.*" />
+  <Allowed From="NCaseFramework.Front.Imp.Op.*" To="NCaseFramework.Front.Imp.Artefact.*" />
 
   <!-- FRONT - internal -->
-  <Allowed From="NCase.Front.Ui.*" To="NCase.Front.Api.*" />
-  <Allowed From="NCase.Front.Ui.*" To="NCase.Back.Api.*" />
-  <Allowed From="NCase.Front.Ui.*" To="NDsl.Front.Api.*" />
-  <Allowed From="NCase.Front.Ui.*" To="NDsl.Back.Api.*" />
+  <Allowed From="NCaseFramework.Front.Ui.*" To="NCaseFramework.Front.Api.*" />
+  <Allowed From="NCaseFramework.Front.Ui.*" To="NCaseFramework.Back.Api.*" />
+  <Allowed From="NCaseFramework.Front.Ui.*" To="NDsl.Front.Api.*" />
+  <Allowed From="NCaseFramework.Front.Ui.*" To="NDsl.Back.Api.*" />
 
-  <Allowed From="NCase.Front.Api.*" To="NCase.Front.Ui.*" />
-  <Allowed From="NCase.Front.Api.*" To="NCase.Front.Api.*" />
-  <Allowed From="NCase.Front.Api.*" To="NCase.Back.Api.*" />
-  <Allowed From="NCase.Front.Api.*" To="NDsl.Back.Api.*" />
+  <Allowed From="NCaseFramework.Front.Api.*" To="NCaseFramework.Front.Ui.*" />
+  <Allowed From="NCaseFramework.Front.Api.*" To="NCaseFramework.Front.Api.*" />
+  <Allowed From="NCaseFramework.Front.Api.*" To="NCaseFramework.Back.Api.*" />
+  <Allowed From="NCaseFramework.Front.Api.*" To="NDsl.Back.Api.*" />
 
-  <Allowed From="NCase.Front.Imp.*" To="NCase.Front.Imp.*" />
-  <Allowed From="NCase.Front.Imp.*" To="NCase.Front.Ui.*" />
-  <Allowed From="NCase.Front.Imp.*" To="NCase.Front.Api.*" />
-  <Allowed From="NCase.Front.Imp.*" To="NCase.Back.Api.*" />
+  <Allowed From="NCaseFramework.Front.Imp.*" To="NCaseFramework.Front.Imp.*" />
+  <Allowed From="NCaseFramework.Front.Imp.*" To="NCaseFramework.Front.Ui.*" />
+  <Allowed From="NCaseFramework.Front.Imp.*" To="NCaseFramework.Front.Api.*" />
+  <Allowed From="NCaseFramework.Front.Imp.*" To="NCaseFramework.Back.Api.*" />
 
   <!-- BACK - NCase to NDsl -->
-  <Allowed From="NCase.Back.Api.*"  To="NDsl.Back.Api.*" />
+  <Allowed From="NCaseFramework.Back.Api.*"  To="NDsl.Back.Api.*" />
 
-  <Allowed From="NCase.Back.Imp.*"  To="NDsl.Back.Api.*" />
-  <Allowed From="NCase.Back.Imp.*"  To="NDsl.Back.Imp.*" />
+  <Allowed From="NCaseFramework.Back.Imp.*"  To="NDsl.Back.Api.*" />
+  <Allowed From="NCaseFramework.Back.Imp.*"  To="NDsl.Back.Imp.*" />
 
   <!-- BACK - internal -->
-  <Allowed From="NCase.Back.Api.*"  To="NCase.Back.Api.*" />
-  <Allowed From="NCase.Back.Imp.*"  To="NCase.Back.Api.*" />
+  <Allowed From="NCaseFramework.Back.Api.*"  To="NCaseFramework.Back.Api.*" />
+  <Allowed From="NCaseFramework.Back.Imp.*"  To="NCaseFramework.Back.Api.*" />
 
   <!-- BACK - Castle -->
-  <Allowed From="NCase.Back.Imp.*"  To="Castle.*" />
+  <Allowed From="NCaseFramework.Back.Imp.*"  To="Castle.*" />
+  
+  <!-- TO ALL -->
+  <Allowed From="NCaseFramework.*"  To="NDsl.All.*" />
+  <Allowed From="NCaseFramework.*"  To="NCaseFramework.All.*" />
+
+  <!-- TO NUtil -->
+  <Allowed From="NCaseFramework.*"  To="NUtil.*" />
+
 
 </NsDepCopConfig>

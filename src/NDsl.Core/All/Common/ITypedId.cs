@@ -1,4 +1,4 @@
-namespace NDsl.Back.Api.Common
+namespace NDsl.All.Common
 {
     public interface ITypedId
     {

@@ -9,11 +9,17 @@
   <Allowed From="NDsl.Front.Imp.*" To="NDsl.Front.Ui.*" />
   <Allowed From="NDsl.Front.Imp.*" To="NDsl.Front.Api.*" />
   <Allowed From="NDsl.Front.Imp.*" To="NDsl.Back.Api.*" />
-
+  
   <Allowed From="NDsl.Front.Api.*" To="NDsl.Front.Ui.*" />
   <Allowed From="NDsl.Front.Api.*" To="NDsl.Back.Api.*" />
 
   <Allowed From="NDsl.Back.Imp.*" To="NDsl.Back.Api.*" />
   <Allowed From="NDsl.Back.Api.*" To="NDsl.Back.Api.*" />
+
+  <!-- UI refers API model via Zapi property -->
+  <Allowed From="NDsl.Front.Ui.*" To="NDsl.Front.Api.*" />
+
+  <!-- UI refers Back API model via Zapi property -->
+  <Allowed From="NDsl.*" To="NDsl.All.*" />
 
 </NsDepCopConfig>
