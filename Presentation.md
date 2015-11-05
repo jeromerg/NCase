@@ -1,16 +1,12 @@
-NCase
-=====
+Presentation
+============
 
 Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code.
 
-NCase begins where other frameworks end:
+Let's see how you write test of a `TodoManager.AddTodo(ITodo todo)` method in a heterogen hardware and software environment.
 
-- With mocking frameworks, like [Moq][Moq], you mock properties and methods one by one. NCase allows to mock as well, but in such a way, that you can generate multiple combinations of mock records and replay them to generate more test cases!
-
-- With testing frameworks, like [Nunit][NUnit], you can define parametrized tests. But you have limited tools to generate the test cases. NCase in contrary supports a growing number of combinatorial operators (currently 3, soon 6) and allows the combination of these operators together! So you can build your test cases aspect by aspect: for example your can define all hardware configurations, all software configurations, and multiple user profiles separately, and combine them together to generate all possible test cases.
-
-Example
--------
+The first test case
+-------------------
 
 Let's say, you test some `TodoManager.AddTodo(ITodo todo)` method.
 
@@ -64,6 +60,9 @@ set.Cases().Replay().ActAndAssert(ea =>
 ```
 
 So far, both tests look like very similar. NCase is a little bit more verbose. We see that the code is already prepared to handle multiple test cases: The Act and Asserts are located in a statement lambda, allowing multiple calls.
+
+The second test case
+--------------------
 
 Now, let's say, you need to implement additional test cases. (No surprise: it is always the same). With `Moq`, you typically perform a copy&paste, keeping all mocked properties unchanged except one:
 
@@ -138,6 +137,9 @@ set.Cases().Replay().ActAndAssert(ea =>
 The statement lambda containing the Act and Asserts will be called twice exactly in the same conditions as `MoqTest1` and `MoqTest2` are called in the previous example!
 
 Why? Because the Arrange statements are located inside a definition of type `AllCombinations`: the `AllCombinations` definition groups together subsequent assignments of the same property, peform the so called cartesian product between all groups, and pass them to the statement lambda in order to execute the Act and Assert statements.
+
+Many test cases
+---------------
 
 NCase is stupid systematic: You can add as many assignments to `Task`, `DueDate` and `IsDone` as you wish, NCase will generate and test all possible combinations. For example, the following lines will generate and test 6 x 7 x 2 = **84 test cases!!**
 
