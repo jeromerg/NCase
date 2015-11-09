@@ -134,6 +134,7 @@
     <Compile Include="Front.Imp\%28Service%29\ReplayImp.cs" />
     <Compile Include="Front.Imp\%28Service%29\PrintDefImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\SequenceImp.cs" />
+    <Compile Include="Front.Ui\CaseExtensions.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />
     <Compile Include="Front.Ui\CaseEnumerable.cs" />
     <Compile Include="Front.Ui\Sequence.cs" />

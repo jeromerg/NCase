@@ -244,10 +244,27 @@ namespace NCaseFramework.doc
             docu.StopRecordConsole();
             //#
 
-            docu.BeginRecordConsole("Replay_Console", s => s.Lines().Skip(1).Reverse().Skip(20).Reverse().Concat(new[] {"(...)"}).JoinLines());
+            //# Visualize_Case
+            docu.BeginRecordConsole("Visualize_Case_Console");
+            Console.WriteLine(userSet.Cases().First().Print());
+            docu.StopRecordConsole();
+            //#
+
+            //# Iterate
+            foreach (Case userCase in userSet.Cases())
+                Console.WriteLine(userCase.Print());
+            //#
+
+            //# Replay
+            foreach (Case userCase in userSet.Cases().Replay())
+                Console.WriteLine(user.UserName);
+            //#
+            
+                  
+            docu.BeginRecordConsole("ActAndAssert_Console", s => s.Lines().Skip(1).Reverse().Skip(20).Reverse().Concat(new[] {"(...)"}).JoinLines());
             try
             {
-                //# Replay
+                //# ActAndAssert
                 allSet.Cases().Replay().ActAndAssert(ctx =>
                 {
                     Environment env = GetHardwareAndSoftwareEnvironment(hw, sw);
