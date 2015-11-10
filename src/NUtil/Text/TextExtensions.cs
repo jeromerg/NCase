@@ -29,13 +29,10 @@ namespace NUtil.Text
             int indentMin = lines.Min(l => GetIndent(l));
 
             var sb = new StringBuilder();
-            bool isFirstLine = true;
             foreach (string line in lines)
             {
-                if (!isFirstLine)
-                    sb.AppendLine();
-                isFirstLine = false;
                 sb.Append(line.Length >= indentMin ? line.Substring(indentMin) : "");
+                sb.AppendLine();
             }
             return sb.ToString();
         }

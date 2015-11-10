@@ -14,7 +14,7 @@ namespace NUtil.Doc
             @"(?<=^\s*{0}\s+(?<name>\w+)\W*?\r\n)(?<body>.*?)(?=\r\n[ \t]*(?:{0}|\Z))";
 
         private const string MARKDOWN_SNIPPET_REGEX_STRING =
-            @"(?<=^\s*<!--#\s+(?<name>\w+)\s*-->[^\r\n]*\r\n```[^\r\n]*\r\n)(?<body>.*?)(?=\r\n\s*```)";
+            @"(?<=^\s*<!--#\s+(?<name>\w+)\s*-->[^\r\n]*\r\n```[^\r\n]*\r\n)(?<body>.*?)(?=\r\n[ \t]*```)";
 
         private const string DOC_FILE_EXTENSION = ".md";
         private const string CODE_SNIPPET_MARKER = @"//#";

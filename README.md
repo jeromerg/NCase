@@ -181,7 +181,7 @@ Result:
 
 <!--# Visualize_Def_Console -->
 ```
- Definition                         | Location                              
+Definition                         | Location                              
  ---------------------------------- | ------------------------------------- 
  Tree userSet                       | d:\src\test\NCase\Readme.cs: line 212 
      user.UserName=Richard          | d:\src\test\NCase\Readme.cs: line 214 
@@ -191,17 +191,7 @@ Result:
      user.UserName=*+#&%$!$         | d:\src\test\NCase\Readme.cs: line 218 
          user.Password=tooeasy      | d:\src\test\NCase\Readme.cs: line 219 
              user.Age=-1            | d:\src\test\NCase\Readme.cs: line 220 
-             user.Age=0             | d:\src\test\NCase\Readme.cs: line 221 
-
-
-
-
-
-
-
-
-
-
+             user.Age=0             | d:\src\test\NCase\Readme.cs: line 221
 ```
 
 #### Visualize Test Cases as a Table
@@ -217,7 +207,7 @@ Result:
 
 <!--# Visualize_Table_Console -->
 ```
- # | user.UserName | user.Password | user.Age 
+# | user.UserName | user.Password | user.Age 
  - | ------------- | ------------- | -------- 
  1 |       Richard |  SomePass678; |       24 
  2 |       Richard |  SomePass678; |       36 
@@ -225,11 +215,6 @@ Result:
  4 |      *+#&%$!$ |       tooeasy |        0 
 
 TOTAL: 4 TEST CASES
-
-
-
-
-
 ```
 
 #### Visualize Single Case Definition
@@ -245,21 +230,11 @@ Result:
 
 <!--# Visualize_Case_Console -->
 ```
- Fact                       | Location                              
+Fact                       | Location                              
  -------------------------- | ------------------------------------- 
  user.UserName=Richard      | d:\src\test\NCase\Readme.cs: line 214 
  user.Password=SomePass678; | d:\src\test\NCase\Readme.cs: line 215 
- user.Age=24                | d:\src\test\NCase\Readme.cs: line 216 
-
-
-
-
-
-
-
-
-
-
+ user.Age=24                | d:\src\test\NCase\Readme.cs: line 216
 ```
 
 ### Iterate test cases

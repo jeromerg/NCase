@@ -90,12 +90,13 @@ namespace NUtil.Doc
                 throw new ArgumentException(msg);
             }
 
-            if (snippetBody != ersatzSnippet.Body)
+            string trimmedSnippet = ersatzSnippet.Body.Trim();
+            if (snippetBody != trimmedSnippet)
                 Console.WriteLine("Snippet '{0}' changed... upgrading it", snippetName);
             else
                 Console.WriteLine("Snippet '{0}' didn't change", snippetName);
 
-            return ersatzSnippet.Body;
+            return trimmedSnippet;
         }
     }
 }
