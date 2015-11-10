@@ -121,14 +121,14 @@ namespace NCaseFramework.doc
         }
 
         [Test]
-        public void MoqTest2()
+        public void MoqTest2()                     // DUPLICATE
         {
             // ARRANGE
             var mock = new Mock<ITodo>();
             mock.SetupAllProperties();
             ITodo todo = mock.Object;
 
-            todo.Title = "Another todo to forget";
+            todo.Title = "Another todo to forget"; // CHANGE
             todo.DueDate = now;
             todo.IsDone = false;
 
@@ -147,7 +147,7 @@ namespace NCaseFramework.doc
             using (set.Define())
             {
                 todo.Title = "Don't forget to forget";
-                todo.Title = "Another todo to forget";
+                todo.Title = "Another todo to forget";  // CHANGE
 
                 todo.DueDate = now;
                 todo.IsDone = false;

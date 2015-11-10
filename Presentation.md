@@ -5,8 +5,8 @@ Define, Combine, Visualize and Replay hundreds of test cases with a few lines of
 
 Let's see how you write test of a `TodoManager.AddTodo(ITodo todo)` method in a heterogen hardware and software environment.
 
-The first test case
--------------------
+Comparison to Moq: The first test case 
+----------------------------------------
 
 Let's say, you test some `TodoManager.AddTodo(ITodo todo)` method.
 
@@ -84,14 +84,14 @@ public void MoqTest1()
 }
 
 [Test]
-public void MoqTest2()
+public void MoqTest2()                     // DUPLICATE
 {
     // ARRANGE
     var mock = new Mock<ITodo>();
     mock.SetupAllProperties();
     ITodo todo = mock.Object;
 
-    todo.Title = "Another todo to forget";
+    todo.Title = "Another todo to forget"; // CHANGE
     todo.DueDate = now;
     todo.IsDone = false;
 
@@ -106,7 +106,7 @@ With NCase, you only need to add a single line:
 todo.Title = "Another todo to forget";
 ```
 
-So that the previous test becomes:
+The previous test becomes:
 
 <!--# NCaseExample2 -->
 ```C#
@@ -117,7 +117,7 @@ var set = builder.NewDefinition<AllCombinations>("set");
 using (set.Define())
 {
     todo.Title = "Don't forget to forget";
-    todo.Title = "Another todo to forget";
+    todo.Title = "Another todo to forget";  // CHANGE
 
     todo.DueDate = now;
     todo.IsDone = false;
@@ -184,16 +184,23 @@ set.Cases().Replay().ActAndAssert(ea =>
 
 Combining Contributors
 ----------------------
-Now, imagine you test `TodoManager.AddTodo(ITodo todo, IUser assignee)` containing an additional argument: the user to assign the todo to. 
 
-You can extend the previous `AllCombinations` set with the assignee properties to test. For that purpose, you need to create a new contributor of type `IUser`, as following:
+In NCase, you can mix any contributors in any definition.
+
+Imagine you test `TodoManager.AddTodo(...)` requires an additional argument: the user to assign the todo to, as following:
+
+```C#
+TodoManager.AddTodo(ITodo todo, IUser assignee)
+```
+
+With NCase, you need an additional contributor as following:
 
 <!--# NCaseCombiningContributors_VAR -->
 ```C#
 var user = builder.NewContributor<IUser>("user");
 ```
 
-And then you can extend the definition as following:
+And then you can use the contributor in the existing the definition:
 
 <!--# NCaseCombiningContributors_DEF -->
 ```C#
@@ -216,14 +223,14 @@ using (set.Define())
 }
 ```
 
-It will generate the cartesian product between all groups of property assignments of both contributors. It works, you can mix any contributors together in any definition.
+This definition generates the cartesian product between all groups of property assignments for both contributors. It simply works!
 
 Combining Sets
 --------------
 
 You can also define multiple combinatorial sets and combine them together. For example, you may want to separate the set of `ITodo` cases from the set of	`IUser` cases. 
 
-First you define the both sets for `ITodo` and `IUser` separately as following:
+First you define two sets for `ITodo` and `IUser` as following:
 
 <!--# NCaseCombiningSets_TODO_SET -->
 ```C#
@@ -255,7 +262,7 @@ using (userSet.Define())
 }
 ```
 
-And them you combine both set of test cases together as following:
+And then you combine both sets together as following:
 
 <!--# NCaseCombiningSets_ALL_SET -->
 ```C#
@@ -267,6 +274,8 @@ using (allSet.Define())
 }
 ```
 
+The result is a new set of test cases, containing all combinations between the todo subcases and the user subcases!
+
 Subdividing the set of test cases into different parts has two important advantages:
 
 -  You can re-use each set individually
@@ -275,7 +284,7 @@ Subdividing the set of test cases into different parts has two important advanta
 Tackle complexity with Pairwise testing
 ---------------------------------------
 
-Testing all combinations is nice, but it is expensive. We generated before 84 test cases with only three properties and a few values for each one. Instead of generating all combinations with the `AllCombinations` definition, you can use the alternative definition called `PairwiseCombinations`. It generates a set of test cases, that contain all possible pairs between all groups of assignments (about [pairwise testing][pair]). Both definitions have exactly the same syntax, so you just need to change the name of the definition as you call `builder.NewDefinition<...>(...)`: 
+Testing all combinations is nice, but it is expensive. We generated before 84 test cases with only three properties and a few values for each one. Instead of generating all combinations with the `AllCombinations` definition, you can use the alternative definition called `PairwiseCombinations`. It generates a set of test cases, that contains all possible pairs between all groups of assignments (more about [pairwise testing here][pair]). Both definitions have exactly the same syntax, so you just need to change the name of the definition as you call `builder.NewDefinition<...>(...)`: 
 
 <!--# NCasePairwiseCombinations -->
 ```C#
@@ -294,7 +303,7 @@ using (todoSet.Define())
 }
 ```
 
-When you combine multiple sets together as previously described, you can use the `PairwiseCombinations` definition for only a few sets, and keep using the `AllCombinations` definition for the others. So, you can improve the execution speed but keep testing all combinations of some important dimensions.
+Remark: When you combine sets together, you can use the `PairwiseCombinations` definition for some sets, and keep using the `AllCombinations` definition for the others. That way, you improve the execution speed and continue testing systematically critical aspects.
 
 
 Tackle dedicated asserts: use Trees
@@ -303,9 +312,9 @@ Tackle dedicated asserts: use Trees
 If you need to perform Asserts that depend on the input values, you have two alternatives. You can:
 
 - (Re-)Write a simplified logic of the system under test in your test, in order to calculate the expectations, given the input values
-- Or pass the expected values next to the input values
+- Pass the expected values next to the input values
 
-With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations`(cartesian product) or `PairwiseCombinations`. For that purpose NCase contains an `Tree` definition, allowing to define a set of test cases by the mean of a tree.
+With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations`(cartesian product) or `PairwiseCombinations` because the asserts are bound to the dimensions. For that purpose NCase contains an `Tree` definition, allowing to define a set of test cases by the mean of a tree.
 
 The following lines of code show how it works:
 
@@ -336,10 +345,10 @@ using (todoSet.Define())
 
 The `Tree` definition performs an implicit fork every times it encounters an assignment of an already assigned property, at the level where the property was assigned for the first time. Every path from a leaf to the root builds a test case. 
 
-In the example, we mix input mocks with asserts: we can write dedicated assert to certain input combinations.
+The example illustrates the advantage of the `Tree` definition in comparison to the other definitions `AllCombinations` and `PairwiseCombinations`: We mix in the tree the input values `todo.Title`/`todo.DueDate`/`todo.IsDone` with the assert `isvalid.Value`.
 
 ### `IHolder<T>` Wrapper 
-By the way, we use in this example the `IHolder<T>` interface. The purpose of this interface is to wrap a type like `int`, in order to be able to use it as a contributor.
+By the way, we use in this example the `IHolder<T>` interface. The purpose of this interface is to wrap a type, in order to record multiple instance of the type.
 
 
 
