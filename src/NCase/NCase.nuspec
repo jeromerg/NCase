@@ -10,10 +10,18 @@
     <licenseUrl>http://github.com/jeromerg/NCase/blob/master/LICENSE</licenseUrl>
     <projectUrl>http://github.com/jeromerg/NCase</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>
+	Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code!
+	
+	Website and source code: http://github.com/jeromerg/NCase
+	
+	NCase is a mix between a Mocking Framework like Moq and a parametrized test framework, having advanced combinatorial capabilities.
+
+	NCase is not released yet! The API is now quite stable, but further commits may introduce breaking changes. Please give as much feedback as possible, positive, negative, critics!
+	</description>
     <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
     <copyright>Apache License Version 2.0</copyright>
-    <tags>Compact DSL language, used to generate test cases within C# application/ unit tests</tags>
+    <tags>test-case test testing nunit xunit moq dsl combinatorial combinatorics pairwise arrange act assert</tags>
   </metadata>
 
   <files>
