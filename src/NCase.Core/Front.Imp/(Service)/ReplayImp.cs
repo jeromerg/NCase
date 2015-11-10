@@ -33,11 +33,15 @@ namespace NCaseFramework.Front.Imp
             {
                 foreach (INode node in cas)
                     mReplayDirector.Visit(node, true);
-
-                yield return cas;
-
-                foreach (INode node in cas)
-                    mReplayDirector.Visit(node, false);
+                try
+                {
+                    yield return cas;
+                }
+                finally // clean even if exception is thrown in outer foreach loop
+                {
+                    foreach (INode node in cas)
+                        mReplayDirector.Visit(node, false);
+                }
             }
         }
     }

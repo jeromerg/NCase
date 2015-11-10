@@ -232,21 +232,28 @@ namespace NCaseFramework.doc
             }
             //#
 
-            //# Visualize_Def
-            docu.BeginRecordConsole("Visualize_Def_Console");
-            Console.WriteLine(userSet.PrintDefinition(isFileInfo: true));
-            docu.StopRecordConsole();
-            //#
+            {
+                //# Visualize_Def
+                docu.BeginRecordConsole("Visualize_Def_Console");
+                string def = userSet.PrintDefinition(isFileInfo: true);
 
+                Console.WriteLine(def);
+                docu.StopRecordConsole();
+                //#                
+            }
             //# Visualize_Table
             docu.BeginRecordConsole("Visualize_Table_Console");
-            Console.WriteLine(userSet.PrintCasesAsTable());
+            string table = userSet.PrintCasesAsTable();
+
+            Console.WriteLine(table);
             docu.StopRecordConsole();
             //#
 
             //# Visualize_Case
             docu.BeginRecordConsole("Visualize_Case_Console");
-            Console.WriteLine(userSet.Cases().First().Print());
+            string cas = userSet.Cases().First().Print();
+
+            Console.WriteLine(cas);
             docu.StopRecordConsole();
             //#
 
@@ -259,8 +266,7 @@ namespace NCaseFramework.doc
             foreach (Case userCase in userSet.Cases().Replay())
                 Console.WriteLine(user.UserName);
             //#
-            
-                  
+
             docu.BeginRecordConsole("ActAndAssert_Console", s => s.Lines().Skip(1).Reverse().Skip(20).Reverse().Concat(new[] {"(...)"}).JoinLines());
             try
             {
@@ -278,6 +284,21 @@ namespace NCaseFramework.doc
             {
             }
             docu.StopRecordConsole();
+
+            try { 
+            //# ActAndAssert_ExpectException
+            allSet.Cases().Replay().ActAndAssert(ctx =>
+            {
+                ctx.ExceptionAssert = ExceptionAssert.IsOfType<ApplicationException>();
+
+                if (ctx.TestCaseIndex >= 1) throw new OperationCanceledException(); //docu
+                throw new ApplicationException("this exception is expected");
+            });
+            //#
+            }
+            catch (OperationCanceledException)
+            {
+            }
 
             Console.WriteLine("swSet.Cases().Count() : {0}", swSet.Cases().Count());
             Console.WriteLine("hwSet.Cases().Count() : {0}", hwSet.Cases().Count());

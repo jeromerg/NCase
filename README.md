@@ -50,7 +50,7 @@ allPatients.Cases().Replay().ActAndAssert(ctx =>
 
 It looks very similar to usual unit tests. You recognize the three groups of statements *Arrange, Act and Assert*. But contrary to conventional tests, this one actually covers 6 test cases instead of 1! Why? Because the properties `Age`, `Sex` and `HasPenicillinAllergy` are assigned multiple times contiguously inside a definition of type `AllCombinations`. In that case, Ncase performs the cartesian product of all assignments grouped by property. Here for example, it generates 6 test cases: 3 x 2 x 1 = 6. 
 
-NCase replays each test case one by one and calls the act and asserts declared in `ActAndAssert(...)`. `ActAndAssert` records all result for all test cases and finally notify the test framework, here `Nunit`, that all tests were successful or some failed.
+NCase replays each test case one by one and calls the act and asserts declared in `ActAndAssert(...)`. Finally, `ActAndAssert` records all individual results and notify the test framework, here `Nunit`, that all tests were successful or some failed.
 
 Installation
 ------------
@@ -67,11 +67,11 @@ Further Examples
 
 ### Define
 
-NCase offers various ways of defining sets of test cases, and allows to combine them together.
+NCase offers various ways to define sets of test cases, and combine them together.
 
 #### `AllCombinations`
 
-This is the definition used in the previous example. It generates all combinations between all assignments grouped by property. For example:
+As already shown above, `AllCombinations` generates all possbiel property assignments. For example:
 
 <!--# AllCombinations -->
 ```C#
@@ -95,7 +95,7 @@ using (swSet.Define())
 
 #### `PairwiseCombinations`
 
-`PairwiseCombinations` has exactly the same syntax as `AllCombinations`. But instead of generating all combinations, it only generates test cases, to cover all existing pair of values, no more. [Pairwise testing][pair] is a usual way to reduce the amount of test cases to run.
+`PairwiseCombinations` has exactly the same syntax as `AllCombinations`. But instead of generating all combinations, it only generates test cases, to cover all existing pair of value assignments. [Pairwise testing][pair] is a usual way to reduce the amount of test cases to run.
 
 <!--# PairwiseCombinations -->
 ```C#
@@ -123,7 +123,7 @@ using (hwSet.Define())
 }
 ```
 
-... generates 24 hardware configurations, containing all property values pairwise. Remark: With the `AllCombinations` definition, you *would produce 162 configurations* (3 x 3 x 3 x 6)!!
+This example generates 24 hardware configurations, containing all values pairwise. This is to compare to the *162 configurations* that the `AllCombinations`  would produce (3 x 3 x 3 x 6)!!
 
 #### `Tree`
 
@@ -149,7 +149,7 @@ using (userSet.Define())
 
 ### Combine
 
-With NCase, you can combine definitions together in order to build a full test scenario. For example, you can combine the previously defined sets of software, hardware and user configurations together: 
+With NCase, you can combine definitions together in order to build a full test scenario. For example, you can combine the previous sets of software, hardware and user configurations together as following: 
 
 <!--# Combine -->
 ```C#
@@ -166,30 +166,34 @@ Alltogether, it generates 6144 test cases (64 x 24 x 4)!
 
 ### Visualize
 
-NCase has a few helpers, in order to help you visualizing the test cases you are implementing.
+NCase has a helpers, in order to visualize the test cases.
 
 #### Visualize Definition
 
 <!--# Visualize_Def -->
 ```C#
-Console.WriteLine(userSet.PrintDefinition(isFileInfo: true));
+string def = userSet.PrintDefinition(isFileInfo: true);
+
+Console.WriteLine(def);
 ```
 
 Result:
 
 <!--# Visualize_Def_Console -->
 ```
- Definition                         | Location                                          
- ---------------------------------- | ------------------------------------------------- 
- Tree userSet                       | e:\Data\itschwabing\dev\NCase\Readme.cs: line 212 
-     user.UserName=Richard          | e:\Data\itschwabing\dev\NCase\Readme.cs: line 214 
-         user.Password=SomePass678; | e:\Data\itschwabing\dev\NCase\Readme.cs: line 215 
-             user.Age=24            | e:\Data\itschwabing\dev\NCase\Readme.cs: line 216 
-             user.Age=36            | e:\Data\itschwabing\dev\NCase\Readme.cs: line 217 
-     user.UserName=*+#&%$!$         | e:\Data\itschwabing\dev\NCase\Readme.cs: line 218 
-         user.Password=tooeasy      | e:\Data\itschwabing\dev\NCase\Readme.cs: line 219 
-             user.Age=-1            | e:\Data\itschwabing\dev\NCase\Readme.cs: line 220 
-             user.Age=0             | e:\Data\itschwabing\dev\NCase\Readme.cs: line 221 
+ Definition                         | Location                              
+ ---------------------------------- | ------------------------------------- 
+ Tree userSet                       | d:\src\test\NCase\Readme.cs: line 212 
+     user.UserName=Richard          | d:\src\test\NCase\Readme.cs: line 214 
+         user.Password=SomePass678; | d:\src\test\NCase\Readme.cs: line 215 
+             user.Age=24            | d:\src\test\NCase\Readme.cs: line 216 
+             user.Age=36            | d:\src\test\NCase\Readme.cs: line 217 
+     user.UserName=*+#&%$!$         | d:\src\test\NCase\Readme.cs: line 218 
+         user.Password=tooeasy      | d:\src\test\NCase\Readme.cs: line 219 
+             user.Age=-1            | d:\src\test\NCase\Readme.cs: line 220 
+             user.Age=0             | d:\src\test\NCase\Readme.cs: line 221 
+
+
 
 
 
@@ -204,7 +208,9 @@ Result:
 
 <!--# Visualize_Table -->
 ```C#
-Console.WriteLine(userSet.PrintCasesAsTable());
+string table = userSet.PrintCasesAsTable();
+
+Console.WriteLine(table);
 ```
 
 Result:
@@ -220,31 +226,45 @@ Result:
 
 TOTAL: 4 TEST CASES
 
+
+
+
+
 ```
 
-#### Visualize Case
+#### Visualize Single Case Definition
 
 <!--# Visualize_Case -->
 ```C#
-Console.WriteLine(userSet.Cases().First().Print());
+string cas = userSet.Cases().First().Print();
+
+Console.WriteLine(cas);
 ```
 
 Result:
 
 <!--# Visualize_Case_Console -->
 ```
- Fact                       | Location                                          
- -------------------------- | ------------------------------------------------- 
- user.UserName=Richard      | e:\Data\itschwabing\dev\NCase\Readme.cs: line 214 
- user.Password=SomePass678; | e:\Data\itschwabing\dev\NCase\Readme.cs: line 215 
- user.Age=24                | e:\Data\itschwabing\dev\NCase\Readme.cs: line 216 
+ Fact                       | Location                              
+ -------------------------- | ------------------------------------- 
+ user.UserName=Richard      | d:\src\test\NCase\Readme.cs: line 214 
+ user.Password=SomePass678; | d:\src\test\NCase\Readme.cs: line 215 
+ user.Age=24                | d:\src\test\NCase\Readme.cs: line 216 
+
+
+
+
+
+
+
+
 
 
 ```
 
 ### Iterate test cases
 
-You may simply want to iterate the test cases as following:
+You can iterate the test cases as following:
 
 <!--# Iterate -->
 ```C#
@@ -253,7 +273,8 @@ foreach (Case userCase in userSet.Cases())
 ```
 
 ### Replay test cases 
-Or, you may additionally want to replay the test cases one by one: 
+
+You may additionally want to replay the test cases one by one: 
 
 <!--# Replay -->
 ```C#
@@ -261,9 +282,9 @@ foreach (Case userCase in userSet.Cases().Replay())
     Console.WriteLine(user.UserName);
 ```
 
-### Perform act and asserts
+### Perform Act and Asserts
 
-But most of the time, you want to perform act and asserts on each test case. For example, the following test:
+But most of the time, you want to perform act and asserts on each test case individually. For that purpose you can use the ActAndAssert() extension method, as following:
 
 <!--# ActAndAssert -->
 ```C#
@@ -275,7 +296,7 @@ allSet.Cases().Replay().ActAndAssert(ctx =>
 });
 ```
 
-... replays all 6144 test cases one by one and calls the statement lambda of `ActAndAssert` for each test case!
+This example replays all 6144 test cases one by one and calls the statement lambda of `ActAndAssert` for each test case!
 
 Here is the beginning of the console output:
 
@@ -287,18 +308,18 @@ Test Case #0
 Definition
 ----------
 
- Fact                           | Location                                          
- ------------------------------ | ------------------------------------------------- 
- hw.Architecture=arm            | e:\Data\itschwabing\dev\NCase\Readme.cs: line 187 
- hw.HardDriveInGb=10            | e:\Data\itschwabing\dev\NCase\Readme.cs: line 191 
- hw.RamInGb=1                   | e:\Data\itschwabing\dev\NCase\Readme.cs: line 195 
- hw.ScreenResolution=(480, 320) | e:\Data\itschwabing\dev\NCase\Readme.cs: line 199 
- sw.Os=Ios8                     | e:\Data\itschwabing\dev\NCase\Readme.cs: line 168 
- sw.Browser=Chrome              | e:\Data\itschwabing\dev\NCase\Readme.cs: line 172 
- sw.IsFacebookInstalled=False   | e:\Data\itschwabing\dev\NCase\Readme.cs: line 176 
- user.UserName=Richard          | e:\Data\itschwabing\dev\NCase\Readme.cs: line 214 
- user.Password=SomePass678;     | e:\Data\itschwabing\dev\NCase\Readme.cs: line 215 
- user.Age=24                    | e:\Data\itschwabing\dev\NCase\Readme.cs: line 216 
+ Fact                           | Location                              
+ ------------------------------ | ------------------------------------- 
+ hw.Architecture=arm            | d:\src\test\NCase\Readme.cs: line 187 
+ hw.HardDriveInGb=10            | d:\src\test\NCase\Readme.cs: line 191 
+ hw.RamInGb=1                   | d:\src\test\NCase\Readme.cs: line 195 
+ hw.ScreenResolution=(480, 320) | d:\src\test\NCase\Readme.cs: line 199 
+ sw.Os=Ios8                     | d:\src\test\NCase\Readme.cs: line 168 
+ sw.Browser=Chrome              | d:\src\test\NCase\Readme.cs: line 172 
+ sw.IsFacebookInstalled=False   | d:\src\test\NCase\Readme.cs: line 176 
+ user.UserName=Richard          | d:\src\test\NCase\Readme.cs: line 214 
+ user.Password=SomePass678;     | d:\src\test\NCase\Readme.cs: line 215 
+ user.Age=24                    | d:\src\test\NCase\Readme.cs: line 216 
 
 
 Act and Assert
@@ -313,17 +334,26 @@ Test Case #1
 Definition
 ----------
 
- Fact                           | Location                                          
- ------------------------------ | ------------------------------------------------- 
- hw.Architecture=arm            | e:\Data\itschwabing\dev\NCase\Readme.cs: line 187 
- hw.HardDriveInGb=10            | e:\Data\itschwabing\dev\NCase\Readme.cs: line 191 
+ Fact                           | Location                              
+ ------------------------------ | ------------------------------------- 
+ hw.Architecture=arm            | d:\src\test\NCase\Readme.cs: line 187 
+ hw.HardDriveInGb=10            | d:\src\test\NCase\Readme.cs: line 191 
 (...)
 ```
 
 #### Assert exception
 
-`ActAndAssert` provides the lambda with a context. If you need to assert that the system under test throws an exception, then you may set the TODO XXXXXXXXXXXXXXX 
+You can use the context provided to `ActAndAssert` in order to assert exceptions: 
 
+<!--# ActAndAssert_ExpectException -->
+```
+allSet.Cases().Replay().ActAndAssert(ctx =>
+{
+    ctx.ExceptionAssert = ExceptionAssert.IsOfType<ApplicationException>();
+
+    throw new ApplicationException("this exception is expected");
+});
+```
 
 [Moq]: https://github.com/Moq/moq4 
 [NUnit]: http://www.nunit.org/

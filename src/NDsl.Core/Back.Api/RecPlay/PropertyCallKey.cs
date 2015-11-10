@@ -84,5 +84,10 @@ namespace NDsl.Back.Api.RecPlay
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return this.PrintMember();
+        }
     }
 }

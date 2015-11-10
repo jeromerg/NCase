@@ -14,7 +14,11 @@
 
         public static string PrintMember(this IInterfaceRecPlayNode node)
         {
-            PropertyCallKey callKey = node.PropertyCallKey;
+            return PrintMember(node.PropertyCallKey);
+        }
+
+        public static string PrintMember(this PropertyCallKey callKey)
+        {
             return callKey.IndexParameters.Length == 0
                        ? callKey.PropertyName
                        : string.Format("{0}[{1}]",
