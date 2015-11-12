@@ -33,31 +33,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NGitVersion.exe</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.70, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NVisitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Front.Imp\ActAndAssert.cs" />
-    <Compile Include="Front.Api\IActAndAssert.cs" />
-    <Compile Include="Front.Ui\CaseEnumerableExtensions.cs" />
-    <Compile Include="Front.Ui\ExceptionAssert.cs" />
-    <Compile Include="Front.Ui\TestCaseContext.cs" />
+    <Compile Include="Front.Ui\CaseExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,10 +52,6 @@
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
       <Name>NDsl.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NUtil\NUtil.csproj">
-      <Project>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</Project>
-      <Name>NUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

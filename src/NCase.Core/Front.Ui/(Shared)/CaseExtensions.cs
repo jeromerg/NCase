@@ -3,36 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
-using NCaseFramework.Front.Api.SetDef;
-using NCaseFramework.Front.Ui;
-using NCaseFramework.NunitAdapter.Front.Api;
-using NCaseFramework.NunitAdapter.Front.Ui;
-using NUnit.Framework;
 
-namespace NCaseFramework.NunitAdapter.Front.Imp
+namespace NCaseFramework.Front.Ui
 {
-    public class ActAndAssert : IActAndAssert
+    public static class ActAndAssertShared<TSuccessException, TFailException>
+        where TSuccessException : Exception
+        where TFailException : Exception
     {
-        private readonly IPrintCase mPrintCase;
-
-        public ActAndAssert(IPrintCase printCase)
-        {
-            mPrintCase = printCase;
-        }
-
-        public void Perform(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction)
-        {
-            PerformImp(caseEnumerable, actAndAssertAction);
-        }
-
-        public void PerformImp(CaseEnumerable caseEnumerable, Action<TestCaseContext> actAndAssertAction)
+        public static void ActAndAssert(IEnumerable<Case> caseEnumerable,
+                                        Action<TestCaseContext> actAndAssertAction,
+                                        Func<string, TFailException> assertionExceptionFactory)
         {
             var results = new List<Exception>();
 
             int caseIndex = 0;
             foreach (Case cas in caseEnumerable)
             {
-                PerformCaseTest(actAndAssertAction, caseIndex, cas, results);
+                PerformCaseTest(actAndAssertAction, caseIndex, cas, results, assertionExceptionFactory);
                 caseIndex++;
             }
 
@@ -47,10 +34,14 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
                 .Select(r => CreateErrorText(r.errorIfAny, false));
 
             string msg = string.Format("Following test cases failed:\n{0}", string.Join("\n", errorStrings));
-            throw new AssertionException(msg);
+            throw assertionExceptionFactory(msg);
         }
 
-        private void PerformCaseTest(Action<TestCaseContext> actAndAssertAction, int caseIndex, Case cas, List<Exception> results)
+        private static void PerformCaseTest(Action<TestCaseContext> actAndAssertAction,
+                                            int caseIndex,
+                                            Case cas,
+                                            List<Exception> results,
+                                            Func<string, TFailException> assertionExceptionFactory)
         {
             Console.WriteLine();
             Console.WriteLine("Test Case #{0}", caseIndex);
@@ -59,7 +50,7 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
             Console.WriteLine("Definition");
             Console.WriteLine("----------");
             Console.WriteLine();
-            Console.WriteLine(mPrintCase.Perform(cas.Zapi.Model));
+            Console.WriteLine(cas.Print());
             Console.WriteLine();
             Console.WriteLine("Act and Assert");
             Console.WriteLine("--------------");
@@ -74,11 +65,11 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
                 PrintResultAndAddStore(results, e);
                 throw;
             }
-            catch (SuccessException)
+            catch (TSuccessException)
             {
                 PrintResultAndAddStore(results, null);
             }
-            catch (AssertionException e)
+            catch (TFailException e)
             {
                 PrintResultAndAddStore(results, e);
             }
@@ -94,12 +85,12 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
                     string message = string.Format("Expected an exception {0}, but thrown exception was {1}",
                                                    testCaseContext.ExceptionAssert.Description,
                                                    e);
-                    PrintResultAndAddStore(results, new AssertionException(message));
+                    PrintResultAndAddStore(results, assertionExceptionFactory(message));
                 }
                 else
                 {
                     string message = string.Format("No exception expected, but following exception was thrown: {0}", e);
-                    PrintResultAndAddStore(results, new AssertionException(message));
+                    PrintResultAndAddStore(results, assertionExceptionFactory(message));
                 }
             }
 
@@ -107,7 +98,7 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
             {
                 string message = string.Format("Expected an exception {0}, but not exception was thrown",
                                                testCaseContext.ExceptionAssert.Description);
-                PrintResultAndAddStore(results, new AssertionException(message));
+                PrintResultAndAddStore(results, assertionExceptionFactory(message));
             }
             else
             {
@@ -115,7 +106,7 @@ namespace NCaseFramework.NunitAdapter.Front.Imp
             }
         }
 
-        private void PrintResultAndAddStore(List<Exception> results, [CanBeNull] Exception errorIfAny)
+        private static void PrintResultAndAddStore(List<Exception> results, [CanBeNull] Exception errorIfAny)
         {
             results.Add(errorIfAny);
             PrintResult(errorIfAny, true);

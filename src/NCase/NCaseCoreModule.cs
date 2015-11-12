@@ -29,11 +29,10 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterType<CreateContributor>().As<ICreateContributor>().SingleInstance();
 
             // CaseEnumerable, Case, Fact factories
-            cb.RegisterType<CaseEnumerableImp.Factory>().As<ICaseEnumerableFactory>().SingleInstance();
             cb.RegisterType<CaseImp.Factory>().As<ICaseFactory>().SingleInstance();
             cb.RegisterType<FactImp.Factory>().As<IFactFactory>().SingleInstance();
             cb.RegisterType<GetCasesImp>().As<IGetCases>().SingleInstance();
-            cb.RegisterType<ReplayCases>().As<IReplayCases>().SingleInstance();
+            cb.RegisterType<ReplayFact>().As<IReplayFact>().SingleInstance();
 
             // Parser
             cb.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();
@@ -44,7 +43,7 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterType<GenerateCasesVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // SetReplay Director and default visitor
-            cb.RegisterType<ReplayCases>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<ReplayFact>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
             cb.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 

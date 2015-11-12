@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NCaseFramework.Back.Api.SetDef;
 using NCaseFramework.Front.Api.SetDef;
 
@@ -5,7 +6,7 @@ namespace NCaseFramework.Front.Ui
 {
     public static class DefExtensions
     {
-        public static CaseEnumerable Cases(this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef)
+        public static IEnumerable<Case> Cases(this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef)
         {
             return setDef.Zapi.Services.GetService<IGetCases>().Perform(setDef.Zapi.Model);
         }

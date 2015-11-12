@@ -43,6 +43,11 @@ namespace NDsl.Back.Api.RecPlay
             get { return mIndexParameters; }
         }
 
+        public override string ToString()
+        {
+            return this.PrintMember();
+        }
+
         #region Equals and GetHashCode
 
         private bool Equals(PropertyCallKey other)
@@ -84,10 +89,5 @@ namespace NDsl.Back.Api.RecPlay
         }
 
         #endregion
-
-        public override string ToString()
-        {
-            return this.PrintMember();
-        }
     }
 }

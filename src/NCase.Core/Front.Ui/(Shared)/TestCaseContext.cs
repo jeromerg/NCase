@@ -1,6 +1,4 @@
-using NCaseFramework.Front.Ui;
-
-namespace NCaseFramework.NunitAdapter.Front.Ui
+namespace NCaseFramework.Front.Ui
 {
     public class TestCaseContext
     {

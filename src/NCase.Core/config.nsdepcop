@@ -2,6 +2,7 @@
   <Allowed From="*" To="System.*" />
   <Allowed From="*" To="JetBrains.*" />
   <Allowed From="*" To="NVisitor.Api.*" />
+  <Allowed From="*" To="." /> <!-- because of linq anonymous types-->
 
   <!-- FRONT - NCase to NDsl -->
   <Allowed From="NCaseFramework.Front.Ui.*" To="NDsl.Front.Ui.*" />
@@ -20,6 +21,7 @@
   <Allowed From="NCaseFramework.Front.Ui.*" To="NCaseFramework.Back.Api.*" />
   <Allowed From="NCaseFramework.Front.Ui.*" To="NDsl.Front.Api.*" />
   <Allowed From="NCaseFramework.Front.Ui.*" To="NDsl.Back.Api.*" />
+  <Allowed From="NCaseFramework.Front.Ui.*" To="NCaseFramework.NunitAdapter.Front.Ui" />
 
   <Allowed From="NCaseFramework.Front.Api.*" To="NCaseFramework.Front.Ui.*" />
   <Allowed From="NCaseFramework.Front.Api.*" To="NCaseFramework.Front.Api.*" />

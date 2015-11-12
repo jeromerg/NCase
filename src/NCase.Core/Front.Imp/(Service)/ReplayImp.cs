@@ -1,48 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Replay;
 using NCaseFramework.Front.Api.CaseEnumerable;
-using NCaseFramework.Front.Ui;
-using NDsl.Back.Api.Common;
+using NCaseFramework.Front.Api.Fact;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class ReplayCases : IReplayCases
+    public class ReplayFact : IReplayFact
     {
         [NotNull] private readonly IReplayDirector mReplayDirector;
-        [NotNull] private readonly ICaseEnumerableFactory mCaseEnumerableFactory;
 
-        public ReplayCases([NotNull] IReplayDirector replayDirector, [NotNull] ICaseEnumerableFactory caseEnumerableFactory)
+        public ReplayFact([NotNull] IReplayDirector replayDirector)
         {
             if (replayDirector == null) throw new ArgumentNullException("replayDirector");
-            if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");
             mReplayDirector = replayDirector;
-            mCaseEnumerableFactory = caseEnumerableFactory;
         }
 
-        public CaseEnumerable Perform(ICaseEnumerableModel caseEnumerableModel)
+        public void Perform(IFactModel factModel, bool iReplay)
         {
-            IEnumerable<List<INode>> cases = Replay(caseEnumerableModel.Cases);
-            return mCaseEnumerableFactory.Create(cases);
-        }
-
-        private IEnumerable<List<INode>> Replay(IEnumerable<List<INode>> cases)
-        {
-            foreach (List<INode> cas in cases)
-            {
-                foreach (INode node in cas)
-                    mReplayDirector.Visit(node, true);
-                try
-                {
-                    yield return cas;
-                }
-                finally // clean even if exception is thrown in outer foreach loop
-                {
-                    foreach (INode node in cas)
-                        mReplayDirector.Visit(node, false);
-                }
-            }
+            mReplayDirector.Visit(factModel.FactNode, iReplay);
         }
     }
 }

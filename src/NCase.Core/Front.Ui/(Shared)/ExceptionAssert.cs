@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace NCaseFramework.NunitAdapter.Front.Ui
+namespace NCaseFramework.Front.Ui
 {
     /// <summary>Exception assertion</summary>
     public class ExceptionAssert

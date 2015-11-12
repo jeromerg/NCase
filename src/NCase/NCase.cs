@@ -43,8 +43,6 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterModule<NCaseProdModule>();
             cb.RegisterModule<NCasePairwiseModule>();
 
-            cb.RegisterModule<NCaseNunitAdapterModule>();
-
             cb.RegisterGeneric(typeof (Services<>)).As(typeof (IServiceSet<>));
             IContainer container = cb.Build();
             return container.Resolve<IBuilderFactory>().Create();

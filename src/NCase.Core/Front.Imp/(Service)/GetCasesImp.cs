@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.SetDef;
-using NCaseFramework.Front.Api.CaseEnumerable;
+using NCaseFramework.Front.Api.Case;
 using NCaseFramework.Front.Api.SetDef;
 using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Common;
@@ -13,21 +13,21 @@ namespace NCaseFramework.Front.Imp
     public class GetCasesImp : IGetCases
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
-        [NotNull] private readonly ICaseEnumerableFactory mCaseEnumerableFactory;
+        private readonly ICaseFactory mCaseFactory;
 
-        public GetCasesImp([NotNull] IParserGenerator parserGenerator,
-                           [NotNull] ICaseEnumerableFactory caseEnumerableFactory)
+        public GetCasesImp([NotNull] IParserGenerator parserGenerator, [NotNull] ICaseFactory caseFactory)
         {
             if (parserGenerator == null) throw new ArgumentNullException("parserGenerator");
-            if (caseEnumerableFactory == null) throw new ArgumentNullException("caseEnumerableFactory");
+            if (caseFactory == null) throw new ArgumentNullException("caseFactory");
             mParserGenerator = parserGenerator;
-            mCaseEnumerableFactory = caseEnumerableFactory;
+            mCaseFactory = caseFactory;
         }
 
-        public CaseEnumerable Perform(ISetDefModel<ISetDefId> setDefModel)
+        public IEnumerable<Case> Perform(ISetDefModel<ISetDefId> setDefModel)
         {
             IEnumerable<List<INode>> cases = Getcases(setDefModel);
-            return mCaseEnumerableFactory.Create(cases);
+            foreach (List<INode> @case in cases)
+                yield return mCaseFactory.Create(@case);
         }
 
         public IEnumerable<List<INode>> Getcases(ISetDefModel<ISetDefId> setDefModel)
