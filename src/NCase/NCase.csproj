@@ -68,6 +68,14 @@
       <Project>{27c500d5-5781-47c9-8f64-fced56fddbbd}</Project>
       <Name>NCase.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NCase.NUnitAdapter\NCase.NUnitAdapter.csproj">
+      <Project>{fa8e6464-c6e5-43ae-b615-a3e14dab2b03}</Project>
+      <Name>NCase.NUnitAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NCase.XunitAdapter\NCase.XunitAdapter.csproj">
+      <Project>{a04648e1-25c7-41fb-a2b9-61d5d407566b}</Project>
+      <Name>NCase.XunitAdapter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NDsl\NDsl.csproj">
       <Project>{FD488CB0-EFEB-4E14-86D8-220D378A716F}</Project>
       <Name>NDsl</Name>
