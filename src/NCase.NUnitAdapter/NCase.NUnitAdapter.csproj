@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NCaseFramework.NunitAdapter</RootNamespace>
-    <AssemblyName>NCaseFramework.NunitAdapter</AssemblyName>
+    <AssemblyName>NCase.NunitAdapter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

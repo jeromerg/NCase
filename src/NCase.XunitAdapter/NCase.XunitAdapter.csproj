@@ -8,8 +8,8 @@
     <ProjectGuid>{A04648E1-25C7-41FB-A2B9-61D5D407566B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NCaseFramework.xUnitAdapter</RootNamespace>
-    <AssemblyName>NCaseFramework.xUnitAdapter</AssemblyName>
+    <RootNamespace>NCaseFramework.XunitAdapter</RootNamespace>
+    <AssemblyName>NCase.XunitAdapter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>31b10f7b</NuGetPackageImportStamp>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NCaseFramework.Front.Ui;
 using Xunit.Sdk;
 
-namespace NCaseFramework.xUnitAdapter.Front.Ui
+namespace NCaseFramework.XunitAdapter.Front.Ui
 {
     public static class CaseExtensions
     {
