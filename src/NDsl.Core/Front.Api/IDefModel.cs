@@ -4,7 +4,7 @@ using NDsl.Back.Api.Book;
 
 namespace NDsl.Front.Api
 {
-    public interface IDefModel<out TId> : IArtefactModel
+    public interface IDefModel<out TId>
         where TId : IDefId
     {
         [NotNull] TId Id { get; }

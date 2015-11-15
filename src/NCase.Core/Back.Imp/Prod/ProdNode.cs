@@ -14,11 +14,11 @@ namespace NCaseFramework.Back.Imp.Prod
         [NotNull] private readonly CodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mDimensions = new List<INode>();
 
-        [NotNull] private readonly ProdId mId;
+        [NotNull] private readonly AllCombinationsId mId;
 
         public ProdNode(
             [NotNull] CodeLocation codeLocation,
-            [NotNull] ProdId id)
+            [NotNull] AllCombinationsId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
@@ -32,7 +32,7 @@ namespace NCaseFramework.Back.Imp.Prod
             get { return mId; }
         }
 
-        public ProdId Id
+        public AllCombinationsId Id
         {
             get { return mId; }
         }

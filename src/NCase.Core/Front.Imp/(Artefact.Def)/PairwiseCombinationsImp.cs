@@ -10,7 +10,7 @@ using NDsl.Front.Api;
 namespace NCaseFramework.Front.Imp
 {
     public class PairwiseCombinationsImp
-        : SetDefBaseImp<IPairwiseCombinationsModel, PairwiseId>,
+        : SetDefBaseImp<IPairwiseCombinationsModel, PairwiseCombinationsId>,
           PairwiseCombinations,
           IPairwiseCombinationsModel
     {
@@ -38,7 +38,7 @@ namespace NCaseFramework.Front.Imp
                                        [NotNull] ITokenStream tokenStream,
                                        [NotNull] IServiceSet<IPairwiseCombinationsModel> services,
                                        [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new PairwiseId(defName), tokenStream, services, codeLocationUtil)
+            : base(new PairwiseCombinationsId(defName), tokenStream, services, codeLocationUtil)
         {
         }
 

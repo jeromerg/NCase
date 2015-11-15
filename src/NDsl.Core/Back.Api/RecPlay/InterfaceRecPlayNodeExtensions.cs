@@ -9,12 +9,12 @@
 
         public static string PrintInvocation(this IInterfaceRecPlayNode node)
         {
-            return string.Format("{0}.{1}", node.ContributorName, PrintMember(node));
+            return PrintInvocation(node.ContributorName, node.PropertyCallKey);
         }
 
-        public static string PrintMember(this IInterfaceRecPlayNode node)
+        public static string PrintInvocation(string contributorName, PropertyCallKey propertyCallKey)
         {
-            return PrintMember(node.PropertyCallKey);
+            return string.Format("{0}.{1}", contributorName, PrintMember(propertyCallKey));
         }
 
         public static string PrintMember(this PropertyCallKey callKey)

@@ -9,7 +9,7 @@ namespace NCaseFramework.Back.Api.Prod
     /// </summary>
     public interface IProdNode : ISetDefNode
     {
-        [NotNull] new ProdId Id { get; }
+        [NotNull] new AllCombinationsId Id { get; }
         void AddChild(INode child);
     }
 }

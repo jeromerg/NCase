@@ -34,7 +34,7 @@ namespace NCaseFramework.Back.Imp.Parse
                 mParseDirector.Visit(token);
 
             // GENERATE CASES
-            return mParseDirector.GetReferencedNode<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
+            return mParseDirector.GetNodeForId<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
         }
 
         public IEnumerable<List<INode>> Generate(INode caseSetNode, GenerateOptions options)

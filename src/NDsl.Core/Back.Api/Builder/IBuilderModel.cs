@@ -1,9 +1,10 @@
 using JetBrains.Annotations;
 using NDsl.Back.Api.Book;
+using NDsl.Back.Api.RecPlay;
 
-namespace NDsl.Front.Api
+namespace NDsl.Back.Api.Builder
 {
-    public interface IBuilderModel : IArtefactModel
+    public interface IBuilderModel
     {
         [NotNull] ITokenStream TokenStream { get; }
     }

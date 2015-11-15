@@ -44,6 +44,14 @@
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.72\lib\net45\NGitVersion.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVisitor, Version=1.1.0.72, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.72\lib\net45\NVisitor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -62,7 +70,7 @@
     <Compile Include="Back.Api\Def\DefId.cs" />
     <Compile Include="All\Def\IDefId.cs" />
     <Compile Include="Back.Api\Def\IDefNode.cs" />
-    <Compile Include="All\Common\ITypedId.cs" />
+    <Compile Include="All\Common\IId.cs" />
     <Compile Include="Front.Api\%28Builder%29\IBuilder.cs" />
     <Compile Include="Front.Api\Api.cs" />
     <Compile Include="Back.Api\Util\Table\ITableBuilderFactory.cs" />
@@ -100,16 +108,15 @@
     <Compile Include="Back.Imp\RecPlay\InterfaceRecPlayInterceptor.cs" />
     <Compile Include="Back.Api\RecPlay\RecPlayMode.cs" />
     <Compile Include="Front.Api\%28Builder%29\IBuilderFactory.cs" />
-    <Compile Include="Front.Api\%28Builder%29\IBuilderModel.cs" />
+    <Compile Include="Back.Api\Builder\IBuilderModel.cs" />
     <Compile Include="Front.Api\%28Builder%29\ICreateContributor.cs" />
     <Compile Include="Front.Api\BuilderExtensions.cs" />
     <Compile Include="Front.Api\IDefFactory.cs" />
-    <Compile Include="Front.Imp\%28Builder%29\Builder.cs" />
+    <Compile Include="Front.Imp\%28Builder%29\CaseBuilder.cs" />
     <Compile Include="Front.Imp\%28Builder%29\BuilderFactory.cs" />
     <Compile Include="Front.Imp\%28Builder%29\CreateContributor.cs" />
     <Compile Include="Front.Imp\DefBaseImp.cs" />
     <Compile Include="Front.Ui\Artefact.cs" />
-    <Compile Include="Front.Api\IArtefactApi.cs" />
     <Compile Include="Front.Ui\DefBase.cs" />
     <Compile Include="Front.Api\IDefModel.cs" />
     <Compile Include="Front.Imp\ArtefactImp.cs" />

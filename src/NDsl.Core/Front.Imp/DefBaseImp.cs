@@ -68,7 +68,7 @@ namespace NDsl.Front.Imp
         private void Begin()
         {
             if (State > DefState.NotDefined)
-                throw new InvalidSyntaxException(Loc(), "Def {0} not in NotDefined state", Id.Name);
+                throw new InvalidSyntaxException(Loc(), "{0} not in 'NotDefined' state", Id);
 
             State = DefState.Defining;
             TokenStream.Append(new BeginToken<TId>(Id, Loc()));
@@ -77,7 +77,7 @@ namespace NDsl.Front.Imp
         private void End()
         {
             if (State != DefState.Defining)
-                throw new InvalidSyntaxException(Loc(), "Def {0} not in Defining state", Id.Name);
+                throw new InvalidSyntaxException(Loc(), "{0} not in 'Defining' state", Id);
 
             TokenStream.Append(new EndToken<TId>(Id, Loc()));
             State = DefState.Defined;

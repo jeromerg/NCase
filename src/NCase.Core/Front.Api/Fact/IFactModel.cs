@@ -1,9 +1,8 @@
 using NDsl.Back.Api.Common;
-using NDsl.Front.Api;
 
 namespace NCaseFramework.Front.Api.Fact
 {
-    public interface IFactModel : IArtefactModel
+    public interface IFactModel
     {
         INode FactNode { get; }
     }

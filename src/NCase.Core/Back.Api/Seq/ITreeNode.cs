@@ -6,7 +6,7 @@ namespace NCaseFramework.Back.Api.Seq
 {
     public interface ISeqNode : ISetDefNode
     {
-        [NotNull] new SeqId Id { get; }
+        [NotNull] new SequenceId Id { get; }
         void AddChild(INode child);
     }
 }

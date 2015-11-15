@@ -1,11 +1,8 @@
-using JetBrains.Annotations;
 using NDsl.All.Common;
 
 namespace NDsl.All.Def
 {
-    public interface IDefId : ITypedId
+    public interface IDefId : IId
     {
-        [NotNull] string DefTypeName { get; }
-        [NotNull] string Name { get; }
     }
 }

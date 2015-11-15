@@ -46,8 +46,12 @@
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.70, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NVisitor.dll</HintPath>
+    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.72\lib\net45\NGitVersion.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVisitor, Version=1.1.0.72, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.72\lib\net45\NVisitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -65,7 +69,7 @@
     <Compile Include="Back.Api\Print\IPrintCaseVisitor.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
     <Compile Include="Back.Api\Seq\ITreeNode.cs" />
-    <Compile Include="Back.Api\Seq\SeqId.cs" />
+    <Compile Include="Back.Api\Seq\SequenceId.cs" />
     <Compile Include="Back.Api\SetDef\ISetDefId.cs" />
     <Compile Include="Back.Api\SetDef\ISetDefNode.cs" />
     <Compile Include="Back.Api\SetDef\SetDefId.cs" />
@@ -119,7 +123,7 @@
     <Compile Include="Front.Api\Fact\IFactFactory.cs" />
     <Compile Include="Front.Api\SetDef\IPrintDef.cs" />
     <Compile Include="Front.Api\SetDef\IPrintCaseTable.cs" />
-    <Compile Include="Front.Api\CaseEnumerable\IReplayFact.cs" />
+    <Compile Include="Front.Api\Fact\IReplayFact.cs" />
     <Compile Include="Front.Api\Pairwise\IPairwiseCombinationsModel.cs" />
     <Compile Include="Front.Api\Case\ICaseFactory.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\PairwiseCombinationsImp.cs" />
@@ -141,8 +145,8 @@
     <Compile Include="Front.Api\SetDef\ISetDefModel.cs" />
     <Compile Include="Front.Ui\%28Shared%29\SetDefBase.cs" />
     <Compile Include="Front.Imp\%28Service%29\GetCasesImp.cs" />
-    <Compile Include="Back.Api\Pairwise\PairwiseId.cs" />
-    <Compile Include="Back.Api\Prod\ProdId.cs" />
+    <Compile Include="Back.Api\Pairwise\PairwiseCombinationsId.cs" />
+    <Compile Include="Back.Api\Prod\AllCombinationsId.cs" />
     <Compile Include="Back.Api\Tree\TreeId.cs" />
     <Compile Include="Back.Api\Parse\IGenerateCaseVisitor.cs" />
     <Compile Include="Back.Api\Parse\IAddChildDirector.cs" />

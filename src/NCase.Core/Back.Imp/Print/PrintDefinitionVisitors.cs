@@ -24,7 +24,7 @@ namespace NCaseFramework.Back.Imp.Print
             if (dir.IsRecursive)
                 dir.Visit(node.Reference);
             else
-                dir.PrintLine(node.CodeLocation, "Ref to {0} '{1}'", defId.DefTypeName, defId.Name);
+                dir.PrintLine(node.CodeLocation, "Ref to {0} '{1}'", defId.TypeName, defId.Name);
         }
     }
 }

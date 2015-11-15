@@ -43,8 +43,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.70, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.70\lib\net40-Client\NVisitor.dll</HintPath>
+    <Reference Include="NGitVersion, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVisitor.1.1.0.72\lib\net45\NGitVersion.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVisitor">
+      <HintPath>..\packages\NVisitor.1.1.0.72\lib\net45\NVisitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

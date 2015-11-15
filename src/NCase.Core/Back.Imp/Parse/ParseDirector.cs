@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
+using NDsl.All.Common;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.Util;
@@ -11,7 +12,7 @@ namespace NCaseFramework.Back.Imp.Parse
     public class ParseDirector : ActionDirector<IToken, IParseDirector>, IParseDirector
     {
         private readonly IAddChildDirector mAddChildDirector;
-        private readonly Dictionary<object, INode> mReferences = new Dictionary<object, INode>();
+        private readonly Dictionary<IId, INode> mDefinitions = new Dictionary<IId, INode>();
         [CanBeNull] private INode mCurrentScope;
 
         public ParseDirector(IActionVisitMapper<IToken, IParseDirector> visitMapper, IAddChildDirector addChildDirector)
@@ -20,24 +21,24 @@ namespace NCaseFramework.Back.Imp.Parse
             mAddChildDirector = addChildDirector;
         }
 
-        public void AddId(object reference, INode referencedNode)
+        public void AddId(IId id, INode referencedNode)
         {
-            mReferences.Add(reference, referencedNode);
+            mDefinitions.Add(id, referencedNode);
         }
 
-        public TNod GetReferencedNode<TNod>(object reference, CodeLocation location) where TNod : INode
+        public TNod GetNodeForId<TNod>(IId id, CodeLocation location) where TNod : INode
         {
             INode referencedNode;
-            if (!mReferences.TryGetValue(reference, out referencedNode))
+            if (!mDefinitions.TryGetValue(id, out referencedNode))
             {
-                throw new InvalidSyntaxException(location, "No reference found for: {0}", reference);
+                throw new InvalidSyntaxException(location, "No entry found for: {0}", id);
             }
 
             if (!(referencedNode is TNod))
             {
                 throw new InvalidSyntaxException(location,
-                                                 "Referenced Node {0} expected to be assignable to {1}",
-                                                 reference.GetType().FullName,
+                                                 "Node {0} expected to be assignable to {1}",
+                                                 id.GetType().FullName,
                                                  typeof (TNod).FullName);
             }
             return (TNod) referencedNode;

@@ -11,11 +11,11 @@ namespace NCaseFramework.Back.Imp.Seq
 {
     public class SeqNode : ISeqNode
     {
-        [NotNull] private readonly SeqId mId;
+        [NotNull] private readonly SequenceId mId;
         [NotNull] private readonly List<INode> mChildren = new List<INode>();
         private readonly CodeLocation mCodeLocation;
 
-        public SeqNode([NotNull] CodeLocation codeLocation, [NotNull] SeqId id)
+        public SeqNode([NotNull] CodeLocation codeLocation, [NotNull] SequenceId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             mCodeLocation = codeLocation;
@@ -27,7 +27,7 @@ namespace NCaseFramework.Back.Imp.Seq
             get { return mId; }
         }
 
-        public SeqId Id
+        public SequenceId Id
         {
             get { return mId; }
         }

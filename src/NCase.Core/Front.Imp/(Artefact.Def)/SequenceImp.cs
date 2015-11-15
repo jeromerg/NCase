@@ -9,7 +9,7 @@ using NDsl.Front.Api;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class SequenceImp : SetDefBaseImp<ISequenceModel, SeqId>, Sequence, ISequenceModel
+    public class SequenceImp : SetDefBaseImp<ISequenceModel, SequenceId>, Sequence, ISequenceModel
     {
         public class Factory : IDefFactory<Sequence>
         {
@@ -34,7 +34,7 @@ namespace NCaseFramework.Front.Imp
                            [NotNull] ITokenStream tokenStream,
                            [NotNull] IServiceSet<ISequenceModel> services,
                            [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new SeqId(defName), tokenStream, services, codeLocationUtil)
+            : base(new SequenceId(defName), tokenStream, services, codeLocationUtil)
         {
         }
 

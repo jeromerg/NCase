@@ -13,7 +13,7 @@ namespace NCaseFramework.Back.Api.Tree
         {
         }
 
-        public override string DefTypeName
+        public override string TypeName
         {
             get { return "Tree"; }
         }

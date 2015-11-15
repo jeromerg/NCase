@@ -42,7 +42,7 @@ namespace NDsl.Back.Imp.RecPlay
             }
             else
             {
-                InterceptInRecordingMode(invocation);
+                    InterceptInRecordingMode(invocation);
             }
         }
 
@@ -58,9 +58,7 @@ namespace NDsl.Back.Imp.RecPlay
         public void AddReplayPropertyValue(PropertyCallKey callKey, object value)
         {
             if (mReplayPropertyValues.ContainsKey(callKey))
-                throw new InvalidRecPlayStateException(
-                    "Property {0} has already been set to replay mode and cannot be set twice",
-                    callKey);
+                throw new InvalidRecPlayStateException("Property {0} has already been set to replay mode and cannot be set twice", callKey);
 
             mReplayPropertyValues[callKey] = value;
         }
@@ -79,6 +77,21 @@ namespace NDsl.Back.Imp.RecPlay
 
         private void InterceptInRecordingMode(IInvocation invocation)
         {
+            // REFUSE CALL TO GETTER
+            PropertyCallKey getterPropertyCallKey = invocation.TryGetPropertyCallKeyFromGetter();
+            if (getterPropertyCallKey != null)
+            {
+                string invocationPrint = InterfaceRecPlayNodeExtensions.PrintInvocation(mContributorName, getterPropertyCallKey);
+                throw new InvalidRecPlayStateException("Invalid call to getter '{0}' in Recording mode. Only property setter allowed", invocationPrint);
+            }
+
+            // REJECT CALL TO ANY NON GETTER 
+            PropertyCallKey setterPropertyCallKey = invocation.TryGetPropertyCallKeyFromSetter();
+            if (setterPropertyCallKey == null)
+            {
+                throw new InvalidRecPlayStateException("Invalid call to {0}.{1} in Recording mode. Only property setter allowed", mContributorName, invocation.Method);
+            }
+
             CodeLocation codeLocation = mCodeLocationUtil.GetCurrentUserCodeLocation();
             var invocationRecord = new InvocationRecord(mContributorName, invocation, codeLocation);
             var token = new InvocationToken<IInterfaceRecPlayInterceptor>(this, invocationRecord, codeLocation);
@@ -87,15 +100,27 @@ namespace NDsl.Back.Imp.RecPlay
 
         private void InterceptInReplayMode(IInvocation invocation)
         {
-            PropertyCallKey propertyCallKey = invocation.TryGetPropertyCallKeyFromGetter();
-            if (propertyCallKey == null)
-                throw new InvalidRecPlayStateException("Invalid call to {0} in replay mode. Only property getter allowed",
-                                                       invocation.Method);
+            // REJECT CALL TO SETTER
+            PropertyCallKey setterPropertyCallKey = invocation.TryGetPropertyCallKeyFromSetter();
+            if (setterPropertyCallKey != null)
+            {
+                string invocationPrint = InterfaceRecPlayNodeExtensions.PrintInvocation(mContributorName, setterPropertyCallKey);
+                throw new InvalidRecPlayStateException("Invalid call to setter '{0}' in Replay mode. Only property getter allowed", invocationPrint);
+            }
+
+            // REJECT CALL TO ANY NON GETTER 
+            PropertyCallKey getterPropertyCallKey = invocation.TryGetPropertyCallKeyFromGetter();
+            if (getterPropertyCallKey == null)
+            {
+                throw new InvalidRecPlayStateException("Invalid call to {0}.{1} in replay mode. Only property getter allowed", mContributorName, invocation.Method);
+            }
 
             object value;
-            if (!mReplayPropertyValues.TryGetValue(propertyCallKey, out value))
-                throw new CaseValueNotFoundException("Call to {0} cannot be replayed as it has not been recorded",
-                                                     invocation.Method);
+            if (!mReplayPropertyValues.TryGetValue(getterPropertyCallKey, out value))
+            {
+                string invocationPrint = InterfaceRecPlayNodeExtensions.PrintInvocation(mContributorName, getterPropertyCallKey);
+                throw new CaseValueNotFoundException("Call to getter {0} cannot be replayed as it has not been recorded", invocationPrint);
+            }
 
             invocation.ReturnValue = value;
         }
