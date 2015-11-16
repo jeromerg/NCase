@@ -10,7 +10,7 @@ using NCaseFramework.Front.Api.CaseEnumerable;
 using NCaseFramework.Front.Api.Fact;
 using NCaseFramework.Front.Api.SetDef;
 using NCaseFramework.Front.Imp;
-using NDsl.Back.Api.Book;
+using NDsl.Back.Api.TokenStream;
 using NDsl.Back.Imp.Common;
 using NDsl.Front.Api;
 using NDsl.Front.Imp;

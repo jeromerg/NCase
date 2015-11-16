@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Front.Api.Pairwise;
 using NCaseFramework.Front.Ui;
-using NDsl.Back.Api.Book;
+using NDsl.Back.Api.TokenStream;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
 

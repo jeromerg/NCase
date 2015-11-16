@@ -2,7 +2,7 @@
 using NCaseFramework.Back.Api.SetDef;
 using NCaseFramework.Front.Api.SetDef;
 using NCaseFramework.Front.Ui;
-using NDsl.Back.Api.Book;
+using NDsl.Back.Api.TokenStream;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Imp;
 

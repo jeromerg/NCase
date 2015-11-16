@@ -1,10 +1,10 @@
 using System;
 using JetBrains.Annotations;
 using NDsl.All.Def;
-using NDsl.Back.Api.Book;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.Ref;
+using NDsl.Back.Api.TokenStream;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
 using NDsl.Front.Ui;
@@ -71,6 +71,7 @@ namespace NDsl.Front.Imp
                 throw new InvalidSyntaxException(Loc(), "{0} not in 'NotDefined' state", Id);
 
             State = DefState.Defining;
+            TokenStream.SetWriteMode(true);
             TokenStream.Append(new BeginToken<TId>(Id, Loc()));
         }
 
@@ -81,6 +82,7 @@ namespace NDsl.Front.Imp
 
             TokenStream.Append(new EndToken<TId>(Id, Loc()));
             State = DefState.Defined;
+            TokenStream.SetWriteMode(false);
         }
 
         private CodeLocation Loc()

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.DynamicProxy;
 using JetBrains.Annotations;
-using NDsl.Back.Api.Book;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.RecPlay;
+using NDsl.Back.Api.TokenStream;
 using NDsl.Back.Api.Util;
+using NDsl.Back.Imp.Common;
 
 namespace NDsl.Back.Imp.RecPlay
 {
@@ -36,13 +37,18 @@ namespace NDsl.Back.Imp.RecPlay
 
         public void Intercept(IInvocation invocation)
         {
-            if (mReplayPropertyValues.Any())
+            switch (mTokenWriter.Mode)
             {
-                InterceptInReplayMode(invocation);
-            }
-            else
-            {
+                case TokenStreamMode.None:
+                    break;
+                case TokenStreamMode.Write:
                     InterceptInRecordingMode(invocation);
+                    break;
+                case TokenStreamMode.Read:
+                    InterceptInReplayMode(invocation);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
