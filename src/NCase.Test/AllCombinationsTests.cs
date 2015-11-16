@@ -103,6 +103,36 @@ namespace NCaseFramework.Test
 
         [Test]
         [ExpectedException(typeof(InvalidRecPlayStateException))]
+        public void CallGetterNotInReplayMode2()
+        {
+            IBuilder builder = NCase.NewBuilder();
+            var v = builder.NewContributor<IMyTestvalues>("v");
+            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            using (allPersonsAllAges.Define())
+            {
+                v.Age = 10;
+            }
+            int age = v.Age;
+        }
+
+        [Test]
+        [ExpectedException(typeof(InvalidRecPlayStateException))]
+        public void CallGetterInReplayModeButNotRecorded()
+        {
+            IBuilder builder = NCase.NewBuilder();
+            var v = builder.NewContributor<IMyTestvalues>("v");
+            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            using (allPersonsAllAges.Define())
+            {
+                v.Name = "myName";
+            }
+
+            allPersonsAllAges.Cases().Replay().GetEnumerator().MoveNext();
+            int age = v.Age;
+        }
+
+        [Test]
+        [ExpectedException(typeof(InvalidRecPlayStateException))]
         public void CallSetterNotInRecordingMode()
         {
             IBuilder builder = NCase.NewBuilder();
