@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Prod;
 using NCaseFramework.Front.Api.Prod;
 using NCaseFramework.Front.Ui;
-using NDsl.Back.Api.TokenStream;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
 

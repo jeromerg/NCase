@@ -27,7 +27,7 @@ namespace NCaseFramework.Test
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidSyntaxException))]
+        [ExpectedException(typeof(InvalidRecPlayStateException))]
         public void AssignmentOutsideDef()
         {
             IBuilder builder = NCase.NewBuilder();
@@ -139,7 +139,7 @@ namespace NCaseFramework.Test
             v.Age = 20; // Age property is currently in replay mode
         }
 
-        [Test, Ignore]
+        [Test]
         [ExpectedException(typeof(InvalidRecPlayStateException))]
         public void CallSetterNotInRecordingMode3()
         {
@@ -156,11 +156,11 @@ namespace NCaseFramework.Test
             IEnumerator<Case> enumerator = allPersonsAllAges.Cases().Replay().GetEnumerator();
 
             Assert.IsTrue(enumerator.MoveNext());
-            v2.Age = 20; // Age property is currently in replay mode
+            v2.Age = 20;
         }
 
         [Test]
-        [ExpectedException(typeof(CaseValueNotFoundException))] // TODO IMPROVE
+        [ExpectedException(typeof(InvalidRecPlayStateException))]
         public void GetUnsetProperty()
         {
             IBuilder builder = NCase.NewBuilder();

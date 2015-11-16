@@ -1,12 +1,13 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using NDsl.Back.Api.Common;
-using NDsl.Back.Imp.Common;
 
-namespace NDsl.Back.Api.TokenStream
+namespace NDsl.Back.Api.Record
 {
     public interface ITokenWriter
     {
-        TokenStreamMode Mode { get; }
+        RecorderMode Mode { get; }
+        IDisposable SetWriteMode();
         void SetWriteMode(bool isWriteMode);
         void Append([NotNull] IToken token);
     }

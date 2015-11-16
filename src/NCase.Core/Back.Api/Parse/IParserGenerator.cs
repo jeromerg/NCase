@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NDsl.All.Def;
 using NDsl.Back.Api.Common;
-using NDsl.Back.Api.TokenStream;
+using NDsl.Back.Api.Record;
 
 namespace NCaseFramework.Back.Api.Parse
 {

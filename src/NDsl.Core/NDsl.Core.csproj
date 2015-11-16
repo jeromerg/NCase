@@ -60,12 +60,12 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Back.Imp\Common\TokenStreamFactory.cs" />
-    <Compile Include="Back.Imp\Common\TokenStreamMode.cs" />
+    <Compile Include="Back.Api\Record\RecorderMode.cs" />
     <Compile Include="Back.Imp\Util\Table\TableBuilder.cs" />
     <Compile Include="Back.Imp\Util\Table\TableBuilderFactory.cs" />
     <Compile Include="Back.Api\Util\IService.cs" />
     <Compile Include="Back.Api\Util\IServiceSet.cs" />
-    <Compile Include="Back.Api\TokenStream\ITokenStreamFactory.cs" />
+    <Compile Include="Back.Api\Record\ITokenStreamFactory.cs" />
     <Compile Include="Back.Api\Common\NullNode.cs" />
     <Compile Include="Back.Api\Ex\InvalidSyntaxException.cs" />
     <Compile Include="Back.Api\Def\DefId.cs" />
@@ -80,9 +80,9 @@
     <Compile Include="Back.Api\Ref\IRefNode.cs" />
     <Compile Include="Back.Api\Ref\RefNode.cs" />
     <Compile Include="Back.Api\Common\IToken.cs" />
-    <Compile Include="Back.Api\TokenStream\ITokenReader.cs" />
+    <Compile Include="Back.Api\Record\ITokenReader.cs" />
     <Compile Include="Back.Api\RecPlay\IInterfaceRecPlayNode.cs" />
-    <Compile Include="Back.Api\TokenStream\ITokenStream.cs" />
+    <Compile Include="Back.Api\Record\ITokenStream.cs" />
     <Compile Include="Back.Api\Common\ILocated.cs" />
     <Compile Include="Back.Api\Ref\RefToken.cs" />
     <Compile Include="Back.Api\Def\BeginToken.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="Back.Api\Common\Token.cs" />
     <Compile Include="Back.Api\Util\CodeLocation.cs" />
     <Compile Include="Back.Api\RecPlay\IInterfaceRecPlayContributorFactory.cs" />
-    <Compile Include="Back.Api\TokenStream\ITokenWriter.cs" />
+    <Compile Include="Back.Api\Record\ITokenWriter.cs" />
     <Compile Include="Back.Api\Ex\CaseValueNotFoundException.cs" />
     <Compile Include="Back.Api\Util\Table\HorizontalAlignment.cs" />
     <Compile Include="Back.Api\Util\Table\ITableBuilder.cs" />

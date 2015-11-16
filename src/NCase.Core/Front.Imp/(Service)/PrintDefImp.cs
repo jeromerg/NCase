@@ -24,16 +24,19 @@ namespace NCaseFramework.Front.Imp
 
         public string Perform(ISetDefModel<ISetDefId> setDefModel, bool isFileInfo, bool isRecursive)
         {
-            INode caseSetNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
+            using (setDefModel.TokenStream.SetReadMode())
+            {
+                INode caseSetNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
 
-            IPrintDefinitionDirector dir = mPrintDefinitionDirectorFactory();
+                IPrintDefinitionDirector dir = mPrintDefinitionDirectorFactory();
 
-            dir.IsFileInfo = isFileInfo;
-            dir.IsRecursive = isRecursive;
+                dir.IsFileInfo = isFileInfo;
+                dir.IsRecursive = isRecursive;
 
-            dir.Visit(caseSetNode);
+                dir.Visit(caseSetNode);
 
-            return dir.GetString();
+                return dir.GetString();
+            }
         }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NDsl.Back.Api.Common;
-using NDsl.Back.Imp.Common;
 
-namespace NDsl.Back.Api.TokenStream
+namespace NDsl.Back.Api.Record
 {
     public interface ITokenReader
     {
-        TokenStreamMode Mode { get; }
+        RecorderMode Mode { get; }
+        IDisposable SetReadMode();
         void SetReadMode(bool isReadMode);
         IEnumerable<IToken> Tokens { get; }
     }

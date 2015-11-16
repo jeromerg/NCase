@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 using NDsl.All.Def;
-using NDsl.Back.Api.TokenStream;
+using NDsl.Back.Api.Record;
 
 namespace NDsl.Front.Api
 {

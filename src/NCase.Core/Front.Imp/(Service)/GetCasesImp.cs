@@ -32,12 +32,15 @@ namespace NCaseFramework.Front.Imp
 
         public IEnumerable<List<INode>> Getcases(ISetDefModel<ISetDefId> setDefModel)
         {
-            INode caseSetNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
+            using (setDefModel.TokenStream.SetReadMode())
+            {
+                INode caseSetNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
 
-            IEnumerable<List<INode>> cases = mParserGenerator.Generate(caseSetNode, new GenerateOptions(true));
+                IEnumerable<List<INode>> cases = mParserGenerator.Generate(caseSetNode, new GenerateOptions(true));
 
-            foreach (List<INode> cas in cases)
-                yield return cas;
+                foreach (List<INode> cas in cases)
+                    yield return cas;
+            }
         }
     }
 }
