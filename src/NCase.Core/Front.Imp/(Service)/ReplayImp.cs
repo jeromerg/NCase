@@ -15,9 +15,15 @@ namespace NCaseFramework.Front.Imp
             mReplayDirector = replayDirector;
         }
 
-        public void Perform(IFactModel factModel, bool iReplay)
+        public void Perform(IFactModel factModel, bool isReplay)
         {
-            mReplayDirector.Visit(factModel.FactNode, iReplay);
+            if (isReplay)
+                factModel.Recorder.SetReadMode(true);
+
+            mReplayDirector.Visit(factModel.FactNode, isReplay);
+
+            if (!isReplay)
+                factModel.Recorder.SetReadMode(false);
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Ex;
 using NDsl.Front.Api;
 using NUnit.Framework;
-using NUtil.File;
 
 namespace NCaseFramework.Test
 {
@@ -18,34 +18,32 @@ namespace NCaseFramework.Test
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidSyntaxException))]
         public void UndefinedDef()
         {
             IBuilder builder = NCase.NewBuilder();
             var allCombi = builder.NewDefinition<AllCombinations>("allCombi");
 
-            int line = 3 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(3);
             try
             {
-                allCombi.Cases().Replay().FirstOrDefault();
+                allCombi.Cases().Replay().GetEnumerator().MoveNext();
                 Assert.Fail("Act expected to throw an exception");
             }
             catch (InvalidSyntaxException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("allCombi", s);
             }
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidRecPlayStateException))]
         public void AssignmentOutsideDef()
         {
             IBuilder builder = NCase.NewBuilder();
             var v = builder.NewContributor<IMyTestvalues>("v");
 
-            int line = 3 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(3);
             try
             {
                 v.Age = 10;
@@ -54,20 +52,18 @@ namespace NCaseFramework.Test
             catch (InvalidRecPlayStateException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("v.Age", s);
             }
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidSyntaxException))]
         public void AssignmentTwice()
         {
             IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
             var allPersonsAllAges = builder.NewDefinition<AllCombinations>("allPersonsAllAges");
 
-            int line = 4 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(4);
             try
             {
                 using (allPersonsAllAges.Define()) { }
@@ -77,7 +73,7 @@ namespace NCaseFramework.Test
             catch (InvalidSyntaxException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("allPersonsAllAges", s);
                 StringAssert.Contains("AllCombinations", s);
                 StringAssert.Contains("NotDefined", s);
@@ -85,7 +81,6 @@ namespace NCaseFramework.Test
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidRecPlayStateException))]
         public void CallGetterInReplayModeButNotRecorded()
         {
             IBuilder builder = NCase.NewBuilder();
@@ -98,7 +93,7 @@ namespace NCaseFramework.Test
 
             allPersonsAllAges.Cases().Replay().GetEnumerator().MoveNext();
 
-            int line = 3 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(3);
             try
             {
                 v.Age = 10;
@@ -107,7 +102,7 @@ namespace NCaseFramework.Test
             catch (InvalidRecPlayStateException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("v.Age", s);
             }
         }
@@ -118,7 +113,7 @@ namespace NCaseFramework.Test
             IBuilder builder = NCase.NewBuilder();
             var v = builder.NewContributor<IMyTestvalues>("v");
 
-            int line = 3 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(3);
             try
             {
                 int age = v.Age;
@@ -127,13 +122,12 @@ namespace NCaseFramework.Test
             catch (InvalidRecPlayStateException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("v.Age", s);
             }
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidRecPlayStateException))]
         public void CallGetterNotInReplayMode2()
         {
             IBuilder builder = NCase.NewBuilder();
@@ -144,7 +138,7 @@ namespace NCaseFramework.Test
                 v.Age = 10;
             }
 
-            int line = 3 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(3);
             try
             {
                 int age = v.Age;
@@ -153,13 +147,12 @@ namespace NCaseFramework.Test
             catch (InvalidRecPlayStateException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("v.Age", s);
             }
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidRecPlayStateException))]
         public void CallSetterNotInRecordingMode()
         {
             IBuilder builder = NCase.NewBuilder();
@@ -175,7 +168,7 @@ namespace NCaseFramework.Test
 
             Assert.IsTrue(enumerator.MoveNext());
 
-            int line = 3 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(3);
             try
             {
                 v.Age = 20;
@@ -184,13 +177,12 @@ namespace NCaseFramework.Test
             catch (InvalidRecPlayStateException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("v.Age", s);
             }
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidRecPlayStateException))]
         public void CallSetterNotInRecordingMode2()
         {
             IBuilder builder = NCase.NewBuilder();
@@ -206,7 +198,7 @@ namespace NCaseFramework.Test
 
             Assert.IsTrue(enumerator.MoveNext());
 
-            int line = 3 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(3);
             try
             {
                 v.Age = 20; 
@@ -215,14 +207,13 @@ namespace NCaseFramework.Test
             catch (InvalidRecPlayStateException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("v.Age", s);
             }
 
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidRecPlayStateException))]
         public void CallSetterNotInRecordingMode3()
         {
             IBuilder builder = NCase.NewBuilder();
@@ -239,7 +230,7 @@ namespace NCaseFramework.Test
 
             Assert.IsTrue(enumerator.MoveNext());
 
-            int line = 3 + CallerUtil.GetCallerLineNumber();
+            string line = GetLine(3);
             try
             {
                 v2.Age = 20;
@@ -248,14 +239,12 @@ namespace NCaseFramework.Test
             catch (InvalidRecPlayStateException e)
             {
                 string s = e.ToString();
-                StringAssert.Contains("line " + line, s);
+                StringAssert.Contains(line, s);
                 StringAssert.Contains("v2.Age", s);
             }
-
         }
 
         [Test]
-        //[ExpectedException(typeof(InvalidRecPlayStateException))]
         public void GetUnsetProperty()
         {
             IBuilder builder = NCase.NewBuilder();
@@ -268,10 +257,22 @@ namespace NCaseFramework.Test
             }
 
             allPersonsAllAges.Cases().First().Replay(true);
+
             Assert.AreEqual(10, v.Age);
 
+            string line = GetLine(3);
+            try
+            {
+                string name = v.Name;
+                Assert.Fail("Act expected to throw an exception");
+            }
+            catch (InvalidRecPlayStateException e)
+            {
+                string s = e.ToString();
+                StringAssert.Contains(line, s);
+                StringAssert.Contains("v.Name", s);
+            }
 
-            string name = v.Name;
         }
 
         [Test]
@@ -437,5 +438,11 @@ namespace NCaseFramework.Test
             Assert.AreEqual("Wilhelm", o.Name);
             Assert.AreEqual(30, o.Age);
         }
+    
+        private string GetLine(int offset, [CallerLineNumber] int callerLineNumber = -1)
+        {
+            return "line " + (offset + callerLineNumber);
+        }
+
     }
 }

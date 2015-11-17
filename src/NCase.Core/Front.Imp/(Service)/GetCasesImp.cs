@@ -27,7 +27,7 @@ namespace NCaseFramework.Front.Imp
         {
             IEnumerable<List<INode>> cases = Getcases(setDefModel);
             foreach (List<INode> @case in cases)
-                yield return mCaseFactory.Create(@case);
+                yield return mCaseFactory.Create(@case, setDefModel.TokenStream);
         }
 
         public IEnumerable<List<INode>> Getcases(ISetDefModel<ISetDefId> setDefModel)

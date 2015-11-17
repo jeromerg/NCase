@@ -6,6 +6,7 @@ using NCaseFramework.Front.Api.Case;
 using NCaseFramework.Front.Api.Fact;
 using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Common;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Imp;
 
@@ -13,13 +14,14 @@ namespace NCaseFramework.Front.Imp
 {
     public class CaseImp : ArtefactImp<ICaseModel>, Case, ICaseModel
     {
+        [NotNull] private readonly IFactFactory mFactFactory;
         [NotNull] private readonly List<INode> mFactNodes;
-        private readonly IFactFactory mFactFactory;
+        [NotNull] private readonly IRecorder mRecorder;
 
         public class Factory : ICaseFactory
         {
             [NotNull] private readonly IServiceSet<ICaseModel> mServices;
-            private readonly IFactFactory mFactFactory;
+            [NotNull] private readonly IFactFactory mFactFactory;
 
             public Factory([NotNull] IServiceSet<ICaseModel> services, [NotNull] IFactFactory factFactory)
             {
@@ -29,21 +31,24 @@ namespace NCaseFramework.Front.Imp
                 mFactFactory = factFactory;
             }
 
-            public Case Create(List<INode> factNodes)
+            public Case Create(List<INode> factNodes, IRecorder recorder)
             {
-                return new CaseImp(factNodes, mServices, mFactFactory);
+                return new CaseImp(factNodes, recorder, mFactFactory, mServices);
             }
         }
 
         public CaseImp([NotNull] List<INode> factNodes,
-                       [NotNull] IServiceSet<ICaseModel> services,
-                       [NotNull] IFactFactory factFactory)
+                       [NotNull] IRecorder recorder,
+                       [NotNull] IFactFactory factFactory,
+                       [NotNull] IServiceSet<ICaseModel> services)
             : base(services)
         {
             if (factNodes == null) throw new ArgumentNullException("factNodes");
+            if (recorder == null) throw new ArgumentNullException("recorder");
             if (factFactory == null) throw new ArgumentNullException("factFactory");
             mFactNodes = factNodes;
             mFactFactory = factFactory;
+            mRecorder = recorder;
         }
 
         public override ICaseModel Model
@@ -53,7 +58,7 @@ namespace NCaseFramework.Front.Imp
 
         public IEnumerable<Fact> Facts
         {
-            get { return mFactNodes.Select(factNode => mFactFactory.Create(factNode)); }
+            get { return mFactNodes.Select(factNode => mFactFactory.Create(factNode, mRecorder)); }
         }
 
         #region ICaseModel

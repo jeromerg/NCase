@@ -59,6 +59,8 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Back.Api\Record\IRecorder.cs" />
+    <Compile Include="Back.Imp\Common\Recorder.cs" />
     <Compile Include="Back.Imp\Common\TokenStreamFactory.cs" />
     <Compile Include="Back.Api\Record\RecorderMode.cs" />
     <Compile Include="Back.Imp\Util\Table\TableBuilder.cs" />
