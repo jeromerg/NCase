@@ -6,7 +6,6 @@ using NCaseFramework.Back.Imp.Parse;
 using NCaseFramework.Back.Imp.Print;
 using NCaseFramework.Back.Imp.Replay;
 using NCaseFramework.Front.Api.Case;
-using NCaseFramework.Front.Api.CaseEnumerable;
 using NCaseFramework.Front.Api.Fact;
 using NCaseFramework.Front.Api.SetDef;
 using NCaseFramework.Front.Imp;

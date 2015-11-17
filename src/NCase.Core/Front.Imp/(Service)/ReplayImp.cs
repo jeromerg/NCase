@@ -1,7 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Replay;
-using NCaseFramework.Front.Api.CaseEnumerable;
 using NCaseFramework.Front.Api.Fact;
 
 namespace NCaseFramework.Front.Imp

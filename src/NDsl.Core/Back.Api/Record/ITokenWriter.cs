@@ -4,9 +4,12 @@ using NDsl.Back.Api.Common;
 
 namespace NDsl.Back.Api.Record
 {
-    public interface ITokenWriter
+    public interface IRecorder
     {
         RecorderMode Mode { get; }
+    }
+    public interface ITokenWriter : IRecorder
+    {
         IDisposable SetWriteMode();
         void SetWriteMode(bool isWriteMode);
         void Append([NotNull] IToken token);

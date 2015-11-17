@@ -4,9 +4,8 @@ using NDsl.Back.Api.Common;
 
 namespace NDsl.Back.Api.Record
 {
-    public interface ITokenReader
+    public interface ITokenReader : IRecorder
     {
-        RecorderMode Mode { get; }
         IDisposable SetReadMode();
         void SetReadMode(bool isReadMode);
         IEnumerable<IToken> Tokens { get; }

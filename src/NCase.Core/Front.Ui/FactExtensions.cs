@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NCaseFramework.Front.Api.CaseEnumerable;
+using NCaseFramework.Front.Api.Fact;
 
 namespace NCaseFramework.Front.Ui
 {
