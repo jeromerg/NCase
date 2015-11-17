@@ -3,13 +3,13 @@ using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Seq;
 using NCaseFramework.Front.Api.Seq;
 using NCaseFramework.Front.Ui;
-using NDsl.Back.Api.Book;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class SequenceImp : SetDefBaseImp<ISequenceModel, SeqId>, Sequence, ISequenceModel
+    public class SequenceImp : SetDefBaseImp<ISequenceModel, SequenceId>, Sequence, ISequenceModel
     {
         public class Factory : IDefFactory<Sequence>
         {
@@ -34,7 +34,7 @@ namespace NCaseFramework.Front.Imp
                            [NotNull] ITokenStream tokenStream,
                            [NotNull] IServiceSet<ISequenceModel> services,
                            [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new SeqId(defName), tokenStream, services, codeLocationUtil)
+            : base(new SequenceId(defName), tokenStream, services, codeLocationUtil)
         {
         }
 

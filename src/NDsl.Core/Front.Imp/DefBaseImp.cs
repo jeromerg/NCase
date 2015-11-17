@@ -1,9 +1,9 @@
 using System;
 using JetBrains.Annotations;
 using NDsl.All.Def;
-using NDsl.Back.Api.Book;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ex;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Ref;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
@@ -68,19 +68,21 @@ namespace NDsl.Front.Imp
         private void Begin()
         {
             if (State > DefState.NotDefined)
-                throw new InvalidSyntaxException(Loc(), "Def {0} not in NotDefined state", Id.Name);
+                throw new InvalidSyntaxException(Loc(), "{0} not in 'NotDefined' state", Id);
 
             State = DefState.Defining;
+            TokenStream.SetWriteMode(true);
             TokenStream.Append(new BeginToken<TId>(Id, Loc()));
         }
 
         private void End()
         {
             if (State != DefState.Defining)
-                throw new InvalidSyntaxException(Loc(), "Def {0} not in Defining state", Id.Name);
+                throw new InvalidSyntaxException(Loc(), "{0} not in 'Defining' state", Id);
 
             TokenStream.Append(new EndToken<TId>(Id, Loc()));
             State = DefState.Defined;
+            TokenStream.SetWriteMode(false);
         }
 
         private CodeLocation Loc()

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Castle.DynamicProxy;
 using JetBrains.Annotations;
-using NDsl.Back.Api.Book;
 using NDsl.Back.Api.Ex;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Back.Api.Util;
 
@@ -36,13 +35,21 @@ namespace NDsl.Back.Imp.RecPlay
 
         public void Intercept(IInvocation invocation)
         {
-            if (mReplayPropertyValues.Any())
+            switch (mTokenWriter.Mode)
             {
-                InterceptInReplayMode(invocation);
-            }
-            else
-            {
-                InterceptInRecordingMode(invocation);
+                case RecorderMode.None:
+                    throw BuildEx(invocation, "Call to '{0}' is performed outside any record or replay block");
+
+                case RecorderMode.Write:
+                    InterceptInRecordingMode(invocation);
+                    break;
+
+                case RecorderMode.Read:
+                    InterceptInReplayMode(invocation);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -51,34 +58,30 @@ namespace NDsl.Back.Imp.RecPlay
             get { return mContributorName; }
         }
 
-        /// <exception cref="InvalidRecPlayStateException">
-        ///     InterfaceRecPlayInterceptor is already in mode '{0}' and cannot be set
-        ///     twice
-        /// </exception>
-        public void AddReplayPropertyValue(PropertyCallKey callKey, object value)
+        /// <exception cref="InvalidRecPlayStateException"/>
+        public void AddReplayPropertyValue([NotNull] PropertyCallKey callKey, object value)
         {
             if (mReplayPropertyValues.ContainsKey(callKey))
-                throw new InvalidRecPlayStateException(
-                    "Property {0} has already been set to replay mode and cannot be set twice",
-                    callKey);
+                throw BuildEx(callKey, "'{0}' cannot be recorded twice");
 
             mReplayPropertyValues[callKey] = value;
         }
 
-        /// <exception cref="InvalidRecPlayStateException">
-        ///     InterfaceRecPlayInterceptor is already in mode '{0}' and cannot be set
-        ///     twice
-        /// </exception>
-        public void RemoveReplayPropertyValue(PropertyCallKey callKey)
+        /// <exception cref="InvalidRecPlayStateException"/>
+        public void RemoveReplayPropertyValue([NotNull] PropertyCallKey callKey)
         {
             if (!mReplayPropertyValues.ContainsKey(callKey))
-                throw new InvalidRecPlayStateException("Property {0} was not set to replay mode", callKey);
+                BuildEx(callKey, "No replay found for '{0}'");
 
             mReplayPropertyValues.Remove(callKey);
         }
 
         private void InterceptInRecordingMode(IInvocation invocation)
         {
+            PropertyCallKey setterPropertyCallKey = invocation.TryGetPropertyCallKeyFromSetter();
+            if (setterPropertyCallKey == null)
+                throw BuildEx(invocation, "Call to '{0}' is not allowed inside recording block: Only call to setter are allowed");
+
             CodeLocation codeLocation = mCodeLocationUtil.GetCurrentUserCodeLocation();
             var invocationRecord = new InvocationRecord(mContributorName, invocation, codeLocation);
             var token = new InvocationToken<IInterfaceRecPlayInterceptor>(this, invocationRecord, codeLocation);
@@ -87,17 +90,42 @@ namespace NDsl.Back.Imp.RecPlay
 
         private void InterceptInReplayMode(IInvocation invocation)
         {
-            PropertyCallKey propertyCallKey = invocation.TryGetPropertyCallKeyFromGetter();
-            if (propertyCallKey == null)
-                throw new InvalidRecPlayStateException("Invalid call to {0} in replay mode. Only property getter allowed",
-                                                       invocation.Method);
+            PropertyCallKey getterPropertyCallKey = invocation.TryGetPropertyCallKeyFromGetter();
+            if (getterPropertyCallKey == null)
+                throw BuildEx(invocation, "Call to '{0}' is not allowed inside replay block: Only call to getter are allowed");
 
             object value;
-            if (!mReplayPropertyValues.TryGetValue(propertyCallKey, out value))
-                throw new CaseValueNotFoundException("Call to {0} cannot be replayed as it has not been recorded",
-                                                     invocation.Method);
+            if (!mReplayPropertyValues.TryGetValue(getterPropertyCallKey, out value))
+                throw BuildEx(getterPropertyCallKey, "Call to getter {0}: It cannot be replayed as it has not been recorded");
 
             invocation.ReturnValue = value;
+        }
+
+        /// <exception cref="InvalidRecPlayStateException"/>
+        private InvalidRecPlayStateException BuildEx(IInvocation invocation, string format)
+        {
+            PropertyCallKey propertyCallKey = invocation.TryGetPropertyCallKeyFromGetter()
+                                              ?? invocation.TryGetPropertyCallKeyFromSetter();
+            if (propertyCallKey != null)
+            {
+                return BuildEx(propertyCallKey, format);
+            }
+            else
+            {
+                return new InvalidRecPlayStateException(format, mContributorName, invocation.Method);
+            }
+        }
+
+        /// <exception cref="InvalidRecPlayStateException"/>
+        private InvalidRecPlayStateException BuildEx(PropertyCallKey propertyCallKey, string format)
+        {
+            string msg = string.Format(format, PrintInvocation(propertyCallKey));
+            return new InvalidRecPlayStateException(msg);
+        }
+
+        private string PrintInvocation(PropertyCallKey getterPropertyCallKey)
+        {
+            return InterfaceRecPlayNodeExtensions.PrintInvocation(mContributorName, getterPropertyCallKey);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace NDsl.Back.Api.Book
+﻿namespace NDsl.Back.Api.Record
 {
     public interface ITokenStreamFactory
     {

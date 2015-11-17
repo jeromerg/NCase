@@ -17,6 +17,7 @@ namespace NUtil.Linq
                                                                            IEnumerable<TIn2> second,
                                                                            Func<TIn1, TIn2, TOut> func)
         {
+            // ReSharper disable once PossibleMultipleEnumeration
             return from in1 in first
                    from in2 in second
                    select func(in1, in2);
