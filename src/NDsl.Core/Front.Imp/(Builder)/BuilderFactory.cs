@@ -10,9 +10,9 @@ namespace NDsl.Front.Imp
     public class BuilderFactory : IBuilderFactory
     {
         private readonly ITokenStreamFactory mTokenStreamFactory;
-        private readonly IServiceSet<IBuilderModel> mServices;
+        private readonly IServiceSet<ICaseBuilderModel> mServices;
 
-        public BuilderFactory([NotNull] ITokenStreamFactory tokenStreamFactory, [NotNull] IServiceSet<IBuilderModel> services)
+        public BuilderFactory([NotNull] ITokenStreamFactory tokenStreamFactory, [NotNull] IServiceSet<ICaseBuilderModel> services)
         {
             if (tokenStreamFactory == null) throw new ArgumentNullException("tokenStreamFactory");
             if (services == null) throw new ArgumentNullException("services");
@@ -20,9 +20,9 @@ namespace NDsl.Front.Imp
             mServices = services;
         }
 
-        public IBuilder Create()
+        public Api.CaseBuilder Create()
         {
-            return new Builder(mTokenStreamFactory.Create(), mServices);
+            return new CaseBuilder(mTokenStreamFactory.Create(), mServices);
         }
     }
 }

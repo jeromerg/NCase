@@ -74,7 +74,7 @@
     <Compile Include="All\Def\IDefId.cs" />
     <Compile Include="Back.Api\Def\IDefNode.cs" />
     <Compile Include="All\Common\IId.cs" />
-    <Compile Include="Front.Api\%28Builder%29\IBuilder.cs" />
+    <Compile Include="Front.Api\%28Builder%29\CaseBuilder.cs" />
     <Compile Include="Front.Api\Api.cs" />
     <Compile Include="Back.Api\Util\Table\ITableBuilderFactory.cs" />
     <Compile Include="Back.Api\RecPlay\InterfaceRecPlayNodeExtensions.cs" />
@@ -111,7 +111,7 @@
     <Compile Include="Back.Imp\RecPlay\InterfaceRecPlayInterceptor.cs" />
     <Compile Include="Back.Api\RecPlay\RecPlayMode.cs" />
     <Compile Include="Front.Api\%28Builder%29\IBuilderFactory.cs" />
-    <Compile Include="Back.Api\Builder\IBuilderModel.cs" />
+    <Compile Include="Back.Api\Builder\ICaseBuilderModel.cs" />
     <Compile Include="Front.Api\%28Builder%29\ICreateContributor.cs" />
     <Compile Include="Front.Api\BuilderExtensions.cs" />
     <Compile Include="Front.Api\IDefFactory.cs" />

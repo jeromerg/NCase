@@ -3,7 +3,7 @@ using NDsl.Back.Api.Record;
 
 namespace NDsl.Back.Api.Builder
 {
-    public interface IBuilderModel
+    public interface ICaseBuilderModel
     {
         [NotNull] ITokenStream TokenStream { get; }
     }

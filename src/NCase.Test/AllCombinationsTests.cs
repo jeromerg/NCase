@@ -20,8 +20,8 @@ namespace NCaseFramework.Test
         [Test]
         public void UndefinedDef()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var allCombi = builder.NewDefinition<AllCombinations>("allCombi");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var allCombi = caseBuilder.NewDefinition<AllCombinations>("allCombi");
 
             string line = GetLine(3);
             try
@@ -40,8 +40,8 @@ namespace NCaseFramework.Test
         [Test]
         public void AssignmentOutsideDef()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
 
             string line = GetLine(3);
             try
@@ -60,8 +60,8 @@ namespace NCaseFramework.Test
         [Test]
         public void AssignmentTwice()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("allPersonsAllAges");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("allPersonsAllAges");
 
             string line = GetLine(4);
             try
@@ -83,9 +83,9 @@ namespace NCaseFramework.Test
         [Test]
         public void CallGetterInReplayModeButNotRecorded()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
             using (allPersonsAllAges.Define())
             {
                 v.Name = "myName";
@@ -110,8 +110,8 @@ namespace NCaseFramework.Test
         [Test]
         public void CallGetterNotInReplayMode()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
 
             string line = GetLine(3);
             try
@@ -130,9 +130,9 @@ namespace NCaseFramework.Test
         [Test]
         public void CallGetterNotInReplayMode2()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
             using (allPersonsAllAges.Define())
             {
                 v.Age = 10;
@@ -155,9 +155,9 @@ namespace NCaseFramework.Test
         [Test]
         public void CallSetterNotInRecordingMode()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
             using (allPersonsAllAges.Define())
             {
@@ -185,9 +185,9 @@ namespace NCaseFramework.Test
         [Test]
         public void CallSetterNotInRecordingMode2()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
             using (allPersonsAllAges.Define())
             {
@@ -216,10 +216,10 @@ namespace NCaseFramework.Test
         [Test]
         public void CallSetterNotInRecordingMode3()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
-            var v2 = builder.NewContributor<IMyTestvalues>("v2");
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
+            var v2 = caseBuilder.NewContributor<IMyTestvalues>("v2");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
             using (allPersonsAllAges.Define())
             {
@@ -247,9 +247,9 @@ namespace NCaseFramework.Test
         [Test]
         public void GetUnsetProperty()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
             using (allPersonsAllAges.Define())
             {
@@ -278,8 +278,8 @@ namespace NCaseFramework.Test
         [Test]
         public void EmptyDef()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
             using (allPersonsAllAges.Define())
             {
@@ -292,9 +292,9 @@ namespace NCaseFramework.Test
         [Test]
         public void SingleAssignment()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var v = builder.NewContributor<IMyTestvalues>("v");
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("all");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var v = caseBuilder.NewContributor<IMyTestvalues>("v");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
             using (allPersonsAllAges.Define())
             {
@@ -310,10 +310,10 @@ namespace NCaseFramework.Test
         [Test]
         public void TwoProperties()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var o = builder.NewContributor<IMyTestvalues>("o");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("allPersonsAllAges");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("allPersonsAllAges");
             using (allPersonsAllAges.Define())
             {
                 o.Name = "Raoul";
@@ -371,10 +371,10 @@ namespace NCaseFramework.Test
         [Test]
         public void Ref()
         {
-            IBuilder builder = NCase.NewBuilder();
-            var o = builder.NewContributor<IMyTestvalues>("o");
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
-            var names = builder.NewDefinition<Tree>("person_set");
+            var names = caseBuilder.NewDefinition<Tree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";
@@ -382,7 +382,7 @@ namespace NCaseFramework.Test
                 o.Name = "Wilhelm";
             }
 
-            var ages = builder.NewDefinition<Tree>("age_set");
+            var ages = caseBuilder.NewDefinition<Tree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -390,7 +390,7 @@ namespace NCaseFramework.Test
                 o.Age = 30;
             }
 
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("allPersonsAllAges");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {

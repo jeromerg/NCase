@@ -8,24 +8,24 @@ using NDsl.Front.Api;
 
 namespace NDsl.Front.Imp
 {
-    public class Builder : ArtefactImp<IBuilderModel>, IBuilder, IBuilderModel
+    public class CaseBuilder : ArtefactImp<ICaseBuilderModel>, Api.CaseBuilder, ICaseBuilderModel
     {
         [NotNull] private readonly ITokenStream mTokenStream;
         private RecPlayMode mRecPlayMode;
 
-        public Builder([NotNull] ITokenStream tokenStream, [NotNull] IServiceSet<IBuilderModel> services)
+        public CaseBuilder([NotNull] ITokenStream tokenStream, [NotNull] IServiceSet<ICaseBuilderModel> services)
             : base(services)
         {
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");
             mTokenStream = tokenStream;
         }
 
-        public override IBuilderModel Model
+        public override ICaseBuilderModel Model
         {
             get { return this; }
         }
 
-        #region IBuilderModel
+        #region ICaseBuilderModel
 
         public ITokenStream TokenStream
         {

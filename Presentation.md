@@ -36,7 +36,7 @@ With NCase, you write the same test as following:
 <!--# NCaseExample1 -->
 ```C#
 // ARRANGE
-IBuilder builder = NCase.NewBuilder();
+var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
 var set = builder.NewDefinition<AllCombinations>("set");
 
@@ -111,7 +111,7 @@ The previous test becomes:
 <!--# NCaseExample2 -->
 ```C#
 // ARRANGE
-IBuilder builder = NCase.NewBuilder();
+var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
 var set = builder.NewDefinition<AllCombinations>("set");
 using (set.Define())
@@ -147,7 +147,7 @@ NCase is stupid systematic: You can add as many assignments to `Task`, `DueDate`
 <!--# NCaseExample3 -->
 ```C#
 // ARRANGE
-IBuilder builder = NCase.NewBuilder();
+var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
 var set = builder.NewDefinition<AllCombinations>("set");
 using (set.Define())

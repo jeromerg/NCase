@@ -30,7 +30,7 @@ namespace NCaseFramework.Front.Ui
 
         #endregion
 
-        public static IBuilder NewBuilder()
+        public static CaseBuilder NewBuilder()
         {
             var cb = new ContainerBuilder();
 

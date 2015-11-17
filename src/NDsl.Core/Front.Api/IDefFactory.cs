@@ -6,7 +6,7 @@ using NDsl.Front.Ui;
 
 namespace NDsl.Front.Api
 {
-    public interface IDefFactory<out TDef> : IService<IBuilderModel>
+    public interface IDefFactory<out TDef> : IService<ICaseBuilderModel>
         where TDef : DefBase
     {
         TDef Create([NotNull] string defName, [NotNull] ITokenStream tokenStream);

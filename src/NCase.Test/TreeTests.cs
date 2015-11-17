@@ -21,13 +21,13 @@ namespace NCaseFramework.Test
         public void Test_Properties_1Contrib()
         {
             // Create a new builder
-            IBuilder builder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
 
             // create a case contributor
-            var o = builder.NewContributor<IMyTestvalues>("o");
+            var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             // initialize a new case set of type Tree
-            var tree = builder.NewDefinition<Tree>("Environment");
+            var tree = caseBuilder.NewDefinition<Tree>("Environment");
 
             // define the content of the tree
             using (tree.Define())
@@ -93,13 +93,13 @@ namespace NCaseFramework.Test
         public void Test_Properties_2Contribs()
         {
             // Create a new builder
-            IBuilder builder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
 
             // you can use multiple contributors, contributing to the definition of cases
-            var m = builder.NewContributor<IMyTestvalues>("man");
-            var w = builder.NewContributor<IMyTestvalues>("woman");
+            var m = caseBuilder.NewContributor<IMyTestvalues>("man");
+            var w = caseBuilder.NewContributor<IMyTestvalues>("woman");
 
-            var tree = builder.NewDefinition<Tree>("children");
+            var tree = caseBuilder.NewDefinition<Tree>("children");
             using (tree.Define())
             {
                 {
@@ -155,13 +155,13 @@ namespace NCaseFramework.Test
         public void TestTreeWithRef()
         {
             // Create a new builder
-            IBuilder builder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
 
             // create a case contributor
-            var o = builder.NewContributor<IMyTestvalues>("o");
+            var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             // define a first set of cases
-            var ages = builder.NewDefinition<Tree>("age_set");
+            var ages = caseBuilder.NewDefinition<Tree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -169,7 +169,7 @@ namespace NCaseFramework.Test
             }
 
             // transplant the first set into a second one
-            var names = builder.NewDefinition<Tree>("person_set");
+            var names = caseBuilder.NewDefinition<Tree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";
