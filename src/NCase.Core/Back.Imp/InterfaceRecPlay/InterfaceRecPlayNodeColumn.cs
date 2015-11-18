@@ -20,8 +20,7 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
             get { return HorizontalAlignment.Right; }
         }
 
-        [NotNull] 
-        public string Title
+        [NotNull] public string Title
         {
             get { return mNode.PrintInvocation(); }
         }

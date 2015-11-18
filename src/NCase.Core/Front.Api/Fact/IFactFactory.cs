@@ -6,7 +6,7 @@ namespace NCaseFramework.Front.Api.Fact
 {
     public interface IFactFactory
     {
-        [NotNull] 
+        [NotNull]
         Ui.Fact Create([NotNull] INode fact, [NotNull] IRecorder recorder);
     }
 }

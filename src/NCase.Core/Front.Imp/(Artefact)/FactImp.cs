@@ -39,22 +39,19 @@ namespace NCaseFramework.Front.Imp
             mRecorder = recorder;
         }
 
-        [NotNull] 
-        public override IFactModel Model
+        [NotNull] public override IFactModel Model
         {
             get { return this; }
         }
 
         #region IFactModel
 
-        [NotNull] 
-        public INode FactNode
+        [NotNull] public INode FactNode
         {
             get { return mFactNode; }
         }
 
-        [NotNull] 
-        public IRecorder Recorder
+        [NotNull] public IRecorder Recorder
         {
             get { return mRecorder; }
         }

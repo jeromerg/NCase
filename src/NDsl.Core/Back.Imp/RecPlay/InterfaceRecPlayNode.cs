@@ -46,32 +46,27 @@ namespace NDsl.Back.Imp.RecPlay
             mPropertyCallKey = propertyCallKey;
         }
 
-        [NotNull] 
-        public string ContributorName
+        [NotNull] public string ContributorName
         {
             get { return mContributorName; }
         }
 
-        [NotNull] 
-        public PropertyCallKey PropertyCallKey
+        [NotNull] public PropertyCallKey PropertyCallKey
         {
             get { return mPropertyCallKey; }
         }
 
-        [CanBeNull]
-        public object PropertyValue
+        [CanBeNull] public object PropertyValue
         {
             get { return mPropertyValue; }
         }
 
-        [NotNull] 
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }
 
-        [NotNull, ItemNotNull] 
-        public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<INode> Children
         {
             get { yield break; }
         }

@@ -17,7 +17,8 @@ namespace NCaseFramework.XunitAdapter.Front.Ui
 
         #endregion
 
-        public static void ActAndAssert([NotNull, ItemNotNull] this IEnumerable<Case> caseEnumerable, [NotNull] Action<TestCaseContext> actAndAssertAction)
+        public static void ActAndAssert([NotNull, ItemNotNull] this IEnumerable<Case> caseEnumerable,
+                                        [NotNull] Action<TestCaseContext> actAndAssertAction)
         {
             ActAndAssertShared<DummySuccessException, XunitException>.ActAndAssert(caseEnumerable,
                                                                                    actAndAssertAction,

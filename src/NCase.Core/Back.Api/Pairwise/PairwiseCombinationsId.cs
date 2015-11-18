@@ -10,8 +10,7 @@ namespace NCaseFramework.Back.Api.Pairwise
         {
         }
 
-        [NotNull] 
-        public override string TypeName
+        [NotNull] public override string TypeName
         {
             get { return "PairwiseCombinations"; }
         }

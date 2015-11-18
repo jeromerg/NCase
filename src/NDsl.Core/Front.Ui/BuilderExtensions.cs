@@ -6,7 +6,7 @@ namespace NDsl.Front.Ui
 {
     public static class BuilderExtensions
     {
-        [NotNull] 
+        [NotNull]
         public static T NewContributor<T>([NotNull] this CaseBuilder caseBuilder, [NotNull] string name)
         {
             if (caseBuilder == null) throw new ArgumentNullException("caseBuilder");
@@ -16,7 +16,7 @@ namespace NDsl.Front.Ui
             return contributorFactory.Create<T>(caseBuilder.Zapi.Model, name);
         }
 
-        [NotNull] 
+        [NotNull]
         public static T NewDefinition<T>([NotNull] this CaseBuilder caseBuilder, [NotNull] string name) where T : DefBase
         {
             if (caseBuilder == null) throw new ArgumentNullException("caseBuilder");

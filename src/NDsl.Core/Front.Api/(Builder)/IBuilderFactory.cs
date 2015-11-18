@@ -4,7 +4,7 @@ namespace NDsl.Front.Api
 {
     public interface IBuilderFactory
     {
-        [NotNull] 
+        [NotNull]
         CaseBuilder Create();
     }
 }

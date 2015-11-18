@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Pairwise;

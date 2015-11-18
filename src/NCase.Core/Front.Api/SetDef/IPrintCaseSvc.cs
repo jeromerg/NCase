@@ -6,7 +6,7 @@ namespace NCaseFramework.Front.Api.SetDef
 {
     public interface IPrintCaseSvc : IService<ICaseModel>
     {
-        [NotNull] 
+        [NotNull]
         string PrintCase([NotNull] ICaseModel caseModel);
     }
 }

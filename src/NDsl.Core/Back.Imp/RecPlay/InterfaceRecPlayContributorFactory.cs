@@ -21,7 +21,7 @@ namespace NDsl.Back.Imp.RecPlay
             mCodeLocationUtil = codeLocationUtil;
         }
 
-        [NotNull] 
+        [NotNull]
         public T CreateContributor<T>([NotNull] ITokenWriter tokenWriter, [NotNull] string contributorName)
         {
             if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");

@@ -6,7 +6,6 @@ namespace NCaseFramework.Front.Api.Case
 {
     public interface ICaseModel
     {
-        [NotNull, ItemNotNull] 
-        List<INode> FactNodes { get; }
+        [NotNull, ItemNotNull] List<INode> FactNodes { get; }
     }
 }

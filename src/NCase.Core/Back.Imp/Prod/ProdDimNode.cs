@@ -24,14 +24,12 @@ namespace NCaseFramework.Back.Imp.Prod
             get { return mFirstChild; }
         }
 
-        [NotNull] 
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return mFirstChild.CodeLocation; }
         }
 
-        [NotNull, ItemNotNull] 
-        public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<INode> Children
         {
             get
             {

@@ -11,7 +11,7 @@ namespace NCaseFramework.Back.Imp.Parse
     public class GenerateCasesVisitors
         : IGenerateCaseVisitor<IRefNode<IDefNode>>
     {
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
                                               [NotNull] IRefNode<IDefNode> node,
                                               [NotNull] GenerateOptions options)

@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Prod;
 using NCaseFramework.Front.Api.Prod;
 using NCaseFramework.Front.Ui;
@@ -26,7 +25,7 @@ namespace NCaseFramework.Front.Imp
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            [NotNull] 
+            [NotNull]
             public AllCombinations Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
                 return new AllCombinationsImp(defName, tokenStream, mServices, mCodeLocationUtil);
@@ -41,8 +40,7 @@ namespace NCaseFramework.Front.Imp
         {
         }
 
-        [NotNull] 
-        public override IAllCombinationsModel Model
+        [NotNull] public override IAllCombinationsModel Model
         {
             get { return this; }
         }

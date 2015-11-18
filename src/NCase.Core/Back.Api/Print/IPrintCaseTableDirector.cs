@@ -16,6 +16,7 @@ namespace NCaseFramework.Back.Api.Print
                    [NotNull] string format,
                    [NotNull] params object[] args);
 
-        [NotNull] string GetString();
+        [NotNull]
+        string GetString();
     }
 }

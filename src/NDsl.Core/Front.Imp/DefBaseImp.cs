@@ -28,7 +28,7 @@ namespace NDsl.Front.Imp
             if (id == null) throw new ArgumentNullException("id");
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
-            
+
             mId = id;
             mTokenStream = tokenStream;
             mCodeLocationUtil = codeLocationUtil;
@@ -38,8 +38,7 @@ namespace NDsl.Front.Imp
 
         #region IDefModel
 
-        [NotNull] 
-        public TId Id
+        [NotNull] public TId Id
         {
             get { return mId; }
         }
@@ -53,7 +52,7 @@ namespace NDsl.Front.Imp
 
         #region IDef Implementation
 
-        [NotNull] 
+        [NotNull]
         public IDisposable Define()
         {
             return new DisposableWithCallbacks(Begin, End);
@@ -88,7 +87,7 @@ namespace NDsl.Front.Imp
             TokenStream.SetWriteMode(false);
         }
 
-        [NotNull] 
+        [NotNull]
         private CodeLocation Loc()
         {
             return mCodeLocationUtil.GetCurrentUserCodeLocation();

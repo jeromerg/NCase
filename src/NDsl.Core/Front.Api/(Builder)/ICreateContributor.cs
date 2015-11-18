@@ -6,7 +6,7 @@ namespace NDsl.Front.Api
 {
     public interface ICreateContributor : IService<ICaseBuilderModel>
     {
-        [NotNull] 
+        [NotNull]
         T Create<T>([NotNull] ICaseBuilderModel caseBuilderModel, [NotNull] string name);
     }
 }

@@ -24,26 +24,22 @@ namespace NCaseFramework.Back.Imp.Seq
             mId = id;
         }
 
-        [NotNull] 
-        IDefId IDefNode.Id
+        [NotNull] IDefId IDefNode.Id
         {
             get { return mId; }
         }
 
-        [NotNull] 
-        public SequenceId Id
+        [NotNull] public SequenceId Id
         {
             get { return mId; }
         }
 
-        [NotNull] 
-        public IEnumerable<INode> Children
+        [NotNull] public IEnumerable<INode> Children
         {
             get { return mChildren; }
         }
 
-        [NotNull] 
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

@@ -25,20 +25,17 @@ namespace NCaseFramework.Back.Imp.Pairwise
             mId = id;
         }
 
-        [NotNull]
-        IDefId IDefNode.Id
+        [NotNull] IDefId IDefNode.Id
         {
             get { return mId; }
         }
 
-        [NotNull]
-        public PairwiseCombinationsId Id
+        [NotNull] public PairwiseCombinationsId Id
         {
             get { return mId; }
         }
 
-        [NotNull, ItemNotNull]
-        public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<INode> Children
         {
             get { return mDimensions; }
         }
@@ -50,8 +47,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
             mDimensions.Add(child);
         }
 
-        [NotNull]
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

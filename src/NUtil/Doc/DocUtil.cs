@@ -18,7 +18,7 @@ namespace NUtil.Doc
 
         private const string DOC_FILE_EXTENSION = ".md";
         private const string CODE_SNIPPET_MARKER = @"//#";
-        
+
         private readonly string mDemoPath;
         private readonly SnippetParser mMarkdownSnippetParser;
         private readonly SnippetParser mCodeSnippetParser;
@@ -51,7 +51,11 @@ namespace NUtil.Doc
             string callerFileDir = Path.GetDirectoryName(callerFilePath);
 
             IEnumerable<Snippet> consoleSnippets = mConsoleRecorder.Snippets
-                .Select(s => new Snippet(s.Source, s.Name, s.Body.Replace(callerFileDir, mDemoPath)));
+                                                                   .Select(
+                                                                           s =>
+                                                                           new Snippet(s.Source,
+                                                                                       s.Name,
+                                                                                       s.Body.Replace(callerFileDir, mDemoPath)));
 
             var allSnippets = new List<Snippet>();
             allSnippets.AddRange(ExtractCodeSnippets(callerFilePath));

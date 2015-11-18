@@ -19,16 +19,14 @@ namespace NDsl.Front.Imp
             mTokenStream = tokenStream;
         }
 
-        [NotNull] 
-        public override ICaseBuilderModel Model
+        [NotNull] public override ICaseBuilderModel Model
         {
             get { return this; }
         }
 
         #region ICaseBuilderModel
 
-        [NotNull] 
-        public ITokenStream TokenStream
+        [NotNull] public ITokenStream TokenStream
         {
             get { return mTokenStream; }
         }
@@ -39,7 +37,8 @@ namespace NDsl.Front.Imp
             set
             {
                 if (mRecPlayMode == RecPlayMode.Recorded)
-                    throw new IndexOutOfRangeException("Recorded state is the initial state and cannot be set (should never happen)");
+                    throw new IndexOutOfRangeException(
+                        "Recorded state is the initial state and cannot be set (should never happen)");
 
                 mRecPlayMode = value;
             }

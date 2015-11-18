@@ -9,7 +9,7 @@ namespace NDsl.Front.Ui
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public interface DefBase
     {
-        [NotNull] 
+        [NotNull]
         IDisposable Define();
 
         void Ref();

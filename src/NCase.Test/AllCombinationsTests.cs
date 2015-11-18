@@ -18,6 +18,11 @@ namespace NCaseFramework.Test
             int Age { get; set; }
         }
 
+        private string GetLine(int offset, [CallerLineNumber] int callerLineNumber = -1)
+        {
+            return "line " + (offset + callerLineNumber);
+        }
+
         [Test]
         public void UndefinedDef()
         {
@@ -202,7 +207,7 @@ namespace NCaseFramework.Test
             string line = GetLine(3);
             try
             {
-                v.Age = 20; 
+                v.Age = 20;
                 Assert.Fail("Act expected to throw an exception");
             }
             catch (InvalidRecPlayStateException e)
@@ -211,7 +216,6 @@ namespace NCaseFramework.Test
                 StringAssert.Contains(line, s);
                 StringAssert.Contains("v.Age", s);
             }
-
         }
 
         [Test]
@@ -273,7 +277,6 @@ namespace NCaseFramework.Test
                 StringAssert.Contains(line, s);
                 StringAssert.Contains("v.Name", s);
             }
-
         }
 
         [Test]
@@ -439,11 +442,5 @@ namespace NCaseFramework.Test
             Assert.AreEqual("Wilhelm", o.Name);
             Assert.AreEqual(30, o.Age);
         }
-    
-        private string GetLine(int offset, [CallerLineNumber] int callerLineNumber = -1)
-        {
-            return "line " + (offset + callerLineNumber);
-        }
-
     }
 }

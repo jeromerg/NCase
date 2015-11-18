@@ -21,7 +21,7 @@ namespace NCaseFramework.Front.Imp
             mCaseFactory = caseFactory;
         }
 
-        [NotNull] 
+        [NotNull]
         public IEnumerable<Case> GetCases([NotNull] ISetDefModel<ISetDefId> setDefModel)
         {
             if (setDefModel == null) throw new ArgumentNullException("setDefModel");
@@ -31,7 +31,7 @@ namespace NCaseFramework.Front.Imp
                 yield return mCaseFactory.Create(@case, setDefModel.TokenStream);
         }
 
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         private IEnumerable<List<INode>> GetcasesImp([NotNull] ISetDefModel<ISetDefId> setDefModel)
         {
             using (setDefModel.TokenStream.SetReadMode())

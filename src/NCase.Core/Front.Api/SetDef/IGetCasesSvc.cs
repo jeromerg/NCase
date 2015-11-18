@@ -8,7 +8,7 @@ namespace NCaseFramework.Front.Api.SetDef
     public interface IGetCasesSvc
         : IService<ISetDefModel<ISetDefId>>
     {
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         IEnumerable<Ui.Case> GetCases([NotNull] ISetDefModel<ISetDefId> setDefModel);
     }
 }

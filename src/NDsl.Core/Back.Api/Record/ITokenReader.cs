@@ -6,7 +6,6 @@ namespace NDsl.Back.Api.Record
 {
     public interface ITokenReader : IRecorder
     {
-        [NotNull, ItemNotNull] 
-        IEnumerable<IToken> Tokens { get; }
+        [NotNull, ItemNotNull] IEnumerable<IToken> Tokens { get; }
     }
 }

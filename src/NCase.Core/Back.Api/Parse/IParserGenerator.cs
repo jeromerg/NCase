@@ -8,7 +8,10 @@ namespace NCaseFramework.Back.Api.Parse
 {
     public interface IParserGenerator
     {
-        [NotNull] INode Parse([NotNull] IDefId def, [NotNull] ITokenReader tokenReader);
-        [NotNull, ItemNotNull] IEnumerable<List<INode>> Generate([NotNull] INode caseSetNode, [NotNull] GenerateOptions options);
+        [NotNull]
+        INode Parse([NotNull] IDefId def, [NotNull] ITokenReader tokenReader);
+
+        [NotNull, ItemNotNull]
+        IEnumerable<List<INode>> Generate([NotNull] INode caseSetNode, [NotNull] GenerateOptions options);
     }
 }

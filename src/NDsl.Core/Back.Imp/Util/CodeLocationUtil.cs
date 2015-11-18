@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using JetBrains.Annotations;
 using NDsl.Back.Api.Util;
 
@@ -14,7 +13,7 @@ namespace NDsl.Back.Imp.Util
             mStackFrameUtil = stackFrameUtil;
         }
 
-        [NotNull] 
+        [NotNull]
         public CodeLocation GetCurrentUserCodeLocation()
         {
             StackFrame stackFrame = mStackFrameUtil.GetUserStackFrame();

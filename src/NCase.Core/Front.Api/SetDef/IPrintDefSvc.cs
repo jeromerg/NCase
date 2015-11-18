@@ -8,7 +8,7 @@ namespace NCaseFramework.Front.Api.SetDef
         : IService<ISetDefModel<ISetDefId>>
 
     {
-        [NotNull] 
+        [NotNull]
         string PrintDef([NotNull] ISetDefModel<ISetDefId> setDefModel, bool isFileInfo, bool isRecursive);
     }
 }

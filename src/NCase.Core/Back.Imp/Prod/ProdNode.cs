@@ -27,20 +27,17 @@ namespace NCaseFramework.Back.Imp.Prod
             mId = id;
         }
 
-        [NotNull] 
-        IDefId IDefNode.Id
+        [NotNull] IDefId IDefNode.Id
         {
             get { return mId; }
         }
 
-        [NotNull] 
-        public AllCombinationsId Id
+        [NotNull] public AllCombinationsId Id
         {
             get { return mId; }
         }
 
-        [NotNull, ItemNotNull] 
-        public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<INode> Children
         {
             get { return mDimensions; }
         }
@@ -51,8 +48,7 @@ namespace NCaseFramework.Back.Imp.Prod
             mDimensions.Add(child);
         }
 
-        [NotNull] 
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

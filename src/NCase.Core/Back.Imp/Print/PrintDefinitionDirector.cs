@@ -16,7 +16,9 @@ namespace NCaseFramework.Back.Imp.Print
         private interface IStragegy
         {
             void AppendLine([NotNull] CodeLocation codeLocation, [NotNull] string txt);
-            [NotNull] string GetString();
+
+            [NotNull]
+            string GetString();
         }
 
         private class StrategyWithoutFileInfo : IStragegy
@@ -31,7 +33,7 @@ namespace NCaseFramework.Back.Imp.Print
                 mStringBuilder.AppendLine(txt);
             }
 
-            [NotNull] 
+            [NotNull]
             public string GetString()
             {
                 return mStringBuilder.ToString();
@@ -57,7 +59,7 @@ namespace NCaseFramework.Back.Imp.Print
                 mStringBuilder.Print(sFileInfoColumn, codeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
             }
 
-            [NotNull] 
+            [NotNull]
             public string GetString()
             {
                 var sb = new StringBuilder();
@@ -116,7 +118,7 @@ namespace NCaseFramework.Back.Imp.Print
             mStragegy.AppendLine(codeLocation, indentedTxt);
         }
 
-        [NotNull] 
+        [NotNull]
         public string GetString()
         {
             return mStragegy.GetString();

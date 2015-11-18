@@ -14,8 +14,7 @@ namespace NCaseFramework.Back.Api.Tree
         {
         }
 
-        [NotNull] 
-        public override string TypeName
+        [NotNull] public override string TypeName
         {
             get { return "Tree"; }
         }

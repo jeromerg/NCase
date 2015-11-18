@@ -6,6 +6,7 @@ namespace NCaseFramework.Back.Api.Print
 {
     public interface IPrintCaseDirector : IActionPayloadDirector<INode, IPrintCaseDirector, IPrintCasePayload>
     {
-        [NotNull] IPrintCasePayload NewPayload();
+        [NotNull]
+        IPrintCasePayload NewPayload();
     }
 }

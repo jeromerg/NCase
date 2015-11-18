@@ -20,20 +20,17 @@ namespace NCaseFramework.Back.Imp.Pairwise
             mFirstChild = firstChild;
         }
 
-        [NotNull]
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return mFirstChild.CodeLocation; }
         }
 
-        [NotNull]
-        public INode FirstChild
+        [NotNull] public INode FirstChild
         {
             get { return mFirstChild; }
         }
 
-        [NotNull, ItemNotNull]
-        public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<INode> Children
         {
             get
             {

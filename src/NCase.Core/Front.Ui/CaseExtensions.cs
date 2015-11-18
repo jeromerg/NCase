@@ -7,7 +7,7 @@ namespace NCaseFramework.Front.Ui
 {
     public static class CaseExtensions
     {
-        [NotNull] 
+        [NotNull]
         public static string Print([NotNull] this Case cas)
         {
             if (cas == null) throw new ArgumentNullException("cas");
@@ -16,7 +16,7 @@ namespace NCaseFramework.Front.Ui
             return printCase.PrintCase(cas.Zapi.Model);
         }
 
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         public static IEnumerable<Case> Replay([NotNull, ItemNotNull] this IEnumerable<Case> cases)
         {
             if (cases == null) throw new ArgumentNullException("cases");
@@ -36,7 +36,7 @@ namespace NCaseFramework.Front.Ui
             }
         }
 
-        [NotNull] 
+        [NotNull]
         public static Case Replay([NotNull] this Case @case, bool isReplay)
         {
             if (@case == null) throw new ArgumentNullException("case");

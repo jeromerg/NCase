@@ -8,7 +8,7 @@ namespace NCaseFramework.Front.Ui
 {
     public static class DefExtensions
     {
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         public static IEnumerable<Case> Cases([NotNull] this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef)
         {
             if (setDef == null) throw new ArgumentNullException("setDef");
@@ -16,7 +16,7 @@ namespace NCaseFramework.Front.Ui
             return setDef.Zapi.Services.GetService<IGetCasesSvc>().GetCases(setDef.Zapi.Model);
         }
 
-        [NotNull] 
+        [NotNull]
         public static string PrintDefinition([NotNull] this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                              bool isFileInfo = false,
                                              bool isRecursive = false)
@@ -26,7 +26,7 @@ namespace NCaseFramework.Front.Ui
             return setDef.Zapi.Services.GetService<IPrintDefSvc>().PrintDef(setDef.Zapi.Model, isFileInfo, isRecursive);
         }
 
-        [NotNull] 
+        [NotNull]
         public static string PrintCasesAsTable([NotNull] this SetDefBase<ISetDefModel<ISetDefId>, ISetDefId> setDef,
                                                bool isRecursive = false)
         {

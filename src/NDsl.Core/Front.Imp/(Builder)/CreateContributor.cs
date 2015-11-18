@@ -15,7 +15,7 @@ namespace NDsl.Front.Imp
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
         }
 
-        [NotNull] 
+        [NotNull]
         public T Create<T>([NotNull] ICaseBuilderModel caseBuilderModel, [NotNull] string name)
         {
             if (caseBuilderModel == null) throw new ArgumentNullException("caseBuilderModel");

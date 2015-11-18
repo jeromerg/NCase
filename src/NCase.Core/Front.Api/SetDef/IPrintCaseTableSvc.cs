@@ -7,7 +7,7 @@ namespace NCaseFramework.Front.Api.SetDef
     public interface IPrintCaseTableSvc
         : IService<ISetDefModel<ISetDefId>>
     {
-        [NotNull] 
+        [NotNull]
         string Perform([NotNull] ISetDefModel<ISetDefId> setDefModel, bool isRecursive);
     }
 }

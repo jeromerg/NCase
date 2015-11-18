@@ -5,7 +5,7 @@ namespace NDsl.Back.Api.RecPlay
 {
     public interface IInterfaceRecPlayContributorFactory
     {
-        [NotNull] 
+        [NotNull]
         T CreateContributor<T>([NotNull] ITokenWriter tokenWriter, [NotNull] string contributorName);
     }
 }

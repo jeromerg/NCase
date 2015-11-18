@@ -16,8 +16,7 @@ namespace NDsl.Front.Imp
 
         #region IArtefact Implementation
 
-        [NotNull] 
-        public IApi<TModel> Zapi
+        [NotNull] public IApi<TModel> Zapi
         {
             get { return this; }
         }
@@ -26,11 +25,9 @@ namespace NDsl.Front.Imp
 
         #region IApi<TModel> Implementation
 
-        [NotNull] 
-        public abstract TModel Model { get; }
+        [NotNull] public abstract TModel Model { get; }
 
-        [NotNull] 
-        public IServiceSet<TModel> Services
+        [NotNull] public IServiceSet<TModel> Services
         {
             get { return mServices; }
         }

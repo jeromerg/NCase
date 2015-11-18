@@ -49,14 +49,12 @@ namespace NCaseFramework.Front.Imp
             mRecorder = recorder;
         }
 
-        [NotNull] 
-        public override ICaseModel Model
+        [NotNull] public override ICaseModel Model
         {
             get { return this; }
         }
 
-        [NotNull, ItemNotNull] 
-        public IEnumerable<Fact> Facts
+        [NotNull, ItemNotNull] public IEnumerable<Fact> Facts
         {
             get { return mFactNodes.Select(factNode => mFactFactory.Create(factNode, mRecorder)); }
         }

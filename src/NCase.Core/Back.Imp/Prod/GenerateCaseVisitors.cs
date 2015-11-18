@@ -40,9 +40,9 @@ namespace NCaseFramework.Back.Imp.Prod
                     yield return nodes;
         }
 
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         private IEnumerable<List<INode>> ProduceCartesianProductRecursively([NotNull] IGenerateCasesDirector dir,
-                                                                            [NotNull, ItemNotNull] List<INode> operands, 
+                                                                            [NotNull, ItemNotNull] List<INode> operands,
                                                                             int operandIndex,
                                                                             [NotNull] GenerateOptions options)
         {

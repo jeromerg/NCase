@@ -183,15 +183,15 @@ Result:
 ```
 Definition                         | Location                              
  ---------------------------------- | ------------------------------------- 
- Tree userSet                       | c:\dev\NCase\Readme.cs: line 212 
-     user.UserName=Richard          | c:\dev\NCase\Readme.cs: line 214 
-         user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 215 
-             user.Age=24            | c:\dev\NCase\Readme.cs: line 216 
-             user.Age=36            | c:\dev\NCase\Readme.cs: line 217 
-     user.UserName=*+#&%$!$         | c:\dev\NCase\Readme.cs: line 218 
-         user.Password=tooeasy      | c:\dev\NCase\Readme.cs: line 219 
-             user.Age=-1            | c:\dev\NCase\Readme.cs: line 220 
-             user.Age=0             | c:\dev\NCase\Readme.cs: line 221
+ Tree userSet                       | c:\dev\NCase\Readme.cs: line 213 
+     user.UserName=Richard          | c:\dev\NCase\Readme.cs: line 215 
+         user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 216 
+             user.Age=24            | c:\dev\NCase\Readme.cs: line 217 
+             user.Age=36            | c:\dev\NCase\Readme.cs: line 218 
+     user.UserName=*+#&%$!$         | c:\dev\NCase\Readme.cs: line 219 
+         user.Password=tooeasy      | c:\dev\NCase\Readme.cs: line 220 
+             user.Age=-1            | c:\dev\NCase\Readme.cs: line 221 
+             user.Age=0             | c:\dev\NCase\Readme.cs: line 222
 ```
 
 #### Visualize Test Cases as a Table
@@ -232,9 +232,9 @@ Result:
 ```
 Fact                       | Location                              
  -------------------------- | ------------------------------------- 
- user.UserName=Richard      | c:\dev\NCase\Readme.cs: line 214 
- user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 215 
- user.Age=24                | c:\dev\NCase\Readme.cs: line 216
+ user.UserName=Richard      | c:\dev\NCase\Readme.cs: line 215 
+ user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 216 
+ user.Age=24                | c:\dev\NCase\Readme.cs: line 217
 ```
 
 ### Iterate test cases
@@ -285,16 +285,16 @@ Definition
 
  Fact                           | Location                              
  ------------------------------ | ------------------------------------- 
- hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 187 
- hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 191 
- hw.RamInGb=1                   | c:\dev\NCase\Readme.cs: line 195 
- hw.ScreenResolution=(480, 320) | c:\dev\NCase\Readme.cs: line 199 
- sw.Os=Ios8                     | c:\dev\NCase\Readme.cs: line 168 
- sw.Browser=Chrome              | c:\dev\NCase\Readme.cs: line 172 
- sw.IsFacebookInstalled=False   | c:\dev\NCase\Readme.cs: line 176 
- user.UserName=Richard          | c:\dev\NCase\Readme.cs: line 214 
- user.Password=SomePass678;     | c:\dev\NCase\Readme.cs: line 215 
- user.Age=24                    | c:\dev\NCase\Readme.cs: line 216 
+ hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 188 
+ hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 192 
+ hw.RamInGb=1                   | c:\dev\NCase\Readme.cs: line 196 
+ hw.ScreenResolution=(480, 320) | c:\dev\NCase\Readme.cs: line 200 
+ sw.Os=Ios8                     | c:\dev\NCase\Readme.cs: line 169 
+ sw.Browser=Chrome              | c:\dev\NCase\Readme.cs: line 173 
+ sw.IsFacebookInstalled=False   | c:\dev\NCase\Readme.cs: line 177 
+ user.UserName=Richard          | c:\dev\NCase\Readme.cs: line 215 
+ user.Password=SomePass678;     | c:\dev\NCase\Readme.cs: line 216 
+ user.Age=24                    | c:\dev\NCase\Readme.cs: line 217 
 
 
 Act and Assert
@@ -311,8 +311,8 @@ Definition
 
  Fact                           | Location                              
  ------------------------------ | ------------------------------------- 
- hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 187 
- hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 191 
+ hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 188 
+ hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 192 
 (...)
 ```
 

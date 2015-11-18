@@ -10,7 +10,9 @@ namespace NDsl.Back.Api.Ex
         {
         }
 
-        public InvalidRecPlayStateException([NotNull] Exception innerException, [NotNull] string format, [NotNull] params object[] args)
+        public InvalidRecPlayStateException([NotNull] Exception innerException,
+                                            [NotNull] string format,
+                                            [NotNull] params object[] args)
             : base(string.Format(format, args), innerException)
         {
         }

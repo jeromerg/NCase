@@ -14,14 +14,12 @@ namespace NDsl.Back.Api.Common
         {
         }
 
-        [NotNull] 
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return CodeLocation.Unknown; }
         }
 
-        [NotNull, ItemNotNull] 
-        public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<INode> Children
         {
             get { return Enumerable.Empty<INode>(); }
         }

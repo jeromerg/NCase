@@ -17,7 +17,7 @@ namespace NCaseFramework.Back.Imp.Print
 
         public class Factory : IPrintCasePayloadFactory
         {
-            [NotNull] 
+            [NotNull]
             public IPrintCasePayload Create()
             {
                 return new PrintCasePayload();
@@ -35,7 +35,7 @@ namespace NCaseFramework.Back.Imp.Print
             mTableBuilder.Print(sFileInfoColumn, codeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
         }
 
-        [NotNull] 
+        [NotNull]
         public string GetString()
         {
             var sb = new StringBuilder();

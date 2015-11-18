@@ -10,7 +10,7 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<IInterfaceRecPlayNode>
     {
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
                                               [NotNull] IInterfaceRecPlayNode node,
                                               [NotNull] GenerateOptions options)

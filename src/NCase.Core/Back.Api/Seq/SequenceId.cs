@@ -10,8 +10,7 @@ namespace NCaseFramework.Back.Api.Seq
         {
         }
 
-        [NotNull] 
-        public override string TypeName
+        [NotNull] public override string TypeName
         {
             get { return "Sequence"; }
         }

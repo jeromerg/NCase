@@ -31,8 +31,7 @@ namespace NCaseFramework.Back.Imp.Print
             get { return HorizontalAlignment.Center; }
         }
 
-        [NotNull] 
-        public string Title
+        [NotNull] public string Title
         {
             get { return string.Format("{0}", mNode.Reference.Id.Name); }
         }

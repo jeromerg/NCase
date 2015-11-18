@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using NDsl.Back.Api.Builder;
 using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
@@ -18,7 +17,7 @@ namespace NDsl.Front.Imp
             mServices = services;
         }
 
-        [NotNull] 
+        [NotNull]
         public Api.CaseBuilder Create()
         {
             return new CaseBuilder(mTokenStreamFactory.Create(), mServices);

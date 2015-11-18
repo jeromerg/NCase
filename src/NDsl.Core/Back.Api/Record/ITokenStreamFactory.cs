@@ -4,7 +4,7 @@ namespace NDsl.Back.Api.Record
 {
     public interface ITokenStreamFactory
     {
-        [NotNull] 
+        [NotNull]
         ITokenStream Create();
     }
 }

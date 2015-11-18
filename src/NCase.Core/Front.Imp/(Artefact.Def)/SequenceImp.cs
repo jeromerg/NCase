@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Seq;
 using NCaseFramework.Front.Api.Seq;
 using NCaseFramework.Front.Ui;
@@ -22,7 +21,7 @@ namespace NCaseFramework.Front.Imp
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            [NotNull] 
+            [NotNull]
             public Sequence Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
                 return new SequenceImp(defName, tokenStream, mServices, mCodeLocationUtil);
@@ -37,8 +36,7 @@ namespace NCaseFramework.Front.Imp
         {
         }
 
-        [NotNull] 
-        public override ISequenceModel Model
+        [NotNull] public override ISequenceModel Model
         {
             get { return this; }
         }

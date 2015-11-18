@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Tree;
 using NCaseFramework.Front.Api.Tree;
 using NCaseFramework.Front.Ui;
@@ -22,7 +21,7 @@ namespace NCaseFramework.Front.Imp
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            [NotNull] 
+            [NotNull]
             public Tree Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
                 return new TreeImp(defName, tokenStream, mServices, mCodeLocationUtil);

@@ -9,7 +9,6 @@ namespace NCaseFramework.Front.Ui
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public interface Case : Artefact<ICaseModel>
     {
-        [NotNull, ItemNotNull] 
-        IEnumerable<Fact> Facts { get; }
+        [NotNull, ItemNotNull] IEnumerable<Fact> Facts { get; }
     }
 }

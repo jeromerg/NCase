@@ -7,7 +7,7 @@ namespace NCaseFramework.Front.Ui
 {
     public static class FactExtensions
     {
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         public static IEnumerable<Fact> Replay([NotNull, ItemNotNull] this IEnumerable<Fact> facts)
         {
             if (facts == null) throw new ArgumentNullException("facts");
@@ -27,7 +27,7 @@ namespace NCaseFramework.Front.Ui
             }
         }
 
-        [NotNull] 
+        [NotNull]
         public static Fact Replay([NotNull] this Fact fact, bool iReplay)
         {
             if (fact == null) throw new ArgumentNullException("fact");

@@ -8,6 +8,7 @@ namespace NCaseFramework.Back.Api.Print
         [StringFormatMethod("args")]
         void PrintFact([NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args);
 
-        [NotNull] string GetString();
+        [NotNull]
+        string GetString();
     }
 }

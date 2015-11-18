@@ -9,7 +9,9 @@ namespace NCaseFramework.Back.Api.Parse
     public interface IParseDirector : IActionDirector<IToken, IParseDirector>
     {
         void AddId([NotNull] IId id, [NotNull] INode referencedNode);
-        [NotNull] TNod GetNodeForId<TNod>([NotNull] IId id, [NotNull] CodeLocation location) where TNod : INode;
+
+        [NotNull]
+        TNod GetNodeForId<TNod>([NotNull] IId id, [NotNull] CodeLocation location) where TNod : INode;
 
         void PushScope([NotNull] INode rootNode);
         void PopScope();

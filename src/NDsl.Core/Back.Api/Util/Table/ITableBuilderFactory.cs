@@ -4,7 +4,7 @@ namespace NDsl.Back.Api.Util.Table
 {
     public interface ITableBuilderFactory
     {
-        [NotNull] 
+        [NotNull]
         ITableBuilder Create();
     }
 }

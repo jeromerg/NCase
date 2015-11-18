@@ -14,6 +14,7 @@ namespace NDsl.Back.Imp.RecPlay
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
         [NotNull] private readonly ITokenWriter mTokenWriter;
         [NotNull] private readonly string mContributorName;
+
         [NotNull] private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues =
             new Dictionary<PropertyCallKey, object>();
 
@@ -58,7 +59,7 @@ namespace NDsl.Back.Imp.RecPlay
             get { return mContributorName; }
         }
 
-        /// <exception cref="InvalidRecPlayStateException"/>
+        /// <exception cref="InvalidRecPlayStateException" />
         public void AddReplayPropertyValue([NotNull] PropertyCallKey callKey, [CanBeNull] object value)
         {
             if (callKey == null) throw new ArgumentNullException("callKey");
@@ -69,7 +70,7 @@ namespace NDsl.Back.Imp.RecPlay
             mReplayPropertyValues[callKey] = value;
         }
 
-        /// <exception cref="InvalidRecPlayStateException"/>
+        /// <exception cref="InvalidRecPlayStateException" />
         public void RemoveReplayPropertyValue([NotNull] PropertyCallKey callKey)
         {
             if (callKey == null) throw new ArgumentNullException("callKey");
@@ -105,7 +106,7 @@ namespace NDsl.Back.Imp.RecPlay
             invocation.ReturnValue = value;
         }
 
-        /// <exception cref="InvalidRecPlayStateException"/>
+        /// <exception cref="InvalidRecPlayStateException" />
         private InvalidRecPlayStateException BuildEx(IInvocation invocation, string format)
         {
             PropertyCallKey propertyCallKey = invocation.TryGetPropertyCallKeyFromGetter()
@@ -120,7 +121,7 @@ namespace NDsl.Back.Imp.RecPlay
             }
         }
 
-        /// <exception cref="InvalidRecPlayStateException"/>
+        /// <exception cref="InvalidRecPlayStateException" />
         private InvalidRecPlayStateException BuildEx(PropertyCallKey propertyCallKey, string format)
         {
             string msg = string.Format(format, PrintInvocation(propertyCallKey));

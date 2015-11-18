@@ -22,26 +22,23 @@ namespace NCaseFramework.Back.Imp.Tree
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             if (id == null) throw new ArgumentNullException("id");
-            
+
             mCodeLocation = codeLocation;
             mId = id;
             mFact = fact;
         }
 
-        [NotNull] 
-        IDefId IDefNode.Id
+        [NotNull] IDefId IDefNode.Id
         {
             get { return mId; }
         }
 
-        [NotNull] 
-        public TreeId Id
+        [NotNull] public TreeId Id
         {
             get { return mId; }
         }
 
-        [NotNull, ItemNotNull] 
-        public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<INode> Children
         {
             get
             {
@@ -51,20 +48,17 @@ namespace NCaseFramework.Back.Imp.Tree
             }
         }
 
-        [NotNull] 
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }
 
-        [CanBeNull] 
-        public INode Fact
+        [CanBeNull] public INode Fact
         {
             get { return mFact; }
         }
 
-        [NotNull, ItemNotNull] 
-        public IEnumerable<INode> Branches
+        [NotNull, ItemNotNull] public IEnumerable<INode> Branches
         {
             get { return mBranches; }
         }

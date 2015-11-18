@@ -31,8 +31,8 @@ namespace NCaseFramework.Back.Imp.Parse
             mDefinitions.Add(id, referencedNode);
         }
 
-        [NotNull] 
-        public TNod GetNodeForId<TNod>([NotNull] IId id, [NotNull] CodeLocation location) 
+        [NotNull]
+        public TNod GetNodeForId<TNod>([NotNull] IId id, [NotNull] CodeLocation location)
             where TNod : INode
         {
             if (id == null) throw new ArgumentNullException("id");

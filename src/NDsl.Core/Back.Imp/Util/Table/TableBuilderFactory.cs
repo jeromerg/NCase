@@ -5,7 +5,7 @@ namespace NDsl.Back.Imp.Util.Table
 {
     public class TableBuilderFactory : ITableBuilderFactory
     {
-        [NotNull] 
+        [NotNull]
         public ITableBuilder Create()
         {
             return new TableBuilder();

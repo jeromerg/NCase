@@ -1,4 +1,3 @@
-using System;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Front.Api.Pairwise;
@@ -26,7 +25,7 @@ namespace NCaseFramework.Front.Imp
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            [NotNull] 
+            [NotNull]
             public PairwiseCombinations Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
                 return new PairwiseCombinationsImp(defName, tokenStream, mServices, mCodeLocationUtil);
@@ -41,8 +40,7 @@ namespace NCaseFramework.Front.Imp
         {
         }
 
-        [NotNull] 
-        public override IPairwiseCombinationsModel Model
+        [NotNull] public override IPairwiseCombinationsModel Model
         {
             get { return this; }
         }

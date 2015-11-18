@@ -5,8 +5,7 @@ namespace NDsl.Back.Api.RecPlay
 {
     public interface IInterfaceRecPlayInterceptor
     {
-        [NotNull] 
-        string ContributorName { get; }
+        [NotNull] string ContributorName { get; }
 
         /// <exception cref="InvalidRecPlayStateException" accessor="set">
         ///     InterfaceRecPlayInterceptor is already in mode '{0}' and

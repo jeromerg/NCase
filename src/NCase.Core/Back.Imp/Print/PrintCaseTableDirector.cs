@@ -31,7 +31,10 @@ namespace NCaseFramework.Back.Imp.Print
             mTableBuilder.Print(sIndexClumn, mAmountOfCases.ToString());
         }
 
-        public void Print([NotNull] CodeLocation codeLocation, [NotNull] ITableColumn column, [NotNull] string format, [NotNull] params object[] args)
+        public void Print([NotNull] CodeLocation codeLocation,
+                          [NotNull] ITableColumn column,
+                          [NotNull] string format,
+                          [NotNull] params object[] args)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             if (column == null) throw new ArgumentNullException("column");
@@ -41,7 +44,7 @@ namespace NCaseFramework.Back.Imp.Print
             mTableBuilder.Print(column, format, args);
         }
 
-        [NotNull] 
+        [NotNull]
         public string GetString()
         {
             var sb = new StringBuilder();
