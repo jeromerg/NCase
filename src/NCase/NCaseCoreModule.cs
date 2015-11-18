@@ -30,8 +30,8 @@ namespace NCaseFramework.Front.Ui
             // CaseEnumerable, Case, Fact factories
             cb.RegisterType<CaseImp.Factory>().As<ICaseFactory>().SingleInstance();
             cb.RegisterType<FactImp.Factory>().As<IFactFactory>().SingleInstance();
-            cb.RegisterType<GetCasesImp>().As<IGetCases>().SingleInstance();
-            cb.RegisterType<ReplayFact>().As<IReplayFact>().SingleInstance();
+            cb.RegisterType<GetCasesSvc>().As<IGetCasesSvc>().SingleInstance();
+            cb.RegisterType<ReplayFactSvc>().As<IReplayFactSvc>().SingleInstance();
 
             // Parser
             cb.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();
@@ -42,27 +42,27 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterType<GenerateCasesVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // SetReplay Director and default visitor
-            cb.RegisterType<ReplayFact>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<ReplayFactSvc>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<ReplayDirector>().As<IReplayDirector>().SingleInstance();
             cb.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Print Definition
-            cb.RegisterType<PrintDefImp>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintDefSvc>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Print Case Table
-            cb.RegisterType<PrintCaseTableImp>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintCaseTableSvc>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintCaseTableDirector>().As<IPrintCaseTableDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintCaseTableVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Print Case
-            cb.RegisterType<PrintCaseImp>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<PrintCaseSvc>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<PrintCasePayload.Factory>().As<IPrintCasePayloadFactory>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintCaseDirector>().As<IPrintCaseDirector>().InstancePerDependency(); // stateful !!
 
             // GetCases
-            cb.RegisterType<GetCasesImp>().AsImplementedInterfaces().SingleInstance();
+            cb.RegisterType<GetCasesSvc>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

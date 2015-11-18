@@ -4,7 +4,6 @@ using NDsl.Back.Api.Builder;
 using NDsl.Back.Api.Record;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Back.Api.Util;
-using NDsl.Front.Api;
 
 namespace NDsl.Front.Imp
 {
@@ -20,6 +19,7 @@ namespace NDsl.Front.Imp
             mTokenStream = tokenStream;
         }
 
+        [NotNull] 
         public override ICaseBuilderModel Model
         {
             get { return this; }
@@ -27,6 +27,7 @@ namespace NDsl.Front.Imp
 
         #region ICaseBuilderModel
 
+        [NotNull] 
         public ITokenStream TokenStream
         {
             get { return mTokenStream; }

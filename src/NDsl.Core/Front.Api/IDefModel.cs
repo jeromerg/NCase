@@ -8,6 +8,6 @@ namespace NDsl.Front.Api
         where TId : IDefId
     {
         [NotNull] TId Id { get; }
-        ITokenStream TokenStream { get; }
+        [NotNull] ITokenStream TokenStream { get; }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Prod;
 using NCaseFramework.Back.Api.Util;
@@ -11,8 +13,13 @@ namespace NCaseFramework.Back.Imp.Prod
         : IGenerateCaseVisitor<IProdNode>,
           IGenerateCaseVisitor<ProdDimNode>
     {
-        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector dir, IProdNode node, GenerateOptions options)
+        [NotNull, ItemNotNull]
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] IProdNode node,
+                                              [NotNull] GenerateOptions options)
         {
+            if (options == null) throw new ArgumentNullException("options");
+
             List<INode> operands = node.Children.ToList();
 
             if (operands.Count == 0)
@@ -21,18 +28,23 @@ namespace NCaseFramework.Back.Imp.Prod
                 return ProduceCartesianProductRecursively(dir, operands, 0, options);
         }
 
-        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector dir, ProdDimNode node, GenerateOptions options)
+        [NotNull, ItemNotNull]
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] ProdDimNode node,
+                                              [NotNull] GenerateOptions options)
         {
+            if (options == null) throw new ArgumentNullException("options");
+
             foreach (INode child in node.Children)
-                // TODO: AddRange instead??
                 foreach (List<INode> nodes in dir.Visit(child, options))
                     yield return nodes;
         }
 
-        private IEnumerable<List<INode>> ProduceCartesianProductRecursively(IGenerateCasesDirector dir,
-                                                                            List<INode> operands,
+        [NotNull, ItemNotNull] 
+        private IEnumerable<List<INode>> ProduceCartesianProductRecursively([NotNull] IGenerateCasesDirector dir,
+                                                                            [NotNull, ItemNotNull] List<INode> operands, 
                                                                             int operandIndex,
-                                                                            GenerateOptions options)
+                                                                            [NotNull] GenerateOptions options)
         {
             bool isLastOperand = operandIndex == operands.Count - 1;
             INode currentOperand = operands[operandIndex];

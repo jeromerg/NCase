@@ -14,7 +14,7 @@ namespace NDsl.Back.Api.Common
             mCodeLocation = codeLocation;
         }
 
-        public CodeLocation CodeLocation
+        [NotNull] public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }

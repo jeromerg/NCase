@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using NDsl.Back.Api.Util;
 
 namespace NDsl.Back.Imp.Util
@@ -9,14 +11,16 @@ namespace NDsl.Back.Imp.Util
     public class StackFrameUtil : IStackFrameUtil
     {
         private const string IN_MEMORY_MODULE_NAME = "<In Memory Module>";
-        private readonly List<Assembly> mExcludedAssemblies = new List<Assembly>();
+        [NotNull] private readonly List<Assembly> mExcludedAssemblies = new List<Assembly>();
 
         /// <param name="assembliesToIgnore">
         ///     the assemblies to filter out as they don't belong to user code.
         ///     Their dependencies will be ignored either
         /// </param>
-        public StackFrameUtil(params Assembly[] assembliesToIgnore)
+        public StackFrameUtil([NotNull] params Assembly[] assembliesToIgnore)
         {
+            if (assembliesToIgnore == null) throw new ArgumentNullException("assembliesToIgnore");
+
             // In any case remove the assembly executing this code and its dependencies
             mExcludedAssemblies.AddRange(GetAssemblyAndReferenced(Assembly.GetExecutingAssembly()));
 

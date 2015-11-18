@@ -5,18 +5,19 @@ using NCaseFramework.Front.Api.Fact;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class ReplayFact : IReplayFact
+    public class ReplayFactSvc : IReplayFactSvc
     {
         [NotNull] private readonly IReplayDirector mReplayDirector;
 
-        public ReplayFact([NotNull] IReplayDirector replayDirector)
+        public ReplayFactSvc([NotNull] IReplayDirector replayDirector)
         {
-            if (replayDirector == null) throw new ArgumentNullException("replayDirector");
             mReplayDirector = replayDirector;
         }
 
-        public void Perform(IFactModel factModel, bool isReplay)
+        public void Perform([NotNull] IFactModel factModel, bool isReplay)
         {
+            if (factModel == null) throw new ArgumentNullException("factModel");
+
             if (isReplay)
                 factModel.Recorder.SetReadMode(true);
 

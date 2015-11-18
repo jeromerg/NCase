@@ -21,32 +21,37 @@ namespace NCaseFramework.Back.Imp.Prod
             [NotNull] AllCombinationsId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
+            if (id == null) throw new ArgumentNullException("id");
 
             mCodeLocation = codeLocation;
-
             mId = id;
         }
 
+        [NotNull] 
         IDefId IDefNode.Id
         {
             get { return mId; }
         }
 
+        [NotNull] 
         public AllCombinationsId Id
         {
             get { return mId; }
         }
 
+        [NotNull, ItemNotNull] 
         public IEnumerable<INode> Children
         {
             get { return mDimensions; }
         }
 
-        public void AddChild(INode child)
+        public void AddChild([NotNull] INode child)
         {
+            if (child == null) throw new ArgumentNullException("child");
             mDimensions.Add(child);
         }
 
+        [NotNull] 
         public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }

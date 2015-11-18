@@ -1,4 +1,5 @@
 using Castle.DynamicProxy;
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.RecPlay;
@@ -9,14 +10,14 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
     public class ParseVisitors
         : IParseVisitor<InvocationToken<IInterfaceRecPlayInterceptor>>
     {
-        private readonly IInterfaceReIInterfaceRecPlayNodeFactory mNodeFactory;
+        [NotNull] private readonly IInterfaceReIInterfaceRecPlayNodeFactory mNodeFactory;
 
-        public ParseVisitors(IInterfaceReIInterfaceRecPlayNodeFactory nodeFactory)
+        public ParseVisitors([NotNull] IInterfaceReIInterfaceRecPlayNodeFactory nodeFactory)
         {
             mNodeFactory = nodeFactory;
         }
 
-        public void Visit(IParseDirector dir, InvocationToken<IInterfaceRecPlayInterceptor> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] InvocationToken<IInterfaceRecPlayInterceptor> token)
         {
             CodeLocation codeLocation = token.InvocationRecord.CodeLocation;
             IInvocation invocation = token.InvocationRecord.Invocation;

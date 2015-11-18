@@ -17,15 +17,16 @@ namespace NDsl.Back.Imp.RecPlay
             [NotNull] ProxyGenerator proxyGenerator,
             [NotNull] ICodeLocationUtil codeLocationUtil)
         {
-            if (proxyGenerator == null) throw new ArgumentNullException("proxyGenerator");
-            if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
-
             mProxyGenerator = proxyGenerator;
             mCodeLocationUtil = codeLocationUtil;
         }
 
-        public T CreateContributor<T>(ITokenWriter tokenWriter, string contributorName)
+        [NotNull] 
+        public T CreateContributor<T>([NotNull] ITokenWriter tokenWriter, [NotNull] string contributorName)
         {
+            if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
+            if (contributorName == null) throw new ArgumentNullException("contributorName");
+
             var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationUtil);
 
             Type[] interfaces = typeof (T).GetInterfaces()

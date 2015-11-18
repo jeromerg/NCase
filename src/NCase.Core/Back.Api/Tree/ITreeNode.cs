@@ -11,7 +11,7 @@ namespace NCaseFramework.Back.Api.Tree
 
         [CanBeNull] INode Fact { get; }
 
-        IEnumerable<INode> Branches { get; }
-        void AddTreeBranch(INode branch);
+        [NotNull, ItemNotNull] IEnumerable<INode> Branches { get; }
+        void AddTreeBranch([NotNull] INode branch);
     }
 }

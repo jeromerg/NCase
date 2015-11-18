@@ -22,13 +22,12 @@ namespace NCaseFramework.Front.Imp
             public Factory([NotNull] IServiceSet<IPairwiseCombinationsModel> services,
                            [NotNull] ICodeLocationUtil codeLocationUtil)
             {
-                if (services == null) throw new ArgumentNullException("services");
-                if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
                 mServices = services;
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            public PairwiseCombinations Create(string defName, ITokenStream tokenStream)
+            [NotNull] 
+            public PairwiseCombinations Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
                 return new PairwiseCombinationsImp(defName, tokenStream, mServices, mCodeLocationUtil);
             }
@@ -42,6 +41,7 @@ namespace NCaseFramework.Front.Imp
         {
         }
 
+        [NotNull] 
         public override IPairwiseCombinationsModel Model
         {
             get { return this; }

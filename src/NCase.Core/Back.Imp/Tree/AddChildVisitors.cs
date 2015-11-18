@@ -1,4 +1,5 @@
 using System.Linq;
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Tree;
 using NDsl.Back.Api.Common;
@@ -12,7 +13,7 @@ namespace NCaseFramework.Back.Imp.Tree
         : IAddChildVisitor<ITreeNode, INode>,
           IAddChildVisitor<ITreeNode, IInterfaceRecPlayNode>
     {
-        public void Visit(IAddChildDirector dir, ITreeNode parent, IInterfaceRecPlayNode child)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] ITreeNode parent, [NotNull] IInterfaceRecPlayNode child)
         {
             CodeLocation codeLocation = child.CodeLocation;
             var nodeToAdd = new TreeNode(codeLocation, new TreeId(), child);
@@ -45,7 +46,7 @@ namespace NCaseFramework.Back.Imp.Tree
             dir.Visit(nextTreeNode, child);
         }
 
-        public void Visit(IAddChildDirector dir, ITreeNode parent, INode child)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] ITreeNode parent, [NotNull] INode child)
         {
             INode nextBranch = parent.Branches.LastOrDefault();
 

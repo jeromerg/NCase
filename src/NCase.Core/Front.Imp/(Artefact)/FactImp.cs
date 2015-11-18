@@ -24,7 +24,7 @@ namespace NCaseFramework.Front.Imp
                 mServices = services;
             }
 
-            public Fact Create(INode fact, IRecorder recorder)
+            public Fact Create([NotNull] INode fact, [NotNull] IRecorder recorder)
             {
                 return new FactImp(fact, recorder, mServices);
             }
@@ -39,6 +39,7 @@ namespace NCaseFramework.Front.Imp
             mRecorder = recorder;
         }
 
+        [NotNull] 
         public override IFactModel Model
         {
             get { return this; }
@@ -46,11 +47,13 @@ namespace NCaseFramework.Front.Imp
 
         #region IFactModel
 
+        [NotNull] 
         public INode FactNode
         {
             get { return mFactNode; }
         }
 
+        [NotNull] 
         public IRecorder Recorder
         {
             get { return mRecorder; }

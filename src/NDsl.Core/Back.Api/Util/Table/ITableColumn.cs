@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 namespace NDsl.Back.Api.Util.Table
 {
     /// <summary>
@@ -6,6 +8,6 @@ namespace NDsl.Back.Api.Util.Table
     public interface ITableColumn
     {
         HorizontalAlignment HorizontalAlignment { get; }
-        string Title { get; }
+        [NotNull] string Title { get; }
     }
 }

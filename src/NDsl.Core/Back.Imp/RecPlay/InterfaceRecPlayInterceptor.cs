@@ -12,10 +12,8 @@ namespace NDsl.Back.Imp.RecPlay
     public class InterfaceRecPlayInterceptor : IInterceptor, IInterfaceRecPlayInterceptor
     {
         [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
-
         [NotNull] private readonly ITokenWriter mTokenWriter;
         [NotNull] private readonly string mContributorName;
-
         [NotNull] private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues =
             new Dictionary<PropertyCallKey, object>();
 
@@ -33,8 +31,10 @@ namespace NDsl.Back.Imp.RecPlay
             mTokenWriter = tokenWriter;
         }
 
-        public void Intercept(IInvocation invocation)
+        public void Intercept([NotNull] IInvocation invocation)
         {
+            if (invocation == null) throw new ArgumentNullException("invocation");
+
             switch (mTokenWriter.Mode)
             {
                 case RecorderMode.None:
@@ -59,8 +59,10 @@ namespace NDsl.Back.Imp.RecPlay
         }
 
         /// <exception cref="InvalidRecPlayStateException"/>
-        public void AddReplayPropertyValue([NotNull] PropertyCallKey callKey, object value)
+        public void AddReplayPropertyValue([NotNull] PropertyCallKey callKey, [CanBeNull] object value)
         {
+            if (callKey == null) throw new ArgumentNullException("callKey");
+
             if (mReplayPropertyValues.ContainsKey(callKey))
                 throw BuildEx(callKey, "'{0}' cannot be recorded twice");
 
@@ -70,6 +72,8 @@ namespace NDsl.Back.Imp.RecPlay
         /// <exception cref="InvalidRecPlayStateException"/>
         public void RemoveReplayPropertyValue([NotNull] PropertyCallKey callKey)
         {
+            if (callKey == null) throw new ArgumentNullException("callKey");
+
             if (!mReplayPropertyValues.ContainsKey(callKey))
                 BuildEx(callKey, "No replay found for '{0}'");
 

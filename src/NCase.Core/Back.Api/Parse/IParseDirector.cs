@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NDsl.All.Common;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Util;
@@ -7,11 +8,11 @@ namespace NCaseFramework.Back.Api.Parse
 {
     public interface IParseDirector : IActionDirector<IToken, IParseDirector>
     {
-        void AddId(IId id, INode referencedNode);
-        TNod GetNodeForId<TNod>(IId id, CodeLocation location) where TNod : INode;
+        void AddId([NotNull] IId id, [NotNull] INode referencedNode);
+        [NotNull] TNod GetNodeForId<TNod>([NotNull] IId id, [NotNull] CodeLocation location) where TNod : INode;
 
-        void PushScope(INode rootNode);
+        void PushScope([NotNull] INode rootNode);
         void PopScope();
-        void AddChildToScope(INode childNode);
+        void AddChildToScope([NotNull] INode childNode);
     }
 }

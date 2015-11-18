@@ -1,4 +1,5 @@
-﻿using NCaseFramework.Back.Api.Print;
+﻿using JetBrains.Annotations;
+using NCaseFramework.Back.Api.Print;
 using NDsl.All.Def;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
@@ -11,13 +12,13 @@ namespace NCaseFramework.Back.Imp.Print
           IPrintDefinitionVisitor<IRefNode<IDefNode>>
     {
         /// <summary> If node unknown, then recurse...</summary>
-        public void Visit(IPrintDefinitionDirector dir, INode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] INode node)
         {
             foreach (INode child in node.Children)
                 dir.Visit(child);
         }
 
-        public void Visit(IPrintDefinitionDirector dir, IRefNode<IDefNode> node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IRefNode<IDefNode> node)
         {
             IDefId defId = node.Reference.Id;
 

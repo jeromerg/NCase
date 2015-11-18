@@ -1,12 +1,17 @@
+using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NCaseFramework.Front.Api.Fact;
 
 namespace NCaseFramework.Front.Ui
 {
     public static class FactExtensions
     {
-        public static IEnumerable<Fact> Replay(this IEnumerable<Fact> facts)
+        [NotNull, ItemNotNull] 
+        public static IEnumerable<Fact> Replay([NotNull, ItemNotNull] this IEnumerable<Fact> facts)
         {
+            if (facts == null) throw new ArgumentNullException("facts");
+
             foreach (Fact fact in facts)
             {
                 try
@@ -22,9 +27,12 @@ namespace NCaseFramework.Front.Ui
             }
         }
 
-        public static Fact Replay(this Fact fact, bool iReplay)
+        [NotNull] 
+        public static Fact Replay([NotNull] this Fact fact, bool iReplay)
         {
-            var replayFact = fact.Zapi.Services.GetService<IReplayFact>();
+            if (fact == null) throw new ArgumentNullException("fact");
+
+            var replayFact = fact.Zapi.Services.GetService<IReplayFactSvc>();
             replayFact.Perform(fact.Zapi.Model, iReplay);
             return fact;
         }

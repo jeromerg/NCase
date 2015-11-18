@@ -1,4 +1,5 @@
-﻿using NCaseFramework.Back.Api.Print;
+﻿using JetBrains.Annotations;
+using NCaseFramework.Back.Api.Print;
 using NCaseFramework.Back.Api.Tree;
 using NDsl.Back.Api.Common;
 
@@ -7,7 +8,7 @@ namespace NCaseFramework.Back.Imp.Tree
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<ITreeNode>
     {
-        public void Visit(IPrintDefinitionDirector dir, ITreeNode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ITreeNode node)
         {
             if (node.Fact == null)
                 dir.PrintLine(node.CodeLocation, "Tree {0}", node.Id.Name);

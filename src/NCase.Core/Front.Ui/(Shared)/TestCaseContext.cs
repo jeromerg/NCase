@@ -1,11 +1,13 @@
+using JetBrains.Annotations;
+
 namespace NCaseFramework.Front.Ui
 {
     public class TestCaseContext
     {
         private readonly int mTestCaseIndex;
-        private readonly Case mCase;
+        [NotNull] private readonly Case mCase;
 
-        public TestCaseContext(int testCaseIndex, Case cas)
+        public TestCaseContext(int testCaseIndex, [NotNull] Case cas)
         {
             mTestCaseIndex = testCaseIndex;
             mCase = cas;
@@ -16,11 +18,11 @@ namespace NCaseFramework.Front.Ui
             get { return mTestCaseIndex; }
         }
 
-        public Case Case
+        [NotNull] public Case Case
         {
             get { return mCase; }
         }
 
-        public ExceptionAssert ExceptionAssert { get; set; }
+        [CanBeNull] public ExceptionAssert ExceptionAssert { get; set; }
     }
 }

@@ -18,13 +18,12 @@ namespace NCaseFramework.Front.Imp
 
             public Factory([NotNull] IServiceSet<ISequenceModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
             {
-                if (services == null) throw new ArgumentNullException("services");
-                if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
                 mServices = services;
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            public Sequence Create(string defName, ITokenStream tokenStream)
+            [NotNull] 
+            public Sequence Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
                 return new SequenceImp(defName, tokenStream, mServices, mCodeLocationUtil);
             }
@@ -38,6 +37,7 @@ namespace NCaseFramework.Front.Imp
         {
         }
 
+        [NotNull] 
         public override ISequenceModel Model
         {
             get { return this; }

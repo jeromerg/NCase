@@ -9,13 +9,14 @@ namespace NDsl.Front.Imp
     {
         [NotNull] private readonly IServiceSet<TModel> mServices;
 
-        protected ArtefactImp(IServiceSet<TModel> services)
+        protected ArtefactImp([NotNull] IServiceSet<TModel> services)
         {
             mServices = services;
         }
 
         #region IArtefact Implementation
 
+        [NotNull] 
         public IApi<TModel> Zapi
         {
             get { return this; }
@@ -25,8 +26,10 @@ namespace NDsl.Front.Imp
 
         #region IApi<TModel> Implementation
 
+        [NotNull] 
         public abstract TModel Model { get; }
 
+        [NotNull] 
         public IServiceSet<TModel> Services
         {
             get { return mServices; }

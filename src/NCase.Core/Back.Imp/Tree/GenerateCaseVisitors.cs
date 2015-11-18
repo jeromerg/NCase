@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Tree;
 using NCaseFramework.Back.Api.Util;
@@ -10,8 +12,13 @@ namespace NCaseFramework.Back.Imp.Tree
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<ITreeNode>
     {
-        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector dir, ITreeNode node, GenerateOptions options)
+        [NotNull, ItemNotNull]
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] ITreeNode node,
+                                              [NotNull] GenerateOptions options)
         {
+            if (options == null) throw new ArgumentNullException("options");
+
             if (node.Fact != null)
             {
                 foreach (List<INode> factNodes in dir.Visit(node.Fact, options)) // fact comes first
@@ -25,8 +32,13 @@ namespace NCaseFramework.Back.Imp.Tree
             }
         }
 
-        private IEnumerable<List<INode>> VisitTreeNodeChildren(IGenerateCasesDirector dir, ITreeNode node, GenerateOptions options)
+        [NotNull, ItemNotNull]
+        private IEnumerable<List<INode>> VisitTreeNodeChildren([NotNull] IGenerateCasesDirector dir,
+                                                               [NotNull] ITreeNode node,
+                                                               [NotNull] GenerateOptions options)
         {
+            if (options == null) throw new ArgumentNullException("options");
+
             // it's a leaf, so it is also a case: 
             // then give hand to calling foreach in order to process the case
             if (!node.Branches.Any())

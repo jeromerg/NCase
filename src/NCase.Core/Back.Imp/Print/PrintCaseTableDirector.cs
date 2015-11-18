@@ -11,12 +11,12 @@ namespace NCaseFramework.Back.Imp.Print
 {
     public class PrintCaseTableDirector : ActionDirector<INode, IPrintCaseTableDirector>, IPrintCaseTableDirector
     {
-        private static readonly SimpleTableColumn sIndexClumn = new SimpleTableColumn("#", HorizontalAlignment.Right);
+        [NotNull] private static readonly SimpleTableColumn sIndexClumn = new SimpleTableColumn("#", HorizontalAlignment.Right);
 
-        private readonly ITableBuilder mTableBuilder;
+        [NotNull] private readonly ITableBuilder mTableBuilder;
         private int mAmountOfCases;
 
-        public PrintCaseTableDirector(IActionVisitMapper<INode, IPrintCaseTableDirector> visitMapper,
+        public PrintCaseTableDirector([NotNull] IActionVisitMapper<INode, IPrintCaseTableDirector> visitMapper,
                                       [NotNull] ITableBuilder tableBuilder)
             : base(visitMapper)
         {
@@ -31,11 +31,17 @@ namespace NCaseFramework.Back.Imp.Print
             mTableBuilder.Print(sIndexClumn, mAmountOfCases.ToString());
         }
 
-        public void Print(CodeLocation codeLocation, ITableColumn column, string format, params object[] args)
+        public void Print([NotNull] CodeLocation codeLocation, [NotNull] ITableColumn column, [NotNull] string format, [NotNull] params object[] args)
         {
+            if (codeLocation == null) throw new ArgumentNullException("codeLocation");
+            if (column == null) throw new ArgumentNullException("column");
+            if (format == null) throw new ArgumentNullException("format");
+            if (args == null) throw new ArgumentNullException("args");
+
             mTableBuilder.Print(column, format, args);
         }
 
+        [NotNull] 
         public string GetString()
         {
             var sb = new StringBuilder();

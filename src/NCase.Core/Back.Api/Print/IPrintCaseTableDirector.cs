@@ -11,8 +11,11 @@ namespace NCaseFramework.Back.Api.Print
         void NewRow();
 
         [StringFormatMethod("args")]
-        void Print(CodeLocation codeLocation, ITableColumn column, string format, params object[] args);
+        void Print([NotNull] CodeLocation codeLocation,
+                   [NotNull] ITableColumn column,
+                   [NotNull] string format,
+                   [NotNull] params object[] args);
 
-        string GetString();
+        [NotNull] string GetString();
     }
 }

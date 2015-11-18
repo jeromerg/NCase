@@ -18,13 +18,12 @@ namespace NCaseFramework.Front.Imp
 
             public Factory([NotNull] IServiceSet<ITreeModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
             {
-                if (services == null) throw new ArgumentNullException("services");
-                if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
                 mServices = services;
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            public Tree Create(string defName, ITokenStream tokenStream)
+            [NotNull] 
+            public Tree Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
                 return new TreeImp(defName, tokenStream, mServices, mCodeLocationUtil);
             }

@@ -6,8 +6,8 @@ namespace NCaseFramework.Back.Api.Print
     public interface IPrintCasePayload
     {
         [StringFormatMethod("args")]
-        void PrintFact(CodeLocation codeLocation, string format, params object[] args);
+        void PrintFact([NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args);
 
-        string GetString();
+        [NotNull] string GetString();
     }
 }

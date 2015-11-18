@@ -9,7 +9,7 @@ namespace NCaseFramework.Back.Imp.Print
     public class PrintCaseTableVisitors
         : IPrintCaseTableVisitor<IRefNode<IDefNode>>
     {
-        public void Visit(IPrintCaseTableDirector director, IRefNode<IDefNode> node)
+        public void Visit([NotNull] IPrintCaseTableDirector director, [NotNull] IRefNode<IDefNode> node)
         {
             director.Print(node.CodeLocation, new RefColumn(node), "X");
         }
@@ -21,7 +21,7 @@ namespace NCaseFramework.Back.Imp.Print
     {
         [NotNull] private readonly IRefNode<IDefNode> mNode;
 
-        public RefColumn(IRefNode<IDefNode> node)
+        public RefColumn([NotNull] IRefNode<IDefNode> node)
         {
             mNode = node;
         }
@@ -31,6 +31,7 @@ namespace NCaseFramework.Back.Imp.Print
             get { return HorizontalAlignment.Center; }
         }
 
+        [NotNull] 
         public string Title
         {
             get { return string.Format("{0}", mNode.Reference.Id.Name); }

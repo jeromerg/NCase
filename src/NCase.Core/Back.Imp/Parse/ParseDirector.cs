@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
@@ -11,23 +12,32 @@ namespace NCaseFramework.Back.Imp.Parse
 {
     public class ParseDirector : ActionDirector<IToken, IParseDirector>, IParseDirector
     {
-        private readonly IAddChildDirector mAddChildDirector;
-        private readonly Dictionary<IId, INode> mDefinitions = new Dictionary<IId, INode>();
+        [NotNull] private readonly IAddChildDirector mAddChildDirector;
+        [NotNull] private readonly Dictionary<IId, INode> mDefinitions = new Dictionary<IId, INode>();
         [CanBeNull] private INode mCurrentScope;
 
-        public ParseDirector(IActionVisitMapper<IToken, IParseDirector> visitMapper, IAddChildDirector addChildDirector)
+        public ParseDirector([NotNull] IActionVisitMapper<IToken, IParseDirector> visitMapper,
+                             [NotNull] IAddChildDirector addChildDirector)
             : base(visitMapper)
         {
             mAddChildDirector = addChildDirector;
         }
 
-        public void AddId(IId id, INode referencedNode)
+        public void AddId([NotNull] IId id, [NotNull] INode referencedNode)
         {
+            if (id == null) throw new ArgumentNullException("id");
+            if (referencedNode == null) throw new ArgumentNullException("referencedNode");
+
             mDefinitions.Add(id, referencedNode);
         }
 
-        public TNod GetNodeForId<TNod>(IId id, CodeLocation location) where TNod : INode
+        [NotNull] 
+        public TNod GetNodeForId<TNod>([NotNull] IId id, [NotNull] CodeLocation location) 
+            where TNod : INode
         {
+            if (id == null) throw new ArgumentNullException("id");
+            if (location == null) throw new ArgumentNullException("location");
+
             INode referencedNode;
             if (!mDefinitions.TryGetValue(id, out referencedNode))
             {
@@ -44,8 +54,10 @@ namespace NCaseFramework.Back.Imp.Parse
             return (TNod) referencedNode;
         }
 
-        public void PushScope(INode rootNode)
+        public void PushScope([NotNull] INode rootNode)
         {
+            if (rootNode == null) throw new ArgumentNullException("rootNode");
+
             mCurrentScope = rootNode;
         }
 
@@ -54,8 +66,10 @@ namespace NCaseFramework.Back.Imp.Parse
             mCurrentScope = null;
         }
 
-        public void AddChildToScope(INode childNode)
+        public void AddChildToScope([NotNull] INode childNode)
         {
+            if (childNode == null) throw new ArgumentNullException("childNode");
+
             if (mCurrentScope == null)
                 throw new InvalidSyntaxException(childNode.CodeLocation, "Trying to add child outside of any scope");
 

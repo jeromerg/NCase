@@ -22,13 +22,12 @@ namespace NCaseFramework.Front.Imp
             public Factory([NotNull] IServiceSet<IAllCombinationsModel> services,
                            [NotNull] ICodeLocationUtil codeLocationUtil)
             {
-                if (services == null) throw new ArgumentNullException("services");
-                if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
                 mServices = services;
                 mCodeLocationUtil = codeLocationUtil;
             }
 
-            public AllCombinations Create(string defName, ITokenStream tokenStream)
+            [NotNull] 
+            public AllCombinations Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
                 return new AllCombinationsImp(defName, tokenStream, mServices, mCodeLocationUtil);
             }
@@ -42,6 +41,7 @@ namespace NCaseFramework.Front.Imp
         {
         }
 
+        [NotNull] 
         public override IAllCombinationsModel Model
         {
             get { return this; }

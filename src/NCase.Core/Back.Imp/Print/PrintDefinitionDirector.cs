@@ -15,19 +15,23 @@ namespace NCaseFramework.Back.Imp.Print
 
         private interface IStragegy
         {
-            void AppendLine(CodeLocation codeLocation, string txt);
-            string GetString();
+            void AppendLine([NotNull] CodeLocation codeLocation, [NotNull] string txt);
+            [NotNull] string GetString();
         }
 
         private class StrategyWithoutFileInfo : IStragegy
         {
             private readonly StringBuilder mStringBuilder = new StringBuilder();
 
-            public void AppendLine(CodeLocation codeLocation, string txt)
+            public void AppendLine([NotNull] CodeLocation codeLocation, [NotNull] string txt)
             {
+                if (codeLocation == null) throw new ArgumentNullException("codeLocation");
+                if (txt == null) throw new ArgumentNullException("txt");
+
                 mStringBuilder.AppendLine(txt);
             }
 
+            [NotNull] 
             public string GetString()
             {
                 return mStringBuilder.ToString();
@@ -36,23 +40,24 @@ namespace NCaseFramework.Back.Imp.Print
 
         private class StrategyWithFileInfo : IStragegy
         {
-            private static readonly ITableColumn sDefinitionColumn = new SimpleTableColumn("Definition");
-            private static readonly ITableColumn sFileInfoColumn = new SimpleTableColumn("Location");
+            [NotNull] private static readonly ITableColumn sDefinitionColumn = new SimpleTableColumn("Definition");
+            [NotNull] private static readonly ITableColumn sFileInfoColumn = new SimpleTableColumn("Location");
 
-            private readonly ITableBuilder mStringBuilder;
+            [NotNull] private readonly ITableBuilder mStringBuilder;
 
-            public StrategyWithFileInfo(ITableBuilder stringBuilder)
+            public StrategyWithFileInfo([NotNull] ITableBuilder stringBuilder)
             {
                 mStringBuilder = stringBuilder;
             }
 
-            public void AppendLine(CodeLocation codeLocation, string txt)
+            public void AppendLine([NotNull] CodeLocation codeLocation, [NotNull] string txt)
             {
                 mStringBuilder.NewRow();
                 mStringBuilder.Print(sDefinitionColumn, txt);
                 mStringBuilder.Print(sFileInfoColumn, codeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
             }
 
+            [NotNull] 
             public string GetString()
             {
                 var sb = new StringBuilder();
@@ -68,7 +73,7 @@ namespace NCaseFramework.Back.Imp.Print
         [NotNull] private readonly ITableBuilder mStringBuilder;
 
         private int mIndentation;
-        private IStragegy mStragegy = new StrategyWithoutFileInfo();
+        [NotNull] private IStragegy mStragegy = new StrategyWithoutFileInfo();
 
         public PrintDefinitionDirector([NotNull] IActionVisitMapper<INode, IPrintDefinitionDirector> visitMapper,
                                        [NotNull] ITableBuilder stringBuilder)
@@ -101,18 +106,23 @@ namespace NCaseFramework.Back.Imp.Print
             mIndentation--;
         }
 
-        public void PrintLine(CodeLocation codeLocation, string format, params object[] args)
+        public void PrintLine([NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args)
         {
+            if (codeLocation == null) throw new ArgumentNullException("codeLocation");
+            if (format == null) throw new ArgumentNullException("format");
+            if (args == null) throw new ArgumentNullException("args");
+
             string indentedTxt = IndentTxt(format, args);
             mStragegy.AppendLine(codeLocation, indentedTxt);
         }
 
+        [NotNull] 
         public string GetString()
         {
             return mStragegy.GetString();
         }
 
-        private string IndentTxt(string format, object[] args)
+        private string IndentTxt([NotNull] string format, [NotNull] object[] args)
         {
             var sb = new StringBuilder();
             for (int i = 0; i < mIndentation; i++)

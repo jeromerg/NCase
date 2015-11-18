@@ -1,4 +1,5 @@
 using System.Linq;
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Prod;
 using NDsl.Back.Api.Common;
@@ -10,7 +11,7 @@ namespace NCaseFramework.Back.Imp.Prod
         : IAddChildVisitor<IProdNode, INode>,
           IAddChildVisitor<IProdNode, IInterfaceRecPlayNode>
     {
-        public void Visit(IAddChildDirector dir, IProdNode parent, IInterfaceRecPlayNode child)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] IProdNode parent, [NotNull] IInterfaceRecPlayNode child)
         {
             INode lastSet = parent.Children.LastOrDefault();
 
@@ -37,7 +38,7 @@ namespace NCaseFramework.Back.Imp.Prod
             lastProdDimNode.PlaceNextValue(child);
         }
 
-        public void Visit(IAddChildDirector dir, IProdNode parent, INode child)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] IProdNode parent, [NotNull] INode child)
         {
             parent.AddChild(child);
         }

@@ -10,10 +10,14 @@ namespace NCaseFramework.Front.Ui
         where TSuccessException : Exception
         where TFailException : Exception
     {
-        public static void ActAndAssert(IEnumerable<Case> caseEnumerable,
-                                        Action<TestCaseContext> actAndAssertAction,
-                                        Func<string, TFailException> assertionExceptionFactory)
+        public static void ActAndAssert([NotNull] IEnumerable<Case> caseEnumerable,
+                                        [NotNull] Action<TestCaseContext> actAndAssertAction,
+                                        [NotNull] Func<string, TFailException> assertionExceptionFactory)
         {
+            if (caseEnumerable == null) throw new ArgumentNullException("caseEnumerable");
+            if (actAndAssertAction == null) throw new ArgumentNullException("actAndAssertAction");
+            if (assertionExceptionFactory == null) throw new ArgumentNullException("assertionExceptionFactory");
+
             var results = new List<Exception>();
 
             int caseIndex = 0;

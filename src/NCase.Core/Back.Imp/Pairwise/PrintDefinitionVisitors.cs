@@ -1,4 +1,5 @@
-﻿using NCaseFramework.Back.Api.Pairwise;
+﻿using JetBrains.Annotations;
+using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Back.Api.Print;
 using NDsl.Back.Api.Common;
 
@@ -8,7 +9,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
         : IPrintDefinitionVisitor<IPairwiseNode>,
           IPrintDefinitionVisitor<IPairwiseDimNode>
     {
-        public void Visit(IPrintDefinitionDirector dir, IPairwiseDimNode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IPairwiseDimNode node)
         {
             dir.PrintLine(node.CodeLocation, "Implicit Dimension");
 
@@ -20,7 +21,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
             dir.Dedent();
         }
 
-        public void Visit(IPrintDefinitionDirector dir, IPairwiseNode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IPairwiseNode node)
         {
             dir.PrintLine(node.CodeLocation, "PairwiseCombinations '{0}'", node.Id.Name);
 

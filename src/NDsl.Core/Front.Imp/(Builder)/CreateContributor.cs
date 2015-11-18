@@ -12,12 +12,15 @@ namespace NDsl.Front.Imp
 
         public CreateContributor([NotNull] IInterfaceRecPlayContributorFactory interfaceRecPlayContributorFactory)
         {
-            if (interfaceRecPlayContributorFactory == null) throw new ArgumentNullException("interfaceRecPlayContributorFactory");
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
         }
 
-        public T Create<T>(ICaseBuilderModel caseBuilderModel, string name)
+        [NotNull] 
+        public T Create<T>([NotNull] ICaseBuilderModel caseBuilderModel, [NotNull] string name)
         {
+            if (caseBuilderModel == null) throw new ArgumentNullException("caseBuilderModel");
+            if (name == null) throw new ArgumentNullException("name");
+
             return mInterfaceRecPlayContributorFactory.CreateContributor<T>(caseBuilderModel.TokenStream, name);
         }
     }

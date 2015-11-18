@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Tree;
 using NDsl.Back.Api.Def;
@@ -11,7 +12,7 @@ namespace NCaseFramework.Back.Imp.Tree
           IParseVisitor<EndToken<TreeId>>,
           IParseVisitor<RefToken<TreeId>>
     {
-        public void Visit(IParseDirector dir, BeginToken<TreeId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] BeginToken<TreeId> token)
         {
             var newCaseSetNode = new TreeNode(token.CodeLocation, token.Owner, null);
 
@@ -19,12 +20,12 @@ namespace NCaseFramework.Back.Imp.Tree
             dir.PushScope(newCaseSetNode);
         }
 
-        public void Visit(IParseDirector dir, EndToken<TreeId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] EndToken<TreeId> token)
         {
             dir.PopScope();
         }
 
-        public void Visit(IParseDirector dir, RefToken<TreeId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] RefToken<TreeId> token)
         {
             CodeLocation codeLocation = token.CodeLocation;
 

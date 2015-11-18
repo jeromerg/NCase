@@ -25,13 +25,11 @@ namespace NCaseFramework.Front.Imp
 
             public Factory([NotNull] IServiceSet<ICaseModel> services, [NotNull] IFactFactory factFactory)
             {
-                if (services == null) throw new ArgumentNullException("services");
-                if (factFactory == null) throw new ArgumentNullException("factFactory");
                 mServices = services;
                 mFactFactory = factFactory;
             }
 
-            public Case Create(List<INode> factNodes, IRecorder recorder)
+            public Case Create([NotNull] List<INode> factNodes, [NotNull] IRecorder recorder)
             {
                 return new CaseImp(factNodes, recorder, mFactFactory, mServices);
             }
@@ -51,11 +49,13 @@ namespace NCaseFramework.Front.Imp
             mRecorder = recorder;
         }
 
+        [NotNull] 
         public override ICaseModel Model
         {
             get { return this; }
         }
 
+        [NotNull, ItemNotNull] 
         public IEnumerable<Fact> Facts
         {
             get { return mFactNodes.Select(factNode => mFactFactory.Create(factNode, mRecorder)); }

@@ -19,16 +19,16 @@ namespace NCaseFramework.Back.Imp.Parse
                                [NotNull] IGenerateCasesDirector caseGenerator,
                                [NotNull] IParseDirector parseDirector)
         {
-            if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
-            if (caseGenerator == null) throw new ArgumentNullException("caseGenerator");
-            if (parseDirector == null) throw new ArgumentNullException("parseDirector");
             mCodeLocationUtil = codeLocationUtil;
             mCaseGenerator = caseGenerator;
             mParseDirector = parseDirector;
         }
 
-        public INode Parse(IDefId def, ITokenReader tokenReader)
+        public INode Parse([NotNull] IDefId def, [NotNull] ITokenReader tokenReader)
         {
+            if (def == null) throw new ArgumentNullException("def");
+            if (tokenReader == null) throw new ArgumentNullException("tokenReader");
+
             // PARSE
             foreach (IToken token in tokenReader.Tokens)
                 mParseDirector.Visit(token);
@@ -37,8 +37,12 @@ namespace NCaseFramework.Back.Imp.Parse
             return mParseDirector.GetNodeForId<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
         }
 
-        public IEnumerable<List<INode>> Generate(INode caseSetNode, GenerateOptions options)
+        [NotNull, ItemNotNull]
+        public IEnumerable<List<INode>> Generate([NotNull] INode caseSetNode, [NotNull] GenerateOptions options)
         {
+            if (caseSetNode == null) throw new ArgumentNullException("caseSetNode");
+            if (options == null) throw new ArgumentNullException("options");
+
             IEnumerable<List<INode>> factForEachTestCase = mCaseGenerator.Visit(caseSetNode, options);
             foreach (List<INode> testCaseNodes in factForEachTestCase)
                 yield return testCaseNodes;

@@ -15,8 +15,8 @@ namespace NCaseFramework.Back.Api.Print
         void Dedent();
 
         [StringFormatMethod("args")]
-        void PrintLine(CodeLocation codeLocation, string format, params object[] args);
+        void PrintLine([NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args);
 
-        string GetString();
+        [NotNull] string GetString();
     }
 }

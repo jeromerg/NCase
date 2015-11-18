@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Seq;
 using NDsl.Back.Api.Def;
@@ -11,19 +12,19 @@ namespace NCaseFramework.Back.Imp.Seq
           IParseVisitor<EndToken<SequenceId>>,
           IParseVisitor<RefToken<SequenceId>>
     {
-        public void Visit(IParseDirector dir, BeginToken<SequenceId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] BeginToken<SequenceId> token)
         {
             var newCaseSetNode = new SeqNode(token.CodeLocation, token.Owner);
             dir.AddId(token.Owner, newCaseSetNode);
             dir.PushScope(newCaseSetNode);
         }
 
-        public void Visit(IParseDirector dir, EndToken<SequenceId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] EndToken<SequenceId> token)
         {
             dir.PopScope();
         }
 
-        public void Visit(IParseDirector dir, RefToken<SequenceId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] RefToken<SequenceId> token)
         {
             CodeLocation codeLocation = token.CodeLocation;
 

@@ -22,8 +22,9 @@ namespace NDsl.Back.Api.Def
             mName = name;
         }
 
-        public abstract string TypeName { get; }
+        [NotNull] public abstract string TypeName { get; }
 
+        [NotNull] 
         public virtual string Name
         {
             get { return mName; }

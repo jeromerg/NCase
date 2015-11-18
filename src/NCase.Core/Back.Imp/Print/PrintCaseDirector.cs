@@ -7,15 +7,16 @@ namespace NCaseFramework.Back.Imp.Print
 {
     public class PrintCaseDirector : ActionPayloadDirector<INode, IPrintCaseDirector, IPrintCasePayload>, IPrintCaseDirector
     {
-        private readonly IPrintCasePayloadFactory mPrintCasePayloadFactory;
+        [NotNull] private readonly IPrintCasePayloadFactory mPrintCasePayloadFactory;
 
-        public PrintCaseDirector(IActionPayloadVisitMapper<INode, IPrintCaseDirector, IPrintCasePayload> visitMapper,
+        public PrintCaseDirector([NotNull] IActionPayloadVisitMapper<INode, IPrintCaseDirector, IPrintCasePayload> visitMapper,
                                  [NotNull] IPrintCasePayloadFactory printCasePayloadFactory)
             : base(visitMapper)
         {
             mPrintCasePayloadFactory = printCasePayloadFactory;
         }
 
+        [NotNull]
         public IPrintCasePayload NewPayload()
         {
             return mPrintCasePayloadFactory.Create();

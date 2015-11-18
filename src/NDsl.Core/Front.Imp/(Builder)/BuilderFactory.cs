@@ -9,17 +9,16 @@ namespace NDsl.Front.Imp
 {
     public class BuilderFactory : IBuilderFactory
     {
-        private readonly ITokenStreamFactory mTokenStreamFactory;
-        private readonly IServiceSet<ICaseBuilderModel> mServices;
+        [NotNull] private readonly ITokenStreamFactory mTokenStreamFactory;
+        [NotNull] private readonly IServiceSet<ICaseBuilderModel> mServices;
 
         public BuilderFactory([NotNull] ITokenStreamFactory tokenStreamFactory, [NotNull] IServiceSet<ICaseBuilderModel> services)
         {
-            if (tokenStreamFactory == null) throw new ArgumentNullException("tokenStreamFactory");
-            if (services == null) throw new ArgumentNullException("services");
             mTokenStreamFactory = tokenStreamFactory;
             mServices = services;
         }
 
+        [NotNull] 
         public Api.CaseBuilder Create()
         {
             return new CaseBuilder(mTokenStreamFactory.Create(), mServices);

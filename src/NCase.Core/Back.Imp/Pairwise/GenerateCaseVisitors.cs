@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
@@ -11,23 +13,33 @@ namespace NCaseFramework.Back.Imp.Pairwise
         : IGenerateCaseVisitor<IPairwiseNode>,
           IGenerateCaseVisitor<IPairwiseDimNode>
     {
-        private readonly IPairwiseGenerator mPairwiseGenerator;
+        [NotNull] private readonly IPairwiseGenerator mPairwiseGenerator;
 
-        public GenerateCaseVisitors(IPairwiseGenerator pairwiseGenerator)
+        public GenerateCaseVisitors([NotNull] IPairwiseGenerator pairwiseGenerator)
         {
             mPairwiseGenerator = pairwiseGenerator;
         }
 
-        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector dir, IPairwiseDimNode node, GenerateOptions options)
+        [NotNull, ItemNotNull]
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] IPairwiseDimNode node,
+                                              [NotNull] GenerateOptions options)
         {
+            if (options == null) throw new ArgumentNullException("options");
+
             foreach (INode child in node.Children)
                 // TODO: AddRange instead??
                 foreach (List<INode> nodes in dir.Visit(child, options))
                     yield return nodes;
         }
 
-        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector dir, IPairwiseNode node, GenerateOptions options)
+        [NotNull, ItemNotNull]
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] IPairwiseNode node,
+                                              [NotNull] GenerateOptions options)
         {
+            if (options == null) throw new ArgumentNullException("options");
+
             // COLLECT ALL SUBCASES
             var dimsValuesNodes = new List<List<List<INode>>>();
             foreach (INode child in node.Children)

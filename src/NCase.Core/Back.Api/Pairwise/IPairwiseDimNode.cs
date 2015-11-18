@@ -1,10 +1,11 @@
+using JetBrains.Annotations;
 using NDsl.Back.Api.Common;
 
 namespace NCaseFramework.Back.Api.Pairwise
 {
     public interface IPairwiseDimNode : INode
     {
-        INode FirstChild { get; }
-        void PlaceNextValue(INode child);
+        [NotNull] INode FirstChild { get; }
+        void PlaceNextValue([NotNull] INode child);
     }
 }

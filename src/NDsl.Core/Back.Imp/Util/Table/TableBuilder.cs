@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using NDsl.Back.Api.Util.Table;
 
 namespace NDsl.Back.Imp.Util.Table
@@ -12,7 +13,7 @@ namespace NDsl.Back.Imp.Util.Table
         private const string COLUMN_SEPARATOR = "|";
         private const char HEADER_CONTENT_SEPARATOR = '-';
 
-        private readonly List<Dictionary<ITableColumn, List<string>>> mCellContentByRowAndColumn =
+        [NotNull] private readonly List<Dictionary<ITableColumn, List<string>>> mCellContentByRowAndColumn =
             new List<Dictionary<ITableColumn, List<string>>>();
 
         public void NewRow()
@@ -20,8 +21,12 @@ namespace NDsl.Back.Imp.Util.Table
             mCellContentByRowAndColumn.Add(new Dictionary<ITableColumn, List<string>>());
         }
 
-        public void Print(ITableColumn tableColumn, string format, params object[] args)
+        public void Print([NotNull] ITableColumn tableColumn, [NotNull] string format, [NotNull] params object[] args)
         {
+            if (tableColumn == null) throw new ArgumentNullException("tableColumn");
+            if (format == null) throw new ArgumentNullException("format");
+            if (args == null) throw new ArgumentNullException("args");
+
             string cellContent = string.Format(format, args);
 
             Dictionary<ITableColumn, List<string>> rowContent = mCellContentByRowAndColumn.Last();
@@ -36,8 +41,10 @@ namespace NDsl.Back.Imp.Util.Table
             strings.Add(cellContent);
         }
 
-        public void GenerateTable(StringBuilder sb)
+        public void GenerateTable([NotNull] StringBuilder sb)
         {
+            if (sb == null) throw new ArgumentNullException("sb");
+
             //--------------------
             // Calculate Column Width 
             //--------------------

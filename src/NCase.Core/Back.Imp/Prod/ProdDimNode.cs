@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using NDsl.Back.Api.Common;
@@ -11,8 +12,10 @@ namespace NCaseFramework.Back.Imp.Prod
         [NotNull] private readonly INode mFirstChild;
         [NotNull] private readonly List<INode> mChildren = new List<INode>();
 
-        public ProdDimNode(INode firstChild)
+        public ProdDimNode([NotNull] INode firstChild)
         {
+            if (firstChild == null) throw new ArgumentNullException("firstChild");
+
             mFirstChild = firstChild;
         }
 
@@ -21,11 +24,13 @@ namespace NCaseFramework.Back.Imp.Prod
             get { return mFirstChild; }
         }
 
+        [NotNull] 
         public CodeLocation CodeLocation
         {
             get { return mFirstChild.CodeLocation; }
         }
 
+        [NotNull, ItemNotNull] 
         public IEnumerable<INode> Children
         {
             get
@@ -36,7 +41,7 @@ namespace NCaseFramework.Back.Imp.Prod
             }
         }
 
-        public void PlaceNextValue(INode child)
+        public void PlaceNextValue([NotNull] INode child)
         {
             mChildren.Add(child);
         }

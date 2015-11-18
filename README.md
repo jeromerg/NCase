@@ -181,8 +181,8 @@ Result:
 
 <!--# Visualize_Def_Console -->
 ```
-Definition                         | Location                                          
- ---------------------------------- | ------------------------------------------------- 
+Definition                         | Location                              
+ ---------------------------------- | ------------------------------------- 
  Tree userSet                       | c:\dev\NCase\Readme.cs: line 212 
      user.UserName=Richard          | c:\dev\NCase\Readme.cs: line 214 
          user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 215 
@@ -230,8 +230,8 @@ Result:
 
 <!--# Visualize_Case_Console -->
 ```
-Fact                       | Location                                          
- -------------------------- | ------------------------------------------------- 
+Fact                       | Location                              
+ -------------------------- | ------------------------------------- 
  user.UserName=Richard      | c:\dev\NCase\Readme.cs: line 214 
  user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 215 
  user.Age=24                | c:\dev\NCase\Readme.cs: line 216
@@ -283,8 +283,8 @@ Test Case #0
 Definition
 ----------
 
- Fact                           | Location                                          
- ------------------------------ | ------------------------------------------------- 
+ Fact                           | Location                              
+ ------------------------------ | ------------------------------------- 
  hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 187 
  hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 191 
  hw.RamInGb=1                   | c:\dev\NCase\Readme.cs: line 195 
@@ -309,8 +309,8 @@ Test Case #1
 Definition
 ----------
 
- Fact                           | Location                                          
- ------------------------------ | ------------------------------------------------- 
+ Fact                           | Location                              
+ ------------------------------ | ------------------------------------- 
  hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 187 
  hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 191 
 (...)

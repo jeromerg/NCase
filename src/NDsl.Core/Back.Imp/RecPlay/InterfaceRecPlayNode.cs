@@ -11,7 +11,6 @@ namespace NDsl.Back.Imp.RecPlay
     public class InterfaceRecPlayNode : IInterfaceRecPlayNode
     {
         [NotNull] private readonly IInterfaceRecPlayInterceptor mParentInterceptor;
-
         [NotNull] private readonly string mContributorName;
         [NotNull] private readonly PropertyCallKey mPropertyCallKey;
         [CanBeNull] private readonly object mPropertyValue;
@@ -19,11 +18,11 @@ namespace NDsl.Back.Imp.RecPlay
 
         public class Factory : IInterfaceReIInterfaceRecPlayNodeFactory
         {
-            public IInterfaceRecPlayNode Create(IInterfaceRecPlayInterceptor parentInterceptor,
-                                                string contributorName,
-                                                PropertyCallKey propertyCallKey,
-                                                object propertyValue,
-                                                CodeLocation codeLocation)
+            public IInterfaceRecPlayNode Create([NotNull] IInterfaceRecPlayInterceptor parentInterceptor,
+                                                [NotNull] string contributorName,
+                                                [NotNull] PropertyCallKey propertyCallKey,
+                                                [CanBeNull] object propertyValue,
+                                                [NotNull] CodeLocation codeLocation)
             {
                 return new InterfaceRecPlayNode(parentInterceptor, contributorName, propertyCallKey, propertyValue, codeLocation);
             }
@@ -47,26 +46,31 @@ namespace NDsl.Back.Imp.RecPlay
             mPropertyCallKey = propertyCallKey;
         }
 
+        [NotNull] 
         public string ContributorName
         {
             get { return mContributorName; }
         }
 
+        [NotNull] 
         public PropertyCallKey PropertyCallKey
         {
             get { return mPropertyCallKey; }
         }
 
+        [CanBeNull]
         public object PropertyValue
         {
             get { return mPropertyValue; }
         }
 
+        [NotNull] 
         public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }
 
+        [NotNull, ItemNotNull] 
         public IEnumerable<INode> Children
         {
             get { yield break; }

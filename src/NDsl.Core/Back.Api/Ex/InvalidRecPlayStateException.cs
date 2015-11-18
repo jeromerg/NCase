@@ -1,15 +1,16 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace NDsl.Back.Api.Ex
 {
     public class InvalidRecPlayStateException : Exception
     {
-        public InvalidRecPlayStateException(string format, params object[] args)
+        public InvalidRecPlayStateException([NotNull] string format, [NotNull] params object[] args)
             : base(string.Format(format, args))
         {
         }
 
-        public InvalidRecPlayStateException(Exception innerException, string format, params object[] args)
+        public InvalidRecPlayStateException([NotNull] Exception innerException, [NotNull] string format, [NotNull] params object[] args)
             : base(string.Format(format, args), innerException)
         {
         }

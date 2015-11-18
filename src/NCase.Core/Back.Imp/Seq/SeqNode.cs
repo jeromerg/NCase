@@ -13,36 +13,42 @@ namespace NCaseFramework.Back.Imp.Seq
     {
         [NotNull] private readonly SequenceId mId;
         [NotNull] private readonly List<INode> mChildren = new List<INode>();
-        private readonly CodeLocation mCodeLocation;
+        [NotNull] private readonly CodeLocation mCodeLocation;
 
         public SeqNode([NotNull] CodeLocation codeLocation, [NotNull] SequenceId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
+            if (id == null) throw new ArgumentNullException("id");
+
             mCodeLocation = codeLocation;
             mId = id;
         }
 
+        [NotNull] 
         IDefId IDefNode.Id
         {
             get { return mId; }
         }
 
+        [NotNull] 
         public SequenceId Id
         {
             get { return mId; }
         }
 
+        [NotNull] 
         public IEnumerable<INode> Children
         {
             get { return mChildren; }
         }
 
+        [NotNull] 
         public CodeLocation CodeLocation
         {
             get { return mCodeLocation; }
         }
 
-        public void AddChild(INode child)
+        public void AddChild([NotNull] INode child)
         {
             mChildren.Add(child);
         }

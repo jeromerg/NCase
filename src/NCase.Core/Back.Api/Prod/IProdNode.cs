@@ -10,6 +10,6 @@ namespace NCaseFramework.Back.Api.Prod
     public interface IProdNode : ISetDefNode
     {
         [NotNull] new AllCombinationsId Id { get; }
-        void AddChild(INode child);
+        void AddChild([NotNull] INode child);
     }
 }

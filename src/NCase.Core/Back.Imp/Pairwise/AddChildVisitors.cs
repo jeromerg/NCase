@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
@@ -10,7 +12,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
         : IAddChildVisitor<IPairwiseNode, INode>,
           IAddChildVisitor<IPairwiseNode, IInterfaceRecPlayNode>
     {
-        public void Visit(IAddChildDirector dir, IPairwiseNode parent, IInterfaceRecPlayNode child)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] IPairwiseNode parent, [NotNull] IInterfaceRecPlayNode child)
         {
             INode lastSet = parent.Children.LastOrDefault();
 
@@ -37,7 +39,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
             lastPairwiseDimNode.PlaceNextValue(child);
         }
 
-        public void Visit(IAddChildDirector dir, IPairwiseNode parent, INode child)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] IPairwiseNode parent, [NotNull] INode child)
         {
             parent.AddChild(child);
         }

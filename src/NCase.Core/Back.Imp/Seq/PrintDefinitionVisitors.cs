@@ -1,4 +1,5 @@
-﻿using NCaseFramework.Back.Api.Print;
+﻿using JetBrains.Annotations;
+using NCaseFramework.Back.Api.Print;
 using NCaseFramework.Back.Api.Seq;
 using NDsl.Back.Api.Common;
 
@@ -7,7 +8,7 @@ namespace NCaseFramework.Back.Imp.Seq
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<ISeqNode>
     {
-        public void Visit(IPrintDefinitionDirector dir, ISeqNode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ISeqNode node)
         {
             dir.PrintLine(node.CodeLocation, "Seq '{0}'", node.Id.Name);
 

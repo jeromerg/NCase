@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Pairwise;
 using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Def;
@@ -10,19 +11,19 @@ namespace NCaseFramework.Back.Imp.Pairwise
           IParseVisitor<EndToken<PairwiseCombinationsId>>,
           IParseVisitor<RefToken<PairwiseCombinationsId>>
     {
-        public void Visit(IParseDirector dir, BeginToken<PairwiseCombinationsId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] BeginToken<PairwiseCombinationsId> token)
         {
             var defNode = new PairwiseNode(token.CodeLocation, token.Owner);
             dir.AddId(token.Owner, defNode);
             dir.PushScope(defNode);
         }
 
-        public void Visit(IParseDirector dir, EndToken<PairwiseCombinationsId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] EndToken<PairwiseCombinationsId> token)
         {
             dir.PopScope();
         }
 
-        public void Visit(IParseDirector dir, RefToken<PairwiseCombinationsId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] RefToken<PairwiseCombinationsId> token)
         {
             var referredSetNode = dir.GetNodeForId<IPairwiseNode>(token.Owner, token.CodeLocation);
 

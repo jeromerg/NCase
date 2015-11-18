@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NCaseFramework.Back.Api.SetDef;
 
 namespace NCaseFramework.Back.Api.Tree
@@ -8,11 +9,12 @@ namespace NCaseFramework.Back.Api.Tree
         {
         }
 
-        public TreeId(string name)
+        public TreeId([NotNull] string name)
             : base(name)
         {
         }
 
+        [NotNull] 
         public override string TypeName
         {
             get { return "Tree"; }

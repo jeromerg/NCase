@@ -9,12 +9,12 @@ namespace NDsl.Back.Imp.Util
     {
         [NotNull] private readonly IStackFrameUtil mStackFrameUtil;
 
-        public CodeLocationUtil(IStackFrameUtil stackFrameUtil)
+        public CodeLocationUtil([NotNull] IStackFrameUtil stackFrameUtil)
         {
-            if (stackFrameUtil == null) throw new ArgumentNullException("stackFrameUtil");
             mStackFrameUtil = stackFrameUtil;
         }
 
+        [NotNull] 
         public CodeLocation GetCurrentUserCodeLocation()
         {
             StackFrame stackFrame = mStackFrameUtil.GetUserStackFrame();

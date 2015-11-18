@@ -15,9 +15,9 @@ namespace NDsl.Front.Imp
         where TId : IDefId
         where TModel : IDefModel<TId>
     {
-        private readonly TId mId;
+        [NotNull] private readonly TId mId;
         [NotNull] private readonly ITokenStream mTokenStream;
-        private readonly ICodeLocationUtil mCodeLocationUtil;
+        [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
 
         protected DefBaseImp([NotNull] TId id,
                              [NotNull] IServiceSet<TModel> services,
@@ -28,6 +28,7 @@ namespace NDsl.Front.Imp
             if (id == null) throw new ArgumentNullException("id");
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");
             if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
+            
             mId = id;
             mTokenStream = tokenStream;
             mCodeLocationUtil = codeLocationUtil;
@@ -37,6 +38,7 @@ namespace NDsl.Front.Imp
 
         #region IDefModel
 
+        [NotNull] 
         public TId Id
         {
             get { return mId; }
@@ -51,6 +53,7 @@ namespace NDsl.Front.Imp
 
         #region IDef Implementation
 
+        [NotNull] 
         public IDisposable Define()
         {
             return new DisposableWithCallbacks(Begin, End);
@@ -85,6 +88,7 @@ namespace NDsl.Front.Imp
             TokenStream.SetWriteMode(false);
         }
 
+        [NotNull] 
         private CodeLocation Loc()
         {
             return mCodeLocationUtil.GetCurrentUserCodeLocation();

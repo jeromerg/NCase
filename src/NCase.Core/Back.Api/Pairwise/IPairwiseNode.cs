@@ -10,6 +10,6 @@ namespace NCaseFramework.Back.Api.Pairwise
     public interface IPairwiseNode : ISetDefNode
     {
         [NotNull] new PairwiseCombinationsId Id { get; }
-        void AddChild(INode child);
+        void AddChild([NotNull] INode child);
     }
 }
