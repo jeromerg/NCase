@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using NDsl.Back.Api.Builder;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Front.Api;
 
@@ -15,9 +16,9 @@ namespace NDsl.Front.Imp
             mInterfaceRecPlayContributorFactory = interfaceRecPlayContributorFactory;
         }
 
-        public T Create<T>(IBuilderModel builderModel, string name)
+        public T Create<T>(ICaseBuilderModel caseBuilderModel, string name)
         {
-            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(builderModel.TokenStream, name);
+            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(caseBuilderModel.TokenStream, name);
         }
     }
 }

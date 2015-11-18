@@ -7,27 +7,27 @@ using NDsl.Back.Api.Util;
 namespace NCaseFramework.Back.Imp.Seq
 {
     public class ParseVisitors
-        : IParseVisitor<BeginToken<SeqId>>,
-          IParseVisitor<EndToken<SeqId>>,
-          IParseVisitor<RefToken<SeqId>>
+        : IParseVisitor<BeginToken<SequenceId>>,
+          IParseVisitor<EndToken<SequenceId>>,
+          IParseVisitor<RefToken<SequenceId>>
     {
-        public void Visit(IParseDirector dir, BeginToken<SeqId> token)
+        public void Visit(IParseDirector dir, BeginToken<SequenceId> token)
         {
             var newCaseSetNode = new SeqNode(token.CodeLocation, token.Owner);
             dir.AddId(token.Owner, newCaseSetNode);
             dir.PushScope(newCaseSetNode);
         }
 
-        public void Visit(IParseDirector dir, EndToken<SeqId> token)
+        public void Visit(IParseDirector dir, EndToken<SequenceId> token)
         {
             dir.PopScope();
         }
 
-        public void Visit(IParseDirector dir, RefToken<SeqId> token)
+        public void Visit(IParseDirector dir, RefToken<SequenceId> token)
         {
             CodeLocation codeLocation = token.CodeLocation;
 
-            IDefNode referredSetNode = dir.GetReferencedNode<ISeqNode>(token.Owner, codeLocation);
+            IDefNode referredSetNode = dir.GetNodeForId<ISeqNode>(token.Owner, codeLocation);
 
             var newNode = new RefNode<ISeqNode>((ISeqNode) referredSetNode, codeLocation);
 

@@ -14,9 +14,9 @@ namespace NCaseFramework.Back.Imp.Pairwise
         [NotNull] private readonly CodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mDimensions = new List<INode>();
 
-        [NotNull] private readonly PairwiseId mId;
+        [NotNull] private readonly PairwiseCombinationsId mId;
 
-        public PairwiseNode([NotNull] CodeLocation codeLocation, [NotNull] PairwiseId id)
+        public PairwiseNode([NotNull] CodeLocation codeLocation, [NotNull] PairwiseCombinationsId id)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
@@ -29,7 +29,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
             get { return mId; }
         }
 
-        public PairwiseId Id
+        public PairwiseCombinationsId Id
         {
             get { return mId; }
         }

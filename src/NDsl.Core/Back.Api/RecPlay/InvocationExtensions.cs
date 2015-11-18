@@ -50,14 +50,13 @@ namespace NDsl.Back.Api.RecPlay
 
         private static IEnumerable<Type> GetAllImplementingAndExtendingTypes(this Type type)
         {
-            yield return type;
-
             foreach (Type interf in type.GetInterfaces())
                 yield return interf;
 
-            Type parent;
-            while ((parent = type.BaseType) != null)
-                yield return parent;
+            
+            for(Type t = type; t != null; t = t.BaseType)
+                yield return t;                
+
         }
     }
 }

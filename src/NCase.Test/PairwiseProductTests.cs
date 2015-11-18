@@ -50,13 +50,13 @@ namespace NCaseFramework.Test
         public void Test_CartesianProduct_with_ref()
         {
             // Create a new builder
-            IBuilder builder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
 
             // create a case contributor
-            var o = builder.NewContributor<IMyTestvalues>("o");
+            var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             // define a first set of cases
-            var names = builder.NewDefinition<Tree>("person_set");
+            var names = caseBuilder.NewDefinition<Tree>("person_set");
             using (names.Define())
             {
                 o.Name = "Raoul";
@@ -65,7 +65,7 @@ namespace NCaseFramework.Test
             }
 
             // transplant the first set into a second one
-            var ages = builder.NewDefinition<Tree>("age_set");
+            var ages = caseBuilder.NewDefinition<Tree>("age_set");
             using (ages.Define())
             {
                 o.Age = 20;
@@ -73,7 +73,7 @@ namespace NCaseFramework.Test
                 o.Age = 30;
             }
 
-            var allPersonsAllAges = builder.NewDefinition<AllCombinations>("allPersonsAllAges");
+            var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {
@@ -127,12 +127,12 @@ namespace NCaseFramework.Test
         public void TestPairwiseProduct_TwoDimensions()
         {
             // Create a new builder
-            IBuilder builder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
 
             // create a case contributor
-            var o = builder.NewContributor<IMyTestvalues>("o");
+            var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
-            var allPersonsAllAges = builder.NewDefinition<PairwiseCombinations>("allPersonsAllAges");
+            var allPersonsAllAges = caseBuilder.NewDefinition<PairwiseCombinations>("allPersonsAllAges");
 
             using (allPersonsAllAges.Define())
             {

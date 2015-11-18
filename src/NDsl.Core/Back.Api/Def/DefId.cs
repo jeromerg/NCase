@@ -22,11 +22,16 @@ namespace NDsl.Back.Api.Def
             mName = name;
         }
 
-        public abstract string DefTypeName { get; }
+        public abstract string TypeName { get; }
 
         public virtual string Name
         {
             get { return mName; }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Definition '{0}' of type '{1}'", Name, TypeName);
         }
     }
 }

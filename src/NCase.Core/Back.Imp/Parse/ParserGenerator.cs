@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NDsl.All.Def;
-using NDsl.Back.Api.Book;
 using NDsl.Back.Api.Common;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 
 namespace NCaseFramework.Back.Imp.Parse
@@ -34,7 +34,7 @@ namespace NCaseFramework.Back.Imp.Parse
                 mParseDirector.Visit(token);
 
             // GENERATE CASES
-            return mParseDirector.GetReferencedNode<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
+            return mParseDirector.GetNodeForId<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
         }
 
         public IEnumerable<List<INode>> Generate(INode caseSetNode, GenerateOptions options)

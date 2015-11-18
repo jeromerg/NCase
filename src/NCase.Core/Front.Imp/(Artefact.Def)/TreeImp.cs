@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Tree;
 using NCaseFramework.Front.Api.Tree;
 using NCaseFramework.Front.Ui;
-using NDsl.Back.Api.Book;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
 

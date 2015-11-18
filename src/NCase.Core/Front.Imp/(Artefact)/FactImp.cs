@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using NCaseFramework.Front.Api.Fact;
 using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Common;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Imp;
 
@@ -10,7 +11,8 @@ namespace NCaseFramework.Front.Imp
 {
     public class FactImp : ArtefactImp<IFactModel>, Fact, IFactModel
     {
-        private readonly INode mFactNode;
+        [NotNull] private readonly INode mFactNode;
+        [NotNull] private readonly IRecorder mRecorder;
 
         public class Factory : IFactFactory
         {
@@ -22,16 +24,19 @@ namespace NCaseFramework.Front.Imp
                 mServices = services;
             }
 
-            public Fact Create(INode fact)
+            public Fact Create(INode fact, IRecorder recorder)
             {
-                return new FactImp(fact, mServices);
+                return new FactImp(fact, recorder, mServices);
             }
         }
 
-        public FactImp([NotNull] INode factNode, [NotNull] IServiceSet<IFactModel> services)
+        public FactImp([NotNull] INode factNode, [NotNull] IRecorder recorder, [NotNull] IServiceSet<IFactModel> services)
             : base(services)
         {
+            if (factNode == null) throw new ArgumentNullException("factNode");
+            if (recorder == null) throw new ArgumentNullException("recorder");
             mFactNode = factNode;
+            mRecorder = recorder;
         }
 
         public override IFactModel Model
@@ -44,6 +49,11 @@ namespace NCaseFramework.Front.Imp
         public INode FactNode
         {
             get { return mFactNode; }
+        }
+
+        public IRecorder Recorder
+        {
+            get { return mRecorder; }
         }
 
         #endregion

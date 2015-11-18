@@ -2,18 +2,14 @@ using NCaseFramework.Back.Api.SetDef;
 
 namespace NCaseFramework.Back.Api.Prod
 {
-    public class ProdId : SetDefId
+    public class AllCombinationsId : SetDefId
     {
-        public ProdId()
-        {
-        }
-
-        public ProdId(string name)
+        public AllCombinationsId(string name)
             : base(name)
         {
         }
 
-        public override string DefTypeName
+        public override string TypeName
         {
             get { return "AllCombinations"; }
         }

@@ -6,7 +6,6 @@ namespace NDsl.Front.Ui
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public interface Artefact<out TModel>
-        where TModel : IArtefactModel
     {
         [NotNull] IApi<TModel> Zapi { get; }
     }

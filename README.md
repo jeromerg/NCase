@@ -21,7 +21,7 @@ The following example shows how to use NCase to test a method named `CanPrescrib
 <!--# ShortExample -->
 ```C#
 // ARRANGE
-IBuilder builder = NCase.NewBuilder();            
+var builder = NCase.NewBuilder();            
 var p = builder.NewContributor<IPatient>("patient");
 var allPatients = builder.NewDefinition<AllCombinations>("swSet");
 
@@ -181,17 +181,17 @@ Result:
 
 <!--# Visualize_Def_Console -->
 ```
-Definition                         | Location                              
- ---------------------------------- | ------------------------------------- 
- Tree userSet                       | d:\src\test\NCase\Readme.cs: line 212 
-     user.UserName=Richard          | d:\src\test\NCase\Readme.cs: line 214 
-         user.Password=SomePass678; | d:\src\test\NCase\Readme.cs: line 215 
-             user.Age=24            | d:\src\test\NCase\Readme.cs: line 216 
-             user.Age=36            | d:\src\test\NCase\Readme.cs: line 217 
-     user.UserName=*+#&%$!$         | d:\src\test\NCase\Readme.cs: line 218 
-         user.Password=tooeasy      | d:\src\test\NCase\Readme.cs: line 219 
-             user.Age=-1            | d:\src\test\NCase\Readme.cs: line 220 
-             user.Age=0             | d:\src\test\NCase\Readme.cs: line 221
+Definition                         | Location                                          
+ ---------------------------------- | ------------------------------------------------- 
+ Tree userSet                       | c:\dev\NCase\Readme.cs: line 212 
+     user.UserName=Richard          | c:\dev\NCase\Readme.cs: line 214 
+         user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 215 
+             user.Age=24            | c:\dev\NCase\Readme.cs: line 216 
+             user.Age=36            | c:\dev\NCase\Readme.cs: line 217 
+     user.UserName=*+#&%$!$         | c:\dev\NCase\Readme.cs: line 218 
+         user.Password=tooeasy      | c:\dev\NCase\Readme.cs: line 219 
+             user.Age=-1            | c:\dev\NCase\Readme.cs: line 220 
+             user.Age=0             | c:\dev\NCase\Readme.cs: line 221
 ```
 
 #### Visualize Test Cases as a Table
@@ -230,11 +230,11 @@ Result:
 
 <!--# Visualize_Case_Console -->
 ```
-Fact                       | Location                              
- -------------------------- | ------------------------------------- 
- user.UserName=Richard      | d:\src\test\NCase\Readme.cs: line 214 
- user.Password=SomePass678; | d:\src\test\NCase\Readme.cs: line 215 
- user.Age=24                | d:\src\test\NCase\Readme.cs: line 216
+Fact                       | Location                                          
+ -------------------------- | ------------------------------------------------- 
+ user.UserName=Richard      | c:\dev\NCase\Readme.cs: line 214 
+ user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 215 
+ user.Age=24                | c:\dev\NCase\Readme.cs: line 216
 ```
 
 ### Iterate test cases
@@ -283,18 +283,18 @@ Test Case #0
 Definition
 ----------
 
- Fact                           | Location                              
- ------------------------------ | ------------------------------------- 
- hw.Architecture=arm            | d:\src\test\NCase\Readme.cs: line 187 
- hw.HardDriveInGb=10            | d:\src\test\NCase\Readme.cs: line 191 
- hw.RamInGb=1                   | d:\src\test\NCase\Readme.cs: line 195 
- hw.ScreenResolution=(480, 320) | d:\src\test\NCase\Readme.cs: line 199 
- sw.Os=Ios8                     | d:\src\test\NCase\Readme.cs: line 168 
- sw.Browser=Chrome              | d:\src\test\NCase\Readme.cs: line 172 
- sw.IsFacebookInstalled=False   | d:\src\test\NCase\Readme.cs: line 176 
- user.UserName=Richard          | d:\src\test\NCase\Readme.cs: line 214 
- user.Password=SomePass678;     | d:\src\test\NCase\Readme.cs: line 215 
- user.Age=24                    | d:\src\test\NCase\Readme.cs: line 216 
+ Fact                           | Location                                          
+ ------------------------------ | ------------------------------------------------- 
+ hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 187 
+ hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 191 
+ hw.RamInGb=1                   | c:\dev\NCase\Readme.cs: line 195 
+ hw.ScreenResolution=(480, 320) | c:\dev\NCase\Readme.cs: line 199 
+ sw.Os=Ios8                     | c:\dev\NCase\Readme.cs: line 168 
+ sw.Browser=Chrome              | c:\dev\NCase\Readme.cs: line 172 
+ sw.IsFacebookInstalled=False   | c:\dev\NCase\Readme.cs: line 176 
+ user.UserName=Richard          | c:\dev\NCase\Readme.cs: line 214 
+ user.Password=SomePass678;     | c:\dev\NCase\Readme.cs: line 215 
+ user.Age=24                    | c:\dev\NCase\Readme.cs: line 216 
 
 
 Act and Assert
@@ -309,10 +309,10 @@ Test Case #1
 Definition
 ----------
 
- Fact                           | Location                              
- ------------------------------ | ------------------------------------- 
- hw.Architecture=arm            | d:\src\test\NCase\Readme.cs: line 187 
- hw.HardDriveInGb=10            | d:\src\test\NCase\Readme.cs: line 191 
+ Fact                           | Location                                          
+ ------------------------------ | ------------------------------------------------- 
+ hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 187 
+ hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 191 
 (...)
 ```
 

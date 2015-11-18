@@ -16,12 +16,12 @@ namespace NCaseFramework.doc
     public class Presentation
     {
         // ReSharper disable once InconsistentNaming
-        private readonly DocUtil mDocUtil = new DocUtil("mDocUtil");
+        private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            mDocUtil.UpdateDocAssociatedToThisFile();
+            docu.UpdateDocAssociatedToThisFile();
         }
 
         //# TodoInterface
@@ -79,7 +79,7 @@ namespace NCaseFramework.doc
         {
             //# NCaseExample1
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
             var set = builder.NewDefinition<AllCombinations>("set");
 
@@ -141,7 +141,7 @@ namespace NCaseFramework.doc
         {
             //# NCaseExample2
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
             var set = builder.NewDefinition<AllCombinations>("set");
             using (set.Define())
@@ -169,7 +169,7 @@ namespace NCaseFramework.doc
         public void NCaseExample2_AddedLine()
         {
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
             var set = builder.NewDefinition<AllCombinations>("set");
             using (set.Define())
@@ -188,7 +188,7 @@ namespace NCaseFramework.doc
         {
             //# NCaseExample3
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
             var set = builder.NewDefinition<AllCombinations>("set");
             using (set.Define())
@@ -229,7 +229,7 @@ namespace NCaseFramework.doc
         public void NCaseCombiningContributors()
         {
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
 
             var todo = builder.NewContributor<ITodo>("todo");
 
@@ -274,7 +274,7 @@ namespace NCaseFramework.doc
         public void NCaseCombiningSets()
         {
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
 
             var todo = builder.NewContributor<ITodo>("todo");
             var user = builder.NewContributor<IUser>("user");
@@ -331,7 +331,7 @@ namespace NCaseFramework.doc
         public void NCasePairwiseCombinations()
         {
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
 
             var todo = builder.NewContributor<ITodo>("todo");
 
@@ -357,7 +357,7 @@ namespace NCaseFramework.doc
         public void NCaseTree()
         {
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
 
 
             //# NCaseTree

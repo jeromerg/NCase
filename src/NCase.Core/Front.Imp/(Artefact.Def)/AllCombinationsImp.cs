@@ -3,14 +3,14 @@ using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Prod;
 using NCaseFramework.Front.Api.Prod;
 using NCaseFramework.Front.Ui;
-using NDsl.Back.Api.Book;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
 
 namespace NCaseFramework.Front.Imp
 {
     public class AllCombinationsImp
-        : SetDefBaseImp<IAllCombinationsModel, ProdId>,
+        : SetDefBaseImp<IAllCombinationsModel, AllCombinationsId>,
           AllCombinations,
           IAllCombinationsModel
     {
@@ -38,7 +38,7 @@ namespace NCaseFramework.Front.Imp
                                   [NotNull] ITokenStream tokenStream,
                                   [NotNull] IServiceSet<IAllCombinationsModel> services,
                                   [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new ProdId(defName), tokenStream, services, codeLocationUtil)
+            : base(new AllCombinationsId(defName), tokenStream, services, codeLocationUtil)
         {
         }
 

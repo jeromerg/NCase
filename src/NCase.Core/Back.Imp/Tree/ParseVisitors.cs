@@ -28,7 +28,7 @@ namespace NCaseFramework.Back.Imp.Tree
         {
             CodeLocation codeLocation = token.CodeLocation;
 
-            IDefNode referredSetNode = dir.GetReferencedNode<ITreeNode>(token.Owner, codeLocation);
+            IDefNode referredSetNode = dir.GetNodeForId<ITreeNode>(token.Owner, codeLocation);
 
             var newNode = new RefNode<ITreeNode>((ITreeNode) referredSetNode, codeLocation);
 

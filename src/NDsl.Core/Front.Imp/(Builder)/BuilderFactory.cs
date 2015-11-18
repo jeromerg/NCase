@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
-using NDsl.Back.Api.Book;
+using NDsl.Back.Api.Builder;
+using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
 
@@ -9,9 +10,9 @@ namespace NDsl.Front.Imp
     public class BuilderFactory : IBuilderFactory
     {
         private readonly ITokenStreamFactory mTokenStreamFactory;
-        private readonly IServiceSet<IBuilderModel> mServices;
+        private readonly IServiceSet<ICaseBuilderModel> mServices;
 
-        public BuilderFactory([NotNull] ITokenStreamFactory tokenStreamFactory, [NotNull] IServiceSet<IBuilderModel> services)
+        public BuilderFactory([NotNull] ITokenStreamFactory tokenStreamFactory, [NotNull] IServiceSet<ICaseBuilderModel> services)
         {
             if (tokenStreamFactory == null) throw new ArgumentNullException("tokenStreamFactory");
             if (services == null) throw new ArgumentNullException("services");
@@ -19,9 +20,9 @@ namespace NDsl.Front.Imp
             mServices = services;
         }
 
-        public IBuilder Create()
+        public Api.CaseBuilder Create()
         {
-            return new Builder(mTokenStreamFactory.Create(), mServices);
+            return new CaseBuilder(mTokenStreamFactory.Create(), mServices);
         }
     }
 }

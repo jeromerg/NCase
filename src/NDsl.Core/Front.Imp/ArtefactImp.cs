@@ -5,8 +5,7 @@ using NDsl.Front.Ui;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class ArtefactImp<TModel> : Artefact<TModel>, IArtefactModel, IApi<TModel>
-        where TModel : IArtefactModel
+    public abstract class ArtefactImp<TModel> : Artefact<TModel>, IApi<TModel>
     {
         [NotNull] private readonly IServiceSet<TModel> mServices;
 

@@ -1,9 +1,9 @@
 ﻿using JetBrains.Annotations;
 using NDsl.Back.Api.Common;
 
-namespace NDsl.Back.Api.Book
+namespace NDsl.Back.Api.Record
 {
-    public interface ITokenWriter
+    public interface ITokenWriter : IRecorder
     {
         void Append([NotNull] IToken token);
     }

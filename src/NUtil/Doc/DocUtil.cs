@@ -18,14 +18,15 @@ namespace NUtil.Doc
 
         private const string DOC_FILE_EXTENSION = ".md";
         private const string CODE_SNIPPET_MARKER = @"//#";
-
+        
+        private readonly string mDemoPath;
         private readonly SnippetParser mMarkdownSnippetParser;
         private readonly SnippetParser mCodeSnippetParser;
-
         private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
 
-        public DocUtil(string codeExcludedLineRegexString)
+        public DocUtil(string codeExcludedLineRegexString, string demoPath)
         {
+            mDemoPath = demoPath;
             var markdownSnippetRegex = new Regex(MARKDOWN_SNIPPET_REGEX_STRING, RegexOptions.Singleline | RegexOptions.Multiline);
             mMarkdownSnippetParser = new SnippetParser(markdownSnippetRegex, null);
 
@@ -47,9 +48,14 @@ namespace NUtil.Doc
 
         public void UpdateDocAssociatedToThisFile([CallerFilePath] string callerFilePath = null)
         {
+            string callerFileDir = Path.GetDirectoryName(callerFilePath);
+
+            IEnumerable<Snippet> consoleSnippets = mConsoleRecorder.Snippets
+                .Select(s => new Snippet(s.Source, s.Name, s.Body.Replace(callerFileDir, mDemoPath)));
+
             var allSnippets = new List<Snippet>();
             allSnippets.AddRange(ExtractCodeSnippets(callerFilePath));
-            allSnippets.AddRange(mConsoleRecorder.Snippets);
+            allSnippets.AddRange(consoleSnippets);
 
             Console.WriteLine("All available snippets:");
             foreach (Snippet s in allSnippets)

@@ -15,7 +15,7 @@ namespace NCaseFramework.doc
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     public class Readme
     {
-        private readonly DocUtil docu = new DocUtil("docu");
+        private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
@@ -126,7 +126,7 @@ namespace NCaseFramework.doc
         {
             //# ShortExample
             // ARRANGE
-            IBuilder builder = NCase.NewBuilder();            
+            var builder = NCase.NewBuilder();            
             var p = builder.NewContributor<IPatient>("patient");
             var allPatients = builder.NewDefinition<AllCombinations>("swSet");
 
@@ -157,7 +157,7 @@ namespace NCaseFramework.doc
         [Test]
         public void Demo()
         {
-            IBuilder builder = NCase.NewBuilder();
+            var builder = NCase.NewBuilder();
 
             var sw = builder.NewContributor<ISoftware>("sw");
 
