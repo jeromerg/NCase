@@ -22,7 +22,7 @@ namespace NCaseFramework.Front.Imp
         }
 
         [NotNull]
-        public string Perform([NotNull] ISetDefModel<ISetDefId> setDefModel, [NotNull] bool isRecursive)
+        public string Perform([NotNull] ISetDefModel<ISetDefId> setDefModel, bool isRecursive)
         {
             if (setDefModel == null) throw new ArgumentNullException("setDefModel");
 
