@@ -1,9 +1,11 @@
-﻿using Autofac;
+﻿using System.Diagnostics.CodeAnalysis;
+using Autofac;
 using NCaseFramework.Back.Imp.InterfaceRecPlay;
 
 namespace NCaseFramework.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule </summary>
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class NCaseInterfaceRecPlayModule : Module
     {
         protected override void Load(ContainerBuilder builder)

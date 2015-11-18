@@ -20,8 +20,13 @@ namespace NCaseFramework.Back.Imp.Parse
 
             if (options.IsRecursive)
             {
-                foreach (List<INode> subCases in dir.Visit(node.Reference, options))
-                    yield return subCases;
+                IEnumerable<List<INode>> casesOfRef = dir.Visit(node.Reference, options);
+
+                if(casesOfRef == null)
+                    throw new InvalidOperationException(string.Format("Visit of node {0} returned null", node.Reference));
+
+                foreach (List<INode> caseFacts in casesOfRef)
+                    yield return caseFacts;
             }
             else
             {

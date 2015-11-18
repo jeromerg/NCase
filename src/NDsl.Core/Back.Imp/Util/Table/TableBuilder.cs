@@ -13,7 +13,7 @@ namespace NDsl.Back.Imp.Util.Table
         private const string COLUMN_SEPARATOR = "|";
         private const char HEADER_CONTENT_SEPARATOR = '-';
 
-        [NotNull] private readonly List<Dictionary<ITableColumn, List<string>>> mCellContentByRowAndColumn =
+        [NotNull, ItemNotNull] private readonly List<Dictionary<ITableColumn, List<string>>> mCellContentByRowAndColumn =
             new List<Dictionary<ITableColumn, List<string>>>();
 
         public void NewRow()
@@ -32,12 +32,14 @@ namespace NDsl.Back.Imp.Util.Table
             Dictionary<ITableColumn, List<string>> rowContent = mCellContentByRowAndColumn.Last();
 
             List<string> strings;
+            // ReSharper disable once PossibleNullReferenceException
             if (!rowContent.TryGetValue(tableColumn, out strings))
             {
                 strings = new List<string>();
                 rowContent.Add(tableColumn, strings);
             }
 
+            // ReSharper disable once PossibleNullReferenceException
             strings.Add(cellContent);
         }
 
@@ -55,16 +57,23 @@ namespace NDsl.Back.Imp.Util.Table
             {
                 foreach (KeyValuePair<ITableColumn, List<string>> cellContentByCol in row)
                 {
+                    // ReSharper disable AssignNullToNotNullAttribute
+                    // ReSharper disable PossibleNullReferenceException
+
                     int currentMax;
                     allColumnAndWidthMax.TryGetValue(cellContentByCol.Key, out currentMax);
                     allColumnAndWidthMax[cellContentByCol.Key] = Math.Max(currentMax,
                                                                           cellContentByCol.Value.Max(txt => txt.Length));
+
+                    // ReSharper restore PossibleNullReferenceException
+                    // ReSharper restore AssignNullToNotNullAttribute
                 }
             }
 
             // and max the result with header width
             foreach (ITableColumn columnKey in allColumnAndWidthMax.Keys.ToArray())
             {
+                // ReSharper disable once PossibleNullReferenceException
                 int headerWidth = columnKey.Title.Length;
                 allColumnAndWidthMax[columnKey] = Math.Max(allColumnAndWidthMax[columnKey], headerWidth);
             }
@@ -73,19 +82,21 @@ namespace NDsl.Back.Imp.Util.Table
             // Fill table line by line, column by column
             //--------------------
 
+            // ReSharper disable once PossibleNullReferenceException
             PrintRow(allColumnAndWidthMax, sb, (column, width) => column.Title);
             PrintRow(allColumnAndWidthMax, sb, (column, width) => new string(HEADER_CONTENT_SEPARATOR, width));
 
             foreach (Dictionary<ITableColumn, List<string>> row in mCellContentByRowAndColumn)
             {
                 Dictionary<ITableColumn, List<string>> row1 = row;
+                // ReSharper disable once AssignNullToNotNullAttribute
                 PrintRow(allColumnAndWidthMax, sb, (col, width) => AggregatedCellContent(row1, col));
             }
         }
 
-        private void PrintRow(Dictionary<ITableColumn, int> allColumnAndWidthMax,
-                              StringBuilder sb,
-                              Func<ITableColumn, int, string> printCellContent
+        private void PrintRow([NotNull] Dictionary<ITableColumn, int> allColumnAndWidthMax,
+                              [NotNull] StringBuilder sb,
+                              [NotNull] Func<ITableColumn, int, string> printCellContent
             )
         {
             bool isFirstColumn = true;
@@ -97,6 +108,8 @@ namespace NDsl.Back.Imp.Util.Table
                 if (!isFirstColumn)
                     sb.Append(COLUMN_SEPARATOR);
                 sb.Append(new string(' ', MARGIN_LEFT_AND_RIGHT));
+                // ReSharper disable once PossibleNullReferenceException
+                // ReSharper disable once AssignNullToNotNullAttribute
                 sb.Append(Align(printCellContent(column, width), width, column.HorizontalAlignment));
                 sb.Append(new string(' ', MARGIN_LEFT_AND_RIGHT));
 
@@ -105,7 +118,7 @@ namespace NDsl.Back.Imp.Util.Table
             sb.AppendLine();
         }
 
-        private static string AggregatedCellContent(Dictionary<ITableColumn, List<string>> row, ITableColumn col)
+        private static string AggregatedCellContent([NotNull] Dictionary<ITableColumn, List<string>> row, [NotNull] ITableColumn col)
         {
             List<string> cellContent;
             {
@@ -120,7 +133,7 @@ namespace NDsl.Back.Imp.Util.Table
             return aggregatedCellContent;
         }
 
-        private string Align(string cellContent, int width, HorizontalAlignment horizontalAlignment)
+        private string Align([NotNull] string cellContent, int width, HorizontalAlignment horizontalAlignment)
         {
             switch (horizontalAlignment)
             {

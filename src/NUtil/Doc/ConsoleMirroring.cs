@@ -1,19 +1,23 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace NUtil.Doc
 {
     /// <summary>inspired by: http://stackoverflow.com/questions/420429/mirroring-console-output-to-a-file </summary>
     public class ConsoleMirroring : TextWriter
     {
-        private readonly TextWriter mConsoleOutput;
-        private readonly TextWriter mConsoleError;
+        [NotNull] private readonly TextWriter mConsoleOutput;
+        [NotNull] private readonly TextWriter mConsoleError;
 
-        private readonly StringWriter mTextWriter;
+        [NotNull] private readonly StringWriter mTextWriter;
 
         public ConsoleMirroring()
         {
+            if(Console.Out == null) throw new ArgumentException("Console.Out is null");
+            if(Console.Error == null) throw new ArgumentException("Console.Error is null");
+
             mTextWriter = new StringWriter();
             mConsoleOutput = Console.Out;
             mConsoleError = Console.Error;

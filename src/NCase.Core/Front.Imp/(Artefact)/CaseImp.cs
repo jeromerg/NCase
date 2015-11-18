@@ -15,7 +15,7 @@ namespace NCaseFramework.Front.Imp
     public class CaseImp : ArtefactImp<ICaseModel>, Case, ICaseModel
     {
         [NotNull] private readonly IFactFactory mFactFactory;
-        [NotNull] private readonly List<INode> mFactNodes;
+        [NotNull, ItemNotNull] private readonly List<INode> mFactNodes;
         [NotNull] private readonly IRecorder mRecorder;
 
         public class Factory : ICaseFactory

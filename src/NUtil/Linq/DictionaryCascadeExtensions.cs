@@ -29,7 +29,7 @@ namespace NUtil.Linq
             return CascadeRemove(Enumerable.Repeat(dict, 1), key);
         }
 
-        public static IEnumerable<T> CascadeRemove<T>([NotNull] this IEnumerable<Dictionary<int, T>> dictEnumerable, int key)
+        public static IEnumerable<T> CascadeRemove<T>([NotNull, ItemNotNull] this IEnumerable<Dictionary<int, T>> dictEnumerable, int key)
             where T : IEnumerable
         {
             foreach (Dictionary<int, T> dict in dictEnumerable)
@@ -40,13 +40,14 @@ namespace NUtil.Linq
 
                 yield return t;
 
+                // ReSharper disable once PossibleNullReferenceException
                 bool any = t.GetEnumerator().MoveNext();
                 if (!any)
                     dict.Remove(key);
             }
         }
 
-        public static void CascadeRemove<T>([NotNull] this IEnumerable<HashSet<T>> hashSetEnumerable, T key)
+        public static void CascadeRemove<T>([NotNull, ItemNotNull] this IEnumerable<HashSet<T>> hashSetEnumerable, T key)
         {
             foreach (HashSet<T> set in hashSetEnumerable)
                 set.Remove(key);

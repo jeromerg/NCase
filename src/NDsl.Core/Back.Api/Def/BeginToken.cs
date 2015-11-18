@@ -6,7 +6,7 @@ namespace NDsl.Back.Api.Def
 {
     public class BeginToken<T> : OwnedToken<T>
     {
-        public BeginToken([NotNull] T owner, CodeLocation codeLocation)
+        public BeginToken([NotNull] T owner, [NotNull] CodeLocation codeLocation)
             : base(owner, codeLocation)
         {
         }

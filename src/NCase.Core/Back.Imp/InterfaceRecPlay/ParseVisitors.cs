@@ -29,6 +29,7 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
                                                  "While definining test cases, you can only call property setters on interface contributors");
             }
 
+            // ReSharper disable once PossibleNullReferenceException
             object argumentValue = invocation.GetArgumentValue(invocation.Arguments.Length - 1);
 
             IInterfaceRecPlayNode newNode = mNodeFactory.Create(token.Owner,

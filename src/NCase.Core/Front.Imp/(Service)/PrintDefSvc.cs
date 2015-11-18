@@ -11,7 +11,7 @@ namespace NCaseFramework.Front.Imp
     public class PrintDefSvc : IPrintDefSvc
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
-        private readonly Func<IPrintDefinitionDirector> mPrintDefinitionDirectorFactory;
+        [NotNull] private readonly Func<IPrintDefinitionDirector> mPrintDefinitionDirectorFactory;
 
         public PrintDefSvc([NotNull] IParserGenerator parserGenerator,
                            [NotNull] Func<IPrintDefinitionDirector> printDefinitionDirectorFactory)
@@ -27,14 +27,17 @@ namespace NCaseFramework.Front.Imp
             {
                 INode caseSetNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
 
-                IPrintDefinitionDirector dir = mPrintDefinitionDirectorFactory();
+                IPrintDefinitionDirector printDefinitionDirector = mPrintDefinitionDirectorFactory();
 
-                dir.IsFileInfo = isFileInfo;
-                dir.IsRecursive = isRecursive;
+                if (printDefinitionDirector == null)
+                    throw new ArgumentException("printDefinitionDirector == null");
 
-                dir.Visit(caseSetNode);
+                printDefinitionDirector.IsFileInfo = isFileInfo;
+                printDefinitionDirector.IsRecursive = isRecursive;
 
-                return dir.GetString();
+                printDefinitionDirector.Visit(caseSetNode);
+
+                return printDefinitionDirector.GetString();
             }
         }
     }

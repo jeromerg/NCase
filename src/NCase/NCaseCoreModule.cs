@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Diagnostics.CodeAnalysis;
+using Autofac;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Print;
 using NCaseFramework.Back.Api.Replay;
@@ -16,6 +17,7 @@ using NDsl.Front.Imp;
 
 namespace NCaseFramework.Front.Ui
 {
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class NCaseCoreModule : Module
     {
         protected override void Load(ContainerBuilder cb)

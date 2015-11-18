@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
@@ -8,15 +9,17 @@ namespace NUtil.Math.Combinatorics.Pairwise
 {
     public class PairSet
     {
-        private readonly Dictionary<int, Dictionary<int, Dictionary<int, HashSet<int>>>> mPairs
+        [NotNull] private readonly Dictionary<int, Dictionary<int, Dictionary<int, HashSet<int>>>> mPairs
             = new Dictionary<int, Dictionary<int, Dictionary<int, HashSet<int>>>>();
 
         public PairSet()
         {
         }
 
-        public PairSet(IList<int> dimSizes)
+        public PairSet([NotNull] IList<int> dimSizes)
         {
+            if (dimSizes == null) throw new ArgumentNullException("dimSizes");
+
             // fill in with all pairs between all dimensions
             for (int dim1 = 0; dim1 < dimSizes.Count; dim1++)
             {
@@ -38,13 +41,17 @@ namespace NUtil.Math.Combinatorics.Pairwise
             return mPairs.Any();
         }
 
-        public void Add(Pair pair)
+        public void Add([NotNull] Pair pair)
         {
+            if (pair == null) throw new ArgumentNullException("pair");
+
             Add(pair.Dim1, pair.Val1, pair.Dim2, pair.Val2);
         }
 
         public void Add(int dim1, int val1, int dim2, int val2)
         {
+            // ReSharper disable AssignNullToNotNullAttribute
+            
             mPairs
                 .CascadeAdd(dim1)
                 .CascadeAdd(dim2)
@@ -56,6 +63,8 @@ namespace NUtil.Math.Combinatorics.Pairwise
                 .CascadeAdd(dim1)
                 .CascadeAdd(val2)
                 .CascadeAdd(val1);
+
+            // ReSharper restore AssignNullToNotNullAttribute
         }
 
         [CanBeNull]
@@ -87,15 +96,18 @@ namespace NUtil.Math.Combinatorics.Pairwise
                        : null;
         }
 
-        public void Remove(Pair pair)
+        public void Remove([NotNull] Pair pair)
         {
+            if (pair == null) throw new ArgumentNullException("pair");
             Remove(pair.Dim1, pair.Val1, pair.Dim2, pair.Val2);
         }
 
         public void Remove(int dim1, int val1, int dim2, int val2)
         {
+            // ReSharper disable AssignNullToNotNullAttribute
             mPairs.CascadeRemove(dim1).CascadeRemove(dim2).CascadeRemove(val1).CascadeRemove(val2);
             mPairs.CascadeRemove(dim2).CascadeRemove(dim1).CascadeRemove(val2).CascadeRemove(val1);
+            // ReSharper restore AssignNullToNotNullAttribute            
         }
 
         public override string ToString()
@@ -103,6 +115,8 @@ namespace NUtil.Math.Combinatorics.Pairwise
             var sb = new StringBuilder();
 
             int count = 0;
+
+            // ReSharper disable PossibleNullReferenceException
             foreach (KeyValuePair<int, Dictionary<int, Dictionary<int, HashSet<int>>>> dim1 in mPairs)
                 foreach (KeyValuePair<int, Dictionary<int, HashSet<int>>> dim2 in dim1.Value)
                     foreach (KeyValuePair<int, HashSet<int>> val1 in dim2.Value)
@@ -111,6 +125,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
                             count++;
                             sb.AppendFormat("({0},{1};{2},{3})\n", dim1.Key, val1.Key, dim2.Key, val2);
                         }
+            // ReSharper restore PossibleNullReferenceException
 
             return string.Format("Count:{0}, List:{1}", count, sb);
         }
@@ -118,10 +133,13 @@ namespace NUtil.Math.Combinatorics.Pairwise
         public int GetCount()
         {
             int count = 0;
+
+            // ReSharper disable PossibleNullReferenceException
             foreach (KeyValuePair<int, Dictionary<int, Dictionary<int, HashSet<int>>>> dim1 in mPairs)
                 foreach (KeyValuePair<int, Dictionary<int, HashSet<int>>> dim2 in dim1.Value)
                     foreach (KeyValuePair<int, HashSet<int>> val1 in dim2.Value)
                         count += val1.Value.Count;
+            // ReSharper restore PossibleNullReferenceException
 
             return count;
         }

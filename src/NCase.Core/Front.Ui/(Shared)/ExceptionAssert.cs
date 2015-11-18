@@ -9,8 +9,11 @@ namespace NCaseFramework.Front.Ui
         [NotNull] private readonly Predicate<Exception> mIsExpectedExceptionPredicate;
         [NotNull] private readonly string mDescription;
 
-        public ExceptionAssert([NotNull] Predicate<Exception> isExpectedExceptionPredicate, string description)
+        public ExceptionAssert([NotNull] Predicate<Exception> isExpectedExceptionPredicate, [NotNull] string description)
         {
+            if (isExpectedExceptionPredicate == null) throw new ArgumentNullException("isExpectedExceptionPredicate");
+            if (description == null) throw new ArgumentNullException("description");
+
             mIsExpectedExceptionPredicate = isExpectedExceptionPredicate;
             mDescription = description;
         }
@@ -36,9 +39,12 @@ namespace NCaseFramework.Front.Ui
         }
 
         [NotNull]
-        public static ExceptionAssert IsOfType(Type type)
+        public static ExceptionAssert IsOfType([NotNull] Type type)
         {
+            if (type == null) throw new ArgumentNullException("type");
+
             string description = string.Format("of type '{0}'", type.FullName);
+            // ReSharper disable once PossibleNullReferenceException
             return new ExceptionAssert(e => e.GetType() == type, description);
         }
 

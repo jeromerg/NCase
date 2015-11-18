@@ -25,6 +25,7 @@ namespace NDsl.Back.Api.RecPlay
 
             mOwningProxy = invocation.Proxy;
             mPropertyName = propertyInfo.Name;
+            // ReSharper disable once AssignNullToNotNullAttribute
             mIndexParameters = invocation.Arguments.Take(propertyInfo.GetIndexParameters().Length).ToArray();
         }
 
@@ -33,11 +34,13 @@ namespace NDsl.Back.Api.RecPlay
             get { return mOwningProxy; }
         }
 
+        [NotNull] 
         public string PropertyName
         {
             get { return mPropertyName; }
         }
 
+        [NotNull] 
         public object[] IndexParameters
         {
             get { return mIndexParameters; }
@@ -50,7 +53,7 @@ namespace NDsl.Back.Api.RecPlay
 
         #region Equals and GetHashCode
 
-        private bool Equals(PropertyCallKey other)
+        private bool Equals([NotNull] PropertyCallKey other)
         {
             bool equal = Equals(mOwningProxy, other.mOwningProxy);
             if (!equal)

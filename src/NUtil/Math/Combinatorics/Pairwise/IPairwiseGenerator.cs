@@ -5,6 +5,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
 {
     public interface IPairwiseGenerator
     {
+        [NotNull, ItemNotNull]
         IEnumerable<int[]> Generate([NotNull] int[] dimSizes);
     }
 }

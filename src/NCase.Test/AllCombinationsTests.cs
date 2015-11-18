@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using NCaseFramework.Front.Ui;
@@ -10,6 +11,7 @@ using NUnit.Framework;
 namespace NCaseFramework.Test
 {
     [TestFixture]
+    [SuppressMessage("ReSharper", "UnusedVariable")]
     public class AllCombinationsTests
     {
         public interface IMyTestvalues
@@ -261,6 +263,7 @@ namespace NCaseFramework.Test
                 v.Age = 10;
             }
 
+            // ReSharper disable once AssignNullToNotNullAttribute
             allPersonsAllAges.Cases().First().Replay(true);
 
             Assert.AreEqual(10, v.Age);

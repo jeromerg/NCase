@@ -23,7 +23,7 @@ namespace NCaseFramework.Back.Imp.Print
 
         private class StrategyWithoutFileInfo : IStragegy
         {
-            private readonly StringBuilder mStringBuilder = new StringBuilder();
+            [NotNull] private readonly StringBuilder mStringBuilder = new StringBuilder();
 
             public void AppendLine([NotNull] CodeLocation codeLocation, [NotNull] string txt)
             {
@@ -124,6 +124,7 @@ namespace NCaseFramework.Back.Imp.Print
             return mStragegy.GetString();
         }
 
+        [NotNull]
         private string IndentTxt([NotNull] string format, [NotNull] object[] args)
         {
             var sb = new StringBuilder();

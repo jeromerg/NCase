@@ -14,18 +14,18 @@ namespace NCaseFramework.Back.Imp.Tree
         [NotNull] private readonly CodeLocation mCodeLocation;
         [NotNull] private readonly List<INode> mBranches = new List<INode>();
         [NotNull] private readonly TreeId mId;
-        [CanBeNull] private readonly INode mFact;
+        [CanBeNull] private readonly INode mTreeFact;
 
         public TreeNode([NotNull] CodeLocation codeLocation,
                         [NotNull] TreeId id,
-                        [CanBeNull] INode fact)
+                        [CanBeNull] INode treeFact)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             if (id == null) throw new ArgumentNullException("id");
 
             mCodeLocation = codeLocation;
             mId = id;
-            mFact = fact;
+            mTreeFact = treeFact;
         }
 
         [NotNull] IDefId IDefNode.Id
@@ -42,7 +42,7 @@ namespace NCaseFramework.Back.Imp.Tree
         {
             get
             {
-                yield return mFact ?? NullNode.Instance;
+                yield return mTreeFact ?? NullNode.Instance;
                 foreach (INode caseBranchNode in Branches)
                     yield return caseBranchNode;
             }
@@ -53,9 +53,9 @@ namespace NCaseFramework.Back.Imp.Tree
             get { return mCodeLocation; }
         }
 
-        [CanBeNull] public INode Fact
+        [CanBeNull] public INode TreeFact
         {
-            get { return mFact; }
+            get { return mTreeFact; }
         }
 
         [NotNull, ItemNotNull] public IEnumerable<INode> Branches

@@ -2,14 +2,17 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+using JetBrains.Annotations;
 using LibGit2Sharp;
 
 namespace NGitVersion.Model
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class Model
     {
-        private readonly IRepository mRepository;
+        [NotNull] private readonly IRepository mRepository;
 
         private readonly Lazy<string> mRevision;
         private readonly Lazy<string> mShortHash;

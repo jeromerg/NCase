@@ -29,9 +29,13 @@ namespace NDsl.Back.Imp.RecPlay
 
             var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationUtil);
 
-            Type[] interfaces = typeof (T).GetInterfaces()
-                                          .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport).ToArray();
+            // ReSharper disable once PossibleNullReferenceException
+            Type[] interfaces = typeof (T)
+                .GetInterfaces()
+                .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport)
+                .ToArray();
 
+            // ReSharper disable once AssignNullToNotNullAttribute
             return (T) mProxyGenerator.CreateInterfaceProxyWithoutTarget(typeof (T),
                                                                          interfaces,
                                                                          ProxyGenerationOptions.Default,

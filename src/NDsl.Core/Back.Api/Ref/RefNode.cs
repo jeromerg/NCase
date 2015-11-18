@@ -11,8 +11,8 @@ namespace NDsl.Back.Api.Ref
     public class RefNode<T> : IRefNode<T>
         where T : IDefNode
     {
-        private readonly T mReference;
-        private readonly CodeLocation mCodeLocation;
+        [NotNull] private readonly T mReference;
+        [NotNull] private readonly CodeLocation mCodeLocation;
 
         public RefNode([NotNull] T reference, [NotNull] CodeLocation codeLocation)
         {

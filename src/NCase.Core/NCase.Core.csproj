@@ -68,6 +68,7 @@
     <Compile Include="Back.Api\Print\IPrintCaseTableDirector.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseVisitor.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
+    <Compile Include="Back.Api\Prod\IProdDimNode.cs" />
     <Compile Include="Back.Api\Seq\ITreeNode.cs" />
     <Compile Include="Back.Api\Seq\SequenceId.cs" />
     <Compile Include="Back.Api\SetDef\ISetDefId.cs" />

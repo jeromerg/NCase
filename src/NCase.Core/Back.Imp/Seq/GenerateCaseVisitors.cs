@@ -17,7 +17,12 @@ namespace NCaseFramework.Back.Imp.Seq
         {
             if (options == null) throw new ArgumentNullException("options");
 
-            foreach (List<INode> nodes in dir.Visit(node, options))
+            IEnumerable<List<INode>> factsForAllCases = dir.Visit(node, options);
+
+            if (factsForAllCases == null)
+                throw new InvalidOperationException(string.Format("Visit of node {0} returned null", node));
+
+            foreach (List<INode> nodes in factsForAllCases)
                 yield return nodes;
         }
     }

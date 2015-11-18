@@ -13,6 +13,10 @@ namespace NCaseFramework.doc
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
+    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+    [SuppressMessage("ReSharper", "UnusedVariable")]
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     public class Readme
     {
         private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
@@ -47,14 +51,14 @@ namespace NCaseFramework.doc
         {
             Ios8,
             Android6,
-            WindowsMobile10,
+            WindowsMobile10
         }
 
         public enum Browser
         {
             Chrome,
             Safari,
-            Firefox,
+            Firefox
         }
 
         public interface IHardware

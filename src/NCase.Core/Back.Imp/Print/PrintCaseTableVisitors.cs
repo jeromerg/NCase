@@ -36,7 +36,7 @@ namespace NCaseFramework.Back.Imp.Print
             get { return string.Format("{0}", mNode.Reference.Id.Name); }
         }
 
-        protected bool Equals(RefColumn other)
+        protected bool Equals([NotNull] RefColumn other)
         {
             return Equals(mNode.Reference, other.mNode.Reference);
         }

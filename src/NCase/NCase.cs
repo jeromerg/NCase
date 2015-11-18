@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Autofac;
 using JetBrains.Annotations;
@@ -8,6 +9,7 @@ using NDsl.Front.Api;
 
 namespace NCaseFramework.Front.Ui
 {
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public static class NCase
     {
         #region inner types
@@ -22,14 +24,17 @@ namespace NCaseFramework.Front.Ui
                 mComponentContext = componentContext;
             }
 
+            [NotNull]
             public TTool GetService<TTool>() where TTool : IService<T>
             {
+                // ReSharper disable once AssignNullToNotNullAttribute
                 return mComponentContext.Resolve<TTool>();
             }
         }
 
         #endregion
 
+        [NotNull]
         public static CaseBuilder NewBuilder()
         {
             var cb = new ContainerBuilder();

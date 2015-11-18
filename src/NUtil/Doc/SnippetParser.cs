@@ -12,22 +12,31 @@ namespace NUtil.Doc
         [NotNull] private readonly Regex mSnippetRegex;
         [CanBeNull] private readonly Regex mExcludedLineRegex;
 
-        public SnippetParser(Regex snippetMarkerRegex, [CanBeNull] Regex excludedLineRegex)
+        public SnippetParser([NotNull] Regex snippetMarkerRegex, [CanBeNull] Regex excludedLineRegex)
         {
+            if (snippetMarkerRegex == null) throw new ArgumentNullException("snippetMarkerRegex");
+
             mSnippetRegex = snippetMarkerRegex;
             mExcludedLineRegex = excludedLineRegex;
         }
 
-        public List<Snippet> ParseFileSnippets(string filePath)
+        [NotNull]
+        public List<Snippet> ParseFileSnippets([NotNull] string filePath)
         {
+            if (filePath == null) throw new ArgumentNullException("filePath");
+
             Console.WriteLine("Extracting snippets of '{0}'", filePath);
             string fileContent = System.IO.File.ReadAllText(filePath);
             List<Snippet> snippets = ParseSnippets(string.Format("File '{0}'", filePath), fileContent);
             return snippets;
         }
 
-        public List<Snippet> ParseSnippets(string source, string txtContainingSnippets)
+        [NotNull] 
+        public List<Snippet> ParseSnippets([NotNull] string source, [NotNull] string txtContainingSnippets)
         {
+            if (source == null) throw new ArgumentNullException("source");
+            if (txtContainingSnippets == null) throw new ArgumentNullException("txtContainingSnippets");
+
             var snippets = new List<Snippet>();
 
             // ReSharper disable once AssignNullToNotNullAttribute
@@ -36,8 +45,9 @@ namespace NUtil.Doc
             Console.WriteLine("Found {0} snippet(s)", blocks.Count);
             foreach (Match block in blocks)
             {
-                string snippetName = block.Groups["name"].Captures[0].Value.Trim();
-                string snippetBody = block.Groups["body"].Captures[0].Value;
+                string snippetName;
+                string snippetBody;
+                GetSnippetNameAndBody(block, out snippetName, out snippetBody);
 
                 Console.WriteLine("Snippet: '{0}'", snippetName);
 
@@ -45,6 +55,7 @@ namespace NUtil.Doc
 
                 IEnumerable<string> unindentedAndIncludedLines = unindentedBodyLines
                     .Split(new[] {Environment.NewLine}, StringSplitOptions.None)
+                    .Where(line => line != null)
                     .Where(line => mExcludedLineRegex == null || !mExcludedLineRegex.IsMatch(line));
 
                 string snippetFinalBody = string.Join(Environment.NewLine, unindentedAndIncludedLines);
@@ -55,8 +66,11 @@ namespace NUtil.Doc
             return snippets;
         }
 
-        public void SubstituteFileSnippets(string filePath, Dictionary<string, Snippet> ersatzSnippets)
+        public void SubstituteFileSnippets([NotNull] string filePath, [NotNull] Dictionary<string, Snippet> ersatzSnippets)
         {
+            if (filePath == null) throw new ArgumentNullException("filePath");
+            if (ersatzSnippets == null) throw new ArgumentNullException("ersatzSnippets");
+
             string fileContent = System.IO.File.ReadAllText(filePath);
             string newContent = SubstituteSnippets(fileContent, ersatzSnippets);
 
@@ -71,15 +85,24 @@ namespace NUtil.Doc
             System.IO.File.WriteAllText(filePath, newContent);
         }
 
-        public string SubstituteSnippets(string txtContainingSnippets, Dictionary<string, Snippet> ersatzSnippets)
+        public string SubstituteSnippets([NotNull] string txtContainingSnippets,
+                                         [NotNull] Dictionary<string, Snippet> ersatzSnippets)
         {
+            if (txtContainingSnippets == null) throw new ArgumentNullException("txtContainingSnippets");
+            if (ersatzSnippets == null) throw new ArgumentNullException("ersatzSnippets");
+
+            // ReSharper disable once AssignNullToNotNullAttribute
             return mSnippetRegex.Replace(txtContainingSnippets, match => ReplaceSnippet(ersatzSnippets, match));
         }
 
-        private string ReplaceSnippet(Dictionary<string, Snippet> ersatzSnippets, Match match)
+        private string ReplaceSnippet([NotNull, ItemNotNull] Dictionary<string, Snippet> ersatzSnippets, [NotNull] Match match)
         {
-            string snippetName = match.Groups["name"].Captures[0].Value.Trim();
-            string snippetBody = match.Groups["body"].Captures[0].Value;
+            if (ersatzSnippets == null) throw new ArgumentNullException("ersatzSnippets");
+            if (match == null) throw new ArgumentNullException("match");
+
+            string snippetName;
+            string snippetBody;
+            GetSnippetNameAndBody(match, out snippetName, out snippetBody);
 
             Snippet ersatzSnippet;
             if (!ersatzSnippets.TryGetValue(snippetName, out ersatzSnippet))
@@ -90,6 +113,7 @@ namespace NUtil.Doc
                 throw new ArgumentException(msg);
             }
 
+            // ReSharper disable once PossibleNullReferenceException
             string trimmedSnippet = ersatzSnippet.Body.Trim();
             if (snippetBody != trimmedSnippet)
                 Console.WriteLine("Snippet '{0}' changed... upgrading it", snippetName);
@@ -97,6 +121,23 @@ namespace NUtil.Doc
                 Console.WriteLine("Snippet '{0}' didn't change", snippetName);
 
             return trimmedSnippet;
+        }
+
+        private static void GetSnippetNameAndBody(Match match, [NotNull] out string snippetName, [NotNull] out string snippetBody)
+        {
+            // ReSharper disable once PossibleNullReferenceException
+            GroupCollection groups = match.Groups;
+
+            Group groupForName = groups["name"];
+            if (groupForName == null)
+                throw new ArgumentException("No Group found for 'name'");
+
+            Group groupForBody = groups["body"];
+            if (groupForBody == null)
+                throw new ArgumentException("No Group found for 'body'");
+
+            snippetName = groupForName.Captures[0].Value.Trim();
+            snippetBody = groupForBody.Captures[0].Value;
         }
     }
 }

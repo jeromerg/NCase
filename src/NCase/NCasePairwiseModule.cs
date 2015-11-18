@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Diagnostics.CodeAnalysis;
+using Autofac;
 using NCaseFramework.Back.Imp.Pairwise;
 using NCaseFramework.Front.Imp;
 using NUtil.Math.Combinatorics.Pairwise;
@@ -6,6 +7,7 @@ using NUtil.Math.Combinatorics.Pairwise;
 namespace NCaseFramework.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule </summary>
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class NCasePairwiseModule : Module
     {
         protected override void Load(ContainerBuilder builder)

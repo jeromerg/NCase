@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace NUtil.Math.Combinatorics.Pairwise
 {
     public class Tuple
     {
+        [NotNull]
         private readonly int[] mResult;
 
         public Tuple(int amountOfDims)
@@ -13,6 +15,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
             mResult = Enumerable.Repeat(-1, amountOfDims).ToArray();
         }
 
+        [NotNull]
         public IEnumerable<int> FreeDims
         {
             get
@@ -25,6 +28,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
             }
         }
 
+        [NotNull]
         public IEnumerable<DimValue> FrozenDimValues
         {
             get
@@ -37,6 +41,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
             }
         }
 
+        [NotNull]
         public int[] Result
         {
             get { return mResult; }

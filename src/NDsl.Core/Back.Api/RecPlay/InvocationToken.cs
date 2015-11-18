@@ -11,7 +11,7 @@ namespace NDsl.Back.Api.RecPlay
 
         public InvocationToken([NotNull] T owner,
                                [NotNull] IInvocationRecord invocationRecord,
-                               CodeLocation codeLocation)
+                               [NotNull] CodeLocation codeLocation)
             : base(owner, codeLocation)
         {
             if (invocationRecord == null) throw new ArgumentNullException("invocationRecord");

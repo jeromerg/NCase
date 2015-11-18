@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Antlr4.StringTemplate;
+using JetBrains.Annotations;
 using LibGit2Sharp;
 
 namespace NGitVersion
@@ -22,13 +23,19 @@ namespace NGitVersion
             Directory.GetFiles(TEMPLATE_DIR, "*.stg")
                      .Select(Path.GetFullPath)
                      .ToList()
+                     // ReSharper disable once AssignNullToNotNullAttribute
                      .ForEach(templateFile => ProcessTemplate(templateFile, model));
         }
 
-        private static void ProcessTemplate(string templateFile, Model.Model model)
+        private static void ProcessTemplate([NotNull] string templateFile, Model.Model model)
         {
+            if (templateFile == null) throw new ArgumentNullException("templateFile");
+
             Template template = new TemplateGroupFile(templateFile)
                 .GetInstanceOf(MAIN_TEMPLATE_NAME);
+
+            if(template == null)
+                throw new ArgumentException(string.Format("Template {0} not found", MAIN_TEMPLATE_NAME));
 
             template.Add(MODEL_VAR, model);
 
@@ -52,7 +59,8 @@ namespace NGitVersion
             }
         }
 
-        private static string BuildTargetFileName(string templateFile)
+        [NotNull]
+        private static string BuildTargetFileName([NotNull] string templateFile)
         {
             string outputFileName = Path.GetFileNameWithoutExtension(templateFile);
             return OUTPUT_DIR + outputFileName;

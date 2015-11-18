@@ -31,6 +31,9 @@ namespace NCaseFramework.Front.Imp
 
             IPrintCaseTableDirector printCaseTableDirector = mPrintCaseTableDirectorFactory();
 
+            if (printCaseTableDirector == null) 
+                throw new ArgumentException("printCaseTableDirector == null");
+
             foreach (List<INode> @case in cases)
             {
                 printCaseTableDirector.NewRow();

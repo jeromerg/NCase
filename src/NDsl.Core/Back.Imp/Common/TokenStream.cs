@@ -10,7 +10,7 @@ namespace NDsl.Back.Imp.Common
     // TODO: Mix between Recorder and TokenStream and inheritance are questionable!
     public class TokenStream : Recorder, ITokenStream
     {
-        private readonly Queue<IToken> mTokens = new Queue<IToken>();
+        [NotNull] private readonly Queue<IToken> mTokens = new Queue<IToken>();
 
         [NotNull] public IEnumerable<IToken> Tokens
         {

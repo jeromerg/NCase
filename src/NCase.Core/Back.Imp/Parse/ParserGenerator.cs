@@ -43,8 +43,12 @@ namespace NCaseFramework.Back.Imp.Parse
             if (caseSetNode == null) throw new ArgumentNullException("caseSetNode");
             if (options == null) throw new ArgumentNullException("options");
 
-            IEnumerable<List<INode>> factForEachTestCase = mCaseGenerator.Visit(caseSetNode, options);
-            foreach (List<INode> testCaseNodes in factForEachTestCase)
+            IEnumerable<List<INode>> factsForAllCases = mCaseGenerator.Visit(caseSetNode, options);
+
+            if(factsForAllCases == null)
+                throw new InvalidOperationException(string.Format("Visit of node {0} returned null", caseSetNode));
+
+            foreach (List<INode> testCaseNodes in factsForAllCases)
                 yield return testCaseNodes;
         }
     }

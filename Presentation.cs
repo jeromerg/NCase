@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using Moq;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Ui;
@@ -13,10 +14,11 @@ namespace NCaseFramework.doc
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class Presentation
     {
         // ReSharper disable once InconsistentNaming
-        private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
+        [NotNull] private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()

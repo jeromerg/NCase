@@ -25,7 +25,7 @@ namespace NDsl.Back.Api.Util.Table
             get { return mTitle; }
         }
 
-        protected bool Equals(SimpleTableColumn other)
+        protected bool Equals([NotNull] SimpleTableColumn other)
         {
             return string.Equals(mTitle, other.mTitle);
         }

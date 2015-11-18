@@ -81,7 +81,7 @@ namespace NDsl.Back.Imp.RecPlay
             mReplayPropertyValues.Remove(callKey);
         }
 
-        private void InterceptInRecordingMode(IInvocation invocation)
+        private void InterceptInRecordingMode([NotNull] IInvocation invocation)
         {
             PropertyCallKey setterPropertyCallKey = invocation.TryGetPropertyCallKeyFromSetter();
             if (setterPropertyCallKey == null)
@@ -93,7 +93,7 @@ namespace NDsl.Back.Imp.RecPlay
             mTokenWriter.Append(token);
         }
 
-        private void InterceptInReplayMode(IInvocation invocation)
+        private void InterceptInReplayMode([NotNull] IInvocation invocation)
         {
             PropertyCallKey getterPropertyCallKey = invocation.TryGetPropertyCallKeyFromGetter();
             if (getterPropertyCallKey == null)
@@ -107,7 +107,7 @@ namespace NDsl.Back.Imp.RecPlay
         }
 
         /// <exception cref="InvalidRecPlayStateException" />
-        private InvalidRecPlayStateException BuildEx(IInvocation invocation, string format)
+        [NotNull] private InvalidRecPlayStateException BuildEx([NotNull] IInvocation invocation, [NotNull] string format)
         {
             PropertyCallKey propertyCallKey = invocation.TryGetPropertyCallKeyFromGetter()
                                               ?? invocation.TryGetPropertyCallKeyFromSetter();
@@ -122,13 +122,15 @@ namespace NDsl.Back.Imp.RecPlay
         }
 
         /// <exception cref="InvalidRecPlayStateException" />
-        private InvalidRecPlayStateException BuildEx(PropertyCallKey propertyCallKey, string format)
+        [NotNull] 
+        private InvalidRecPlayStateException BuildEx([NotNull] PropertyCallKey propertyCallKey, [NotNull] string format)
         {
             string msg = string.Format(format, PrintInvocation(propertyCallKey));
             return new InvalidRecPlayStateException(msg);
         }
 
-        private string PrintInvocation(PropertyCallKey getterPropertyCallKey)
+        [NotNull] 
+        private string PrintInvocation([NotNull] PropertyCallKey getterPropertyCallKey)
         {
             return InterfaceRecPlayNodeExtensions.PrintInvocation(mContributorName, getterPropertyCallKey);
         }

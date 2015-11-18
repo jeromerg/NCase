@@ -8,6 +8,8 @@ using NUnit.Framework;
 namespace NCaseFramework.Test
 {
     [TestFixture]
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+    [SuppressMessage("ReSharper", "UnusedVariable")]
     public class PairwiseProductTests
     {
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
@@ -28,7 +30,7 @@ namespace NCaseFramework.Test
             public string Name { get; set; }
             public int Age { get; set; }
 
-            protected bool Equals(Val other)
+            private bool Equals(Val other)
             {
                 return string.Equals(Name, other.Name) && Age == other.Age;
             }

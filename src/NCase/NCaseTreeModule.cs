@@ -1,10 +1,12 @@
-﻿using Autofac;
+﻿using System.Diagnostics.CodeAnalysis;
+using Autofac;
 using NCaseFramework.Back.Imp.Tree;
 using NCaseFramework.Front.Imp;
 
 namespace NCaseFramework.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule </summary>
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class NCaseTreeModule : Module
     {
         protected override void Load(ContainerBuilder builder)

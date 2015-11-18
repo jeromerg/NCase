@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using NCaseFramework.Back.Api.Prod;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Util;
 
 namespace NCaseFramework.Back.Imp.Prod
 {
     /// <summary> Group together nodes having the same BranchingKey </summary>
-    public class ProdDimNode : INode
+    public class ProdDimNode : IProdDimNode
     {
         [NotNull] private readonly INode mFirstChild;
         [NotNull] private readonly List<INode> mChildren = new List<INode>();

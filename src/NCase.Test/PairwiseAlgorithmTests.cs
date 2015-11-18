@@ -9,9 +9,38 @@ namespace NCaseFramework.Test
     [TestFixture]
     [SuppressMessage("ReSharper", "IteratorMethodResultIsIgnored")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class PairwiseAlgorithmTests
     {
-        public void TestAlgorithmPerformance_SingleRun(int[] dimSizes, string name)
+        private static int[][] Generate(int[] dimSizes)
+        {
+            return new PairwiseGenerator().Generate(dimSizes).ToArray();
+        }
+
+        [Test]
+        public void TestAlgorithmPerformance_DimsWithIdenticalSizes()
+        {
+            Console.WriteLine("Name; Info; Sum Repetitions; Max Repetitions; pairProdCard; cartProdCard; rate(log10)");
+
+            for (int dimAmount = 2; dimAmount < 10; dimAmount++)
+            {
+                for (int valAmount = 1; valAmount < 10; valAmount++)
+                {
+                    int[] dimSizes = Enumerable.Repeat(valAmount, dimAmount).ToArray();
+                    TestAlgorithmPerformance_SingleRun(dimSizes, string.Format("IdenticalSize;  ({0}:{1})", dimAmount, valAmount));
+
+                    dimSizes = Enumerable.Range(1, dimAmount).ToArray();
+                    TestAlgorithmPerformance_SingleRun(dimSizes,
+                                                       string.Format("IncreasingSize; ({0}:1-{1})", dimAmount, valAmount));
+
+                    dimSizes = dimSizes.Reverse().ToArray();
+                    TestAlgorithmPerformance_SingleRun(dimSizes,
+                                                       string.Format("DecreasingSize; ({0}:{1}-1)", dimAmount, valAmount));
+                }
+            }
+        }
+
+        private void TestAlgorithmPerformance_SingleRun(int[] dimSizes, string name)
         {
             int sumRepetitions = 0;
             int maxRepetitions = 0;
@@ -40,34 +69,6 @@ namespace NCaseFramework.Test
                               pairwiseProductCardinal,
                               (double) cartesianProductCardinal,
                               Math.Log10((double) pairwiseProductCardinal/cartesianProductCardinal));
-        }
-
-        private static int[][] Generate(int[] dimSizes)
-        {
-            return new PairwiseGenerator().Generate(dimSizes).ToArray();
-        }
-
-        [Test]
-        public void TestAlgorithmPerformance_DimsWithIdenticalSizes()
-        {
-            Console.WriteLine("Name; Info; Sum Repetitions; Max Repetitions; pairProdCard; cartProdCard; rate(log10)");
-
-            for (int dimAmount = 2; dimAmount < 10; dimAmount++)
-            {
-                for (int valAmount = 1; valAmount < 10; valAmount++)
-                {
-                    int[] dimSizes = Enumerable.Repeat(valAmount, dimAmount).ToArray();
-                    TestAlgorithmPerformance_SingleRun(dimSizes, string.Format("IdenticalSize;  ({0}:{1})", dimAmount, valAmount));
-
-                    dimSizes = Enumerable.Range(1, dimAmount).ToArray();
-                    TestAlgorithmPerformance_SingleRun(dimSizes,
-                                                       string.Format("IncreasingSize; ({0}:1-{1})", dimAmount, valAmount));
-
-                    dimSizes = dimSizes.Reverse().ToArray();
-                    TestAlgorithmPerformance_SingleRun(dimSizes,
-                                                       string.Format("DecreasingSize; ({0}:{1}-1)", dimAmount, valAmount));
-                }
-            }
         }
 
 

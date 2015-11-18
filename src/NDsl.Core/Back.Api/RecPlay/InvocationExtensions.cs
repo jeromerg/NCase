@@ -10,8 +10,10 @@ namespace NDsl.Back.Api.RecPlay
     public static class InvocationExtensions
     {
         [CanBeNull]
-        public static PropertyCallKey TryGetPropertyCallKeyFromGetter(this IInvocation invocation)
+        public static PropertyCallKey TryGetPropertyCallKeyFromGetter([NotNull] this IInvocation invocation)
         {
+            if (invocation == null) throw new ArgumentNullException("invocation");
+
             PropertyInfo propertyInfo = TryGetPropertyInfoFromGetter(invocation);
 
             return propertyInfo == null
@@ -20,8 +22,10 @@ namespace NDsl.Back.Api.RecPlay
         }
 
         [CanBeNull]
-        public static PropertyCallKey TryGetPropertyCallKeyFromSetter(this IInvocation invocation)
+        public static PropertyCallKey TryGetPropertyCallKeyFromSetter([NotNull] this IInvocation invocation)
         {
+            if (invocation == null) throw new ArgumentNullException("invocation");
+
             PropertyInfo propertyInfo = TryGetPropertyInfoFromSetter(invocation);
 
             return propertyInfo == null
@@ -30,25 +34,35 @@ namespace NDsl.Back.Api.RecPlay
         }
 
         [CanBeNull]
-        public static PropertyInfo TryGetPropertyInfoFromGetter(this IInvocation invocation)
+        public static PropertyInfo TryGetPropertyInfoFromGetter([NotNull] this IInvocation invocation)
         {
+            if (invocation == null) throw new ArgumentNullException("invocation");
+
             MethodInfo method = invocation.Method;
+            
+            // ReSharper disable once PossibleNullReferenceException
             return GetAllImplementedProperties(invocation.Proxy.GetType()).FirstOrDefault(p => p.GetGetMethod() == method);
         }
 
         [CanBeNull]
-        public static PropertyInfo TryGetPropertyInfoFromSetter(this IInvocation invocation)
+        public static PropertyInfo TryGetPropertyInfoFromSetter([NotNull] this IInvocation invocation)
         {
+            if (invocation == null) throw new ArgumentNullException("invocation");
+
             MethodInfo method = invocation.Method;
+
+            // ReSharper disable once PossibleNullReferenceException
             return GetAllImplementedProperties(invocation.Proxy.GetType()).FirstOrDefault(p => p.GetSetMethod() == method);
         }
 
-        private static IEnumerable<PropertyInfo> GetAllImplementedProperties(this Type type)
+        [NotNull, ItemNotNull]
+        private static IEnumerable<PropertyInfo> GetAllImplementedProperties([NotNull] this Type type)
         {
             return GetAllImplementingAndExtendingTypes(type).SelectMany(t => t.GetProperties());
         }
 
-        private static IEnumerable<Type> GetAllImplementingAndExtendingTypes(this Type type)
+        [NotNull, ItemNotNull]
+        private static IEnumerable<Type> GetAllImplementingAndExtendingTypes([NotNull] this Type type)
         {
             foreach (Type interf in type.GetInterfaces())
                 yield return interf;

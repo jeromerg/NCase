@@ -25,7 +25,7 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
             get { return mNode.PrintInvocation(); }
         }
 
-        protected bool Equals(InterfaceRecPlayNodeColumn other)
+        protected bool Equals([NotNull] InterfaceRecPlayNodeColumn other)
         {
             return Equals(mNode.PropertyCallKey, other.mNode.PropertyCallKey);
         }

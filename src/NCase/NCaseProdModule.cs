@@ -1,10 +1,12 @@
-﻿using Autofac;
+﻿using System.Diagnostics.CodeAnalysis;
+using Autofac;
 using NCaseFramework.Back.Imp.Prod;
 using NCaseFramework.Front.Imp;
 
 namespace NCaseFramework.Front.Ui
 {
     /// <summary> Requires NCaseCoreModule, NCaseSeqModule </summary>
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class NCaseProdModule : Module
     {
         protected override void Load(ContainerBuilder builder)

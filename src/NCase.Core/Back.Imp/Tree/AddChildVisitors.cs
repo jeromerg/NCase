@@ -33,7 +33,7 @@ namespace NCaseFramework.Back.Imp.Tree
                                                  "Last branch is an end branch and therefore cannot accept any child");
             }
 
-            var nextInterfaceRecPlayNode = nextTreeNode.Fact as IInterfaceRecPlayNode;
+            var nextInterfaceRecPlayNode = nextTreeNode.TreeFact as IInterfaceRecPlayNode;
             if (nextInterfaceRecPlayNode != null
                 && Equals(nextInterfaceRecPlayNode.PropertyCallKey, child.PropertyCallKey))
             {

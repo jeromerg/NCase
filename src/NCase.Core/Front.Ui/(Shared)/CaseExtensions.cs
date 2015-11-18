@@ -10,7 +10,7 @@ namespace NCaseFramework.Front.Ui
         where TSuccessException : Exception
         where TFailException : Exception
     {
-        public static void ActAndAssert([NotNull] IEnumerable<Case> caseEnumerable,
+        public static void ActAndAssert([NotNull, ItemNotNull] IEnumerable<Case> caseEnumerable,
                                         [NotNull] Action<TestCaseContext> actAndAssertAction,
                                         [NotNull] Func<string, TFailException> assertionExceptionFactory)
         {
@@ -32,21 +32,30 @@ namespace NCaseFramework.Front.Ui
 
             // CASE SOME ERROR:
 
+            // ReSharper disable PossibleNullReferenceException
+            // ReSharper disable AssignNullToNotNullAttribute
+
             IEnumerable<string> errorStrings = results
                 .Select((errorIfAny, index) => new {errorIfAny, index})
                 .Where(r => r.errorIfAny != null)
                 .Select(r => CreateErrorText(r.errorIfAny, false));
+            
+            // ReSharper restore AssignNullToNotNullAttribute
+            // ReSharper restore PossibleNullReferenceException
 
             string msg = string.Format("Following test cases failed:\n{0}", string.Join("\n", errorStrings));
+            
+            // ReSharper disable once PossibleNullReferenceException
             throw assertionExceptionFactory(msg);
         }
 
-        private static void PerformCaseTest(Action<TestCaseContext> actAndAssertAction,
+        private static void PerformCaseTest([NotNull] Action<TestCaseContext> actAndAssertAction,
                                             int caseIndex,
-                                            Case cas,
-                                            List<Exception> results,
-                                            Func<string, TFailException> assertionExceptionFactory)
+                                            [NotNull] Case cas,
+                                            [NotNull] List<Exception> results,
+                                            [NotNull] Func<string, TFailException> assertionExceptionFactory)
         {
+            if (cas == null) throw new ArgumentNullException("cas");
             Console.WriteLine();
             Console.WriteLine("Test Case #{0}", caseIndex);
             Console.WriteLine("================");
@@ -110,13 +119,13 @@ namespace NCaseFramework.Front.Ui
             }
         }
 
-        private static void PrintResultAndAddStore(List<Exception> results, [CanBeNull] Exception errorIfAny)
+        private static void PrintResultAndAddStore([NotNull] List<Exception> results, [CanBeNull] Exception errorIfAny)
         {
             results.Add(errorIfAny);
             PrintResult(errorIfAny, true);
         }
 
-        private static void PrintResult(Exception error, bool printErrorDetails)
+        private static void PrintResult([CanBeNull] Exception error, bool printErrorDetails)
         {
             string resultText = error == null
                                     ? CreateSuccessText()
@@ -132,7 +141,7 @@ namespace NCaseFramework.Front.Ui
             return "TEST CASE RESULT: SUCCESSFUL!";
         }
 
-        private static string CreateErrorText(Exception error, bool printErrorDetails)
+        private static string CreateErrorText([NotNull] Exception error, bool printErrorDetails)
         {
             var sb = new StringBuilder();
             sb.AppendLine(string.Format("TEST CASE RESULT: ERROR {0}", error.Message));

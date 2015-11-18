@@ -4,6 +4,7 @@ namespace NDsl.Back.Api.Util
 {
     public class CodeLocation
     {
+        [NotNull]
         public static readonly CodeLocation Unknown = new CodeLocation("unknown", null, null);
 
         [CanBeNull] private readonly string mFileName;
@@ -17,6 +18,7 @@ namespace NDsl.Back.Api.Util
             mColumn = column;
         }
 
+        [CanBeNull]
         public string FileName
         {
             get { return mFileName; }
@@ -32,6 +34,7 @@ namespace NDsl.Back.Api.Util
             get { return mColumn; }
         }
 
+        [NotNull]
         public string GetFullInfoWithSameSyntaxAsStackTrace()
         {
             return string.Format("{0}: line {1}",

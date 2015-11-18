@@ -9,7 +9,7 @@ namespace NCaseFramework.Back.Api.Tree
     {
         [NotNull] new TreeId Id { get; }
 
-        [CanBeNull] INode Fact { get; }
+        [CanBeNull] INode TreeFact { get; }
 
         [NotNull, ItemNotNull] IEnumerable<INode> Branches { get; }
         void AddTreeBranch([NotNull] INode branch);

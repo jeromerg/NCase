@@ -17,7 +17,7 @@ namespace NDsl.Back.Imp.Util
         ///     the assemblies to filter out as they don't belong to user code.
         ///     Their dependencies will be ignored either
         /// </param>
-        public StackFrameUtil([NotNull] params Assembly[] assembliesToIgnore)
+        public StackFrameUtil([NotNull, ItemNotNull] params Assembly[] assembliesToIgnore)
         {
             if (assembliesToIgnore == null) throw new ArgumentNullException("assembliesToIgnore");
 
@@ -37,6 +37,7 @@ namespace NDsl.Back.Imp.Util
 
             foreach (StackFrame stackFrame in stackFrames)
             {
+                // ReSharper disable once PossibleNullReferenceException
                 MethodBase method = stackFrame.GetMethod();
                 if (method == null)
                     return null;
@@ -53,10 +54,13 @@ namespace NDsl.Back.Imp.Util
             return null;
         }
 
-        private IEnumerable<Assembly> GetAssemblyAndReferenced(Assembly assembly)
+        [NotNull, ItemNotNull]
+        private IEnumerable<Assembly> GetAssemblyAndReferenced([NotNull] Assembly assembly)
         {
             yield return assembly;
-            foreach (Assembly ass in assembly.GetReferencedAssemblies().Select(n => Assembly.Load(n)))
+
+            // ReSharper disable once AssignNullToNotNullAttribute
+            foreach (Assembly ass in assembly.GetReferencedAssemblies().Select(assemblyName => Assembly.Load(assemblyName)))
                 yield return ass;
         }
     }

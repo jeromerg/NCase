@@ -5,6 +5,7 @@ namespace NDsl.Back.Api.RecPlay
 {
     public interface IInterfaceReIInterfaceRecPlayNodeFactory
     {
+        [NotNull]
         IInterfaceRecPlayNode Create([NotNull] IInterfaceRecPlayInterceptor parentInterceptor,
                                      [NotNull] string contributorName,
                                      [NotNull] PropertyCallKey propertyCallKey,

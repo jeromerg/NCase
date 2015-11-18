@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using Autofac;
 using NDsl.Back.Api.Util;
 using NDsl.Back.Api.Util.Table;
@@ -17,6 +18,7 @@ using Module = Autofac.Module;
 
 namespace NDsl
 {
+    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class NDslCoreModule : Module
     {
         private readonly Assembly[] mNonUserAssemblies;

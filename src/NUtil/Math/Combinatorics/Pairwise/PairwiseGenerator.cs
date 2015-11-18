@@ -22,11 +22,12 @@ namespace NUtil.Math.Combinatorics.Pairwise
             var pairGenerations = new List<PairSet> {new PairSet(dimSizes)};
 
             // while any pair exists in first generation (unused pair)
+            // ReSharper disable once PossibleNullReferenceException
             while (pairGenerations.First().Any())
                 yield return GenerateNextTuple(dimSizes, pairGenerations);
         }
 
-        private int[] GenerateNextTuple(int[] dimSizes, List<PairSet> pairGenerations)
+        private int[] GenerateNextTuple([NotNull] int[] dimSizes, [NotNull] List<PairSet> pairGenerations)
         {
             var tuple = new Tuple(dimSizes.Length);
 
@@ -36,12 +37,13 @@ namespace NUtil.Math.Combinatorics.Pairwise
             return tuple.Result;
         }
 
-        private void FreezeOneOrTwoDims(List<PairSet> generations, Tuple tuple)
+        private void FreezeOneOrTwoDims([NotNull, ItemNotNull] List<PairSet> generations, [NotNull] Tuple tuple)
         {
             for (int generationIndex = 0; generationIndex < generations.Count; generationIndex++)
             {
                 PairSet pairGeneration = generations[generationIndex];
 
+                // ReSharper disable once AssignNullToNotNullAttribute
                 Pair pair = TryPeakBestPair(pairGeneration, tuple);
                 if (pair == null)
                     continue;
@@ -50,12 +52,14 @@ namespace NUtil.Math.Combinatorics.Pairwise
                 PairSet nextGeneration = GetOrCreateNextGeneration(generations, generationIndex);
 
                 // move pair to next generation
+                // ReSharper disable once PossibleNullReferenceException
                 pairGeneration.Remove(pair);
                 nextGeneration.Add(pair);
 
                 // remove all pair built with the one or two new dimValues to next generation
                 foreach (DimValue dimValue in tuple.FrozenDimValues)
                 {
+                    // ReSharper disable once PossibleNullReferenceException
                     var p1 = new Pair(dimValue.Dim, dimValue.Val, pair.Dim1, pair.Val1);
                     var p2 = new Pair(dimValue.Dim, dimValue.Val, pair.Dim2, pair.Val2);
                     pairGeneration.Remove(p1);
@@ -73,14 +77,14 @@ namespace NUtil.Math.Combinatorics.Pairwise
         }
 
         [CanBeNull]
-        private Pair TryPeakBestPair(PairSet pairs, Tuple tuple)
+        private Pair TryPeakBestPair([NotNull] PairSet pairs, [NotNull] Tuple tuple)
         {
             return TryPeakPairInFreeDims(pairs, tuple)
                    ?? TryPeakPairInFreeAndFrozenDims(pairs, tuple);
         }
 
         [CanBeNull]
-        private Pair TryPeakPairInFreeDims(PairSet pairs, Tuple tuple)
+        private Pair TryPeakPairInFreeDims([NotNull] PairSet pairs, [NotNull] Tuple tuple)
         {
             return tuple.FreeDims
                         .TriangleUnequal((dim1, dim2) => pairs.FirstOrDefault(dim1, dim2))
@@ -88,14 +92,17 @@ namespace NUtil.Math.Combinatorics.Pairwise
         }
 
         [CanBeNull]
-        private Pair TryPeakPairInFreeAndFrozenDims(PairSet pairs, Tuple tuple)
+        private Pair TryPeakPairInFreeAndFrozenDims([NotNull] PairSet pairs, [NotNull] Tuple tuple)
         {
-            return tuple.FreeDims.CartesianProduct(tuple.FrozenDimValues,
-                                                   (dim1, val1) => pairs.FirstOrDefault(val1.Dim, val1.Val, dim1))
-                        .FirstOrDefault(pair => pair != null);
+            // ReSharper disable once PossibleNullReferenceException
+            return tuple
+                .FreeDims
+                .CartesianProduct(tuple.FrozenDimValues, (dim1, val1) => pairs.FirstOrDefault(val1.Dim, val1.Val, dim1))
+                .FirstOrDefault(pair => pair != null);
         }
 
-        private static PairSet GetOrCreateNextGeneration(List<PairSet> generations, int generationIndex)
+        [NotNull]
+        private static PairSet GetOrCreateNextGeneration([NotNull, ItemNotNull] List<PairSet> generations, int generationIndex)
         {
             PairSet newGeneration;
             if (generationIndex == generations.Count - 1)
@@ -107,6 +114,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
             {
                 newGeneration = generations[generationIndex + 1];
             }
+            // ReSharper disable once AssignNullToNotNullAttribute
             return newGeneration;
         }
     }

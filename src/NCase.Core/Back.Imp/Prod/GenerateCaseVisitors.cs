@@ -11,7 +11,7 @@ namespace NCaseFramework.Back.Imp.Prod
 {
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<IProdNode>,
-          IGenerateCaseVisitor<ProdDimNode>
+          IGenerateCaseVisitor<IProdDimNode>
     {
         [NotNull, ItemNotNull]
         public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
@@ -30,36 +30,51 @@ namespace NCaseFramework.Back.Imp.Prod
 
         [NotNull, ItemNotNull]
         public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
-                                              [NotNull] ProdDimNode node,
+                                              [NotNull] IProdDimNode node,
                                               [NotNull] GenerateOptions options)
         {
             if (options == null) throw new ArgumentNullException("options");
 
             foreach (INode child in node.Children)
-                foreach (List<INode> nodes in dir.Visit(child, options))
-                    yield return nodes;
+            {
+                IEnumerable<List<INode>> casesOfChild = dir.Visit(child, options);
+
+                if(casesOfChild == null)
+                    throw new InvalidOperationException(string.Format("Visit of child {0} returned null", child));
+
+                foreach (List<INode> caseFacts in casesOfChild)
+                    yield return caseFacts;
+            }
         }
 
         [NotNull, ItemNotNull]
         private IEnumerable<List<INode>> ProduceCartesianProductRecursively([NotNull] IGenerateCasesDirector dir,
-                                                                            [NotNull, ItemNotNull] List<INode> operands,
-                                                                            int operandIndex,
+                                                                            [NotNull, ItemNotNull] List<INode> dimensions,
+                                                                            int dimensionIndex,
                                                                             [NotNull] GenerateOptions options)
         {
-            bool isLastOperand = operandIndex == operands.Count - 1;
-            INode currentOperand = operands[operandIndex];
+            bool isLastDim = dimensionIndex == dimensions.Count - 1;
+            INode currentDimNode = dimensions[dimensionIndex];
 
-            foreach (List<INode> nodes in dir.Visit(currentOperand, options))
+            IEnumerable<List<INode>> casesOfCurrentDim = dir.Visit(currentDimNode, options);
+            
+            if(casesOfCurrentDim == null)
+                throw new InvalidOperationException(string.Format("Visit of child {0} returned null", currentDimNode));
+            
+            foreach (List<INode> caseFacts in casesOfCurrentDim)
             {
-                if (isLastOperand)
+                if(caseFacts == null)
+                    throw new InvalidOperationException(string.Format("Visit of child {0} returned a case having the list of facts equal to null", currentDimNode));
+
+                if (isLastDim)
                 {
-                    yield return nodes; // end of recursion here
+                    yield return caseFacts; // end of recursion here
                 }
                 else
                 {
-                    // continue recursion
-                    foreach (List<INode> subnodes in ProduceCartesianProductRecursively(dir, operands, operandIndex + 1, options))
-                        yield return ListUtil.Concat(nodes, subnodes);
+                    // continue recursion and merge facts together
+                    foreach (List<INode> subnodes in ProduceCartesianProductRecursively(dir, dimensions, dimensionIndex + 1, options))
+                        yield return ListUtil.Concat(caseFacts, subnodes);
                 }
             }
         }
