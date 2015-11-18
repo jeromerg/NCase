@@ -53,10 +53,9 @@ namespace NDsl.Back.Api.RecPlay
             foreach (Type interf in type.GetInterfaces())
                 yield return interf;
 
-            
-            for(Type t = type; t != null; t = t.BaseType)
-                yield return t;                
 
+            for (Type t = type; t != null; t = t.BaseType)
+                yield return t;
         }
     }
 }

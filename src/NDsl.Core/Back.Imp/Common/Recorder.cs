@@ -7,13 +7,9 @@ namespace NDsl.Back.Imp.Common
 {
     public class Recorder : IRecorder
     {
-        private RecorderMode mMode;
         private int mModeIncrement;
 
-        public RecorderMode Mode
-        {
-            get { return mMode; }
-        }
+        public RecorderMode Mode { get; private set; }
 
         public IDisposable SetReadMode()
         {
@@ -37,12 +33,14 @@ namespace NDsl.Back.Imp.Common
 
         private void SetMode(bool isEnteringMode, RecorderMode wishedMode)
         {
-            if (mMode != RecorderMode.None && mMode != wishedMode)
-                throw new InvalidRecPlayStateException("Cannot set '{0}' mode as Recorder is currently in '{1}' mode", wishedMode, mMode);
+            if (Mode != RecorderMode.None && Mode != wishedMode)
+                throw new InvalidRecPlayStateException("Cannot set '{0}' mode as Recorder is currently in '{1}' mode",
+                                                       wishedMode,
+                                                       Mode);
 
             mModeIncrement += isEnteringMode ? 1 : -1;
 
-            mMode = mModeIncrement > 0 ? wishedMode : RecorderMode.None;
+            Mode = mModeIncrement > 0 ? wishedMode : RecorderMode.None;
         }
     }
 }
