@@ -113,7 +113,7 @@
     <Compile Include="Front.Api\%28Builder%29\IBuilderFactory.cs" />
     <Compile Include="Back.Api\Builder\ICaseBuilderModel.cs" />
     <Compile Include="Front.Api\%28Builder%29\ICreateContributor.cs" />
-    <Compile Include="Front.Api\BuilderExtensions.cs" />
+    <Compile Include="Front.Ui\BuilderExtensions.cs" />
     <Compile Include="Front.Api\IDefFactory.cs" />
     <Compile Include="Front.Imp\%28Builder%29\CaseBuilder.cs" />
     <Compile Include="Front.Imp\%28Builder%29\BuilderFactory.cs" />

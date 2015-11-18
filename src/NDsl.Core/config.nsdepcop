@@ -18,6 +18,7 @@
 
   <!-- UI refers API model via Zapi property -->
   <Allowed From="NDsl.Front.Ui.*" To="NDsl.Front.Api.*" />
+  <Allowed From="NDsl.Front.Ui.*" To="NDsl.Back.Api.*" />
 
   <!-- UI refers Back API model via Zapi property -->
   <Allowed From="NDsl.*" To="NDsl.All.*" />

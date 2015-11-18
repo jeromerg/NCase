@@ -1,8 +1,8 @@
 using System;
 using JetBrains.Annotations;
-using NDsl.Front.Ui;
+using NDsl.Front.Api;
 
-namespace NDsl.Front.Api
+namespace NDsl.Front.Ui
 {
     public static class BuilderExtensions
     {

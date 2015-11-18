@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Ex;
 using NDsl.Front.Api;
+using NDsl.Front.Ui;
 using NUnit.Framework;
 
 namespace NCaseFramework.Test

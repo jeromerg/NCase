@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using NCaseFramework.Front.Ui;
 using NDsl.Front.Api;
+using NDsl.Front.Ui;
 using NUnit.Framework;
 
 namespace NCaseFramework.Test

@@ -4,6 +4,7 @@ using Moq;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Front.Api;
+using NDsl.Front.Ui;
 using NUnit.Framework;
 using NUtil.Doc;
 using NUtil.Generics;
