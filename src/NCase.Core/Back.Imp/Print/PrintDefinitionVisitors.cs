@@ -12,20 +12,20 @@ namespace NCaseFramework.Back.Imp.Print
           IPrintDefinitionVisitor<IRefNode<IDefNode>>
     {
         /// <summary> If node unknown, then recurse...</summary>
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] INode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] INode node, [NotNull] IPrintDefinitionPayload payload)
         {
             foreach (INode child in node.Children)
-                dir.Visit(child);
+                dir.Visit(child, payload);
         }
 
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IRefNode<IDefNode> node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IRefNode<IDefNode> node, [NotNull] IPrintDefinitionPayload payload)
         {
             IDefId defId = node.Reference.Id;
 
-            if (dir.IsRecursive)
-                dir.Visit(node.Reference);
+            if (payload.IsRecursive)
+                dir.Visit(node.Reference, payload);
             else
-                dir.PrintLine(node.CodeLocation, "Ref to {0} '{1}'", defId.TypeName, defId.Name);
+                payload.PrintLine(node.CodeLocation, "Ref to {0} '{1}'", defId.TypeName, defId.Name);
         }
     }
 }

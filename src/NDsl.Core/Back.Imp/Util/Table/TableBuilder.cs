@@ -16,6 +16,15 @@ namespace NDsl.Back.Imp.Util.Table
         [NotNull, ItemNotNull] private readonly List<Dictionary<ITableColumn, List<string>>> mCellContentByRowAndColumn =
             new List<Dictionary<ITableColumn, List<string>>>();
 
+        public class Factory : ITableBuilderFactory
+        {
+            [NotNull]
+            public ITableBuilder Create()
+            {
+                return new TableBuilder();
+            }
+        }
+
         public void NewRow()
         {
             mCellContentByRowAndColumn.Add(new Dictionary<ITableColumn, List<string>>());

@@ -8,21 +8,21 @@ namespace NCaseFramework.Back.Imp.Tree
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<ITreeNode>
     {
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ITreeNode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ITreeNode node, [NotNull] IPrintDefinitionPayload payload)
         {
             if (node.TreeFact == null)
-                dir.PrintLine(node.CodeLocation, "Tree {0}", node.Id.Name);
+                payload.PrintLine(node.CodeLocation, "Tree {0}", node.Id.Name);
             else
-                dir.Visit(node.TreeFact);
+                dir.Visit(node.TreeFact, payload);
 
             // ---
 
-            dir.Indent();
+            payload.Indent();
 
             foreach (INode child in node.Branches)
-                dir.Visit(child);
+                dir.Visit(child, payload);
 
-            dir.Dedent();
+            payload.Dedent();
         }
     }
 }

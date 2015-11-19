@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Print;
 using NCaseFramework.Back.Api.SetDef;
@@ -11,13 +10,16 @@ namespace NCaseFramework.Front.Imp
     public class PrintDefSvc : IPrintDefSvc
     {
         [NotNull] private readonly IParserGenerator mParserGenerator;
-        [NotNull] private readonly Func<IPrintDefinitionDirector> mPrintDefinitionDirectorFactory;
+        [NotNull] private readonly IPrintDefinitionDirector mPrintDefinitionDirector;
+        [NotNull] private readonly IPrintDefinitionPayloadFactory mPrintDefinitionPayloadFactory;
 
         public PrintDefSvc([NotNull] IParserGenerator parserGenerator,
-                           [NotNull] Func<IPrintDefinitionDirector> printDefinitionDirectorFactory)
+                           [NotNull] IPrintDefinitionDirector printDefinitionDirector,
+                           [NotNull] IPrintDefinitionPayloadFactory printDefinitionPayloadFactory)
         {
             mParserGenerator = parserGenerator;
-            mPrintDefinitionDirectorFactory = printDefinitionDirectorFactory;
+            mPrintDefinitionDirector = printDefinitionDirector;
+            mPrintDefinitionPayloadFactory = printDefinitionPayloadFactory;
         }
 
         [NotNull]
@@ -27,17 +29,11 @@ namespace NCaseFramework.Front.Imp
             {
                 INode caseSetNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
 
-                IPrintDefinitionDirector printDefinitionDirector = mPrintDefinitionDirectorFactory();
+                IPrintDefinitionPayload payload = mPrintDefinitionPayloadFactory.Create(isFileInfo, isRecursive);
 
-                if (printDefinitionDirector == null)
-                    throw new ArgumentException("printDefinitionDirector == null");
+                mPrintDefinitionDirector.Visit(caseSetNode, payload);
 
-                printDefinitionDirector.IsFileInfo = isFileInfo;
-                printDefinitionDirector.IsRecursive = isRecursive;
-
-                printDefinitionDirector.Visit(caseSetNode);
-
-                return printDefinitionDirector.GetString();
+                return payload.GetString();
             }
         }
     }

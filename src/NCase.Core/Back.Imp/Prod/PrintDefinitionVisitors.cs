@@ -9,28 +9,28 @@ namespace NCaseFramework.Back.Imp.Prod
         : IPrintDefinitionVisitor<IProdNode>,
           IPrintDefinitionVisitor<ProdDimNode>
     {
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IProdNode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IProdNode node, [NotNull] IPrintDefinitionPayload payload)
         {
-            dir.PrintLine(node.CodeLocation, "AllCombinations '{0}'", node.Id.Name);
+            payload.PrintLine(node.CodeLocation, "AllCombinations '{0}'", node.Id.Name);
 
-            dir.Indent();
+            payload.Indent();
 
             foreach (INode child in node.Children)
-                dir.Visit(child);
+                dir.Visit(child, payload);
 
-            dir.Dedent();
+            payload.Dedent();
         }
 
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ProdDimNode node)
+        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ProdDimNode node, [NotNull] IPrintDefinitionPayload payload)
         {
-            dir.PrintLine(node.CodeLocation, "Implicit Dimension");
+            payload.PrintLine(node.CodeLocation, "Implicit Dimension");
 
-            dir.Indent();
+            payload.Indent();
 
             foreach (INode child in node.Children)
-                dir.Visit(child);
+                dir.Visit(child, payload);
 
-            dir.Dedent();
+            payload.Dedent();
         }
     }
 }

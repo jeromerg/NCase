@@ -40,9 +40,9 @@ namespace NDsl
             builder.RegisterType<TableBuilder>().As<ITableBuilder>().InstancePerDependency();
 
             builder.RegisterInstance(new StackFrameUtil(mNonUserAssemblies)).As<IStackFrameUtil>();
+            builder.RegisterType<TableBuilder.Factory>().As<ITableBuilderFactory>();
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
             builder.RegisterType<TokenStream>().AsImplementedInterfaces();
-            builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
             builder.RegisterGeneric(typeof (ActionVisitMapper<,>)).AsSelf().As(typeof (IActionVisitMapper<,>));
             builder.RegisterGeneric(typeof (ActionPayloadVisitMapper<,,>)).AsSelf().As(typeof (IActionPayloadVisitMapper<,,>));
             builder.RegisterGeneric(typeof (ActionPairVisitMapper<,,>)).AsSelf().As(typeof (IActionPairVisitMapper<,,>));

@@ -1,23 +1,9 @@
-﻿using JetBrains.Annotations;
-using NDsl.Back.Api.Common;
-using NDsl.Back.Api.Util;
-using NVisitor.Api.Action;
+﻿using NDsl.Back.Api.Common;
+using NVisitor.Api.ActionPayload;
 
 namespace NCaseFramework.Back.Api.Print
 {
-    public interface IPrintDefinitionDirector : IActionDirector<INode, IPrintDefinitionDirector>
+    public interface IPrintDefinitionDirector : IActionPayloadDirector<INode, IPrintDefinitionDirector, IPrintDefinitionPayload>
     {
-        bool IsRecursive { get; set; }
-        bool IsFileInfo { set; }
-
-        void Indent();
-
-        void Dedent();
-
-        [StringFormatMethod("args")]
-        void PrintLine([NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args);
-
-        [NotNull]
-        string GetString();
     }
 }

@@ -68,6 +68,8 @@
     <Compile Include="Back.Api\Print\IPrintCaseTableDirector.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseVisitor.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseTableVisitor.cs" />
+    <Compile Include="Back.Api\Print\IPrintDefinitionPayload.cs" />
+    <Compile Include="Back.Api\Print\IPrintDefinitionPayloadFactory.cs" />
     <Compile Include="Back.Api\Prod\IProdDimNode.cs" />
     <Compile Include="Back.Api\Seq\ITreeNode.cs" />
     <Compile Include="Back.Api\Seq\SequenceId.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Back.Imp\Print\PrintCasePayload.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableDirector.cs" />
     <Compile Include="Back.Imp\Print\PrintCaseTableVisitors.cs" />
+    <Compile Include="Back.Imp\Print\PrintDefinitionPayload.cs" />
     <Compile Include="Back.Imp\Prod\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Pairwise\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Parse\AddChildDirector.cs" />
