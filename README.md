@@ -71,7 +71,7 @@ NCase offers various ways to define sets of test cases, and combine them togethe
 
 #### `AllCombinations`
 
-As already shown above, `AllCombinations` generates all possbiel property assignments. For example:
+As already shown above, `AllCombinations` generates all possbible property assignments. For example:
 
 <!--# AllCombinations -->
 ```C#
@@ -181,8 +181,8 @@ Result:
 
 <!--# Visualize_Def_Console -->
 ```
-Definition                         | Location                              
- ---------------------------------- | ------------------------------------- 
+Definition                         | Location                                          
+ ---------------------------------- | ------------------------------------------------- 
  Tree userSet                       | c:\dev\NCase\Readme.cs: line 216 
      user.UserName=Richard          | c:\dev\NCase\Readme.cs: line 218 
          user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 219 
@@ -230,8 +230,8 @@ Result:
 
 <!--# Visualize_Case_Console -->
 ```
-Fact                       | Location                              
- -------------------------- | ------------------------------------- 
+Fact                       | Location                                          
+ -------------------------- | ------------------------------------------------- 
  user.UserName=Richard      | c:\dev\NCase\Readme.cs: line 218 
  user.Password=SomePass678; | c:\dev\NCase\Readme.cs: line 219 
  user.Age=24                | c:\dev\NCase\Readme.cs: line 220
@@ -283,8 +283,8 @@ Test Case #0
 Definition
 ----------
 
- Fact                           | Location                              
- ------------------------------ | ------------------------------------- 
+ Fact                           | Location                                          
+ ------------------------------ | ------------------------------------------------- 
  hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 191 
  hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 195 
  hw.RamInGb=1                   | c:\dev\NCase\Readme.cs: line 199 
@@ -309,8 +309,8 @@ Test Case #1
 Definition
 ----------
 
- Fact                           | Location                              
- ------------------------------ | ------------------------------------- 
+ Fact                           | Location                                          
+ ------------------------------ | ------------------------------------------------- 
  hw.Architecture=arm            | c:\dev\NCase\Readme.cs: line 191 
  hw.HardDriveInGb=10            | c:\dev\NCase\Readme.cs: line 195 
 (...)

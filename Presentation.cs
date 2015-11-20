@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using JetBrains.Annotations;
 using Moq;
 using NCaseFramework.Front.Ui;
@@ -15,6 +16,7 @@ namespace NCaseFramework.doc
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
     public class Presentation
     {
         // ReSharper disable once InconsistentNaming
@@ -48,11 +50,11 @@ namespace NCaseFramework.doc
             public void CreateTodo(ITodo todo) { }
         }
 
-        DateTime now = new DateTime(2011, 11, 11, 11, 11, 11);
-        DateTime yesterday = new DateTime(2011, 11, 10, 11, 11, 11);
-        DateTime tomorrow = new DateTime(2011, 11, 12, 11, 11, 11);
-        DateTime daylightSavingTimeMissingTime = new DateTime(2011, 11, 12, 11, 11, 11);
-        DateTime daylightSavingTimeAmbiguousTime = new DateTime(2011, 11, 12, 11, 11, 11);
+        DateTime now = new DateTime(2011, 11, 11, 0, 0, 0);
+        DateTime yesterday = new DateTime(2011, 11, 10, 0, 0, 0);
+        DateTime tomorrow = new DateTime(2011, 11, 12, 0, 0, 0);
+        DateTime daylightSavingTimeMissingTime = new DateTime(2011, 11, 12, 0, 0, 0);
+        DateTime daylightSavingTimeAmbiguousTime = new DateTime(2011, 11, 12, 0, 0, 0);
 
         [Test]
         public void MoqExample1()
@@ -92,7 +94,6 @@ namespace NCaseFramework.doc
                 todo.IsDone = false;
             }
 
-            // REPLAY TEST CASES
             set.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
@@ -123,7 +124,7 @@ namespace NCaseFramework.doc
         }
 
         [Test]
-        public void MoqTest2()                     // DUPLICATE
+        public void MoqTest2()                      // DUPLICATED TEST
         {
             // ARRANGE
             var mock = new Mock<ITodo>();
@@ -149,7 +150,7 @@ namespace NCaseFramework.doc
             using (set.Define())
             {
                 todo.Title = "Don't forget to forget";
-                todo.Title = "Another todo to forget";  // CHANGE
+                todo.Title = "Another todo to forget";  // ADDITION
 
                 todo.DueDate = now;
                 todo.IsDone = false;
@@ -245,19 +246,19 @@ namespace NCaseFramework.doc
             using (set.Define())
             {
                 todo.Title = "Don't forget to forget";
-                //...
+                //... alternative assignments
 
                 todo.DueDate = yesterday;
-                //...
+                //... alternative assignments
 
                 todo.IsDone = false;
-                //...
+                //... alternative assignments
 
                 user.IsActive = true;
-                //...
+                //... alternative assignments
 
                 user.NotificationEmail = null;
-                //...
+                //... alternative assignments
             }
             //#
 
@@ -286,13 +287,13 @@ namespace NCaseFramework.doc
             using (todoSet.Define())
             {
                 todo.Title = "Don't forget to forget";
-                //...
+                //... alternative assignments
 
                 todo.DueDate = yesterday;
-                //...
+                //... alternative assignments
 
                 todo.IsDone = false;
-                //...
+                //... alternative assignments
             }
             //#
 
@@ -301,10 +302,10 @@ namespace NCaseFramework.doc
             using (userSet.Define())
             {
                 user.IsActive = true;
-                //...
+                //... alternative assignments
 
                 user.NotificationEmail = null;
-                //...
+                //... alternative assignments
 
             }
             //#
@@ -342,13 +343,13 @@ namespace NCaseFramework.doc
             using (todoSet.Define())
             {
                 todo.Title = "Don't forget to forget";
-                //...
+                //... alternative assignments
 
                 todo.DueDate = yesterday;
-                //...
+                //... alternative assignments
 
                 todo.IsDone = false;
-                //...
+                //... alternative assignments
 
             }
             //#
@@ -369,23 +370,46 @@ namespace NCaseFramework.doc
             var todoSet = builder.NewDefinition<Tree>("todoSet");
             using (todoSet.Define())
             {
-                todo.Title = "Don't forget to forget";
-                    todo.DueDate = yesterday;
+                todo.Title = "forget";
+                    isValid.Value = true;
                         todo.IsDone = false;
-                            isValid.Value = true;
+                            todo.DueDate = yesterday;
+                            todo.DueDate = tomorrow;
+                    isValid.Value = false;
+                        todo.DueDate = yesterday;
+                            todo.IsDone = false;
+                todo.Title = "*++**+*";
+                    isValid.Value = false;
+                        todo.IsDone = false;
+                            todo.DueDate = yesterday;
                         todo.IsDone = true;
-                            isValid.Value = false;
-                    todo.DueDate = tomorrow;
-                        isValid.Value = true;
-                            todo.IsDone = false;
-                            todo.IsDone = true;
-                    todo.DueDate = now;
-                        isValid.Value = true;
-                            todo.IsDone = false;
-                            todo.IsDone = true;                            
+                            todo.DueDate = tomorrow;
             }
             //#
 
+            //# Visualize_Def
+            docu.BeginRecordConsole("Visualize_Def_Console");
+            string def = todoSet.PrintDefinition(isFileInfo: true);
+
+            Console.WriteLine(def);
+            docu.StopRecordConsole();
+            //#                
+
+            //# Visualize_Table
+            docu.BeginRecordConsole("Visualize_Table_Console");
+            string table = todoSet.PrintCasesAsTable();
+
+            Console.WriteLine(table);
+            docu.StopRecordConsole();
+            //#
+
+            //# Visualize_Case
+            docu.BeginRecordConsole("Visualize_Case_Console");
+            string cas = todoSet.Cases().First().Print();
+
+            Console.WriteLine(cas);
+            docu.StopRecordConsole();
+            //#
         }
 
     }

@@ -1,16 +1,31 @@
-Presentation
-============
+Status:
+
+[![Build status](https://ci.appveyor.com/api/projects/status/5t819acpeymgqdoh/branch/master?svg=true)](https://ci.appveyor.com/project/jeromerg/ncase/branch/master)  [![NuGet](https://img.shields.io/nuget/dt/NCase.svg)](https://www.nuget.org/packages/NCase/)
+
+NCase
+=====
 
 Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code.
 
-Let's see how you write test of a `TodoManager.AddTodo(ITodo todo)` method in a heterogen hardware and software environment.
+NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized test framework, having advanced combinatorial capabilities. 
+
+NCase is not released yet! The API is now quite stable, but further commits may introduce breaking changes. Please give as much feedback as possible, positive, negative, critics!  
+
+Installation
+------------
+
+To install NCase, run the following command in the Nuget Package Manager Console:
+
+```
+Install-Package NCase
+```
 
 Comparison to Moq: The first test case 
 ----------------------------------------
 
-Let's say, you test some `TodoManager.AddTodo(ITodo todo)` method.
+Let's say, you need to test a method called `TodoManager.AddTodo(ITodo todo)`.
 
-With [Moq][Moq], a test typically looks like: 
+Here is how you typically write a conventional test:  
 
 <!--# MoqExample1 -->
 ```C#
@@ -31,7 +46,10 @@ todoManager.CreateTodo(todo);
 //...
 ```
 
-With NCase, you write the same test as following:
+You recognize the three blocks *Arrange, Act, Assert* as well as the use of [Moq][Moq] to provide an instance of `ITodo`. Until now, nothing new hopefully.
+
+
+Now look how you write the same test with NCase:
 
 <!--# NCaseExample1 -->
 ```C#
@@ -47,7 +65,6 @@ using (set.Define())
     todo.IsDone = false;
 }
 
-// REPLAY TEST CASES
 set.Cases().Replay().ActAndAssert(ea =>
 {
     // ACT
@@ -59,12 +76,18 @@ set.Cases().Replay().ActAndAssert(ea =>
 });
 ```
 
-So far, both tests look like very similar. NCase is a little bit more verbose. We see that the code is already prepared to handle multiple test cases: The Act and Asserts are located in a statement lambda, allowing multiple calls.
+So far, both tests look like very similar. You recognize the same blocks *Arrange, Act, Assert*. NCase is a little bit more verbose: 
+
+- The mock has been replaced by something called a *contributor* 
+- The contributor's properties are set inside a block, that amazingly looks like a definition
+- And finally the *Act and Asserts* are located inside a statement lambda passed to a method called `ActAndAssert`
+
+You wonder? Now, let's see the power of these few additional lines... 
 
 The second test case
 --------------------
 
-Now, let's say, you need to implement additional test cases. (No surprise: it is always the same). With `Moq`, you typically perform a copy&paste, keeping all mocked properties unchanged except one:
+Let's say, you need to implement additional test cases. No surprise: it is always the same! Usually, you typically perform a copy&paste, keep all mocked properties unchanged except one:
 
 <!--# MoqExample2 -->
 ```C#
@@ -84,7 +107,7 @@ public void MoqTest1()
 }
 
 [Test]
-public void MoqTest2()                     // DUPLICATE
+public void MoqTest2()                      // DUPLICATED TEST
 {
     // ARRANGE
     var mock = new Mock<ITodo>();
@@ -99,14 +122,14 @@ public void MoqTest2()                     // DUPLICATE
 }
 ```
 
-With NCase, you only need to add a single line:
+Now, open your eyes, with NCase, you only need to add a single line:
 
 <!--# NCaseExample2_AddedLine -->
 ```C#
 todo.Title = "Another todo to forget";
 ```
 
-The previous test becomes:
+The initial test becomes:
 
 <!--# NCaseExample2 -->
 ```C#
@@ -117,7 +140,7 @@ var set = builder.NewDefinition<AllCombinations>("set");
 using (set.Define())
 {
     todo.Title = "Don't forget to forget";
-    todo.Title = "Another todo to forget";  // CHANGE
+    todo.Title = "Another todo to forget";  // ADDITION
 
     todo.DueDate = now;
     todo.IsDone = false;
@@ -134,9 +157,11 @@ set.Cases().Replay().ActAndAssert(ea =>
 });
 ```
 
-The statement lambda containing the Act and Asserts will be called twice exactly in the same conditions as `MoqTest1` and `MoqTest2` are called in the previous example!
+Like a sorcerer, NCase calls twice the *Act and Asserts* exactly in the same way as `MoqTest1` and `MoqTest2` do!
 
-Why? Because the Arrange statements are located inside a definition of type `AllCombinations`: the `AllCombinations` definition groups together subsequent assignments of the same property, peform the so called cartesian product between all groups, and pass them to the statement lambda in order to execute the Act and Assert statements.
+Why? Because the Arrange statements are located inside a definition of type `AllCombinations`: the `AllCombinations` definition groups together subsequent assignments of the same property, peform the so called cartesian product between all groups. 
+
+Afterward, the chain `set.Cases().Replay().ActAndAssert(...)` generates the test cases one by one, replay them and call the *Act and Assert* statements.
 
 Many test cases
 ---------------
@@ -187,15 +212,16 @@ Combining Contributors
 
 In NCase, you can mix any contributors in any definition.
 
-Imagine you test `TodoManager.AddTodo(...)` requires an additional argument: the user to assign the todo to, as following:
+Imagine you test `TodoManager.AddTodo(...)` requires an additional argument: the user to assign the todo to:
 
 ```C#
 TodoManager.AddTodo(ITodo todo, IUser assignee)
 ```
 
-With NCase, you need an additional contributor as following:
+You can introduce an additional contributor as following:
 
 <!--# NCaseCombiningContributors_VAR -->
+
 ```C#
 var user = builder.NewContributor<IUser>("user");
 ```
@@ -207,19 +233,19 @@ And then you can use the contributor in the existing the definition:
 using (set.Define())
 {
     todo.Title = "Don't forget to forget";
-    //...
+    //... alternative assignments
 
     todo.DueDate = yesterday;
-    //...
+    //... alternative assignments
 
     todo.IsDone = false;
-    //...
+    //... alternative assignments
 
     user.IsActive = true;
-    //...
+    //... alternative assignments
 
     user.NotificationEmail = null;
-    //...
+    //... alternative assignments
 }
 ```
 
@@ -228,9 +254,11 @@ This definition generates the cartesian product between all groups of property a
 Combining Sets
 --------------
 
-You can also define multiple combinatorial sets and combine them together. For example, you may want to separate the set of `ITodo` cases from the set of	`IUser` cases. 
+NCase has a very powerful combinatorial engine. You can define multiple combinatorial sets and, the best, you can combine them together! 
 
-First you define two sets for `ITodo` and `IUser` as following:
+For example, you may want to split the previous arrange into two subsets. 
+
+You first define the set of cases related to the `todo` contributor:
 
 <!--# NCaseCombiningSets_TODO_SET -->
 ```C#
@@ -238,15 +266,17 @@ var todoSet = builder.NewDefinition<AllCombinations>("todoSet");
 using (todoSet.Define())
 {
     todo.Title = "Don't forget to forget";
-    //...
+    //... alternative assignments
 
     todo.DueDate = yesterday;
-    //...
+    //... alternative assignments
 
     todo.IsDone = false;
-    //...
+    //... alternative assignments
 }
 ```
+
+Then you define the set of cases related to the `user` contributor:
 
 <!--# NCaseCombiningSets_USER_SET -->
 ```C#
@@ -254,15 +284,15 @@ var userSet = builder.NewDefinition<AllCombinations>("userSet");
 using (userSet.Define())
 {
     user.IsActive = true;
-    //...
+    //... alternative assignments
 
     user.NotificationEmail = null;
-    //...
+    //... alternative assignments
 
 }
 ```
 
-And then you combine both sets together as following:
+Finally, you **combine both sets together** as following:
 
 <!--# NCaseCombiningSets_ALL_SET -->
 ```C#
@@ -274,17 +304,17 @@ using (allSet.Define())
 }
 ```
 
-The result is a new set of test cases, containing all combinations between the todo subcases and the user subcases!
+The result is the same set of cases as in the previous example, but you acquired more flexibility! Now, you can:
 
-Subdividing the set of test cases into different parts has two important advantages:
-
--  You can re-use each set individually
--  You can apply different combinatorial rules for each definition, as you will see below.
+-  Re-use each set at multiple places 
+-  Apply alternative definitions to each set individually... (as you will see in the paragraph).
 
 Tackle complexity with Pairwise testing
 ---------------------------------------
 
-Testing all combinations is nice, but it is expensive. We generated before 84 test cases with only three properties and a few values for each one. Instead of generating all combinations with the `AllCombinations` definition, you can use the alternative definition called `PairwiseCombinations`. It generates a set of test cases, that contains all possible pairs between all groups of assignments (more about [pairwise testing here][pair]). Both definitions have exactly the same syntax, so you just need to change the name of the definition as you call `builder.NewDefinition<...>(...)`: 
+Testing all combinations is nice, but it is expensive. We generated before 84 test cases with only three properties and a few values for each one. Instead of generating all combinations with the `AllCombinations` definition, you can use the alternative definition called `PairwiseCombinations`. It generates a set of test cases, that contains all possible pairs between all groups of assignments (more about [pairwise testing here][pair]). 
+
+Both definitions `AllCombinations` and `PairwiseCombinations` have exactly the same syntax, so you just need to change the name of the definition as you call `builder.NewDefinition<...>(...)`: 
 
 <!--# NCasePairwiseCombinations -->
 ```C#
@@ -292,31 +322,42 @@ var todoSet = builder.NewDefinition<PairwiseCombinations>("todoSet");
 using (todoSet.Define())
 {
     todo.Title = "Don't forget to forget";
-    //...
+    //... alternative assignments
 
     todo.DueDate = yesterday;
-    //...
+    //... alternative assignments
 
     todo.IsDone = false;
-    //...
+    //... alternative assignments
 
 }
 ```
 
-Remark: When you combine sets together, you can use the `PairwiseCombinations` definition for some sets, and keep using the `AllCombinations` definition for the others. That way, you improve the execution speed and continue testing systematically critical aspects.
+As with `AllCombinations`, you can combine this definition with others: 
 
+<!--# NCaseCombiningSets_ALL_SET -->
+```C#
+var allSet = builder.NewDefinition<AllCombinations>("allSet");
+using (allSet.Define())
+{
+    todoSet.Ref();
+    userSet.Ref();
+}
+```
 
-Tackle dedicated asserts: use Trees
------------------------------------
+The result is a fine granular testing: you keep an exhaustive testing of the `user` sub-cases and an efficient, but more superficial, testing of the `todo` sub-cases.
 
-If you need to perform Asserts that depend on the input values, you have two alternatives. You can:
+Tackle dedicated asserts: Tree Definition
+-----------------------------------------
 
-- (Re-)Write a simplified logic of the system under test in your test, in order to calculate the expectations, given the input values
-- Pass the expected values next to the input values
+If you need to perform asserts that depend on the input values, you have two alternatives. You can:
 
-With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations`(cartesian product) or `PairwiseCombinations` because the asserts are bound to the dimensions. For that purpose NCase contains an `Tree` definition, allowing to define a set of test cases by the mean of a tree.
+- Rewrite a simplified logic of the system under test in your test, in order to calculate the expectations, given the input values
+- Or you can provide the expected values (asserts) along with the input values and pass both to the *Act and Assert* statements.
 
-The following lines of code show how it works:
+With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations` or `PairwiseCombinations` because the expected values are bound to the input values. To solve this issue, NCase contains another definition called `Tree`. The `Tree` definition allows to define a set of test cases by the mean of trees.
+
+The following lines of code illustrate how it works:
 
 <!--# NCaseTree -->
 ```C#
@@ -326,30 +367,116 @@ var isValid = builder.NewContributor<IHolder<bool>>("isValid");
 var todoSet = builder.NewDefinition<Tree>("todoSet");
 using (todoSet.Define())
 {
-    todo.Title = "Don't forget to forget";
-        todo.DueDate = yesterday;
+    todo.Title = "forget";
+        isValid.Value = true;
             todo.IsDone = false;
-                isValid.Value = true;
+                todo.DueDate = yesterday;
+                todo.DueDate = tomorrow;
+        isValid.Value = false;
+            todo.DueDate = yesterday;
+                todo.IsDone = false;
+    todo.Title = "*++**+*";
+        isValid.Value = false;
+            todo.IsDone = false;
+                todo.DueDate = yesterday;
             todo.IsDone = true;
-                isValid.Value = false;
-        todo.DueDate = tomorrow;
-            isValid.Value = true;
-                todo.IsDone = false;
-                todo.IsDone = true;
-        todo.DueDate = now;
-            isValid.Value = true;
-                todo.IsDone = false;
-                todo.IsDone = true;                            
+                todo.DueDate = tomorrow;
 }
 ```
 
-The `Tree` definition performs an implicit fork every times it encounters an assignment of an already assigned property, at the level where the property was assigned for the first time. Every path from a leaf to the root builds a test case. 
+The `Tree` definition performs an implicit fork every times it encounters an assignment of an already assigned property, at the level where the property was assigned for the last time. Every path from a leaf back to the root builds a test case. 
 
-The example illustrates the advantage of the `Tree` definition in comparison to the other definitions `AllCombinations` and `PairwiseCombinations`: We mix in the tree the input values `todo.Title`/`todo.DueDate`/`todo.IsDone` with the assert `isvalid.Value`.
+In the example, you see how you can mix the input values (`todo` instance) along with the expected values (`isValid` instance). You see how you can write dedicated asserts to specific set of input values.
 
 ### `IHolder<T>` Wrapper 
-By the way, we use in this example the `IHolder<T>` interface. The purpose of this interface is to wrap a type, in order to record multiple instance of the type.
+By the way, note how you can create contributors of simple types, like `bool`, by using the interface `IHolder<T>`. This interface contains a single property `Value` used to store any value of any type.
 
+## Visualize
+
+NCase provides methods to help to visualize what is going on, while you develop and execute tests.
+
+#### Visualize Definition
+
+If at some time, you get lost and doesn't understand anything more about what you are writing, then first have a break, drink a coffee, and then print the definitions you are trying to write with the `PrintDefinition()` extension method:
+
+<!--# Visualize_Def -->
+```C#
+string def = todoSet.PrintDefinition(isFileInfo: true);
+
+Console.WriteLine(def);
+```
+
+Result:
+
+<!--# Visualize_Def_Console -->
+```
+ Definition                                       | Location                                                
+ ------------------------------------------------ | ------------------------------------------------------- 
+ Tree todoSet                                     | c:\dev\NCase\Presentation.cs: line 371 
+     todo.Title=forget                            | c:\dev\NCase\Presentation.cs: line 373 
+         isValid.Value=True                       | c:\dev\NCase\Presentation.cs: line 374 
+             todo.IsDone=False                    | c:\dev\NCase\Presentation.cs: line 375 
+                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Presentation.cs: line 376 
+                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Presentation.cs: line 377 
+         isValid.Value=False                      | c:\dev\NCase\Presentation.cs: line 378 
+             todo.DueDate=10.11.2011 00:00:00     | c:\dev\NCase\Presentation.cs: line 379 
+                 todo.IsDone=False                | c:\dev\NCase\Presentation.cs: line 380 
+     todo.Title=*++**+*                           | c:\dev\NCase\Presentation.cs: line 381 
+         isValid.Value=False                      | c:\dev\NCase\Presentation.cs: line 382 
+             todo.IsDone=False                    | c:\dev\NCase\Presentation.cs: line 383 
+                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Presentation.cs: line 384 
+             todo.IsDone=True                     | c:\dev\NCase\Presentation.cs: line 385 
+                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Presentation.cs: line 386
+```
+
+#### Visualize Test Cases as a Table
+
+If you want to compete against your computer, or need, for some reason, to enter the Matrix, then you must print the table of test cases with the `PrintCasesAsTable()` extension method! It lists all the test cases, as you did yourself at the university during the lecture of Logic, hopelessly trying to verify the professor's assertions about the the NOR, the NAND, the implication and all other weird logical things.
+
+<!--# Visualize_Table -->
+```C#
+string table = todoSet.PrintCasesAsTable();
+
+Console.WriteLine(table);
+```
+
+Result:
+
+<!--# Visualize_Table_Console -->
+```
+ # | todo.Title | isValid.Value | todo.IsDone |        todo.DueDate 
+ - | ---------- | ------------- | ----------- | ------------------- 
+ 1 |     forget |          True |       False | 10.11.2011 00:00:00 
+ 2 |     forget |          True |       False | 12.11.2011 00:00:00 
+ 3 |     forget |         False |       False | 10.11.2011 00:00:00 
+ 4 |    *++**+* |         False |       False | 10.11.2011 00:00:00 
+ 5 |    *++**+* |         False |        True | 12.11.2011 00:00:00 
+
+TOTAL: 5 TEST CASES
+```
+
+#### Visualize Single Case Definition
+
+If you want to visualize the facts building a test case, then you can use the `Print()` extension method on it. It prints the facts row by row and provides the line where the statement has been recorded. 
+
+<!--# Visualize_Case -->
+```C#
+string cas = todoSet.Cases().First().Print();
+
+Console.WriteLine(cas);
+```
+
+Result:
+
+<!--# Visualize_Case_Console -->
+```
+ Fact                             | Location                                                
+ -------------------------------- | ------------------------------------------------------- 
+ todo.Title=forget                | c:\dev\NCase\Presentation.cs: line 373 
+ isValid.Value=True               | c:\dev\NCase\Presentation.cs: line 374 
+ todo.IsDone=False                | c:\dev\NCase\Presentation.cs: line 375 
+ todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Presentation.cs: line 376
+```
 
 
 [Moq]: https://github.com/Moq/moq4 

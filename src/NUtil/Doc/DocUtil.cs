@@ -55,6 +55,7 @@ namespace NUtil.Doc
             string callerFileDir = Path.GetDirectoryName(callerFilePath);
             if (callerFileDir == null) throw new ArgumentException("callerFileDir is null");
 
+            // REPLACE ALL PATH TO THIS FOLDER TO THE mDemoPath PATH
             IEnumerable<Snippet> consoleSnippets = mConsoleRecorder
                 .Snippets
                 .Select(s => new Snippet(s.Source,

@@ -114,7 +114,7 @@ namespace NUtil.Doc
             }
 
             // ReSharper disable once PossibleNullReferenceException
-            string trimmedSnippet = ersatzSnippet.Body.Trim();
+            string trimmedSnippet = ersatzSnippet.Body.TrimEnd();
             if (snippetBody != trimmedSnippet)
                 Console.WriteLine("Snippet '{0}' changed... upgrading it", snippetName);
             else
