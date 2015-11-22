@@ -487,16 +487,16 @@ Enjoy NCase! And please provide feedbacks, critics, and suggestions!
 
 NCase is under continuous development. Coming features are:
 
-- Improve syntax
+- Improved syntax
 	- Inline definition
 	- Inline assignment of multiple values
 - Full mocking functionalities 
 	- mocking of classes
 	- mocking of methods
 	- "[moq][moq] like" `Setup(...)` and `Verify(...)`
-- New usage: Record & replay of test steps
+- New use case: Record & replay of test steps
 	- new definitions: `AllPermutations`, `PairwisePermutations`
-- Focus testing of borderline test cases
+- Focus on testing of borderline test cases
 	- new definition `DrawDimensions`
 - Autonomous parametrized test framework (including CLI, Visual Studio and Resharper adapter) 
 
