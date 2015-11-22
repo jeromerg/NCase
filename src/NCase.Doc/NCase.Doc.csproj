@@ -45,9 +45,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Presentation.cs">
-      <Link>Presentation.cs</Link>
-    </Compile>
     <Compile Include="..\..\Readme.cs">
       <Link>Readme.cs</Link>
     </Compile>
@@ -80,9 +77,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Presentation.md">
-      <Link>Presentation.md</Link>
-    </None>
     <None Include="..\..\Readme.md">
       <Link>Readme.md</Link>
     </None>

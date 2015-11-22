@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using JetBrains.Annotations;
+using Moq;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Front.Ui;
 using NUnit.Framework;
 using NUtil.Doc;
-using NUtil.Text;
+using NUtil.Generics;
 
 namespace NCaseFramework.doc
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
-    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
-    [SuppressMessage("ReSharper", "UnusedVariable")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
-    public class Readme
+    [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+    public class Presentation
     {
-        private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
+        // ReSharper disable once InconsistentNaming
+        [NotNull] private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
@@ -27,227 +28,376 @@ namespace NCaseFramework.doc
             docu.UpdateDocAssociatedToThisFile();
         }
 
-        #region inner types
-        public enum Architecture { x86, x64, arm }
-        public struct Size
+        //# TodoInterface
+        public interface ITodo
         {
-            int Horizontal {get;set;}
-            int Vertical {get;set;}
-
-            public Size(int horizontal, int vertical)
-                : this()
-            {
-                Horizontal = horizontal;
-                Vertical = vertical;
-            }
-
-            public override string ToString()
-            {
-                return string.Format("({0}, {1})", Horizontal, Vertical);
-            }
+            string Title { get; set; }
+            DateTime DueDate { get; set; }
+            bool IsDone { get; set; }
         }
+        //#
 
-        public enum Os
-        {
-            Ios8,
-            Android6,
-            WindowsMobile10
-        }
-
-        public enum Browser
-        {
-            Chrome,
-            Safari,
-            Firefox
-        }
-
-        public interface IHardware
-        {
-            Architecture Architecture { get; set; }
-            int RamInGb { get; set; }
-            int HardDriveInGb { get; set; }
-            Size ScreenResolution { get; set; }
-        }
-        
-        public interface ISoftware
-        {
-            Os Os { get; set; }
-            Browser Browser { get; set; }
-            bool IsFacebookInstalled { get; set; }
-        }
-
+        //# UserInterface
         public interface IUser
         {
-            string UserName { get; set; }
-            string Password { get; set; }
-            int Age { get; set; }
+            bool IsActive { get; set; }
+            string NotificationEmail { get; set; }
+        }
+        //#
+
+        public class TodoManager
+        {
+            public void CreateTodo(ITodo todo) { }
         }
 
-        private Environment GetHardwareAndSoftwareEnvironment(IHardware hw, ISoftware sw)
-        {
-            return new Environment();
-        }
+        DateTime now = new DateTime(2011, 11, 11, 0, 0, 0);
+        DateTime yesterday = new DateTime(2011, 11, 10, 0, 0, 0);
+        DateTime tomorrow = new DateTime(2011, 11, 12, 0, 0, 0);
+        DateTime daylightSavingTimeMissingTime = new DateTime(2011, 11, 12, 0, 0, 0);
+        DateTime daylightSavingTimeAmbiguousTime = new DateTime(2011, 11, 12, 0, 0, 0);
 
-        internal class Environment
+        [Test]
+        public void MoqExample1()
         {
-            public SignInPage GetSignInPage()
-            {
-                return new SignInPage();
-            }
-        }
+            //# MoqExample1
+            // ARRANGE
+            var mock = new Mock<ITodo>();
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
 
-        internal class SignInPage
-        {
-            public void FillInForm(IUser user)
-            {
-            }
-        }
-        #endregion
+            todo.Title = "Don't forget to forget";
+            todo.DueDate = now;
+            todo.IsDone = false;
 
-        public interface IPatient
-        {
-            int Age { get; set; }
-            Sex Sex { get; set; }
-            bool HasPenicillinAllergy { get; set; }
-        }
+            // ACT
+            var todoManager = new TodoManager();
+            todoManager.CreateTodo(todo);
 
-        public enum Sex
-        {
-            Male,
-            Female
-        }
-
-        public class Pharmacy
-        {
-            public bool CanPrescribePenicillin(IPatient patient)
-            {
-                return true;
-            }
+            // ASSERT
+            //...
+            //#
         }
 
         [Test]
-        public void ShortExample()
+        public void NCaseExample1()
         {
-            //# ShortExample
+            //# NCaseExample1
             // ARRANGE
-            var builder = NCase.NewBuilder();            
-            var p = builder.NewContributor<IPatient>("patient");
-            var allPatients = builder.NewDefinition<AllCombinations>("swSet");
+            var builder = NCase.NewBuilder();
+            var todo = builder.NewContributor<ITodo>("todo");
+            var set = builder.NewDefinition<AllCombinations>("set");
 
-            using (allPatients.Define())
+            using (set.Define())
             {
-                p.Age = 10;
-                p.Age = 30;
-                p.Age = 60;
-
-                p.Sex = Sex.Female;
-                p.Sex = Sex.Male;
-
-                p.HasPenicillinAllergy = true;
+                todo.Title = "Don't forget to forget";
+                todo.DueDate = now;
+                todo.IsDone = false;
             }
 
-            allPatients.Cases().Replay().ActAndAssert(ctx =>
+            set.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
-                var pharmacy = new Pharmacy();
-                bool canPrescribe = pharmacy.CanPrescribePenicillin(p);
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
 
                 // ASSERT
-                Assert.IsTrue(canPrescribe);
+                //...
+            });
+            //#
+        }
+
+
+        //# MoqExample2
+        [Test]
+        public void MoqTest1()
+        {
+            // ARRANGE
+            var mock = new Mock<ITodo>();
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
+
+            todo.Title = "Don't forget to forget";
+            todo.DueDate = now;
+            todo.IsDone = false;
+
+            // ACT ... ASSERT ...
+        }
+
+        [Test]
+        public void MoqTest2()                      // DUPLICATED TEST
+        {
+            // ARRANGE
+            var mock = new Mock<ITodo>();
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
+
+            todo.Title = "Another todo to forget"; // CHANGE
+            todo.DueDate = now;
+            todo.IsDone = false;
+
+            // ACT ... ASSERT ...
+        }
+        //#
+
+        [Test]
+        public void NCaseExample2()
+        {
+            //# NCaseExample2
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+            var todo = builder.NewContributor<ITodo>("todo");
+            var set = builder.NewDefinition<AllCombinations>("set");
+            using (set.Define())
+            {
+                todo.Title = "Don't forget to forget";
+                todo.Title = "Another todo to forget";  // ADDITION
+
+                todo.DueDate = now;
+                todo.IsDone = false;
+            }
+
+            set.Cases().Replay().ActAndAssert(ea =>
+            {
+                // ACT
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
+
+                // ASSERT
+                //...
             });
             //#
         }
 
         [Test]
-        public void Demo()
+        public void NCaseExample2_AddedLine()
         {
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+            var todo = builder.NewContributor<ITodo>("todo");
+            var set = builder.NewDefinition<AllCombinations>("set");
+            using (set.Define())
+            {
+                //# NCaseExample2_AddedLine
+                todo.Title = "Another todo to forget";
+                //#
+
+                todo.DueDate = now;
+                todo.IsDone = false;
+            }
+        }
+
+        [Test]
+        public void NCaseExample3()
+        {
+            //# NCaseExample3
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+            var todo = builder.NewContributor<ITodo>("todo");
+            var set = builder.NewDefinition<AllCombinations>("set");
+            using (set.Define())
+            {
+                todo.Title = "Don't forget to forget";
+                todo.Title = "";
+                todo.Title = null;
+                todo.Title = "ß üöä ÜÖÄ !§$%&/()=?";
+                todo.Title = "SELECT USER_ID, PASSWORD FROM USER";
+                todo.Title = "Another Title";
+
+                todo.DueDate = yesterday;
+                todo.DueDate = now;
+                todo.DueDate = tomorrow;
+                todo.DueDate = DateTime.MaxValue;
+                todo.DueDate = DateTime.MinValue;
+                todo.DueDate = daylightSavingTimeMissingTime;
+                todo.DueDate = daylightSavingTimeAmbiguousTime;
+
+                todo.IsDone = false;
+                todo.IsDone = true;
+            }
+
+            set.Cases().Replay().ActAndAssert(ea =>
+            {
+                // ACT
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
+
+                // ASSERT
+                //...
+            });
+            //#
+        }
+
+
+        [Test]
+        public void NCaseCombiningContributors()
+        {
+            // ARRANGE
             var builder = NCase.NewBuilder();
 
-            var sw = builder.NewContributor<ISoftware>("sw");
+            var todo = builder.NewContributor<ITodo>("todo");
 
-            //# AllCombinations
-            var swSet = builder.NewDefinition<AllCombinations>("swSet");
-            using (swSet.Define())
+            //# NCaseCombiningContributors_VAR
+            var user = builder.NewContributor<IUser>("user");
+            //# 
+
+            var set = builder.NewDefinition<AllCombinations>("set");
+
+            //# NCaseCombiningContributors_DEF
+            using (set.Define())
             {
-                sw.Os = Os.Ios8;
-                sw.Os = Os.Android6;
-                sw.Os = Os.WindowsMobile10;
+                todo.Title = "Don't forget to forget";
+                //... alternatives
 
-                sw.Browser = Browser.Chrome;
-                sw.Browser = Browser.Firefox;
-                sw.Browser = Browser.Safari;
+                todo.DueDate = yesterday;
+                //... alternatives
 
-                sw.IsFacebookInstalled = false;
-                sw.IsFacebookInstalled = true;
+                todo.IsDone = false;
+                //... alternatives
+
+                user.IsActive = true;
+                //... alternatives
+
+                user.NotificationEmail = null;
+                //... alternatives
             }
             //#
 
-            var hw = builder.NewContributor<IHardware>("hw");
-
-            //# PairwiseCombinations
-            var hwSet = builder.NewDefinition<PairwiseCombinations>("hwSet");
-            using (hwSet.Define())
+            set.Cases().Replay().ActAndAssert(ea =>
             {
-                hw.Architecture = Architecture.arm;
-                hw.Architecture = Architecture.x64;
-                hw.Architecture = Architecture.x86;
+                // ACT
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
 
-                hw.HardDriveInGb = 10;
-                hw.HardDriveInGb = 20;
-                hw.HardDriveInGb = 50;
+                // ASSERT
+                //...
+            });
+        }
 
-                hw.RamInGb = 1;
-                hw.RamInGb = 2;
-                hw.RamInGb = 5;
+        [Test]
+        public void NCaseCombiningSets()
+        {
+            // ARRANGE
+            var builder = NCase.NewBuilder();
 
-                hw.ScreenResolution = new Size(480, 320);
-                hw.ScreenResolution = new Size(320, 480);
-                hw.ScreenResolution = new Size(960, 640);
-                hw.ScreenResolution = new Size(640, 960);
-                hw.ScreenResolution = new Size(1136, 640);
-                hw.ScreenResolution = new Size(640, 1136);
-            }
-            //#
-
+            var todo = builder.NewContributor<ITodo>("todo");
             var user = builder.NewContributor<IUser>("user");
 
-            //# Tree
-            var userSet = builder.NewDefinition<Tree>("userSet");
-            using (userSet.Define())
+            //# NCaseCombiningSets_TODO_SET
+            var todoSet = builder.NewDefinition<AllCombinations>("todoSet");
+            using (todoSet.Define())
             {
-                user.UserName = "Richard";
-                    user.Password = "SomePass678;";
-                        user.Age = 24;
-                        user.Age = 36;
-                user.UserName = "*+#&%$!$";
-                    user.Password = "tooeasy";
-                        user.Age = -1;
-                        user.Age = 00;
+                todo.Title = "Don't forget to forget";
+                //... alternatives
+
+                todo.DueDate = yesterday;
+                //... alternatives
+
+                todo.IsDone = false;
+                //... alternatives
             }
             //#
 
-            //# Combine
+            //# NCaseCombiningSets_USER_SET
+            var userSet = builder.NewDefinition<AllCombinations>("userSet");
+            using (userSet.Define())
+            {
+                user.IsActive = true;
+                //... alternatives
+
+                user.NotificationEmail = null;
+                //... alternatives
+
+            }
+            //#
+
+            //# NCaseCombiningSets_ALL_SET
             var allSet = builder.NewDefinition<AllCombinations>("allSet");
             using (allSet.Define())
             {
-                hwSet.Ref();
-                swSet.Ref();
+                todoSet.Ref();
                 userSet.Ref();
             }
             //#
 
+            allSet.Cases().Replay().ActAndAssert(ea =>
             {
-                //# Visualize_Def
-                docu.BeginRecordConsole("Visualize_Def_Console");
-                string def = userSet.PrintDefinition(isFileInfo: true);
+                // ACT
+                var todoManager = new TodoManager();
+                todoManager.CreateTodo(todo);
 
-                Console.WriteLine(def);
-                docu.StopRecordConsole();
-                //#                
+                // ASSERT
+                //...
+            });
+        }
+
+        [Test]
+        public void NCasePairwiseCombinations()
+        {
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+
+            var todo = builder.NewContributor<ITodo>("todo");
+
+            //# NCasePairwiseCombinations
+            var todoSet = builder.NewDefinition<PairwiseCombinations>("todoSet");
+            using (todoSet.Define())
+            {
+                todo.Title = "Don't forget to forget";
+                //... alternatives
+
+                todo.DueDate = yesterday;
+                //... alternatives
+
+                todo.IsDone = false;
+                //... alternatives
+
             }
+            //#
+
+        }
+
+        [Test]
+        public void NCaseTree()
+        {
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+
+
+            //# NCaseTree
+            var todo = builder.NewContributor<ITodo>("todo");
+            var isValid = builder.NewContributor<IHolder<bool>>("isValid");
+
+            var todoSet = builder.NewDefinition<Tree>("todoSet");
+            using (todoSet.Define())
+            {
+                todo.Title = "forget";
+                    isValid.Value = true;
+                        todo.IsDone = false;
+                            todo.DueDate = yesterday;
+                            todo.DueDate = tomorrow;
+                    isValid.Value = false;
+                        todo.DueDate = yesterday;
+                            todo.IsDone = false;
+                todo.Title = "*++**+*";
+                    isValid.Value = false;
+                        todo.IsDone = false;
+                            todo.DueDate = yesterday;
+                        todo.IsDone = true;
+                            todo.DueDate = tomorrow;
+            }
+            //#
+
+            //# Visualize_Def
+            docu.BeginRecordConsole("Visualize_Def_Console");
+            string def = todoSet.PrintDefinition(isFileInfo: true);
+
+            Console.WriteLine(def);
+            docu.StopRecordConsole();
+            //#                
+
             //# Visualize_Table
             docu.BeginRecordConsole("Visualize_Table_Console");
-            string table = userSet.PrintCasesAsTable();
+            string table = todoSet.PrintCasesAsTable();
 
             Console.WriteLine(table);
             docu.StopRecordConsole();
@@ -255,60 +405,13 @@ namespace NCaseFramework.doc
 
             //# Visualize_Case
             docu.BeginRecordConsole("Visualize_Case_Console");
-            string cas = userSet.Cases().First().Print();
+            string cas = todoSet.Cases().First().Print();
 
             Console.WriteLine(cas);
             docu.StopRecordConsole();
             //#
-
-            //# Iterate
-            foreach (Case userCase in userSet.Cases())
-                Console.WriteLine(userCase.Print());
-            //#
-
-            //# Replay
-            foreach (Case userCase in userSet.Cases().Replay())
-                Console.WriteLine(user.UserName);
-            //#
-
-            docu.BeginRecordConsole("ActAndAssert_Console", s => s.Lines().Skip(1).Reverse().Skip(20).Reverse().Concat(new[] {"(...)"}).JoinLines());
-            try
-            {
-                //# ActAndAssert
-                allSet.Cases().Replay().ActAndAssert(ctx =>
-                {
-                    Environment env = GetHardwareAndSoftwareEnvironment(hw, sw);
-                    SignInPage signInPage = env.GetSignInPage();
-                    signInPage.FillInForm(user);
-                    if (ctx.TestCaseIndex >= 1) throw new OperationCanceledException(); //docu
-                });
-                //#
-            }
-            catch (OperationCanceledException)
-            {
-            }
-            docu.StopRecordConsole();
-
-            try { 
-            //# ActAndAssert_ExpectException
-            allSet.Cases().Replay().ActAndAssert(ctx =>
-            {
-                ctx.ExceptionAssert = ExceptionAssert.IsOfType<ApplicationException>();
-
-                if (ctx.TestCaseIndex >= 1) throw new OperationCanceledException(); //docu
-                throw new ApplicationException("this exception is expected");
-            });
-            //#
-            }
-            catch (OperationCanceledException)
-            {
-            }
-
-            Console.WriteLine("swSet.Cases().Count() : {0}", swSet.Cases().Count());
-            Console.WriteLine("hwSet.Cases().Count() : {0}", hwSet.Cases().Count());
-            Console.WriteLine("userSet.Cases().Count() : {0}", userSet.Cases().Count());
-            Console.WriteLine("all.Cases().Count() : {0}", allSet.Cases().Count());
         }
+
     }
 
 }

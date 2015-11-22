@@ -17,7 +17,7 @@ namespace NCaseFramework.doc
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
-    public class Presentation
+    public class Readme
     {
         // ReSharper disable once InconsistentNaming
         [NotNull] private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
