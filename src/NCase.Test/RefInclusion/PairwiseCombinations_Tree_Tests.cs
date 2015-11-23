@@ -10,7 +10,7 @@ namespace NCaseFramework.Test.RefInclusion
     [TestFixture]
     [SuppressMessage("ReSharper", "UnusedVariable")]
     // ReSharper disable once InconsistentNaming
-    public class AllCombinations_Tree_Tests
+    public class PairwiseCombinations_Tree_Tests
     {
         public interface IMyTestvalues
         {
@@ -21,7 +21,7 @@ namespace NCaseFramework.Test.RefInclusion
         }
 
         [Test]
-        public void Tree_In_AllCombinations_Test()
+        public void Pairwise_In_pairwiseCombinations_Test()
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
@@ -36,7 +36,7 @@ namespace NCaseFramework.Test.RefInclusion
                     o.C = "c3";
             }
 
-            var all = caseBuilder.NewDefinition<AllCombinations>("all");
+            var all = caseBuilder.NewDefinition<PairwiseCombinations>("all");
             using (all.Define())
             {
                 o.A = "a1";
@@ -44,7 +44,6 @@ namespace NCaseFramework.Test.RefInclusion
                 tree.Ref();
 
                 o.D = "d1";
-                o.D = "d2";
             }
 
 
@@ -59,43 +58,25 @@ namespace NCaseFramework.Test.RefInclusion
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", o.A);
             Assert.AreEqual("b1", o.B);
-            Assert.AreEqual("c1", o.C);
-            Assert.AreEqual("d2", o.D);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", o.A);
-            Assert.AreEqual("b1", o.B);
             Assert.AreEqual("c2", o.C);
             Assert.AreEqual("d1", o.D);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", o.A);
-            Assert.AreEqual("b1", o.B);
-            Assert.AreEqual("c2", o.C);
-            Assert.AreEqual("d2", o.D);
 
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", o.A);
             Assert.AreEqual("b2", o.B);
             Assert.AreEqual("c3", o.C);
             Assert.AreEqual("d1", o.D);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", o.A);
-            Assert.AreEqual("b2", o.B);
-            Assert.AreEqual("c3", o.C);
-            Assert.AreEqual("d2", o.D);
 
             Assert.AreEqual(false, e.MoveNext());
         }
 
         [Test]
-        public void AllCombinations_In_Tree_Test()
+        public void pairwiseCombinations_In_Tree_Test()
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
-            var all = caseBuilder.NewDefinition<AllCombinations>("all");
+            var all = caseBuilder.NewDefinition<PairwiseCombinations>("all");
             using (all.Define())
             {
                 o.C = "c1";
