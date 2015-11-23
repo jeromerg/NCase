@@ -82,8 +82,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ref\RefTests.cs" />
-    <Compile Include="Ref\AllCombinations_Tree_Tests.cs" />
+    <Compile Include="RefInclusion\RefTests.cs" />
+    <Compile Include="RefInclusion\AllCombinations_Tree_Tests.cs" />
     <Compile Include="InterfaceRecPlayTests.cs" />
     <Compile Include="PairwiseProductTests.cs" />
     <Compile Include="PairwiseAlgorithmTests.cs" />

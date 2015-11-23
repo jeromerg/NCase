@@ -82,7 +82,7 @@ Both tests look like very similar. You recognize the same blocks *Arrange, Act, 
 - The contributor's properties are set inside a block, which amazingly looks like a definition
 - And finally the *Act and Asserts* are located inside a statement lambda passed to a method called `ActAndAssert`
 
-You wonder? Now, let's see the power of the few additional lines... 
+You wonder? Now, let's see the power of the few new lines... 
 
 The second test case
 --------------------
@@ -129,7 +129,7 @@ Now, open your eyes! With NCase, you only need to add the single following line:
 todo.Title = "Another todo to forget";
 ```
 
-Thus, the NCase test becomes:
+Thus, the previous NCase test becomes:
 
 <!--# NCaseExample2 -->
 ```C#
@@ -226,7 +226,7 @@ So , you need a new contributor of type `IUser`:
 var user = builder.NewContributor<IUser>("user");
 ```
 
-And then you can extend the existing the definition:
+Then you can extend the existing the definition, as following:
 
 <!--# NCaseCombiningContributors_DEF -->
 ```C#
@@ -304,12 +304,12 @@ using (allSet.Define())
 }
 ```
 
-The result is the same set of cases as in the previous example, but the definition of test cases is split into two sub-sets. 
+The result is the same set of test cases as in the previous example, but the definition of test cases has been split into two sub-sets. 
 
-Why would you split the test cases? In order to acquire greater flexibility! Indeed, now, you can:
+Why do you need to split the test-cases definitions? In order to acquire greater flexibility! Indeed, now, you can:
 
 - Re-use each sub-set individually
-- Use alternative definitions for each sets. Because `AllCombinations` is only one definition type among others... as you will see now...
+- Use alternative definitions for each sets. Because `AllCombinations` is only one definition among others... as you will see now...
 
 Tackle complexity with Pairwise testing
 ---------------------------------------
@@ -347,14 +347,14 @@ using (allSet.Define())
 }
 ```
 
-The result is a fine granular testing: You keep an exhaustive testing around the `user` contributor, by keeping the `userSet` as it is, namely an `AllCombinations` definition. And you get an more efficient, but more superficial, testing around the `todo` contributor, by switching the `todoSet` to a `PairwiseCombinations` definition.
+The result is a fine granular testing: By keeping the `userSet` as it is, you keep an exhaustive testing of the `user` input. And by switching the `todoSet` to a `PairwiseCombinations` definition, you get an more efficient, but more superficial, testing of the `todo` input.
 
 Tackle dedicated asserts: Tree Definition
 -----------------------------------------
 
 If you need to perform asserts that depend on the input values, you have two alternatives. You can:
 
-- Rewrite a simplified logic of the system under test in your test, in order to calculate the expectations, as a function of the input values
+- Rewrite a simplified logic of the system under test in your test, in order to calculate the expectations as a function of the input values
 - Or you can provide the expected values along with the input values and pass both to the *Act and Assert* statements.
 
 With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations` or `PairwiseCombinations` because the expected values are bound to the input values. To solve this issue, NCase contains another definition called `Tree`. The `Tree` definition allows to define a set of test cases by the mean of a tree.
@@ -388,14 +388,14 @@ using (todoSet.Define())
 
 The `Tree` definition performs an implicit fork every times it encounters an assignment of an already assigned property, at the level where the property was assigned the last time. Every path from a leaf back to the root builds a test case. 
 
-In the example, we mix the input values (`todo` instance) along with the expected values (`isValid` instance). Thus, you see how you can define expected value along with the input values.
+In the example, we mix the input values (`todo` instance) along with the expected values (`isValid` instance), illustrating how you simply define expected value along with the input values.
 
 ### `IHolder<T>` Wrapper 
 By the way, note how you can create contributors of simple types, like `bool`, by using the interface `IHolder<T>`. This interface contains a single property `Value` allowing to record/replay any value of any type.
 
 ## Visualize
 
-NCase provides methods to help to visualize what is going on, while you develop and execute tests.
+NCase provides methods to help visualize what is going on, while you develop and execute tests.
 
 #### Visualize Definition
 
@@ -412,8 +412,8 @@ Result:
 
 <!--# Visualize_Def_Console -->
 ```
- Definition                                       | Location                                          
- ------------------------------------------------ | ------------------------------------------------- 
+ Definition                                       | Location                              
+ ------------------------------------------------ | ------------------------------------- 
  Tree todoSet                                     | c:\dev\NCase\Readme.cs: line 371 
      todo.Title=forget                            | c:\dev\NCase\Readme.cs: line 373 
          isValid.Value=True                       | c:\dev\NCase\Readme.cs: line 374 
@@ -459,7 +459,7 @@ TOTAL: 5 TEST CASES
 
 #### Visualize Single Case Definition
 
-You can print information about a single test case, by calling the `Print()` extension method on it. It prints the facts row by row and provides the line where the statement has been recorded. 
+You can print information about a single test case, by calling the `Print()` extension method on it. It prints the facts row by row providing the line information where the statement has been recorded. 
 
 <!--# Visualize_Case -->
 ```C#
@@ -472,8 +472,8 @@ Result:
 
 <!--# Visualize_Case_Console -->
 ```
- Fact                             | Location                                          
- -------------------------------- | ------------------------------------------------- 
+ Fact                             | Location                              
+ -------------------------------- | ------------------------------------- 
  todo.Title=forget                | c:\dev\NCase\Readme.cs: line 373 
  isValid.Value=True               | c:\dev\NCase\Readme.cs: line 374 
  todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 375 
@@ -483,7 +483,9 @@ Result:
 Next Steps
 ==========
 
-Enjoy NCase! And please provide feedbacks, critics, and suggestions! 
+Enjoy NCase! 
+
+Please provide feedbacks, critics, and suggestions! 
 
 NCase is under continuous development. Coming features are:
 
@@ -496,9 +498,9 @@ NCase is under continuous development. Coming features are:
 	- "[moq][moq] like" `Setup(...)` and `Verify(...)`
 - New use case: Record & replay of test steps
 	- new definitions: `AllPermutations`, `PairwisePermutations`
-- Focus on testing of borderline test cases
+- Improved testing of borderline cases
 	- new definition `DrawDimensions`
-- Autonomous parametrized test framework (including CLI, Visual Studio and Resharper adapter) 
+- Autonomous parametrized test framework (including Assert compatible with NCase record/replay mechanism, CLI, Visual Studio and Resharper adapter) 
 
 
 

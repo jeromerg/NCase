@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Diagnostics.CodeAnalysis;
 using NCaseFramework.Front.Ui;
-using NCaseFramework.Test.Util;
 using NDsl.Back.Api.Ex;
 using NDsl.Front.Api;
 using NDsl.Front.Ui;
 using NUnit.Framework;
 
-namespace NCaseFramework.Test
+namespace NCaseFramework.Test.RefInclusion
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "UnusedVariable")]
+    // ReSharper disable once InconsistentNaming
     public class AllCombinations_Tree_Tests
     {
         public interface IMyTestvalues
@@ -26,7 +23,7 @@ namespace NCaseFramework.Test
         [Test]
         public void Tree_AllCombinations_Test()
         {
-            
+            // TODO
         }
 
         [Test]
@@ -60,6 +57,24 @@ namespace NCaseFramework.Test
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", o.A);
             Assert.AreEqual("b1", o.B);
+            Assert.Throws<InvalidRecPlayStateException>(() => { string s = o.C; });
+            Assert.Throws<InvalidRecPlayStateException>(() => { string s = o.D; });
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", o.A);
+            Assert.AreEqual("b2", o.B);
+            Assert.AreEqual("c1", o.C);
+            Assert.AreEqual("d1", o.D);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", o.A);
+            Assert.AreEqual("b2", o.B);
+            Assert.AreEqual("c1", o.C);
+            Assert.AreEqual("d2", o.D);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a2", o.A);
+            Assert.AreEqual("b3", o.B);
             Assert.Throws<InvalidRecPlayStateException>(() => { string s = o.C; });
             Assert.Throws<InvalidRecPlayStateException>(() => { string s = o.D; });
         }
