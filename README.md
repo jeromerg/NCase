@@ -212,7 +212,7 @@ Combining Contributors
 
 In NCase, you can mix any contributors in any definition.
 
-Imagine you test `TodoManager.AddTodo(...)` requires an additional argument, for example the user to assign the todo to:
+Imagine `TodoManager.AddTodo(...)` requires an additional argument, for example the user to assign the todo to:
 
 ```C#
 TodoManager.AddTodo(ITodo todo, IUser assignee)
@@ -226,7 +226,7 @@ So , you need a new contributor of type `IUser`:
 var user = builder.NewContributor<IUser>("user");
 ```
 
-Then you can extend the existing the definition, as following:
+And you can extend the existing the definition, as following:
 
 <!--# NCaseCombiningContributors_DEF -->
 ```C#
@@ -256,7 +256,7 @@ Combining Sets
 
 NCase has a powerful combinatorial engine. You can define multiple combinatorial sets, and, you can combine them together! 
 
-For example, you can split the previous arrange into two subsets. 
+For example, you can split the previous arrange statements into two subsets. 
 
 You first define the set of cases related to the `todo` contributor:
 
@@ -306,7 +306,7 @@ using (allSet.Define())
 
 The result is the same set of test cases as in the previous example, but the definition of test cases has been split into two sub-sets. 
 
-Why do you need to split the test-cases definitions? In order to acquire greater flexibility! Indeed, now, you can:
+Why do you need to split a definition? In order to acquire greater flexibility! Indeed, now, you can:
 
 - Re-use each sub-set individually
 - Use alternative definitions for each sets. Because `AllCombinations` is only one definition among others... as you will see now...
@@ -388,7 +388,7 @@ using (todoSet.Define())
 
 The `Tree` definition performs an implicit fork every times it encounters an assignment of an already assigned property, at the level where the property was assigned the last time. Every path from a leaf back to the root builds a test case. 
 
-In the example, we mix the input values (`todo` instance) along with the expected values (`isValid` instance), illustrating how you simply define expected value along with the input values.
+In the example, we mix the input values (`todo` instance) along with the expected values (`isValid` instance), illustrating how you simply define expected value along with input values.
 
 ### `IHolder<T>` Wrapper 
 By the way, note how you can create contributors of simple types, like `bool`, by using the interface `IHolder<T>`. This interface contains a single property `Value` allowing to record/replay any value of any type.
@@ -459,7 +459,7 @@ TOTAL: 5 TEST CASES
 
 #### Visualize Single Case Definition
 
-You can print information about a single test case, by calling the `Print()` extension method on it. It prints the facts row by row providing the line information where the statement has been recorded. 
+You can print information about a single test case, by calling the `Print()` extension method on it. It prints the facts row by row. 
 
 <!--# Visualize_Case -->
 ```C#
