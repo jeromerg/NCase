@@ -3,7 +3,6 @@
 	using System.Reflection;
 
 	[assembly: AssemblyCompany("<m.Company>")]
-	[assembly: AssemblyProduct("<m.Product>")]
 	[assembly: AssemblyCopyright("<m.Copyright>")]
     [assembly:AssemblyTrademark              ("")]
     [assembly:AssemblyCulture                ("")]

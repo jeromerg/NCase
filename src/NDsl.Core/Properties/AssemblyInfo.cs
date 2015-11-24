@@ -6,7 +6,8 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("NDsl.Core")]
-[assembly: AssemblyDescription("NDsl Core implementation")]
+[assembly: AssemblyProduct("NCase")]
+[assembly: AssemblyDescription("NDsl Core Implementation")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

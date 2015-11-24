@@ -40,11 +40,6 @@ namespace NGitVersion.Model
             get { return "jeromerg"; }
         }
 
-        public string Product
-        {
-            get { return "NCase"; }
-        }
-
         public string Copyright
         {
             get { return "Apache License 2.0"; }

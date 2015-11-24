@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUtil", "NUtil\NUtil.csproj
 		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.NUnitAdapter", "NCase.NUnitAdapter\NCase.NUnitAdapter.csproj", "{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.NunitAdapter", "NCase.NUnitAdapter\NCase.NunitAdapter.csproj", "{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
 	EndProjectSection

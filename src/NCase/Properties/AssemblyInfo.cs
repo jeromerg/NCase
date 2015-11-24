@@ -6,7 +6,8 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("NCase")]
-[assembly: AssemblyDescription("NCase !!Pre-Alpha, Under Construction!! Generates test cases from compact C# embedded language")]
+[assembly: AssemblyProduct("NCase")]
+[assembly: AssemblyDescription("NCase: Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
