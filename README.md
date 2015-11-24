@@ -12,10 +12,18 @@ NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized te
 Installation
 ------------
 
-To install NCase, run the following command in the Nuget Package Manager Console:
+In the Nuget Package Manager Console:
+
+In combination with NUnit:
 
 ```
-Install-Package NCase
+Install-Package NCase, NCase.NunitAdapter
+```
+
+In combination with XUnit:
+
+```
+Install-Package NCase, NCase.XunitAdapter
 ```
 
 NCase is not officially released yet: The API is quite stable, but further commits may introduce breaking changes.  
@@ -483,9 +491,7 @@ Result:
 Next Steps
 ==========
 
-Enjoy NCase! 
-
-Please provide feedbacks, critics, and suggestions! 
+I hope you will enjoy NCase! Please provide feedbacks, critics, and suggestions! 
 
 NCase is under continuous development. Coming features are:
 
