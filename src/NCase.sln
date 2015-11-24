@@ -11,6 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Core", "NCase.Core\NC
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Test", "NCase.Test\NCase.Test.csproj", "{02C99571-1D56-4883-963B-62B747D6B08C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDsl.Core", "NDsl.Core\NDsl.Core.csproj", "{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -28,14 +31,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase", "NCase\NCase.csproj
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDsl.Test", "NDsl.Test\NDsl.Test.csproj", "{CD3AB3F0-16C5-48AA-8297-6EAA8E8CC99A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Doc", "NCase.Doc\NCase.Doc.csproj", "{CCBBEFB2-B93B-4FDF-A401-3B1044F01032}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUtil", "NUtil\NUtil.csproj", "{80D9F218-E936-48AD-8C16-3D16B8218A0C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.NUnitAdapter", "NCase.NUnitAdapter\NCase.NUnitAdapter.csproj", "{FA8E6464-C6E5-43AE-B615-A3E14DAB2B03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.XunitAdapter", "NCase.XunitAdapter\NCase.XunitAdapter.csproj", "{A04648E1-25C7-41FB-A2B9-61D5D407566B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
