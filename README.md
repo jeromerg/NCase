@@ -167,7 +167,7 @@ set.Cases().Replay().ActAndAssert(ea =>
 
 Like a sorcerer, NCase calls twice the *Act and Asserts* exactly in the same way as `MoqTest1` and `MoqTest2` do!
 
-Why? Because the Arrange statements are located inside a definition of type `AllCombinations`: the `AllCombinations` definition groups together subsequent assignments of the same property and peforms the so called cartesian product between all groups. 
+Why? Because the Arrange statements are located inside a definition of type `AllCombinations`: the `AllCombinations` definition groups together subsequent assignments of the same property and performs the so called cartesian product between all groups. 
 
 Finally the chain `set.Cases().Replay().ActAndAssert(...)` replays each test case and calls the *Act and Assert* statements.
 
@@ -226,7 +226,7 @@ Imagine `TodoManager.AddTodo(...)` requires an additional argument, for example 
 TodoManager.AddTodo(ITodo todo, IUser assignee)
 ```
 
-So , you need a new contributor of type `IUser`:
+So, you need a new contributor of type `IUser`:
 
 <!--# NCaseCombiningContributors_VAR -->
 
@@ -234,7 +234,7 @@ So , you need a new contributor of type `IUser`:
 var user = builder.NewContributor<IUser>("user");
 ```
 
-And you can extend the existing the definition, as following:
+So that you can extend the existing the definition, as following:
 
 <!--# NCaseCombiningContributors_DEF -->
 ```C#
@@ -491,9 +491,11 @@ Result:
 Next Steps
 ==========
 
-I hope you will enjoy NCase! Please provide feedbacks, critics, and suggestions! 
+First, have fun with NCase! 
 
-NCase is under continuous development. Coming features are:
+Then, please provide feedbacks, critics, and suggestions! 
+
+Finally, be aware that NCase is under continuous development. Coming features are:
 
 - Improved syntax
 	- Inline definition
