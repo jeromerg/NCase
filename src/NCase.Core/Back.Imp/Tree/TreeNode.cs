@@ -12,20 +12,20 @@ namespace NCaseFramework.Back.Imp.Tree
     public class TreeNode : ITreeNode
     {
         [NotNull] private readonly CodeLocation mCodeLocation;
-        [NotNull] private readonly List<INode> mBranches = new List<INode>();
+        [NotNull] private readonly List<ITreeNode> mBranches = new List<ITreeNode>();
         [NotNull] private readonly TreeId mId;
-        [CanBeNull] private readonly INode mTreeFact;
+        [CanBeNull] private readonly INode mCasesOfThisTreeNode;
 
         public TreeNode([NotNull] CodeLocation codeLocation,
                         [NotNull] TreeId id,
-                        [CanBeNull] INode treeFact)
+                        [CanBeNull] INode casesOfThisTreeNode)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             if (id == null) throw new ArgumentNullException("id");
 
             mCodeLocation = codeLocation;
             mId = id;
-            mTreeFact = treeFact;
+            mCasesOfThisTreeNode = casesOfThisTreeNode;
         }
 
         [NotNull] IDefId IDefNode.Id
@@ -42,7 +42,7 @@ namespace NCaseFramework.Back.Imp.Tree
         {
             get
             {
-                yield return mTreeFact ?? NullNode.Instance;
+                yield return mCasesOfThisTreeNode ?? NullNode.Instance;
                 foreach (INode caseBranchNode in Branches)
                     yield return caseBranchNode;
             }
@@ -53,17 +53,17 @@ namespace NCaseFramework.Back.Imp.Tree
             get { return mCodeLocation; }
         }
 
-        [CanBeNull] public INode TreeFact
+        [CanBeNull] public INode CasesOfThisTreeNode
         {
-            get { return mTreeFact; }
+            get { return mCasesOfThisTreeNode; }
         }
 
-        [NotNull, ItemNotNull] public IEnumerable<INode> Branches
+        [NotNull, ItemNotNull] public IEnumerable<ITreeNode> Branches
         {
             get { return mBranches; }
         }
 
-        public void AddTreeBranch([NotNull] INode branch)
+        public void AddTreeBranch([NotNull] ITreeNode branch)
         {
             mBranches.Add(branch);
         }

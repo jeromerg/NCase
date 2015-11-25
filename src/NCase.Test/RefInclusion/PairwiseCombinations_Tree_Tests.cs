@@ -21,7 +21,7 @@ namespace NCaseFramework.Test.RefInclusion
         }
 
         [Test]
-        public void Pairwise_In_pairwiseCombinations_Test()
+        public void Tree_In_pairwiseCombinations_Test()
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
@@ -71,7 +71,7 @@ namespace NCaseFramework.Test.RefInclusion
         }
 
         [Test]
-        public void pairwiseCombinations_In_Tree_Test()
+        public void pairwiseCombinations_As_TreeLeaf_Test()
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
@@ -121,6 +121,59 @@ namespace NCaseFramework.Test.RefInclusion
             Assert.AreEqual("b3", o.B);
             Assert.Throws<InvalidRecPlayStateException>(() => { string s = o.C; });
             Assert.Throws<InvalidRecPlayStateException>(() => { string s = o.D; });
+
+            Assert.AreEqual(false, e.MoveNext());
+        }
+
+        [Test]
+        public void pairwiseCombinations_As_TreeNode_Test()
+        {
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var o = caseBuilder.NewContributor<IMyTestvalues>("o");
+
+            var all = caseBuilder.NewDefinition<PairwiseCombinations>("all");
+            using (all.Define())
+            {
+                o.B = "b1";
+
+                o.C = "c1";
+                o.C = "c2";
+            }
+
+            var tree = caseBuilder.NewDefinition<Tree>("age_set");
+            using (tree.Define())
+            {
+                o.A = "a1";
+                    all.Ref();
+                        o.D = "d1";
+                        o.D = "d2";
+            }
+
+            var e = tree.Cases().Replay().GetEnumerator();
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", o.A);
+            Assert.AreEqual("b1", o.B);
+            Assert.AreEqual("c1", o.C);
+            Assert.AreEqual("d1", o.D);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", o.A);
+            Assert.AreEqual("b1", o.B);
+            Assert.AreEqual("c1", o.C);
+            Assert.AreEqual("d2", o.D);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", o.A);
+            Assert.AreEqual("b1", o.B);
+            Assert.AreEqual("c2", o.C);
+            Assert.AreEqual("d1", o.D);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", o.A);
+            Assert.AreEqual("b1", o.B);
+            Assert.AreEqual("c2", o.C);
+            Assert.AreEqual("d2", o.D);
 
             Assert.AreEqual(false, e.MoveNext());
         }

@@ -26,7 +26,7 @@ In combination with XUnit:
 Install-Package NCase, NCase.XunitAdapter
 ```
 
-NCase is not officially released yet: The API is quite stable, but further commits may introduce breaking changes.  
+NCase is not officially released yet: Further commits may introduce breaking changes.  
 
 Comparison to Moq: The first test case 
 ----------------------------------------

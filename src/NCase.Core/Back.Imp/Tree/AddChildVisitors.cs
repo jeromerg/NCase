@@ -3,9 +3,7 @@ using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Tree;
 using NDsl.Back.Api.Common;
-using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.RecPlay;
-using NDsl.Back.Api.Util;
 
 namespace NCaseFramework.Back.Imp.Tree
 {
@@ -15,43 +13,38 @@ namespace NCaseFramework.Back.Imp.Tree
     {
         public void Visit([NotNull] IAddChildDirector dir, [NotNull] ITreeNode parent, [NotNull] IInterfaceRecPlayNode child)
         {
-            CodeLocation codeLocation = child.CodeLocation;
-            var nodeToAdd = new TreeNode(codeLocation, new TreeId(), child);
+            var nodeToAdd = new TreeNode(child.CodeLocation, new TreeId(), child);
 
-            INode nextBranch = parent.Branches.LastOrDefault();
+            ITreeNode nextBranch = parent.Branches.LastOrDefault();
 
+            // no branch => end of recursion: this is the place
             if (nextBranch == null)
             {
                 parent.AddTreeBranch(nodeToAdd);
                 return;
             }
 
-            var nextTreeNode = nextBranch as ITreeNode;
-            if (nextTreeNode == null)
-            {
-                throw new InvalidSyntaxException(codeLocation,
-                                                 "Last branch is an end branch and therefore cannot accept any child");
-            }
-
-            var nextInterfaceRecPlayNode = nextTreeNode.TreeFact as IInterfaceRecPlayNode;
+            var nextInterfaceRecPlayNode = nextBranch.CasesOfThisTreeNode as IInterfaceRecPlayNode;
             if (nextInterfaceRecPlayNode != null
                 && Equals(nextInterfaceRecPlayNode.PropertyCallKey, child.PropertyCallKey))
             {
-                // same key, then branch here
+                // same key, then fork here
                 parent.AddTreeBranch(nodeToAdd);
                 return;
             }
 
             // ok keys are different, recurse
-            dir.Visit(nextTreeNode, child);
+            dir.Visit(nextBranch, child);
         }
 
         public void Visit([NotNull] IAddChildDirector dir, [NotNull] ITreeNode parent, [NotNull] INode child)
         {
+            var nodeToAdd = new TreeNode(child.CodeLocation, new TreeId(), child);
+
             INode nextBranch = parent.Branches.LastOrDefault();
 
             if (nextBranch == null)
-                parent.AddTreeBranch(child);
+                parent.AddTreeBranch(nodeToAdd);
             else
                 dir.Visit(nextBranch, child);
         }

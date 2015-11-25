@@ -10,10 +10,10 @@ namespace NCaseFramework.Back.Imp.Tree
     {
         public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ITreeNode node, [NotNull] IPrintDefinitionPayload payload)
         {
-            if (node.TreeFact == null)
+            if (node.CasesOfThisTreeNode == null)
                 payload.PrintLine(node.CodeLocation, "Tree {0}", node.Id.Name);
             else
-                dir.Visit(node.TreeFact, payload);
+                dir.Visit(node.CasesOfThisTreeNode, payload);
 
             // ---
 
