@@ -70,6 +70,7 @@
     <Compile Include="PairwiseProductTests.cs" />
     <Compile Include="PairwiseAlgorithmTests.cs" />
     <Compile Include="AllCombinationsTests.cs" />
+    <Compile Include="CombinationsTests.cs" />
     <Compile Include="Util\LineUtil.cs" />
     <Compile Include="TreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

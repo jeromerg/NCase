@@ -173,6 +173,7 @@
     <Compile Include="Back.Api\Parse\IParseDirector.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\SetDefBaseImp.cs" />
     <Compile Include="Back.Api\Parse\IGenerateCasesDirector.cs" />
+    <Compile Include="Front.Ui\Combinations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
