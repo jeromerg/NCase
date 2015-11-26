@@ -50,7 +50,8 @@ namespace NCaseFramework.Front.Ui
 
             // Print Definition
             cb.RegisterType<PrintDefSvc>().AsImplementedInterfaces().SingleInstance();
-            cb.RegisterType<PrintDefinitionPayload.Factory>().As<IPrintDefinitionPayloadFactory>().InstancePerDependency(); // stateful !!
+            cb.RegisterType<PrintDefinitionPayload.Factory>().As<IPrintDefinitionPayloadFactory>().InstancePerDependency();
+                // stateful !!
             cb.RegisterType<PrintDefinitionDirector>().As<IPrintDefinitionDirector>().InstancePerDependency(); // stateful !!
             cb.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
 

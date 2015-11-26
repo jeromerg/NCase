@@ -8,7 +8,9 @@ namespace NCaseFramework.Back.Imp.Tree
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<ITreeNode>
     {
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ITreeNode node, [NotNull] IPrintDefinitionPayload payload)
+        public void Visit([NotNull] IPrintDefinitionDirector dir,
+                          [NotNull] ITreeNode node,
+                          [NotNull] IPrintDefinitionPayload payload)
         {
             if (node.CasesOfThisTreeNode == null)
                 payload.PrintLine(node.CodeLocation, "Tree {0}", node.Id.Name);

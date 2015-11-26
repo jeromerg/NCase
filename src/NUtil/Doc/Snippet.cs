@@ -15,20 +15,17 @@ namespace NUtil.Doc
             mBody = body;
         }
 
-        [NotNull]
-        public string Source
+        [NotNull] public string Source
         {
             get { return mSource; }
         }
 
-        [NotNull]
-        public string Name
+        [NotNull] public string Name
         {
             get { return mName; }
         }
 
-        [NotNull]
-        public string Body
+        [NotNull] public string Body
         {
             get { return mBody; }
         }

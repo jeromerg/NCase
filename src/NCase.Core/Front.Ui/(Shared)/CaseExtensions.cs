@@ -39,12 +39,12 @@ namespace NCaseFramework.Front.Ui
                 .Select((errorIfAny, index) => new {errorIfAny, index})
                 .Where(r => r.errorIfAny != null)
                 .Select(r => CreateErrorText(r.errorIfAny, false));
-            
+
             // ReSharper restore AssignNullToNotNullAttribute
             // ReSharper restore PossibleNullReferenceException
 
             string msg = string.Format("Following test cases failed:\n{0}", string.Join("\n", errorStrings));
-            
+
             // ReSharper disable once PossibleNullReferenceException
             throw assertionExceptionFactory(msg);
         }

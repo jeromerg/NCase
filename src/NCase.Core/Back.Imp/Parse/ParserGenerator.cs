@@ -45,7 +45,7 @@ namespace NCaseFramework.Back.Imp.Parse
 
             IEnumerable<List<INode>> factsForAllCases = mCaseGenerator.Visit(caseSetNode, options);
 
-            if(factsForAllCases == null)
+            if (factsForAllCases == null)
                 throw new InvalidOperationException(string.Format("Visit of node {0} returned null", caseSetNode));
 
             foreach (List<INode> testCaseNodes in factsForAllCases)

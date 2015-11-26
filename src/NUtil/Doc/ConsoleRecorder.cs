@@ -6,11 +6,10 @@ namespace NUtil.Doc
 {
     public class ConsoleRecorder
     {
-        [NotNull, ItemNotNull]private readonly List<Snippet> mSnippets = new List<Snippet>();
+        [NotNull, ItemNotNull] private readonly List<Snippet> mSnippets = new List<Snippet>();
         [CanBeNull] private ConsoleRecord mConsoleRecord;
 
-        [NotNull, ItemNotNull] 
-        public IEnumerable<Snippet> Snippets
+        [NotNull, ItemNotNull] public IEnumerable<Snippet> Snippets
         {
             get { return mSnippets; }
         }
@@ -22,7 +21,7 @@ namespace NUtil.Doc
 
         public void EndRecord()
         {
-            if(mConsoleRecord == null)
+            if (mConsoleRecord == null)
                 throw new InvalidOperationException("mConsoleRecord is null: BeginRecord was not called before");
 
             mConsoleRecord.Stop();

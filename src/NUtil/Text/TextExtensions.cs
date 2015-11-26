@@ -8,7 +8,7 @@ namespace NUtil.Text
 {
     public static class TextExtensions
     {
-        [NotNull, ItemNotNull] 
+        [NotNull, ItemNotNull]
         public static IEnumerable<string> Lines([NotNull] this string s)
         {
             if (s == null) throw new ArgumentNullException("s");
@@ -16,7 +16,7 @@ namespace NUtil.Text
             return lines;
         }
 
-        [NotNull] 
+        [NotNull]
         public static string JoinLines([NotNull, ItemCanBeNull] this IEnumerable<string> lines)
         {
             if (lines == null) throw new ArgumentNullException("lines");

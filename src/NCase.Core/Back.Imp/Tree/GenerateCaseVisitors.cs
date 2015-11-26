@@ -25,13 +25,15 @@ namespace NCaseFramework.Back.Imp.Tree
 
                 IEnumerable<List<INode>> treeFactCases = dir.Visit(node.CasesOfThisTreeNode, options);
 
-                if(treeFactCases == null)
+                if (treeFactCases == null)
                     throw new InvalidOperationException(string.Format("Visit of child {0} returned null", node.CasesOfThisTreeNode));
 
-                foreach (List<INode> caseOfTreeFact in treeFactCases) 
+                foreach (List<INode> caseOfTreeFact in treeFactCases)
                 {
-                    if(caseOfTreeFact == null)
-                        throw new InvalidOperationException(string.Format("Visit of child {0} returned a case having the list of facts equal to null", node.CasesOfThisTreeNode));
+                    if (caseOfTreeFact == null)
+                        throw new InvalidOperationException(
+                            string.Format("Visit of child {0} returned a case having the list of facts equal to null",
+                                          node.CasesOfThisTreeNode));
 
                     foreach (List<INode> caseOfBranches in VisitTreeBranches(dir, node, options))
                         yield return ListUtil.Concat(caseOfTreeFact, caseOfBranches);
@@ -47,12 +49,12 @@ namespace NCaseFramework.Back.Imp.Tree
 
         [NotNull, ItemNotNull]
         private IEnumerable<List<INode>> VisitTreeBranches([NotNull] IGenerateCasesDirector dir,
-                                                               [NotNull] ITreeNode node,
-                                                               [NotNull] GenerateOptions options)
+                                                           [NotNull] ITreeNode node,
+                                                           [NotNull] GenerateOptions options)
         {
             if (options == null) throw new ArgumentNullException("options");
 
-            
+
             if (!node.Branches.Any())
             {
                 // it's a leaf
@@ -64,7 +66,7 @@ namespace NCaseFramework.Back.Imp.Tree
                 {
                     IEnumerable<List<INode>> casesOfBranch = dir.Visit(branchNode, options);
 
-                    if(casesOfBranch == null)
+                    if (casesOfBranch == null)
                         throw new InvalidOperationException(string.Format("Visit of node {0} returned null", branchNode));
 
                     foreach (List<INode> nodes in casesOfBranch)

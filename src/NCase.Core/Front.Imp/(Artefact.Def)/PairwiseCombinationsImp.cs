@@ -5,11 +5,13 @@ using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
+using NDsl.Front.Imp;
+using NDsl.Front.Ui;
 
 namespace NCaseFramework.Front.Imp
 {
     public class PairwiseCombinationsImp
-        : SetDefBaseImp<IPairwiseCombinationsModel, PairwiseCombinationsId>,
+        : SetDefBaseImp<IPairwiseCombinationsModel, PairwiseCombinationsId, Definer>,
           PairwiseCombinations,
           IPairwiseCombinationsModel
     {
@@ -43,6 +45,12 @@ namespace NCaseFramework.Front.Imp
         [NotNull] public override IPairwiseCombinationsModel Model
         {
             get { return this; }
+        }
+
+        [NotNull]
+        public override Definer Define()
+        {
+            return new DefinerImp(Begin, End);
         }
     }
 }

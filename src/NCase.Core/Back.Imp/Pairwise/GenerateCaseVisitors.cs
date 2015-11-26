@@ -30,8 +30,8 @@ namespace NCaseFramework.Back.Imp.Pairwise
             foreach (INode child in node.Children)
             {
                 IEnumerable<List<INode>> casesOfChild = dir.Visit(child, options);
-                
-                if(casesOfChild == null)
+
+                if (casesOfChild == null)
                     throw new InvalidOperationException(string.Format("Visit of child {0} returned null", child));
 
                 foreach (List<INode> caseFacts in casesOfChild)
@@ -55,7 +55,7 @@ namespace NCaseFramework.Back.Imp.Pairwise
 
                 IEnumerable<List<INode>> factsForAllCases = dir.Visit(dimNode, options);
 
-                if(factsForAllCases == null)
+                if (factsForAllCases == null)
                     throw new InvalidOperationException(string.Format("Visit of child {0} returned null", dimNode));
 
                 foreach (List<INode> caseFacts in factsForAllCases)

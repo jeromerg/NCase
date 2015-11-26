@@ -107,7 +107,8 @@ namespace NDsl.Back.Imp.RecPlay
         }
 
         /// <exception cref="InvalidRecPlayStateException" />
-        [NotNull] private InvalidRecPlayStateException BuildEx([NotNull] IInvocation invocation, [NotNull] string format)
+        [NotNull]
+        private InvalidRecPlayStateException BuildEx([NotNull] IInvocation invocation, [NotNull] string format)
         {
             PropertyCallKey propertyCallKey = invocation.TryGetPropertyCallKeyFromGetter()
                                               ?? invocation.TryGetPropertyCallKeyFromSetter();
@@ -122,14 +123,14 @@ namespace NDsl.Back.Imp.RecPlay
         }
 
         /// <exception cref="InvalidRecPlayStateException" />
-        [NotNull] 
+        [NotNull]
         private InvalidRecPlayStateException BuildEx([NotNull] PropertyCallKey propertyCallKey, [NotNull] string format)
         {
             string msg = string.Format(format, PrintInvocation(propertyCallKey));
             return new InvalidRecPlayStateException(msg);
         }
 
-        [NotNull] 
+        [NotNull]
         private string PrintInvocation([NotNull] PropertyCallKey getterPropertyCallKey)
         {
             return InterfaceRecPlayNodeExtensions.PrintInvocation(mContributorName, getterPropertyCallKey);

@@ -7,7 +7,6 @@ namespace NDsl.Back.Api.Ref
     public interface IRefNode<out T> : INode
         where T : IDefNode
     {
-        [NotNull]
-        T Reference { get; }
+        [NotNull] T Reference { get; }
     }
 }

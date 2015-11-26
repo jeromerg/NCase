@@ -15,8 +15,8 @@ namespace NUtil.Doc
 
         public ConsoleMirroring()
         {
-            if(Console.Out == null) throw new ArgumentException("Console.Out is null");
-            if(Console.Error == null) throw new ArgumentException("Console.Error is null");
+            if (Console.Out == null) throw new ArgumentException("Console.Out is null");
+            if (Console.Error == null) throw new ArgumentException("Console.Error is null");
 
             mTextWriter = new StringWriter();
             mConsoleOutput = Console.Out;

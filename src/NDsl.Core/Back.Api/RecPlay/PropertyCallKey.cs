@@ -34,14 +34,12 @@ namespace NDsl.Back.Api.RecPlay
             get { return mOwningProxy; }
         }
 
-        [NotNull] 
-        public string PropertyName
+        [NotNull] public string PropertyName
         {
             get { return mPropertyName; }
         }
 
-        [NotNull] 
-        public object[] IndexParameters
+        [NotNull] public object[] IndexParameters
         {
             get { return mIndexParameters; }
         }

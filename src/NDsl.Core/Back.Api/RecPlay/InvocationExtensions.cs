@@ -39,7 +39,7 @@ namespace NDsl.Back.Api.RecPlay
             if (invocation == null) throw new ArgumentNullException("invocation");
 
             MethodInfo method = invocation.Method;
-            
+
             // ReSharper disable once PossibleNullReferenceException
             return GetAllImplementedProperties(invocation.Proxy.GetType()).FirstOrDefault(p => p.GetGetMethod() == method);
         }

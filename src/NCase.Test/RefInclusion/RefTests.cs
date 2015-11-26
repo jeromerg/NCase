@@ -16,5 +16,5 @@ namespace NCaseFramework.Test.RefInclusion
         }
 
         // TODO: Ref before definition
-   }
+    }
 }

@@ -29,7 +29,8 @@ namespace NUtil.Linq
             return CascadeRemove(Enumerable.Repeat(dict, 1), key);
         }
 
-        public static IEnumerable<T> CascadeRemove<T>([NotNull, ItemNotNull] this IEnumerable<Dictionary<int, T>> dictEnumerable, int key)
+        public static IEnumerable<T> CascadeRemove<T>([NotNull, ItemNotNull] this IEnumerable<Dictionary<int, T>> dictEnumerable,
+                                                      int key)
             where T : IEnumerable
         {
             foreach (Dictionary<int, T> dict in dictEnumerable)

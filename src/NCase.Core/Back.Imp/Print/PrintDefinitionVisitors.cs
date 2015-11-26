@@ -18,7 +18,9 @@ namespace NCaseFramework.Back.Imp.Print
                 dir.Visit(child, payload);
         }
 
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IRefNode<IDefNode> node, [NotNull] IPrintDefinitionPayload payload)
+        public void Visit([NotNull] IPrintDefinitionDirector dir,
+                          [NotNull] IRefNode<IDefNode> node,
+                          [NotNull] IPrintDefinitionPayload payload)
         {
             IDefId defId = node.Reference.Id;
 

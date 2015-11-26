@@ -9,7 +9,9 @@ namespace NCaseFramework.Back.Imp.Pairwise
         : IPrintDefinitionVisitor<IPairwiseNode>,
           IPrintDefinitionVisitor<IPairwiseDimNode>
     {
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IPairwiseDimNode node, [NotNull] IPrintDefinitionPayload payload)
+        public void Visit([NotNull] IPrintDefinitionDirector dir,
+                          [NotNull] IPairwiseDimNode node,
+                          [NotNull] IPrintDefinitionPayload payload)
         {
             payload.PrintLine(node.CodeLocation, "Implicit Dimension");
 
@@ -21,7 +23,9 @@ namespace NCaseFramework.Back.Imp.Pairwise
             payload.Dedent();
         }
 
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IPairwiseNode node, [NotNull] IPrintDefinitionPayload payload)
+        public void Visit([NotNull] IPrintDefinitionDirector dir,
+                          [NotNull] IPairwiseNode node,
+                          [NotNull] IPrintDefinitionPayload payload)
         {
             payload.PrintLine(node.CodeLocation, "PairwiseCombinations '{0}'", node.Id.Name);
 

@@ -18,20 +18,18 @@ namespace NUtil.Doc
             mPostProcessing = postProcessing;
         }
 
-        [NotNull] 
-        public string RecordName
+        [NotNull] public string RecordName
         {
             get { return mRecordName; }
         }
 
-        [NotNull] 
-        public string ConsoleOutput
+        [NotNull] public string ConsoleOutput
         {
             get
             {
-                if (mPostProcessing != null) 
+                if (mPostProcessing != null)
                     return mPostProcessing(mConsoleMirroring.ToString()) ?? "";
-                else 
+                else
                     return mConsoleMirroring.ToString();
             }
         }

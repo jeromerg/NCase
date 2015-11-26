@@ -127,7 +127,8 @@ namespace NDsl.Back.Imp.Util.Table
             sb.AppendLine();
         }
 
-        private static string AggregatedCellContent([NotNull] Dictionary<ITableColumn, List<string>> row, [NotNull] ITableColumn col)
+        private static string AggregatedCellContent([NotNull] Dictionary<ITableColumn, List<string>> row,
+                                                    [NotNull] ITableColumn col)
         {
             List<string> cellContent;
             {

@@ -5,10 +5,12 @@ using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
+using NDsl.Front.Imp;
+using NDsl.Front.Ui;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class TreeImp : SetDefBaseImp<ITreeModel, TreeId>, Tree, ITreeModel
+    public class TreeImp : SetDefBaseImp<ITreeModel, TreeId, Definer>, Tree, ITreeModel
     {
         public class Factory : IDefFactory<Tree>
         {
@@ -39,6 +41,12 @@ namespace NCaseFramework.Front.Imp
         public override ITreeModel Model
         {
             get { return this; }
+        }
+
+        [NotNull]
+        public override Definer Define()
+        {
+            return new DefinerImp(Begin, End);
         }
     }
 }

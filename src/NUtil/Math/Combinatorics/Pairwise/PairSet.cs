@@ -51,7 +51,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
         public void Add(int dim1, int val1, int dim2, int val2)
         {
             // ReSharper disable AssignNullToNotNullAttribute
-            
+
             mPairs
                 .CascadeAdd(dim1)
                 .CascadeAdd(dim2)

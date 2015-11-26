@@ -11,9 +11,10 @@ using NDsl.Front.Ui;
 
 namespace NDsl.Front.Imp
 {
-    public abstract class DefBaseImp<TModel, TId> : ArtefactImp<TModel>, DefBase<TModel, TId>
+    public abstract class DefBaseImp<TModel, TId, TDefiner> : ArtefactImp<TModel>, DefBase<TModel, TId, TDefiner>
         where TId : IDefId
         where TModel : IDefModel<TId>
+        where TDefiner : Definer
     {
         [NotNull] private readonly TId mId;
         [NotNull] private readonly ITokenStream mTokenStream;
@@ -53,10 +54,7 @@ namespace NDsl.Front.Imp
         #region IDef Implementation
 
         [NotNull]
-        public IDisposable Define()
-        {
-            return new DisposableWithCallbacks(Begin, End);
-        }
+        public abstract TDefiner Define();
 
         public void Ref()
         {
@@ -67,7 +65,7 @@ namespace NDsl.Front.Imp
 
         #region private methods
 
-        private void Begin()
+        protected void Begin()
         {
             if (State > DefState.NotDefined)
                 throw new InvalidSyntaxException(Loc(), "{0} not in 'NotDefined' state", Id);
@@ -77,7 +75,7 @@ namespace NDsl.Front.Imp
             TokenStream.Append(new BeginToken<TId>(Id, Loc()));
         }
 
-        private void End()
+        protected void End()
         {
             if (State != DefState.Defining)
                 throw new InvalidSyntaxException(Loc(), "{0} not in 'Defining' state", Id);

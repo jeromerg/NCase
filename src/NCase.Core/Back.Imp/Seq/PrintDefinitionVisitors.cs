@@ -8,7 +8,9 @@ namespace NCaseFramework.Back.Imp.Seq
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<ISeqNode>
     {
-        public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] ISeqNode node, [NotNull] IPrintDefinitionPayload payload)
+        public void Visit([NotNull] IPrintDefinitionDirector dir,
+                          [NotNull] ISeqNode node,
+                          [NotNull] IPrintDefinitionPayload payload)
         {
             payload.PrintLine(node.CodeLocation, "Seq '{0}'", node.Id.Name);
 

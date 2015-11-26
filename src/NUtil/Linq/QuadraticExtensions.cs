@@ -9,7 +9,7 @@ namespace NUtil.Linq
     public static class QuadraticExtensions
     {
         [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-        [NotNull] 
+        [NotNull]
         public static IEnumerable<TOut> TriangleUnequal<TIn, TOut>([NotNull] this IEnumerable<TIn> thisEnumerable,
                                                                    [NotNull] Func<TIn, TIn, TOut> func)
         {
@@ -19,7 +19,7 @@ namespace NUtil.Linq
             return thisEnumerable.SelectMany((v1, idx) => thisEnumerable.Skip(idx + 1).Select(v2 => func(v1, v2)));
         }
 
-        [NotNull] 
+        [NotNull]
         public static IEnumerable<TOut> CartesianProduct<TIn1, TIn2, TOut>([NotNull] this IEnumerable<TIn1> first,
                                                                            [NotNull] IEnumerable<TIn2> second,
                                                                            [NotNull] Func<TIn1, TIn2, TOut> func)

@@ -15,6 +15,25 @@ namespace NCaseFramework.Back.Imp.Prod
     {
         [NotNull, ItemNotNull]
         public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] IProdDimNode node,
+                                              [NotNull] GenerateOptions options)
+        {
+            if (options == null) throw new ArgumentNullException("options");
+
+            foreach (INode child in node.Children)
+            {
+                IEnumerable<List<INode>> casesOfChild = dir.Visit(child, options);
+
+                if (casesOfChild == null)
+                    throw new InvalidOperationException(string.Format("Visit of child {0} returned null", child));
+
+                foreach (List<INode> caseFacts in casesOfChild)
+                    yield return caseFacts;
+            }
+        }
+
+        [NotNull, ItemNotNull]
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
                                               [NotNull] IProdNode node,
                                               [NotNull] GenerateOptions options)
         {
@@ -29,25 +48,6 @@ namespace NCaseFramework.Back.Imp.Prod
         }
 
         [NotNull, ItemNotNull]
-        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
-                                              [NotNull] IProdDimNode node,
-                                              [NotNull] GenerateOptions options)
-        {
-            if (options == null) throw new ArgumentNullException("options");
-
-            foreach (INode child in node.Children)
-            {
-                IEnumerable<List<INode>> casesOfChild = dir.Visit(child, options);
-
-                if(casesOfChild == null)
-                    throw new InvalidOperationException(string.Format("Visit of child {0} returned null", child));
-
-                foreach (List<INode> caseFacts in casesOfChild)
-                    yield return caseFacts;
-            }
-        }
-
-        [NotNull, ItemNotNull]
         private IEnumerable<List<INode>> ProduceCartesianProductRecursively([NotNull] IGenerateCasesDirector dir,
                                                                             [NotNull, ItemNotNull] List<INode> dimensions,
                                                                             int dimensionIndex,
@@ -57,14 +57,15 @@ namespace NCaseFramework.Back.Imp.Prod
             INode currentDimNode = dimensions[dimensionIndex];
 
             IEnumerable<List<INode>> casesOfCurrentDim = dir.Visit(currentDimNode, options);
-            
-            if(casesOfCurrentDim == null)
+
+            if (casesOfCurrentDim == null)
                 throw new InvalidOperationException(string.Format("Visit of child {0} returned null", currentDimNode));
-            
+
             foreach (List<INode> caseFacts in casesOfCurrentDim)
             {
-                if(caseFacts == null)
-                    throw new InvalidOperationException(string.Format("Visit of child {0} returned a case having the list of facts equal to null", currentDimNode));
+                if (caseFacts == null)
+                    throw new InvalidOperationException(
+                        string.Format("Visit of child {0} returned a case having the list of facts equal to null", currentDimNode));
 
                 if (isLastDim)
                 {
@@ -73,7 +74,8 @@ namespace NCaseFramework.Back.Imp.Prod
                 else
                 {
                     // continue recursion and merge facts together
-                    foreach (List<INode> subnodes in ProduceCartesianProductRecursively(dir, dimensions, dimensionIndex + 1, options))
+                    foreach (
+                        List<INode> subnodes in ProduceCartesianProductRecursively(dir, dimensions, dimensionIndex + 1, options))
                         yield return ListUtil.Concat(caseFacts, subnodes);
                 }
             }

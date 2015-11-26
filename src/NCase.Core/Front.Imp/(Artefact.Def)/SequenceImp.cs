@@ -5,10 +5,12 @@ using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
+using NDsl.Front.Imp;
+using NDsl.Front.Ui;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class SequenceImp : SetDefBaseImp<ISequenceModel, SequenceId>, Sequence, ISequenceModel
+    public class SequenceImp : SetDefBaseImp<ISequenceModel, SequenceId, Definer>, Sequence, ISequenceModel
     {
         public class Factory : IDefFactory<Sequence>
         {
@@ -39,6 +41,12 @@ namespace NCaseFramework.Front.Imp
         [NotNull] public override ISequenceModel Model
         {
             get { return this; }
+        }
+
+        [NotNull]
+        public override Definer Define()
+        {
+            return new DefinerImp(Begin, End);
         }
     }
 }

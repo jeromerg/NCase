@@ -51,7 +51,9 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Front.Ui\Definer.cs" />
     <Compile Include="Back.Api\Record\IRecorder.cs" />
+    <Compile Include="Back.Api\Util\DisposableWithCallbacks.cs" />
     <Compile Include="Back.Imp\Common\Recorder.cs" />
     <Compile Include="Back.Imp\Common\TokenStreamFactory.cs" />
     <Compile Include="Back.Api\Record\RecorderMode.cs" />
@@ -123,7 +125,7 @@
     <Compile Include="Back.Api\Util\IStackFrameUtil.cs" />
     <Compile Include="Back.Imp\Util\CodeLocationUtil.cs" />
     <Compile Include="Back.Imp\Util\StackFrameUtil.cs" />
-    <Compile Include="Back.Api\Util\DisposableWithCallbacks.cs" />
+    <Compile Include="Front.Imp\DefinerImp.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.nsdepcop" />

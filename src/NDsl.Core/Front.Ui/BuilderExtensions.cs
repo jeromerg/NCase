@@ -17,7 +17,8 @@ namespace NDsl.Front.Ui
         }
 
         [NotNull]
-        public static T NewDefinition<T>([NotNull] this CaseBuilder caseBuilder, [NotNull] string name) where T : DefBase
+        public static T NewDefinition<T>([NotNull] this CaseBuilder caseBuilder, [NotNull] string name)
+            where T : DefBase<Definer>
         {
             if (caseBuilder == null) throw new ArgumentNullException("caseBuilder");
             if (name == null) throw new ArgumentNullException("name");

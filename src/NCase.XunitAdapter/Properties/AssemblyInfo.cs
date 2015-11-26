@@ -14,6 +14,4 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 
 [assembly: ComVisible(false)]
-
 [assembly: Guid("f3f11d74-328b-464c-9826-2363e872ae98")]
-

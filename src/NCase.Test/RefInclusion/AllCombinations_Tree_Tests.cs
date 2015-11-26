@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Ex;
 using NDsl.Front.Api;
@@ -30,10 +31,10 @@ namespace NCaseFramework.Test.RefInclusion
             using (tree.Define())
             {
                 o.B = "b1";
-                    o.C = "c1";
-                    o.C = "c2";
+                o.C = "c1";
+                o.C = "c2";
                 o.B = "b2";
-                    o.C = "c3";
+                o.C = "c3";
             }
 
             var all = caseBuilder.NewDefinition<AllCombinations>("all");
@@ -48,7 +49,7 @@ namespace NCaseFramework.Test.RefInclusion
             }
 
 
-            var e = all.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> e = all.Cases().Replay().GetEnumerator();
 
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", o.A);
@@ -108,14 +109,14 @@ namespace NCaseFramework.Test.RefInclusion
             using (tree.Define())
             {
                 o.A = "a1";
-                    o.B = "b1";
-                    o.B = "b2";
-                        all.Ref();
+                o.B = "b1";
+                o.B = "b2";
+                all.Ref();
                 o.A = "a2";
-                    o.B = "b3";
+                o.B = "b3";
             }
 
-            var e = tree.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> e = tree.Cases().Replay().GetEnumerator();
 
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", o.A);

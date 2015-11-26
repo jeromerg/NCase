@@ -31,7 +31,7 @@ namespace NUtil.Doc
             return snippets;
         }
 
-        [NotNull] 
+        [NotNull]
         public List<Snippet> ParseSnippets([NotNull] string source, [NotNull] string txtContainingSnippets)
         {
             if (source == null) throw new ArgumentNullException("source");

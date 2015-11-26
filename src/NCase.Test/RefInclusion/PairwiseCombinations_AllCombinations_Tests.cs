@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using NCaseFramework.Front.Ui;
-using NDsl.Back.Api.Ex;
 using NDsl.Front.Api;
 using NDsl.Front.Ui;
 using NUnit.Framework;
@@ -46,7 +46,7 @@ namespace NCaseFramework.Test.RefInclusion
             }
 
 
-            var e = all.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> e = all.Cases().Replay().GetEnumerator();
 
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", o.A);
@@ -83,14 +83,13 @@ namespace NCaseFramework.Test.RefInclusion
             {
                 o.A = "a1";
 
-                all.Ref();                
+                all.Ref();
 
                 o.D = "d1";
                 o.D = "d2";
-                
             }
 
-            var e = tree.Cases().Replay().GetEnumerator();
+            IEnumerator<Case> e = tree.Cases().Replay().GetEnumerator();
 
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", o.A);

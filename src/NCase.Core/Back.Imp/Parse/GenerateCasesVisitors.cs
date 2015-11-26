@@ -22,7 +22,7 @@ namespace NCaseFramework.Back.Imp.Parse
             {
                 IEnumerable<List<INode>> casesOfRef = dir.Visit(node.Reference, options);
 
-                if(casesOfRef == null)
+                if (casesOfRef == null)
                     throw new InvalidOperationException(string.Format("Visit of node {0} returned null", node.Reference));
 
                 foreach (List<INode> caseFacts in casesOfRef)

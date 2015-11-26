@@ -7,7 +7,9 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("NCase Core Library")]
 [assembly: AssemblyProduct("NCase")]
-[assembly: AssemblyDescription("NCase Core Library: Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code")]
+[assembly:
+    AssemblyDescription(
+        "NCase Core Library: Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

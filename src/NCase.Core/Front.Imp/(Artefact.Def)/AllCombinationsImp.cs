@@ -5,11 +5,13 @@ using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Api;
+using NDsl.Front.Imp;
+using NDsl.Front.Ui;
 
 namespace NCaseFramework.Front.Imp
 {
     public class AllCombinationsImp
-        : SetDefBaseImp<IAllCombinationsModel, AllCombinationsId>,
+        : SetDefBaseImp<IAllCombinationsModel, AllCombinationsId, Definer>,
           AllCombinations,
           IAllCombinationsModel
     {
@@ -43,6 +45,12 @@ namespace NCaseFramework.Front.Imp
         [NotNull] public override IAllCombinationsModel Model
         {
             get { return this; }
+        }
+
+        [NotNull]
+        public override Definer Define()
+        {
+            return new DefinerImp(Begin, End);
         }
     }
 }

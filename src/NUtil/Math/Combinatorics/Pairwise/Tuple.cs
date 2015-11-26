@@ -7,16 +7,14 @@ namespace NUtil.Math.Combinatorics.Pairwise
 {
     public class Tuple
     {
-        [NotNull]
-        private readonly int[] mResult;
+        [NotNull] private readonly int[] mResult;
 
         public Tuple(int amountOfDims)
         {
             mResult = Enumerable.Repeat(-1, amountOfDims).ToArray();
         }
 
-        [NotNull]
-        public IEnumerable<int> FreeDims
+        [NotNull] public IEnumerable<int> FreeDims
         {
             get
             {
@@ -28,8 +26,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
             }
         }
 
-        [NotNull]
-        public IEnumerable<DimValue> FrozenDimValues
+        [NotNull] public IEnumerable<DimValue> FrozenDimValues
         {
             get
             {
@@ -41,8 +38,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
             }
         }
 
-        [NotNull]
-        public int[] Result
+        [NotNull] public int[] Result
         {
             get { return mResult; }
         }

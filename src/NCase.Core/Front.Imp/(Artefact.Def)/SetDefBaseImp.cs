@@ -5,12 +5,17 @@ using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Record;
 using NDsl.Back.Api.Util;
 using NDsl.Front.Imp;
+using NDsl.Front.Ui;
 
 namespace NCaseFramework.Front.Imp
 {
-    public abstract class SetDefBaseImp<TModel, TId> : DefBaseImp<TModel, TId>, SetDefBase<TModel, TId>, ISetDefModel<TId>
+    public abstract class SetDefBaseImp<TModel, TId, TDefiner>
+        : DefBaseImp<TModel, TId, TDefiner>,
+          SetDefBase<TModel, TId, TDefiner>,
+          ISetDefModel<TId>
         where TId : ISetDefId
         where TModel : ISetDefModel<TId>
+        where TDefiner : Definer
     {
         protected SetDefBaseImp([NotNull] TId id,
                                 [NotNull] ITokenStream tokenStream,

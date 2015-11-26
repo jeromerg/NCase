@@ -23,7 +23,7 @@ namespace NGitVersion
             Directory.GetFiles(TEMPLATE_DIR, "*.stg")
                      .Select(Path.GetFullPath)
                      .ToList()
-                     // ReSharper disable once AssignNullToNotNullAttribute
+                // ReSharper disable once AssignNullToNotNullAttribute
                      .ForEach(templateFile => ProcessTemplate(templateFile, model));
         }
 
@@ -34,7 +34,7 @@ namespace NGitVersion
             Template template = new TemplateGroupFile(templateFile)
                 .GetInstanceOf(MAIN_TEMPLATE_NAME);
 
-            if(template == null)
+            if (template == null)
                 throw new ArgumentException(string.Format("Template {0} not found", MAIN_TEMPLATE_NAME));
 
             template.Add(MODEL_VAR, model);

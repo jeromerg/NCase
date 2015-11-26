@@ -11,7 +11,7 @@ namespace NDsl.Back.Api.Util
         {
             if (onBegin == null) throw new ArgumentNullException("onBegin");
             if (onEnd == null) throw new ArgumentNullException("onEnd");
-            
+
             mOnEnd = onEnd;
             onBegin();
         }
