@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace NCaseFramework.Test
 {
-    [TestFixture]
+    [TestFixture, Ignore("under construction")]
     public class CombinationsTests
     {
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]

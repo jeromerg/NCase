@@ -72,6 +72,8 @@
     <Compile Include="Back.Api\SetDef\ISetDefId.cs" />
     <Compile Include="Back.Api\SetDef\ISetDefNode.cs" />
     <Compile Include="Back.Api\SetDef\SetDefId.cs" />
+    <Compile Include="Back.Api\Combinations\ICombinationsNode.cs" />
+    <Compile Include="Back.Api\Combinations\CombinationsId.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\InterfaceRecPlayNodeColumn.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ParseVisitors.cs" />
@@ -110,6 +112,11 @@
     <Compile Include="Back.Imp\Seq\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Seq\PrintDefinitionVisitors.cs" />
     <Compile Include="Back.Imp\Seq\SeqNode.cs" />
+    <Compile Include="Back.Imp\Combinations\AddChildVisitors.cs" />
+    <Compile Include="Back.Imp\Combinations\GenerateCaseVisitors.cs" />
+    <Compile Include="Back.Imp\Combinations\ParseVisitors.cs" />
+    <Compile Include="Back.Imp\Combinations\PrintDefinitionVisitors.cs" />
+    <Compile Include="Back.Imp\Combinations\CombinationsNode.cs" />
     <Compile Include="Back.Imp\Tree\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Tree\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\ParseVisitors.cs" />
@@ -120,6 +127,7 @@
     <Compile Include="Front.Api\Seq\ISequenceModel.cs" />
     <Compile Include="Front.Api\Case\ICaseModel.cs" />
     <Compile Include="Front.Api\SetDef\IPrintCaseSvc.cs" />
+    <Compile Include="Front.Api\Combinations\ICombinationsModel.cs" />
     <Compile Include="Front.Api\Tree\ITreeModel.cs" />
     <Compile Include="Front.Api\Fact\IFactFactory.cs" />
     <Compile Include="Front.Api\SetDef\IPrintDefSvc.cs" />
@@ -129,6 +137,7 @@
     <Compile Include="Front.Api\Case\ICaseFactory.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\PairwiseCombinationsImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\AllCombinationsImp.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\CombinationsImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\TreeImp.cs" />
     <Compile Include="Front.Api\SetDef\IGetCasesSvc.cs" />
     <Compile Include="Front.Imp\%28Service%29\PrintCaseSvc.cs" />

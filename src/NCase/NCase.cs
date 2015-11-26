@@ -45,6 +45,7 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterModule<NCaseInterfaceRecPlayModule>();
             cb.RegisterModule<NCaseSeqModule>();
             cb.RegisterModule<NCaseTreeModule>();
+            cb.RegisterModule<NCaseCombinationsModule>();
             cb.RegisterModule<NCaseProdModule>();
             cb.RegisterModule<NCasePairwiseModule>();
 

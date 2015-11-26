@@ -59,6 +59,7 @@
     <Compile Include="NCaseInterfaceRecPlayModule.cs" />
     <Compile Include="NCasePairwiseModule.cs" />
     <Compile Include="NCaseSeqModule.cs" />
+    <Compile Include="NCaseCombinationsModule.cs" />
     <Compile Include="NCaseTreeModule.cs" />
     <Compile Include="NCaseProdModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
