@@ -90,7 +90,7 @@ Both tests look like very similar. You recognize the same blocks *Arrange, Act, 
 - The contributor's properties are set inside a block, which amazingly looks like a definition
 - And finally the *Act and Asserts* are located inside a statement lambda passed to a method called `ActAndAssert`
 
-You wonder? Now, let's see the power of the few new lines... 
+Have I got your attention? Now, let's see the power of the few new lines... 
 
 The second test case
 --------------------
@@ -130,7 +130,7 @@ public void MoqTest2()                      // DUPLICATED TEST
 }
 ```
 
-Now, open your eyes! With NCase, you only need to add the single following line:
+But check this out! With NCase, you only need to add the single following line:
 
 <!--# NCaseExample2_AddedLine -->
 ```C#
@@ -165,16 +165,16 @@ set.Cases().Replay().ActAndAssert(ea =>
 });
 ```
 
-Like a sorcerer, NCase calls twice the *Act and Asserts* exactly in the same way as `MoqTest1` and `MoqTest2` do!
+Like a sorcerer, NCase calls the *Act and Assert* statements twice exactly in the same way as `MoqTest1` and `MoqTest2` do!
 
-Why? Because the Arrange statements are located inside a definition of type `AllCombinations`: the `AllCombinations` definition groups together subsequent assignments of the same property and performs the so called cartesian product between all groups. 
+Why? Because the Arrange statements are located inside a definition of type `AllCombinations`: the `AllCombinations` definition groups together subsequent assignments of the same property and performs a so called cartesian product between all groups. 
 
 Finally the chain `set.Cases().Replay().ActAndAssert(...)` replays each test case and calls the *Act and Assert* statements.
 
 Many test cases
 ---------------
 
-NCase is stupid systematic: You can add as many assignments to `Task`, `DueDate` and `IsDone` as you wish, NCase will generate and test all possible combinations. For example, the following lines will generate and test 6 x 7 x 2 = **84 test cases!!**
+NCase is stupidly systematic: You may add as many assignments to `Task`, `DueDate` and `IsDone` as you wish, and NCase will generate and test all possible combinations. For example, the following lines will generate and test 6 x 7 x 2 = **84 test cases!!**
 
 
 <!--# NCaseExample3 -->
@@ -234,7 +234,7 @@ So, you need a new contributor of type `IUser`:
 var user = builder.NewContributor<IUser>("user");
 ```
 
-So that you can extend the existing the definition, as following:
+So that you can extend the existing the definition, as follows:
 
 <!--# NCaseCombiningContributors_DEF -->
 ```C#
@@ -257,7 +257,7 @@ using (set.Define())
 }
 ```
 
-This definition generates the cartesian product between all groups of property assignments for both contributors. It simply works!
+This definition generates the cartesian product of all groups of property assignments for both contributors. It simply works!
 
 Combining Sets
 --------------
@@ -300,7 +300,7 @@ using (userSet.Define())
 }
 ```
 
-Finally, you **combine both sets together** as following:
+Finally, you **combine both sets together** as follows:
 
 <!--# NCaseCombiningSets_ALL_SET -->
 ```C#
@@ -324,7 +324,7 @@ Tackle complexity with Pairwise testing
 
 Testing all combinations is nice, but it is expensive. We generated before 84 test cases with only three properties and a few values for each one. Instead of generating all combinations with the `AllCombinations` definition, you can use the alternative definition called `PairwiseCombinations`. It generates a set of test cases, that contains all possible pairs between all groups of assignments (more about [pairwise testing here][pair]). 
 
-Both definitions, `AllCombinations` and `PairwiseCombinations`, have exactly the same syntax, so you just need to change the name of the definition as you call `builder.NewDefinition<...>(...)`: 
+Both definitions, `AllCombinations` and `PairwiseCombinations`, have exactly the same syntax, so you just need to change the name of the definition when you call `builder.NewDefinition<...>(...)`: 
 
 <!--# NCasePairwiseCombinations -->
 ```C#
@@ -355,17 +355,17 @@ using (allSet.Define())
 }
 ```
 
-The result is a fine granular testing: By keeping the `userSet` as it is, you keep an exhaustive testing of the `user` input. And by switching the `todoSet` to a `PairwiseCombinations` definition, you get an more efficient, but more superficial, testing of the `todo` input.
+The result is a fine granular level of testing: By keeping the `userSet` as it is, you exhaustively test of the `user` input. And by switching the `todoSet` to a `PairwiseCombinations` definition, you attain a more efficient, albeit superficial, level of testing of the `todo` input.
 
 Tackle dedicated asserts: Tree Definition
 -----------------------------------------
 
 If you need to perform asserts that depend on the input values, you have two alternatives. You can:
 
-- Rewrite a simplified logic of the system under test in your test, in order to calculate the expectations as a function of the input values
+- Rewrite in a simplified form the logic of the system under test in your test, in order to calculate the expectations as a function of the input values
 - Or you can provide the expected values along with the input values and pass both to the *Act and Assert* statements.
 
-With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations` or `PairwiseCombinations` because the expected values are bound to the input values. To solve this issue, NCase contains another definition called `Tree`. The `Tree` definition allows to define a set of test cases by the mean of a tree.
+With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations` or `PairwiseCombinations` because the expected values are bound to the input values. To solve this issue, NCase contains another definition called `Tree`. The `Tree` definition allows you to define a set of test cases by the mean of a tree.
 
 The following lines of code illustrate how it works:
 
@@ -407,7 +407,7 @@ NCase provides methods to help visualize what is going on, while you develop and
 
 #### Visualize Definition
 
-If at some point, you get lost and don't understand anything, then first take a break, drink a coffee! And then print the definitions that you are trying to write with the help of the `PrintDefinition()` extension method:
+If at some point, you get lost and don't understand what is going on, then first take a break, drink a coffee! And then print the definitions that you are trying to write with the help of the `PrintDefinition()` extension method:
 
 <!--# Visualize_Def -->
 ```C#
@@ -493,9 +493,9 @@ Next Steps
 
 First, have fun with NCase! 
 
-Then, please provide feedbacks, critics, and suggestions! 
+Then, please provide feedbacks, critiques, and suggestions! 
 
-Finally, be aware that NCase is under continuous development. Coming features are:
+Finally, be aware that NCase is under continuous development. Some upcoming features are:
 
 - Improved syntax
 	- Inline definition
