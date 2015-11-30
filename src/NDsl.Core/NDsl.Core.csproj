@@ -51,6 +51,8 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Back.Api\Util\IFileCache.cs" />
+    <Compile Include="Back.Imp\Util\FileCache.cs" />
     <Compile Include="Front.Ui\Definer.cs" />
     <Compile Include="Back.Api\Record\IRecorder.cs" />
     <Compile Include="Back.Api\Util\DisposableWithCallbacks.cs" />

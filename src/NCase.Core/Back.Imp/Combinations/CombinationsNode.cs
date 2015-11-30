@@ -13,19 +13,21 @@ namespace NCaseFramework.Back.Imp.Combinations
     {
         [NotNull] private readonly CodeLocation mCodeLocation;
         [NotNull] private readonly List<ICombinationsNode> mBranches = new List<ICombinationsNode>();
-        [NotNull]
-        private readonly CombinationsId mId;
+
+        [NotNull] private readonly CombinationsId mId;
+
         [CanBeNull] private readonly INode mCasesOfThisTreeNode;
 
         public CombinationsNode([NotNull] CodeLocation codeLocation,
-                        [NotNull] CombinationsId id,
-                        [CanBeNull] INode casesOfThisTreeNode)
+                                [NotNull] CombinationsId id,
+                                [CanBeNull] INode casesOfThisTreeNode)
         {
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
             if (id == null) throw new ArgumentNullException("id");
 
             mCodeLocation = codeLocation;
             mId = id;
+
             mCasesOfThisTreeNode = casesOfThisTreeNode;
         }
 
@@ -34,8 +36,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             get { return mId; }
         }
 
-        [NotNull]
-        public CombinationsId Id
+        [NotNull] public CombinationsId Id
         {
             get { return mId; }
         }
@@ -44,7 +45,7 @@ namespace NCaseFramework.Back.Imp.Combinations
         {
             get
             {
-                yield return mCasesOfThisTreeNode ?? NullNode.Instance;
+                yield return NullNode.Instance;
                 foreach (ICombinationsNode caseBranchNode in Branches)
                     yield return caseBranchNode;
             }

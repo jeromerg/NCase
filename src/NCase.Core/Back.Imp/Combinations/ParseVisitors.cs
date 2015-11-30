@@ -14,7 +14,7 @@ namespace NCaseFramework.Back.Imp.Combinations
     {
         public void Visit([NotNull] IParseDirector dir, [NotNull] BeginToken<CombinationsId> token)
         {
-            var newCaseSetNode = new CombinationsNode(token.CodeLocation, token.Owner, null);
+            var newCaseSetNode = new CombinationsNode(token.CodeLocation, token.Owner);
 
             dir.AddId(token.Owner, newCaseSetNode);
             dir.PushScope(newCaseSetNode);
