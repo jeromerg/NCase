@@ -138,6 +138,7 @@
     <Compile Include="Front.Api\Fact\IReplayFactSvc.cs" />
     <Compile Include="Front.Api\Pairwise\IPairwiseCombinationsModel.cs" />
     <Compile Include="Front.Api\Case\ICaseFactory.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\CombinationsDefinerImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\PairwiseCombinationsImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\AllCombinationsImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\CombinationsImp.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Front.Ui\%28Shared%29\CaseExtensions.cs" />
     <Compile Include="Front.Ui\%28Shared%29\ExceptionAssert.cs" />
     <Compile Include="Front.Ui\%28Shared%29\TestCaseContext.cs" />
+    <Compile Include="Front.Ui\CombinationsDefiner.cs" />
     <Compile Include="Front.Ui\FactExtensions.cs" />
     <Compile Include="Front.Ui\CaseExtensions.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />

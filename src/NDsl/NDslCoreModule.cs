@@ -42,6 +42,7 @@ namespace NDsl
             builder.RegisterInstance(new StackFrameUtil(mNonUserAssemblies)).As<IStackFrameUtil>();
             builder.RegisterType<TableBuilder.Factory>().As<ITableBuilderFactory>();
             builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
+            builder.RegisterType<FileCache>().As<IFileCache>();
             builder.RegisterType<TokenStream>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof (ActionVisitMapper<,>)).AsSelf().As(typeof (IActionVisitMapper<,>));
             builder.RegisterGeneric(typeof (ActionPayloadVisitMapper<,,>)).AsSelf().As(typeof (IActionPayloadVisitMapper<,,>));
