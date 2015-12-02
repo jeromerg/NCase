@@ -16,12 +16,6 @@ namespace NCaseFramework.Front.Imp
             mTokenWriter = tokenWriter;
         }
 
-        public void Fork()
-        {
-            // TODO JRG
-            // mTokenWriter.Append();
-        }
-
         public void Child()
         {
             // TODO JRG

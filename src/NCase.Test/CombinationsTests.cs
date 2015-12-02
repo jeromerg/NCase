@@ -252,35 +252,38 @@ namespace NCaseFramework.Test
             {
                 c.A = "a1";
                 {
-                    c.D = "d1";
+                    d.Child();
                     {
-                        c.B = "b1";
+                        c.D = "d1";
                         {
-                            c.C = "c1";
+                            c.B = "b1";
+                            {
+                                c.C = "c1";
+                            }
+                            c.B = "b2";
+                            {
+                                c.C = "c2";
+                                c.C = "c3";
+                            }
                         }
-                        c.B = "b2";
-                        {
-                            c.C = "c2";
-                            c.C = "c3";
-                        }
+
+                        c.E = "e1";
+                        c.E = "e2";
                     }
-
-                    c.E = "e1";
-                    c.E = "e2";
-
-                    d.Fork();
-
-                    c.B = "b3";
+                    d.Child();
                     {
-                        c.C = "c4";
-                        c.C = "c5";
+                        c.B = "b3";
+                        {
+                            c.C = "c4";
+                            c.C = "c5";
 
-                        c.D = "d2";
-                        c.D = "d3";
+                            c.D = "d2";
+                            c.D = "d3";
+                        }
+
+                        c.E = "e3";
+                        c.E = "e4";
                     }
-
-                    c.E = "e3";
-                    c.E = "e4";
                 }
             }
 
