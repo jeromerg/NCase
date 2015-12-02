@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</ProjectGuid>
+    <ProjectGuid>{E95016D2-61FD-4884-AC80-3630F54F30CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NUtil</RootNamespace>
-    <AssemblyName>NUtil</AssemblyName>
+    <RootNamespace>NDocUtil</RootNamespace>
+    <AssemblyName>NDocUtil</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
@@ -45,21 +45,20 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="File\CallerUtil.cs" />
-    <Compile Include="Generics\Holder.cs" />
-    <Compile Include="Generics\IHolder.cs" />
-    <Compile Include="Linq\DictionaryCascadeExtensions.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\DimValue.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\IPairwiseGenerator.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\Pair.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\PairSet.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\PairwiseGenerator.cs" />
-    <Compile Include="Linq\QuadraticExtensions.cs" />
-    <Compile Include="Math\Combinatorics\Pairwise\Tuple.cs" />
+    <Compile Include="ConsoleMirroring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Text\TextExtensions.cs" />
+    <Compile Include="ConsoleRecord.cs" />
+    <Compile Include="ConsoleRecorder.cs" />
+    <Compile Include="Snippet.cs" />
+    <Compile Include="DocUtil.cs" />
+    <Compile Include="SnippetParser.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\NUtil\NUtil.csproj">
+      <Project>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</Project>
+      <Name>NUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
-namespace NUtil.Doc
+namespace NDocUtil
 {
     public class DocUtil
     {

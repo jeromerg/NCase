@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace NUtil.Doc
+namespace NDocUtil
 {
     public class ConsoleRecorder
     {

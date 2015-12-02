@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using JetBrains.Annotations;
 
-namespace NUtil.Doc
+namespace NDocUtil
 {
     /// <summary>inspired by: http://stackoverflow.com/questions/420429/mirroring-console-output-to-a-file </summary>
     public class ConsoleMirroring : TextWriter

@@ -67,6 +67,10 @@
       <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
       <Name>NCase</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NDocUtil\NDocUtil.csproj">
+      <Project>{E95016D2-61FD-4884-AC80-3630F54F30CC}</Project>
+      <Name>NDocUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
       <Name>NDsl.Core</Name>

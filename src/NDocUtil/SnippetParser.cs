@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using NUtil.Text;
 
-namespace NUtil.Doc
+namespace NDocUtil
 {
     public class SnippetParser
     {
