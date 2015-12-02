@@ -5,12 +5,12 @@ using JetBrains.Annotations;
 using Moq;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Ui;
+using NDocUtil;
 using NDsl.Front.Ui;
 using NUnit.Framework;
-using NUtil.Doc;
 using NUtil.Generics;
 
-namespace NCaseFramework.doc
+namespace NCaseFramework.Doc
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -59,7 +59,7 @@ namespace NCaseFramework.doc
         [Test]
         public void MoqExample1()
         {
-            //# MoqExample1
+            //# OutputTest
             // ARRANGE
             var mock = new Mock<ITodo>();
             mock.SetupAllProperties();
