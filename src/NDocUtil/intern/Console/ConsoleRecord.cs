@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace NDocUtil
+namespace NDocUtil.intern.Console
 {
     public class ConsoleRecord
     {

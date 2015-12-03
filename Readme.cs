@@ -17,7 +17,7 @@ namespace NCaseFramework.Doc
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
-    public class Presentation
+    public class Readme
     {
         // ReSharper disable once InconsistentNaming
         [NotNull] private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
@@ -59,7 +59,7 @@ namespace NCaseFramework.Doc
         [Test]
         public void MoqExample1()
         {
-            //# OutputTest
+            //# MoqExample1
             // ARRANGE
             var mock = new Mock<ITodo>();
             mock.SetupAllProperties();

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using NUtil.Text;
 
-namespace NDocUtil
+namespace NDocUtil.intern.Snippets
 {
     public class SnippetParser
     {
@@ -25,7 +25,7 @@ namespace NDocUtil
         {
             if (filePath == null) throw new ArgumentNullException("filePath");
 
-            Console.WriteLine("Extracting snippets of '{0}'", filePath);
+            System.Console.WriteLine("Extracting snippets of '{0}'", filePath);
             string fileContent = System.IO.File.ReadAllText(filePath);
             List<Snippet> snippets = ParseSnippets(string.Format("File '{0}'", filePath), fileContent);
             return snippets;
@@ -42,14 +42,14 @@ namespace NDocUtil
             // ReSharper disable once AssignNullToNotNullAttribute
             MatchCollection blocks = mSnippetRegex.Matches(txtContainingSnippets);
 
-            Console.WriteLine("Found {0} snippet(s)", blocks.Count);
+            System.Console.WriteLine("Found {0} snippet(s)", blocks.Count);
             foreach (Match block in blocks)
             {
                 string snippetName;
                 string snippetBody;
                 GetSnippetNameAndBody(block, out snippetName, out snippetBody);
 
-                Console.WriteLine("Snippet: '{0}'", snippetName);
+                System.Console.WriteLine("Snippet: '{0}'", snippetName);
 
                 string unindentedBodyLines = TextExtensions.Desindent(snippetBody);
 
@@ -76,11 +76,11 @@ namespace NDocUtil
 
             if (fileContent == newContent)
             {
-                Console.WriteLine("Document didn't change. No update performed");
+                System.Console.WriteLine("Document didn't change. No update performed");
                 return;
             }
 
-            Console.WriteLine("Document changed. Saving new document file content");
+            System.Console.WriteLine("Document changed. Saving new document file content");
             System.IO.File.Delete(filePath); // TODO DELETE USING WINDOWS SAFE DELETE FUNCTION
             System.IO.File.WriteAllText(filePath, newContent);
         }
@@ -116,9 +116,9 @@ namespace NDocUtil
             // ReSharper disable once PossibleNullReferenceException
             string trimmedSnippet = ersatzSnippet.Body.TrimEnd();
             if (snippetBody != trimmedSnippet)
-                Console.WriteLine("Snippet '{0}' changed... upgrading it", snippetName);
+                System.Console.WriteLine("Snippet '{0}' changed... upgrading it", snippetName);
             else
-                Console.WriteLine("Snippet '{0}' didn't change", snippetName);
+                System.Console.WriteLine("Snippet '{0}' didn't change", snippetName);
 
             return trimmedSnippet;
         }

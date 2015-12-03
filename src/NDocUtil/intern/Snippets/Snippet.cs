@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace NDocUtil
+namespace NDocUtil.intern.Snippets
 {
     public class Snippet
     {

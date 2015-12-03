@@ -1,43 +1,10 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Runtime.InteropServices;
 
-namespace NDocUtil
+namespace NDocUtil.intern.WinApi
 {
-    public static class MetafileExtensions
-    {
-         public static void SaveAsEmf(this Metafile me, string fileName)  
-        {  
-            /* http://social.msdn.microsoft.com/Forums/en-US/csharpgeneral/thread/12a1c749-b320-4ce9-aff7-9de0d7fd30ea 
-                How to save or serialize a Metafile: Solution found 
-                by : SWAT Team member _1 
-                Date : Friday, February 01, 2008 1:38 PM 
-             */  
-            int enfMetafileHandle = me.GetHenhmetafile().ToInt32();  
-            int bufferSize = GetEnhMetaFileBits(enfMetafileHandle, 0, null); // Get required buffer size.  
-            byte[] buffer = new byte[bufferSize]; // Allocate sufficient buffer  
-            if (GetEnhMetaFileBits(enfMetafileHandle, bufferSize, buffer) <= 0) // Get raw metafile data.  
-                throw new SystemException("Fail");  
-  
-            FileStream ms = File.Open(fileName, FileMode.Create);  
-            ms.Write(buffer, 0, bufferSize);  
-            ms.Close();  
-            ms.Dispose();  
-            if (!DeleteEnhMetaFile(enfMetafileHandle)) //free handle  
-                throw new SystemException("Fail Free");  
-        }  
-  
-        [DllImport("gdi32")]  
-        public static extern int GetEnhMetaFileBits(int hemf, int cbBuffer, byte[] lpbBuffer);  
-  
-        [DllImport("gdi32")]  
-        public static extern bool DeleteEnhMetaFile(int hemfbitHandle);  
-    }  
-    
-
     /// <summary>
     /// Utility for Win32 API.
     /// </summary>
@@ -208,67 +175,4 @@ namespace NDocUtil
         [DllImport("gdi32.dll")]
         public static extern IntPtr CreateDIBSection(IntPtr hdc, [In] ref BitMapInfo pbmi, uint iUsage, out IntPtr ppvBits, IntPtr hSection, uint dwOffset);
     }
-
-        [StructLayout(LayoutKind.Sequential)]
-    internal struct BitMapInfo
-    {
-        public int biSize;
-        public int biWidth;
-        public int biHeight;
-        public short biPlanes;
-        public short biBitCount;
-        public int biCompression;
-        public int biSizeImage;
-        public int biXPelsPerMeter;
-        public int biYPelsPerMeter;
-        public int biClrUsed;
-        public int biClrImportant;
-        public byte bmiColors_rgbBlue;
-        public byte bmiColors_rgbGreen;
-        public byte bmiColors_rgbRed;
-        public byte bmiColors_rgbReserved;
-    }
-
-        [StructLayout(LayoutKind.Sequential)]
-    internal struct BlendFunction
-    {
-        public byte BlendOp;
-        public byte BlendFlags;
-        public byte SourceConstantAlpha;
-        public byte AlphaFormat;
-
-        public BlendFunction(byte alpha)
-        {
-            BlendOp = 0;
-            BlendFlags = 0;
-            AlphaFormat = 0;
-            SourceConstantAlpha = alpha;
-        }
-    }
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    internal struct TextMetric
-    {
-        public int tmHeight;
-        public int tmAscent;
-        public int tmDescent;
-        public int tmInternalLeading;
-        public int tmExternalLeading;
-        public int tmAveCharWidth;
-        public int tmMaxCharWidth;
-        public int tmWeight;
-        public int tmOverhang;
-        public int tmDigitizedAspectX;
-        public int tmDigitizedAspectY;
-        public char tmFirstChar;
-        public char tmLastChar;
-        public char tmDefaultChar;
-        public char tmBreakChar;
-        public byte tmItalic;
-        public byte tmUnderlined;
-        public byte tmStruckOut;
-        public byte tmPitchAndFamily;
-        public byte tmCharSet;
-    }
-
 }
