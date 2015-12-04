@@ -24,20 +24,28 @@ namespace NCaseFramework.Back.Imp.Combinations
 
         public void Visit([NotNull] IAddChildDirector dir, [NotNull] ICombinationsNode root, [NotNull] INode nodeToAdd)
         {
-            // grammar:
-            // prod := (set (emptyline set)*)?;
-            // set := (decl branch*)+
+            // [i] means indentation level i
+            // 
+            // set[i] := decl[i] line+ (union[i+1] (emptyline union[i+1])*)?;
             // decl := (contribCall|ref...)
-            // branch := { prod }
+            // union[i+1] := (set[i+1] (newline set[i+1])*)?;
+            //
+            //  TreeNode(decl[i])  {set}
+            //     |
+            //     +-- UnionNode[i+1] {union}
+            //     |     |
+            //     |     +-- TreeNode(decl[i+1])
+            //     |     |     |
+            //     |     |     +-- UnionNode[i+2]
+            //     |     |     |     |
+            //     |     |           +-- TreeNode(decl[i+2])  <LEAF>
+            //     |     |
+            //     |     +-- TreeNode(decl[i+1])              <LEAF>
+            //     |
+            //     +-- UnionNode {union}
+            //     |     |
+            //     |     +-- TreeNode(decl[i+1])              <LEAF>
 
-            // simplification in tree-model:
-            // prod replaced by nested sets:
-            //
-            // (set1 emptyline set2 emptyline set3...) 
-            // ==>
-            // set(set1, set(set2, set(set3, null)
-            //
-            // As a result a set with a declaration equal to a set is a product (as defined above: may have only one set)
 
             int nodeToAddIndentation = GetIndentation(nodeToAdd);
             ICombinationsNode parent = FindBestParentRegardingToIndentation(root, nodeToAddIndentation, nodeToAdd);

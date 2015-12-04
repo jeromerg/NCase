@@ -420,8 +420,8 @@ Result:
 
 <!--# Visualize_Def_Console -->
 ```
- Definition                                       | Location                                          
- ------------------------------------------------ | ------------------------------------------------- 
+ Definition                                       | Location                              
+ ------------------------------------------------ | ------------------------------------- 
  Tree todoSet                                     | c:\dev\NCase\Readme.cs: line 371 
      todo.Title=forget                            | c:\dev\NCase\Readme.cs: line 373 
          isValid.Value=True                       | c:\dev\NCase\Readme.cs: line 374 
@@ -480,8 +480,8 @@ Result:
 
 <!--# Visualize_Case_Console -->
 ```
- Fact                             | Location                                          
- -------------------------------- | ------------------------------------------------- 
+ Fact                             | Location                              
+ -------------------------------- | ------------------------------------- 
  todo.Title=forget                | c:\dev\NCase\Readme.cs: line 373 
  isValid.Value=True               | c:\dev\NCase\Readme.cs: line 374 
  todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 375 
