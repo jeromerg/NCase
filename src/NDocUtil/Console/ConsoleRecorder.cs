@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NDocUtil.intern.Snippets;
+using NDocUtil.Snippets;
 
-namespace NDocUtil.intern.Console
+namespace NDocUtil.Console
 {
     public class ConsoleRecorder
     {

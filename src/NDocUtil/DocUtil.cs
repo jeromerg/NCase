@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -8,11 +7,9 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ColorCode;
 using JetBrains.Annotations;
-using NDocUtil.intern;
-using NDocUtil.intern.Console;
-using NDocUtil.intern.Snippets;
-using NDocUtil.intern.Winforms;
-using TheArtOfDev.HtmlRenderer.WinForms;
+using NDocUtil.Console;
+using NDocUtil.ExportToImage;
+using NDocUtil.Snippets;
 
 namespace NDocUtil
 {
@@ -31,17 +28,30 @@ namespace NDocUtil
         private const string CODE_SNIPPET_MARKER = @"//#";
 
         [NotNull] private readonly CodeColorizer mCodeColorizer = new CodeColorizer();
-        [NotNull] private readonly string mDemoPath;
+        
+        [NotNull] private readonly string mDemoPathSubstitute;
+        [NotNull] private readonly string mFilePath;
+        [NotNull] private readonly string mFileNameWithoutExtension;
+        [NotNull] private readonly string mFileDir;
+        
         [NotNull] private readonly SnippetParser mMarkdownSnippetParser;
         [NotNull] private readonly SnippetParser mCodeSnippetParser;
         [NotNull] private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
 
-        public DocUtil([NotNull] string codeExcludedLineRegexString, [NotNull] string demoPath)
+        public DocUtil([NotNull] string codeExcludedLineRegexString, [NotNull] string demoPathSubstitute, [NotNull, CallerFilePath] string filePath = "")
         {
             if (codeExcludedLineRegexString == null) throw new ArgumentNullException("codeExcludedLineRegexString");
-            if (demoPath == null) throw new ArgumentNullException("demoPath");
+            if (demoPathSubstitute == null) throw new ArgumentNullException("demoPathSubstitute");
 
-            mDemoPath = demoPath;
+            mDemoPathSubstitute = demoPathSubstitute;
+            mFilePath = filePath;
+            string callerFileDir = Path.GetDirectoryName(filePath);
+            if (callerFileDir == null) throw new ArgumentException("callerFileDir is null");
+            mFileDir = callerFileDir;
+            string callerFileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            if (callerFileNameWithoutExtension == null) throw new ArgumentException("callerFileNameWithoutExtension is null");
+            mFileNameWithoutExtension = callerFileNameWithoutExtension;
+
             var markdownSnippetRegex = new Regex(MARKDOWN_SNIPPET_REGEX_STRING, RegexOptions.Singleline | RegexOptions.Multiline);
             mMarkdownSnippetParser = new SnippetParser(markdownSnippetRegex, null);
 
@@ -62,84 +72,67 @@ namespace NDocUtil
             mConsoleRecorder.EndRecord();
         }
 
-        public void UpdateDocAssociatedToThisFile([NotNull, CallerFilePath] string callerFilePath = "")
+        public void UpdateDocAssociatedToThisFile()
         {
-            List<Snippet> allSnippets = GetAllSnippets(callerFilePath);
+            List<Snippet> allSnippets = GetAllSnippets();
 
             // ReSharper disable PossibleNullReferenceException
             Dictionary<string, Snippet> allSnippetDictionary = allSnippets.ToDictionary(s => s.Name);
             // ReSharper restore PossibleNullReferenceException
 
-            string docPath = GetAssociatedDocPath(callerFilePath);
+            string docPath = BuildAssociatedDocFilePath();
             mMarkdownSnippetParser.SubstituteFileSnippets(docPath, allSnippetDictionary);
         }
 
-        public void SaveSnippets([NotNull, CallerFilePath] string callerFilePath = "")
+        public void SaveSnippets()
         {
-            // ReSharper disable once PossibleNullReferenceException
-            SaveSnippetsImp(callerFilePath, snippet =>
-                {
-                    SaveSnippet(callerFilePath, snippet.Name, snippet.Body, SNIPPET_RAW_FILE_EXTENSION);                     
-                });
+            foreach (Snippet sn in GetAllSnippets())
+            {
+                string path = BuildSnippetFilePath(sn.Name, SNIPPET_RAW_FILE_EXTENSION);
+                
+                LogSaving(path);
+                
+                File.WriteAllText(path, sn.Body);
+                
+                LogSaved(path);
+            }
         }
 
-        public void SaveSnippetsAsImage([NotNull] ImageFormat imageFormat, [NotNull, CallerFilePath] string callerFilePath = "")
+        public void SaveSnippetsAsImage([NotNull] ImageFormat imageFormat)
         {
-            // ReSharper disable once PossibleNullReferenceException
-            SaveSnippetsImp(callerFilePath, snippet =>
-                {
-                    ILanguage language = snippet.Source == ConsoleRecorder.CONSOLE_SOURCE_NAME
-                                    ? Languages.PowerShell
-                                    : Languages.CSharp;
+            foreach (Snippet sn in GetAllSnippets())
+            {
+                string ext = "." + imageFormat.ToString().ToLower();
+                string path = BuildSnippetFilePath(sn.Name, ext);
+                
+                LogSaving(path);
+            
+                ILanguage language = sn.Source == ConsoleRecorder.CONSOLE_SOURCE_NAME
+                                ? Languages.PowerShell
+                                : Languages.CSharp;
 
-                    string divSnippet = mCodeColorizer.Colorize(snippet.Body, language);
-                    string htmlSnippet = string.Format(SNIPPET_HTML_TEMPLATE, divSnippet);
-                    string snippetFilePath = BuildSnippetFilePath(callerFilePath, snippet.Name, "." + imageFormat.ToString().ToLower());
-                    Metafile image = HtmlToWmfUtil.Convert(htmlSnippet);
-                    image.SaveAsEmf(snippetFilePath);
+                string divSnippet = mCodeColorizer.Colorize(sn.Body, language);
+                string htmlSnippet = string.Format(SNIPPET_HTML_TEMPLATE, divSnippet);
 
-                });
+                Metafile image = HtmlToWmfUtil.Convert(htmlSnippet);
+                image.SaveAsEmf(path);
+                
+                LogSaved(path);
+            }
         }
 
-        private void SaveSnippetsImp([NotNull] string callerFilePath, [NotNull] Action<Snippet> saveAction)
+        [NotNull, ItemNotNull]
+        private List<Snippet> GetAllSnippets()
         {
-            List<Snippet> allSnippets = GetAllSnippets(callerFilePath);
-
-            Console.WriteLine("-- Now saving snippet as file --");
-
-            foreach (Snippet snippet in allSnippets)
-                saveAction(snippet);
-        }
-
-        private static void SaveSnippet([NotNull] string callerFilePath,
-                                        [NotNull] string snippetName,
-                                        [NotNull] string snippetBody,
-                                        [NotNull] string snippetFileExtension)
-        {
-            string snippetFilePath = BuildSnippetFilePath(callerFilePath, snippetName, snippetFileExtension);
-
-            Console.WriteLine("Writing snippet {0}", snippetFilePath);
-
-            File.WriteAllText(snippetFilePath, snippetBody);
-
-            Console.WriteLine("Written snippet {0}", snippetFilePath);
-        }
-
-        [NotNull]
-        private List<Snippet> GetAllSnippets([NotNull] string callerFilePath)
-        {
-            string callerFileDir = Path.GetDirectoryName(callerFilePath);
-            if (callerFileDir == null) throw new ArgumentException("callerFileDir is null");
-
-            // REPLACE ALL PATH TO THIS FOLDER TO THE mDemoPath PATH
+            // REPLACE ALL PATH TO THIS FOLDER TO THE mDemoPathSubstitute PATH
             IEnumerable<Snippet> consoleSnippets = mConsoleRecorder
                 .Snippets
                 .Select(s => new Snippet(s.Source,
                                          s.Name,
-                                         s.Body.Replace(callerFileDir, mDemoPath)));
+                                         s.Body.Replace(mFileDir, mDemoPathSubstitute)));
 
             var allSnippets = new List<Snippet>();
-            allSnippets.AddRange(ExtractCodeSnippets(callerFilePath));
+            allSnippets.AddRange(ExtractCodeSnippets(mFilePath));
             allSnippets.AddRange(consoleSnippets);
 
             Console.WriteLine("All available snippets:");
@@ -157,25 +150,34 @@ namespace NDocUtil
             return mCodeSnippetParser.ParseFileSnippets(callerFilePath);
         }
 
-        [NotNull]
-        private static string GetAssociatedDocPath([NotNull] string callerFilePath)
+        private void LogSaving(string path)
         {
-            string docPath = string.Format("{0}{1}{2}{3}",
-                                           Path.GetDirectoryName(callerFilePath),
-                                           Path.DirectorySeparatorChar,
-                                           Path.GetFileNameWithoutExtension(callerFilePath),
-                                           DOC_FILE_EXTENSION);
-            return docPath;
+            Console.WriteLine("- Saving {0}", path);
+        }
+
+        private void LogSaved(string path)
+        {
+            Console.WriteLine("- Saved {0}", path);
         }
 
         [NotNull]
-        private static string BuildSnippetFilePath(
-            [NotNull] string callerFilePath,
+        private string BuildAssociatedDocFilePath()
+        {
+            string docFilePath = string.Format("{0}{1}{2}{3}",
+                                           mFileDir,
+                                           Path.DirectorySeparatorChar,
+                                           mFileNameWithoutExtension,
+                                           DOC_FILE_EXTENSION);
+            return docFilePath;
+        }
+
+        [NotNull]
+        private string BuildSnippetFilePath(
             [NotNull] string fileNameWithoutExtension,
             [NotNull] string fileExtension)
         {
             string docPath = string.Format("{0}{1}{2}{3}",
-                                           Path.GetDirectoryName(callerFilePath),
+                                           mFileDir,
                                            Path.DirectorySeparatorChar,
                                            fileNameWithoutExtension,
                                            fileExtension);

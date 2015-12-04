@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace NDocUtil.intern.WinApi
+namespace NDocUtil.ExportToImage.WinApi
 {
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     internal struct TextMetric
