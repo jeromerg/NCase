@@ -61,14 +61,14 @@
     </Compile>
     <Compile Include="ExportToImage\WinApi\BitMapInfo.cs" />
     <Compile Include="ExportToImage\WinApi\BlendFunction.cs" />
-    <Compile Include="Console\ConsoleMirroring.cs" />
+    <Compile Include="ConsoleUtil\ConsoleMirroring.cs" />
     <Compile Include="ExportToImage\HtmlToWmfUtil.cs" />
     <Compile Include="ExportToImage\MetafileExtensions.cs" />
     <Compile Include="ExportToImage\WinApi\TextMetric.cs" />
     <Compile Include="ExportToImage\WinApi\Win32Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Console\ConsoleRecord.cs" />
-    <Compile Include="Console\ConsoleRecorder.cs" />
+    <Compile Include="ConsoleUtil\ConsoleRecord.cs" />
+    <Compile Include="ConsoleUtil\ConsoleRecorder.cs" />
     <Compile Include="Snippets\Snippet.cs" />
     <Compile Include="DocUtil.cs" />
     <Compile Include="Snippets\SnippetParser.cs" />

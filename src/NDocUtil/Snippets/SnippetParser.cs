@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
@@ -25,8 +26,8 @@ namespace NDocUtil.Snippets
         {
             if (filePath == null) throw new ArgumentNullException("filePath");
 
-            System.Console.WriteLine("Extracting snippets of '{0}'", filePath);
-            string fileContent = System.IO.File.ReadAllText(filePath);
+            Console.WriteLine("Extracting snippets of '{0}'", filePath);
+            string fileContent = File.ReadAllText(filePath);
             List<Snippet> snippets = ParseSnippets(string.Format("File '{0}'", filePath), fileContent);
             return snippets;
         }
@@ -42,14 +43,14 @@ namespace NDocUtil.Snippets
             // ReSharper disable once AssignNullToNotNullAttribute
             MatchCollection blocks = mSnippetRegex.Matches(txtContainingSnippets);
 
-            System.Console.WriteLine("Found {0} snippet(s)", blocks.Count);
+            Console.WriteLine("Found {0} snippet(s)", blocks.Count);
             foreach (Match block in blocks)
             {
                 string snippetName;
                 string snippetBody;
                 GetSnippetNameAndBody(block, out snippetName, out snippetBody);
 
-                System.Console.WriteLine("Snippet: '{0}'", snippetName);
+                Console.WriteLine("Snippet: '{0}'", snippetName);
 
                 string unindentedBodyLines = TextExtensions.Desindent(snippetBody);
 
@@ -71,18 +72,18 @@ namespace NDocUtil.Snippets
             if (filePath == null) throw new ArgumentNullException("filePath");
             if (ersatzSnippets == null) throw new ArgumentNullException("ersatzSnippets");
 
-            string fileContent = System.IO.File.ReadAllText(filePath);
+            string fileContent = File.ReadAllText(filePath);
             string newContent = SubstituteSnippets(fileContent, ersatzSnippets);
 
             if (fileContent == newContent)
             {
-                System.Console.WriteLine("Document didn't change. No update performed");
+                Console.WriteLine("Document didn't change. No update performed");
                 return;
             }
 
-            System.Console.WriteLine("Document changed. Saving new document file content");
-            System.IO.File.Delete(filePath); // TODO DELETE USING WINDOWS SAFE DELETE FUNCTION
-            System.IO.File.WriteAllText(filePath, newContent);
+            Console.WriteLine("Document changed. Saving new document file content");
+            File.Delete(filePath); // TODO DELETE USING WINDOWS SAFE DELETE FUNCTION
+            File.WriteAllText(filePath, newContent);
         }
 
         public string SubstituteSnippets([NotNull] string txtContainingSnippets,
@@ -116,9 +117,9 @@ namespace NDocUtil.Snippets
             // ReSharper disable once PossibleNullReferenceException
             string trimmedSnippet = ersatzSnippet.Body.TrimEnd();
             if (snippetBody != trimmedSnippet)
-                System.Console.WriteLine("Snippet '{0}' changed... upgrading it", snippetName);
+                Console.WriteLine("Snippet '{0}' changed... upgrading it", snippetName);
             else
-                System.Console.WriteLine("Snippet '{0}' didn't change", snippetName);
+                Console.WriteLine("Snippet '{0}' didn't change", snippetName);
 
             return trimmedSnippet;
         }

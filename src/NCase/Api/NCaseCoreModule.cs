@@ -15,7 +15,7 @@ using NDsl.Back.Imp.Common;
 using NDsl.Front.Api;
 using NDsl.Front.Imp;
 
-namespace NCaseFramework.Front.Ui
+namespace NCaseFramework.Front.Api
 {
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class NCaseCoreModule : Module

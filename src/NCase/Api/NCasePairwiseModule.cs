@@ -1,20 +1,21 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Autofac;
-using NCaseFramework.Back.Imp.Seq;
+using NCaseFramework.Back.Imp.Pairwise;
 using NCaseFramework.Front.Imp;
+using NUtil.Math.Combinatorics.Pairwise;
 
-namespace NCaseFramework.Front.Ui
+namespace NCaseFramework.Front.Api
 {
     /// <summary> Requires NCaseCoreModule </summary>
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-    public class NCaseSeqModule : Module
+    public class NCasePairwiseModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
 
-            // Case sets
-            builder.RegisterType<SequenceImp.Factory>().AsImplementedInterfaces().SingleInstance();
+            // UI Factory
+            builder.RegisterType<PairwiseCombinationsImp.Factory>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
@@ -25,6 +26,9 @@ namespace NCaseFramework.Front.Ui
 
             // PrintDefinition
             builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
+
+            // pairwise algorithm
+            builder.RegisterType<PairwiseGenerator>().As<IPairwiseGenerator>().SingleInstance();
         }
     }
 }

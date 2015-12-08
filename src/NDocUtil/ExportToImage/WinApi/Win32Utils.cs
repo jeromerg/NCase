@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace NDocUtil.ExportToImage.WinApi
 {
     /// <summary>
-    /// Utility for Win32 API.
+    ///     Utility for Win32 API.
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal static class Win32Utils
@@ -16,12 +16,12 @@ namespace NDocUtil.ExportToImage.WinApi
         public const int WsExClientEdge = 0x200;
 
         /// <summary>
-        /// Const for BitBlt copy raster-operation code.
+        ///     Const for BitBlt copy raster-operation code.
         /// </summary>
         public const int BitBltCopy = 0x00CC0020;
 
         /// <summary>
-        /// Const for BitBlt paint raster-operation code.
+        ///     Const for BitBlt paint raster-operation code.
         /// </summary>
         public const int BitBltPaint = 0x00EE0086;
 
@@ -44,9 +44,9 @@ namespace NDocUtil.ExportToImage.WinApi
         public static extern int LoadCursor(int hInstance, int lpCursorName);
 
         /// <summary>
-        /// Create a compatible memory HDC from the given HDC.<br/>
-        /// The memory HDC can be rendered into without effecting the original HDC.<br/>
-        /// The returned memory HDC and <paramref name="dib"/> must be released using <see cref="ReleaseMemoryHdc"/>.
+        ///     Create a compatible memory HDC from the given HDC.<br />
+        ///     The memory HDC can be rendered into without effecting the original HDC.<br />
+        ///     The returned memory HDC and <paramref name="dib" /> must be released using <see cref="ReleaseMemoryHdc" />.
         /// </summary>
         /// <param name="hdc">the HDC to create memory HDC from</param>
         /// <param name="width">the width of the memory HDC to create</param>
@@ -75,7 +75,7 @@ namespace NDocUtil.ExportToImage.WinApi
         }
 
         /// <summary>
-        /// Release the given memory HDC and dib section created from <see cref="CreateMemoryHdc"/>.
+        ///     Release the given memory HDC and dib section created from <see cref="CreateMemoryHdc" />.
         /// </summary>
         /// <param name="memoryHdc">Memory HDC to release</param>
         /// <param name="dib">bitmap section to release</param>
@@ -92,24 +92,31 @@ namespace NDocUtil.ExportToImage.WinApi
         public static extern IntPtr WindowFromDC(IntPtr hdc);
 
         /// <summary>
-        /// Retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
+        ///     Retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen
+        ///     coordinates that are relative to the upper-left corner of the screen.
         /// </summary>
         /// <remarks>
-        /// In conformance with conventions for the RECT structure, the bottom-right coordinates of the returned rectangle are exclusive. In other words, 
-        /// the pixel at (right, bottom) lies immediately outside the rectangle.
+        ///     In conformance with conventions for the RECT structure, the bottom-right coordinates of the returned rectangle are
+        ///     exclusive. In other words,
+        ///     the pixel at (right, bottom) lies immediately outside the rectangle.
         /// </remarks>
         /// <param name="hWnd">A handle to the window.</param>
-        /// <param name="lpRect">A pointer to a RECT structure that receives the screen coordinates of the upper-left and lower-right corners of the window.</param>
+        /// <param name="lpRect">
+        ///     A pointer to a RECT structure that receives the screen coordinates of the upper-left and
+        ///     lower-right corners of the window.
+        /// </param>
         /// <returns>If the function succeeds, the return value is nonzero.</returns>
         [DllImport("User32", SetLastError = true)]
         public static extern int GetWindowRect(IntPtr hWnd, out Rectangle lpRect);
 
         /// <summary>
-        /// Retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
+        ///     Retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen
+        ///     coordinates that are relative to the upper-left corner of the screen.
         /// </summary>
         /// <remarks>
-        /// In conformance with conventions for the RECT structure, the bottom-right coordinates of the returned rectangle are exclusive. In other words, 
-        /// the pixel at (right, bottom) lies immediately outside the rectangle.
+        ///     In conformance with conventions for the RECT structure, the bottom-right coordinates of the returned rectangle are
+        ///     exclusive. In other words,
+        ///     the pixel at (right, bottom) lies immediately outside the rectangle.
         /// </remarks>
         /// <param name="handle">A handle to the window.</param>
         /// <returns>RECT structure that receives the screen coordinates of the upper-left and lower-right corners of the window.</returns>
@@ -139,10 +146,19 @@ namespace NDocUtil.ExportToImage.WinApi
         public static extern bool GetTextMetrics(IntPtr hdc, out TextMetric lptm);
 
         [DllImport("gdi32.dll", EntryPoint = "GetTextExtentPoint32W", CharSet = CharSet.Unicode)]
-        public static extern int GetTextExtentPoint32(IntPtr hdc, [MarshalAs(UnmanagedType.LPWStr)] string str, int len, ref Size size);
+        public static extern int GetTextExtentPoint32(IntPtr hdc,
+                                                      [MarshalAs(UnmanagedType.LPWStr)] string str,
+                                                      int len,
+                                                      ref Size size);
 
         [DllImport("gdi32.dll", EntryPoint = "GetTextExtentExPointW", CharSet = CharSet.Unicode)]
-        public static extern bool GetTextExtentExPoint(IntPtr hDc, [MarshalAs(UnmanagedType.LPWStr)] string str, int nLength, int nMaxExtent, int[] lpnFit, int[] alpDx, ref Size size);
+        public static extern bool GetTextExtentExPoint(IntPtr hDc,
+                                                       [MarshalAs(UnmanagedType.LPWStr)] string str,
+                                                       int nLength,
+                                                       int nMaxExtent,
+                                                       int[] lpnFit,
+                                                       int[] alpDx,
+                                                       ref Size size);
 
         [DllImport("gdi32.dll", EntryPoint = "TextOutW", CharSet = CharSet.Unicode)]
         public static extern bool TextOut(IntPtr hdc, int x, int y, [MarshalAs(UnmanagedType.LPWStr)] string str, int len);
@@ -161,10 +177,28 @@ namespace NDocUtil.ExportToImage.WinApi
 
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool BitBlt(IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
+        public static extern bool BitBlt(IntPtr hdc,
+                                         int nXDest,
+                                         int nYDest,
+                                         int nWidth,
+                                         int nHeight,
+                                         IntPtr hdcSrc,
+                                         int nXSrc,
+                                         int nYSrc,
+                                         uint dwRop);
 
         [DllImport("gdi32.dll", EntryPoint = "GdiAlphaBlend")]
-        public static extern bool AlphaBlend(IntPtr hdcDest, int nXOriginDest, int nYOriginDest, int nWidthDest, int nHeightDest, IntPtr hdcSrc, int nXOriginSrc, int nYOriginSrc, int nWidthSrc, int nHeightSrc, BlendFunction blendFunction);
+        public static extern bool AlphaBlend(IntPtr hdcDest,
+                                             int nXOriginDest,
+                                             int nYOriginDest,
+                                             int nWidthDest,
+                                             int nHeightDest,
+                                             IntPtr hdcSrc,
+                                             int nXOriginSrc,
+                                             int nYOriginSrc,
+                                             int nWidthSrc,
+                                             int nHeightSrc,
+                                             BlendFunction blendFunction);
 
         [DllImport("gdi32.dll", ExactSpelling = true, SetLastError = true)]
         public static extern bool DeleteDC(IntPtr hdc);
@@ -173,6 +207,11 @@ namespace NDocUtil.ExportToImage.WinApi
         public static extern IntPtr CreateCompatibleDC(IntPtr hdc);
 
         [DllImport("gdi32.dll")]
-        public static extern IntPtr CreateDIBSection(IntPtr hdc, [In] ref BitMapInfo pbmi, uint iUsage, out IntPtr ppvBits, IntPtr hSection, uint dwOffset);
+        public static extern IntPtr CreateDIBSection(IntPtr hdc,
+                                                     [In] ref BitMapInfo pbmi,
+                                                     uint iUsage,
+                                                     out IntPtr ppvBits,
+                                                     IntPtr hSection,
+                                                     uint dwOffset);
     }
 }

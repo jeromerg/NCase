@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ColorCode;
 using JetBrains.Annotations;
-using NDocUtil.Console;
+using NDocUtil.ConsoleUtil;
 using NDocUtil.ExportToImage;
 using NDocUtil.Snippets;
 
@@ -28,17 +28,19 @@ namespace NDocUtil
         private const string CODE_SNIPPET_MARKER = @"//#";
 
         [NotNull] private readonly CodeColorizer mCodeColorizer = new CodeColorizer();
-        
+
         [NotNull] private readonly string mDemoPathSubstitute;
         [NotNull] private readonly string mFilePath;
         [NotNull] private readonly string mFileNameWithoutExtension;
         [NotNull] private readonly string mFileDir;
-        
+
         [NotNull] private readonly SnippetParser mMarkdownSnippetParser;
         [NotNull] private readonly SnippetParser mCodeSnippetParser;
         [NotNull] private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
 
-        public DocUtil([NotNull] string codeExcludedLineRegexString, [NotNull] string demoPathSubstitute, [NotNull, CallerFilePath] string filePath = "")
+        public DocUtil([NotNull] string codeExcludedLineRegexString,
+                       [NotNull] string demoPathSubstitute,
+                       [NotNull, CallerFilePath] string filePath = "")
         {
             if (codeExcludedLineRegexString == null) throw new ArgumentNullException("codeExcludedLineRegexString");
             if (demoPathSubstitute == null) throw new ArgumentNullException("demoPathSubstitute");
@@ -89,11 +91,11 @@ namespace NDocUtil
             foreach (Snippet sn in GetAllSnippets())
             {
                 string path = BuildSnippetFilePath(sn.Name, SNIPPET_RAW_FILE_EXTENSION);
-                
+
                 LogSaving(path);
-                
+
                 File.WriteAllText(path, sn.Body);
-                
+
                 LogSaved(path);
             }
         }
@@ -104,19 +106,19 @@ namespace NDocUtil
             {
                 string ext = "." + imageFormat.ToString().ToLower();
                 string path = BuildSnippetFilePath(sn.Name, ext);
-                
+
                 LogSaving(path);
-            
+
                 ILanguage language = sn.Source == ConsoleRecorder.CONSOLE_SOURCE_NAME
-                                ? Languages.PowerShell
-                                : Languages.CSharp;
+                                         ? Languages.PowerShell
+                                         : Languages.CSharp;
 
                 string divSnippet = mCodeColorizer.Colorize(sn.Body, language);
                 string htmlSnippet = string.Format(SNIPPET_HTML_TEMPLATE, divSnippet);
 
                 Metafile image = HtmlToWmfUtil.Convert(htmlSnippet);
                 image.SaveAsEmf(path);
-                
+
                 LogSaved(path);
             }
         }
@@ -164,10 +166,10 @@ namespace NDocUtil
         private string BuildAssociatedDocFilePath()
         {
             string docFilePath = string.Format("{0}{1}{2}{3}",
-                                           mFileDir,
-                                           Path.DirectorySeparatorChar,
-                                           mFileNameWithoutExtension,
-                                           DOC_FILE_EXTENSION);
+                                               mFileDir,
+                                               Path.DirectorySeparatorChar,
+                                               mFileNameWithoutExtension,
+                                               DOC_FILE_EXTENSION);
             return docFilePath;
         }
 
@@ -184,6 +186,4 @@ namespace NDocUtil
             return docPath;
         }
     }
-
-
 }

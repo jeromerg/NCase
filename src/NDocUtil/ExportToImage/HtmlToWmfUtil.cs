@@ -12,12 +12,12 @@ namespace NDocUtil.ExportToImage
         {
             Metafile image;
             IntPtr dib;
-            var memoryHdc = Win32Utils.CreateMemoryHdc(IntPtr.Zero, 1, 1, out dib);
+            IntPtr memoryHdc = Win32Utils.CreateMemoryHdc(IntPtr.Zero, 1, 1, out dib);
             try
             {
                 image = new Metafile(memoryHdc, EmfType.EmfPlusDual, "..");
 
-                using (var g = Graphics.FromImage(image))
+                using (Graphics g = Graphics.FromImage(image))
                 {
                     HtmlRender.Render(g, htmlSnippet);
                 }

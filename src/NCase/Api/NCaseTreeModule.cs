@@ -3,7 +3,7 @@ using Autofac;
 using NCaseFramework.Back.Imp.Tree;
 using NCaseFramework.Front.Imp;
 
-namespace NCaseFramework.Front.Ui
+namespace NCaseFramework.Front.Api
 {
     /// <summary> Requires NCaseCoreModule </summary>
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]

@@ -16,7 +16,7 @@ namespace NDocUtil.ExportToImage
              */
             int enfMetafileHandle = me.GetHenhmetafile().ToInt32();
             int bufferSize = GetEnhMetaFileBits(enfMetafileHandle, 0, null); // Get required buffer size.  
-            byte[] buffer = new byte[bufferSize]; // Allocate sufficient buffer  
+            var buffer = new byte[bufferSize]; // Allocate sufficient buffer  
             if (GetEnhMetaFileBits(enfMetafileHandle, bufferSize, buffer) <= 0) // Get raw metafile data.  
                 throw new SystemException("Fail");
 

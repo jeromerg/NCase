@@ -1,34 +1,29 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Autofac;
-using NCaseFramework.Back.Imp.Pairwise;
-using NCaseFramework.Front.Imp;
-using NUtil.Math.Combinatorics.Pairwise;
+using NCaseFramework.Back.Imp.InterfaceRecPlay;
 
-namespace NCaseFramework.Front.Ui
+namespace NCaseFramework.Front.Api
 {
     /// <summary> Requires NCaseCoreModule </summary>
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-    public class NCasePairwiseModule : Module
+    public class NCaseInterfaceRecPlayModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
 
-            // UI Factory
-            builder.RegisterType<PairwiseCombinationsImp.Factory>().AsImplementedInterfaces().SingleInstance();
-
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<AddChildVisitors>().AsImplementedInterfaces().SingleInstance();
+            // remark: AddChild visitors are located in Parse and Tree modules
+
+            // SetReplay
+            builder.RegisterType<ReplayVisitors>().AsImplementedInterfaces().SingleInstance();
 
             // Case Generator
             builder.RegisterType<GenerateCaseVisitors>().AsImplementedInterfaces().SingleInstance();
 
-            // PrintDefinition
+            // PrintLine
             builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
-
-            // pairwise algorithm
-            builder.RegisterType<PairwiseGenerator>().As<IPairwiseGenerator>().SingleInstance();
         }
     }
 }

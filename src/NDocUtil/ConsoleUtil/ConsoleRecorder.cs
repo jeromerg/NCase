@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using NDocUtil.Snippets;
 
-namespace NDocUtil.Console
+namespace NDocUtil.ConsoleUtil
 {
     public class ConsoleRecorder
     {
