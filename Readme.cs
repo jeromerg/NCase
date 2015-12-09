@@ -22,7 +22,7 @@ namespace NCaseFramework.Doc
     public class Readme
     {
         // ReSharper disable once InconsistentNaming
-        [NotNull] private readonly DocUtil docu = new DocUtil("docu", DocConstants.DocSourceFolder);
+        [NotNull] private readonly DocUtil docu = new DocUtil("docu");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()

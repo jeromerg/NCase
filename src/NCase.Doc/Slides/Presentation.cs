@@ -14,9 +14,7 @@ namespace NCaseFramework.Doc.Slides
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
     public class Presentation
     {
-        // ReSharper disable once InconsistentNaming
-        [NotNull]
-        private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
+        [NotNull] private readonly DocUtil docu = new DocUtil("docu");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()

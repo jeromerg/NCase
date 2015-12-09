@@ -512,24 +512,6 @@ Finally, be aware that NCase is under continuous development. Some upcoming feat
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 [Moq]: https://github.com/Moq/moq4 
 [NUnit]: http://www.nunit.org/
 [pair]: http://en.wikipedia.org/wiki/All-pairs_testing

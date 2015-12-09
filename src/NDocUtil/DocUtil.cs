@@ -29,7 +29,6 @@ namespace NDocUtil
 
         [NotNull] private readonly CodeColorizer mCodeColorizer = new CodeColorizer();
 
-        [NotNull] private readonly string mDemoPathSubstitute;
         [NotNull] private readonly string mFilePath;
         [NotNull] private readonly string mFileNameWithoutExtension;
         [NotNull] private readonly string mFileDir;
@@ -39,13 +38,10 @@ namespace NDocUtil
         [NotNull] private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
 
         public DocUtil([NotNull] string codeExcludedLineRegexString,
-                       [NotNull] string demoPathSubstitute,
                        [NotNull, CallerFilePath] string filePath = "")
         {
             if (codeExcludedLineRegexString == null) throw new ArgumentNullException("codeExcludedLineRegexString");
-            if (demoPathSubstitute == null) throw new ArgumentNullException("demoPathSubstitute");
 
-            mDemoPathSubstitute = demoPathSubstitute;
             mFilePath = filePath;
             string callerFileDir = Path.GetDirectoryName(filePath);
             if (callerFileDir == null) throw new ArgumentException("callerFileDir is null");
@@ -126,16 +122,9 @@ namespace NDocUtil
         [NotNull, ItemNotNull]
         private List<Snippet> GetAllSnippets()
         {
-            // REPLACE ALL PATH TO THIS FOLDER TO THE mDemoPathSubstitute PATH
-            IEnumerable<Snippet> consoleSnippets = mConsoleRecorder
-                .Snippets
-                .Select(s => new Snippet(s.Source,
-                                         s.Name,
-                                         s.Body.Replace(mFileDir, mDemoPathSubstitute)));
-
             var allSnippets = new List<Snippet>();
             allSnippets.AddRange(ExtractCodeSnippets(mFilePath));
-            allSnippets.AddRange(consoleSnippets);
+            allSnippets.AddRange(mConsoleRecorder.Snippets);
 
             Console.WriteLine("All available snippets:");
 
