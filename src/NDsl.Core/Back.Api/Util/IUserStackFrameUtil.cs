@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace NDsl.Back.Api.Util
 {
-    public interface IStackFrameUtil
+    public interface IUserStackFrameUtil
     {
         [CanBeNull]
         StackFrame GetUserStackFrame();

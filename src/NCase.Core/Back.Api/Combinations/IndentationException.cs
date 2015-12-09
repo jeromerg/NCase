@@ -6,8 +6,8 @@ namespace NCaseFramework.Back.Api.Combinations
 {
     public class IndentationException : InvalidSyntaxException
     {
-        public IndentationException([NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args)
-            : base(codeLocation, format, args)
+        public IndentationException([NotNull] ICodeLocationPrinter codeLocationPrinter, [NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args)
+            : base(codeLocationPrinter, codeLocation, format, args)
         {
         }
     }

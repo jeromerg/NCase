@@ -18,21 +18,25 @@ namespace NDsl.Front.Imp
     {
         [NotNull] private readonly TId mId;
         [NotNull] private readonly ITokenStream mTokenStream;
-        [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+        [NotNull] private readonly ICodeLocationFactory mCodeLocationFactory;
+        [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
 
         protected DefBaseImp([NotNull] TId id,
                              [NotNull] IServiceSet<TModel> services,
                              [NotNull] ITokenStream tokenStream,
-                             [NotNull] ICodeLocationUtil codeLocationUtil)
+                             [NotNull] ICodeLocationFactory codeLocationFactory,
+                             [NotNull] ICodeLocationPrinter codeLocationPrinter)
             : base(services)
         {
             if (id == null) throw new ArgumentNullException("id");
             if (tokenStream == null) throw new ArgumentNullException("tokenStream");
-            if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
+            if (codeLocationFactory == null) throw new ArgumentNullException("codeLocationFactory");
+            if (codeLocationPrinter == null) throw new ArgumentNullException("codeLocationPrinter");
 
             mId = id;
             mTokenStream = tokenStream;
-            mCodeLocationUtil = codeLocationUtil;
+            mCodeLocationFactory = codeLocationFactory;
+            mCodeLocationPrinter = codeLocationPrinter;
         }
 
         private DefState State { get; set; }
@@ -68,7 +72,7 @@ namespace NDsl.Front.Imp
         protected void Begin()
         {
             if (State > DefState.NotDefined)
-                throw new InvalidSyntaxException(Loc(), "{0} not in 'NotDefined' state", Id);
+                throw new InvalidSyntaxException(mCodeLocationPrinter, Loc(), "{0} not in 'NotDefined' state", Id);
 
             State = DefState.Defining;
             TokenStream.SetWriteMode(true);
@@ -78,7 +82,7 @@ namespace NDsl.Front.Imp
         protected void End()
         {
             if (State != DefState.Defining)
-                throw new InvalidSyntaxException(Loc(), "{0} not in 'Defining' state", Id);
+                throw new InvalidSyntaxException(mCodeLocationPrinter, Loc(), "{0} not in 'Defining' state", Id);
 
             TokenStream.Append(new EndToken<TId>(Id, Loc()));
             State = DefState.Defined;
@@ -88,7 +92,7 @@ namespace NDsl.Front.Imp
         [NotNull]
         private CodeLocation Loc()
         {
-            return mCodeLocationUtil.GetCurrentUserCodeLocation();
+            return mCodeLocationFactory.GetCurrentUserCodeLocation();
         }
 
         #endregion

@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using NCaseFramework.Front.Api;
 using NDsl;
 using NDsl.Back.Api.Util;
+using NDsl.Back.Imp.Util;
 using NDsl.Front.Api;
 
 namespace NCaseFramework.Front.Ui
@@ -12,16 +13,13 @@ namespace NCaseFramework.Front.Ui
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public static class NCase
     {
-        #region inner types
-
-        #endregion
-
         [NotNull]
         public static CaseBuilder NewBuilder()
         {
             var cb = new ContainerBuilder();
 
-            cb.RegisterModule(new NDslCoreModule(new[] {Assembly.GetExecutingAssembly()}));
+            var userUserStackFrameUtil = new UserUserStackFrameUtil(excludedAssemblies: new[] {Assembly.GetExecutingAssembly()});
+            cb.RegisterModule(new NDslCoreModule(userUserStackFrameUtil));
             cb.RegisterModule<NDslRecPlayModule>();
             cb.RegisterModule<NCaseCoreModule>();
             cb.RegisterModule<NCaseInterfaceRecPlayModule>();

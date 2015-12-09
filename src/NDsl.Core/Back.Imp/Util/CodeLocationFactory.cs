@@ -4,19 +4,19 @@ using NDsl.Back.Api.Util;
 
 namespace NDsl.Back.Imp.Util
 {
-    public class CodeLocationUtil : ICodeLocationUtil
+    public class CodeLocationFactory : ICodeLocationFactory
     {
-        [NotNull] private readonly IStackFrameUtil mStackFrameUtil;
+        [NotNull] private readonly IUserStackFrameUtil mUserStackFrameUtil;
 
-        public CodeLocationUtil([NotNull] IStackFrameUtil stackFrameUtil)
+        public CodeLocationFactory([NotNull] IUserStackFrameUtil userStackFrameUtil)
         {
-            mStackFrameUtil = stackFrameUtil;
+            mUserStackFrameUtil = userStackFrameUtil;
         }
 
         [NotNull]
         public CodeLocation GetCurrentUserCodeLocation()
         {
-            StackFrame stackFrame = mStackFrameUtil.GetUserStackFrame();
+            StackFrame stackFrame = mUserStackFrameUtil.GetUserStackFrame();
             if (stackFrame == null)
                 return CodeLocation.Unknown;
             else

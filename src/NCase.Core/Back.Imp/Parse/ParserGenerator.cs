@@ -11,15 +11,15 @@ namespace NCaseFramework.Back.Imp.Parse
 {
     public class ParserGenerator : IParserGenerator
     {
-        [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+        [NotNull] private readonly ICodeLocationFactory mCodeLocationFactory;
         [NotNull] private readonly IGenerateCasesDirector mCaseGenerator;
         [NotNull] private readonly IParseDirector mParseDirector;
 
-        public ParserGenerator([NotNull] ICodeLocationUtil codeLocationUtil,
+        public ParserGenerator([NotNull] ICodeLocationFactory codeLocationFactory,
                                [NotNull] IGenerateCasesDirector caseGenerator,
                                [NotNull] IParseDirector parseDirector)
         {
-            mCodeLocationUtil = codeLocationUtil;
+            mCodeLocationFactory = codeLocationFactory;
             mCaseGenerator = caseGenerator;
             mParseDirector = parseDirector;
         }
@@ -34,7 +34,7 @@ namespace NCaseFramework.Back.Imp.Parse
                 mParseDirector.Visit(token);
 
             // GENERATE CASES
-            return mParseDirector.GetNodeForId<INode>(def, mCodeLocationUtil.GetCurrentUserCodeLocation());
+            return mParseDirector.GetNodeForId<INode>(def, mCodeLocationFactory.GetCurrentUserCodeLocation());
         }
 
         [NotNull, ItemNotNull]

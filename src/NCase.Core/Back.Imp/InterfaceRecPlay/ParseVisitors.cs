@@ -11,10 +11,13 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
         : IParseVisitor<InvocationToken<IInterfaceRecPlayInterceptor>>
     {
         [NotNull] private readonly IInterfaceReIInterfaceRecPlayNodeFactory mNodeFactory;
+        [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
 
-        public ParseVisitors([NotNull] IInterfaceReIInterfaceRecPlayNodeFactory nodeFactory)
+        public ParseVisitors([NotNull] IInterfaceReIInterfaceRecPlayNodeFactory nodeFactory,
+                             [NotNull] ICodeLocationPrinter codeLocationPrinter)
         {
             mNodeFactory = nodeFactory;
+            mCodeLocationPrinter = codeLocationPrinter;
         }
 
         public void Visit([NotNull] IParseDirector dir, [NotNull] InvocationToken<IInterfaceRecPlayInterceptor> token)
@@ -25,7 +28,8 @@ namespace NCaseFramework.Back.Imp.InterfaceRecPlay
             PropertyCallKey setterCallKey = invocation.TryGetPropertyCallKeyFromSetter();
             if (setterCallKey == null)
             {
-                throw new InvalidSyntaxException(token.CodeLocation,
+                throw new InvalidSyntaxException(mCodeLocationPrinter,
+                                                 token.CodeLocation,
                                                  "While definining test cases, you can only call property setters on interface contributors");
             }
 

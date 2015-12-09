@@ -10,17 +10,31 @@ namespace NCaseFramework.Back.Imp.Print
 {
     public class PrintCasePayload : IPrintCasePayload
     {
+        [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
+
         [NotNull] private static readonly ITableColumn sFactColumn = new SimpleTableColumn("Fact");
         [NotNull] private static readonly ITableColumn sFileInfoColumn = new SimpleTableColumn("Location");
 
         [NotNull] private readonly ITableBuilder mTableBuilder = new TableBuilder();
 
+        public PrintCasePayload([NotNull] ICodeLocationPrinter codeLocationPrinter)
+        {
+            mCodeLocationPrinter = codeLocationPrinter;
+        }
+
         public class Factory : IPrintCasePayloadFactory
         {
+                [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
+
+            public Factory([NotNull] ICodeLocationPrinter codeLocationPrinter)
+            {
+                mCodeLocationPrinter = codeLocationPrinter;
+            }
+
             [NotNull]
             public IPrintCasePayload Create()
             {
-                return new PrintCasePayload();
+                return new PrintCasePayload(mCodeLocationPrinter);
             }
         }
 
@@ -32,7 +46,7 @@ namespace NCaseFramework.Back.Imp.Print
 
             mTableBuilder.NewRow();
             mTableBuilder.Print(sFactColumn, format, args);
-            mTableBuilder.Print(sFileInfoColumn, codeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
+            mTableBuilder.Print(sFileInfoColumn, mCodeLocationPrinter.Print(codeLocation));
         }
 
         [NotNull]

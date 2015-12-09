@@ -31,13 +31,5 @@ namespace NDsl.Back.Api.Util
         {
             get { return mColumn; }
         }
-
-        [NotNull]
-        public string GetFullInfoWithSameSyntaxAsStackTrace()
-        {
-            return string.Format("{0}: line {1}",
-                                 FileName ?? "unknown file",
-                                 Line.HasValue ? Line.Value.ToString() : "??");
-        }
     }
 }

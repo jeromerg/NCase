@@ -18,27 +18,30 @@ namespace NCaseFramework.Front.Imp
         public class Factory : IDefFactory<PairwiseCombinations>
         {
             [NotNull] private readonly IServiceSet<IPairwiseCombinationsModel> mServices;
-            [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+            [NotNull] private readonly ICodeLocationFactory mCodeLocationFactory;
+            [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
 
             public Factory([NotNull] IServiceSet<IPairwiseCombinationsModel> services,
-                           [NotNull] ICodeLocationUtil codeLocationUtil)
+                           [NotNull] ICodeLocationFactory codeLocationFactory, [NotNull] ICodeLocationPrinter codeLocationPrinter)
             {
                 mServices = services;
-                mCodeLocationUtil = codeLocationUtil;
+                mCodeLocationFactory = codeLocationFactory;
+                mCodeLocationPrinter = codeLocationPrinter;
             }
 
             [NotNull]
             public PairwiseCombinations Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
-                return new PairwiseCombinationsImp(defName, tokenStream, mServices, mCodeLocationUtil);
+                return new PairwiseCombinationsImp(defName, tokenStream, mServices, mCodeLocationFactory, mCodeLocationPrinter);
             }
         }
 
         public PairwiseCombinationsImp([NotNull] string defName,
                                        [NotNull] ITokenStream tokenStream,
                                        [NotNull] IServiceSet<IPairwiseCombinationsModel> services,
-                                       [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new PairwiseCombinationsId(defName), tokenStream, services, codeLocationUtil)
+                                       [NotNull] ICodeLocationFactory codeLocationFactory, 
+                                       [NotNull] ICodeLocationPrinter codeLocationPrinter)
+            : base(new PairwiseCombinationsId(defName), tokenStream, services, codeLocationFactory, codeLocationPrinter)
         {
         }
 

@@ -11,14 +11,14 @@ namespace NDsl.Back.Imp.RecPlay
     public class InterfaceRecPlayContributorFactory : IInterfaceRecPlayContributorFactory
     {
         [NotNull] private readonly ProxyGenerator mProxyGenerator;
-        [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+        [NotNull] private readonly ICodeLocationFactory mCodeLocationFactory;
 
         public InterfaceRecPlayContributorFactory(
             [NotNull] ProxyGenerator proxyGenerator,
-            [NotNull] ICodeLocationUtil codeLocationUtil)
+            [NotNull] ICodeLocationFactory codeLocationFactory)
         {
             mProxyGenerator = proxyGenerator;
-            mCodeLocationUtil = codeLocationUtil;
+            mCodeLocationFactory = codeLocationFactory;
         }
 
         [NotNull]
@@ -27,7 +27,7 @@ namespace NDsl.Back.Imp.RecPlay
             if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
 
-            var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationUtil);
+            var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationFactory);
 
             // ReSharper disable once PossibleNullReferenceException
             Type[] interfaces = typeof (T)

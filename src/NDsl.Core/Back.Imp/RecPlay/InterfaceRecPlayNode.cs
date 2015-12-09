@@ -15,20 +15,29 @@ namespace NDsl.Back.Imp.RecPlay
         [NotNull] private readonly PropertyCallKey mPropertyCallKey;
         [CanBeNull] private readonly object mPropertyValue;
         [NotNull] private readonly CodeLocation mCodeLocation;
+        [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
 
         public class Factory : IInterfaceReIInterfaceRecPlayNodeFactory
         {
+            [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
+
+            public Factory([NotNull] ICodeLocationPrinter codeLocationPrinter)
+            {
+                mCodeLocationPrinter = codeLocationPrinter;
+            }
+
             public IInterfaceRecPlayNode Create([NotNull] IInterfaceRecPlayInterceptor parentInterceptor,
                                                 [NotNull] string contributorName,
                                                 [NotNull] PropertyCallKey propertyCallKey,
                                                 [CanBeNull] object propertyValue,
                                                 [NotNull] CodeLocation codeLocation)
             {
-                return new InterfaceRecPlayNode(parentInterceptor, contributorName, propertyCallKey, propertyValue, codeLocation);
+                return new InterfaceRecPlayNode(mCodeLocationPrinter, parentInterceptor, contributorName, propertyCallKey, propertyValue, codeLocation);
             }
         }
 
-        public InterfaceRecPlayNode([NotNull] IInterfaceRecPlayInterceptor parentInterceptor,
+        public InterfaceRecPlayNode([NotNull] ICodeLocationPrinter codeLocationPrinter,
+                                    [NotNull] IInterfaceRecPlayInterceptor parentInterceptor,
                                     [NotNull] string contributorName,
                                     [NotNull] PropertyCallKey propertyCallKey,
                                     [CanBeNull] object propertyValue,
@@ -39,6 +48,7 @@ namespace NDsl.Back.Imp.RecPlay
             if (propertyCallKey == null) throw new ArgumentNullException("propertyCallKey");
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
+            mCodeLocationPrinter = codeLocationPrinter;
             mPropertyValue = propertyValue;
             mContributorName = contributorName;
             mParentInterceptor = parentInterceptor;
@@ -90,7 +100,7 @@ namespace NDsl.Back.Imp.RecPlay
                 throw new InvalidRecPlayStateException(e,
                                                        "{0}: {1}",
                                                        e.Message,
-                                                       mCodeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
+                                                       mCodeLocationPrinter.Print(mCodeLocation));
             }
         }
 

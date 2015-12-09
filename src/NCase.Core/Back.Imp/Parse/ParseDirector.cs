@@ -12,14 +12,17 @@ namespace NCaseFramework.Back.Imp.Parse
 {
     public class ParseDirector : ActionDirector<IToken, IParseDirector>, IParseDirector
     {
+        [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
         [NotNull] private readonly IAddChildDirector mAddChildDirector;
         [NotNull] private readonly Dictionary<IId, INode> mDefinitions = new Dictionary<IId, INode>();
         [CanBeNull] private INode mCurrentScope;
 
-        public ParseDirector([NotNull] IActionVisitMapper<IToken, IParseDirector> visitMapper,
+        public ParseDirector([NotNull]ICodeLocationPrinter codeLocationPrinter,
+            [NotNull] IActionVisitMapper<IToken, IParseDirector> visitMapper,
                              [NotNull] IAddChildDirector addChildDirector)
             : base(visitMapper)
         {
+            mCodeLocationPrinter = codeLocationPrinter;
             mAddChildDirector = addChildDirector;
         }
 
@@ -41,12 +44,12 @@ namespace NCaseFramework.Back.Imp.Parse
             INode referencedNode;
             if (!mDefinitions.TryGetValue(id, out referencedNode))
             {
-                throw new InvalidSyntaxException(location, "No entry found for: {0}", id);
+                throw new InvalidSyntaxException(mCodeLocationPrinter, location, "No entry found for: {0}", id);
             }
 
             if (!(referencedNode is TNod))
             {
-                throw new InvalidSyntaxException(location,
+                throw new InvalidSyntaxException(mCodeLocationPrinter, location,
                                                  "Node {0} expected to be assignable to {1}",
                                                  id.GetType().FullName,
                                                  typeof (TNod).FullName);
@@ -71,7 +74,7 @@ namespace NCaseFramework.Back.Imp.Parse
             if (childNode == null) throw new ArgumentNullException("childNode");
 
             if (mCurrentScope == null)
-                throw new InvalidSyntaxException(childNode.CodeLocation, "Trying to add child outside of any scope");
+                throw new InvalidSyntaxException(mCodeLocationPrinter, childNode.CodeLocation, "Trying to add child outside of any scope");
 
             mAddChildDirector.Visit(mCurrentScope, childNode);
         }

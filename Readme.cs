@@ -3,12 +3,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using Moq;
+using NCaseFramework.Doc.Shared;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Ui;
 using NDocUtil;
 using NDsl.Front.Ui;
 using NUnit.Framework;
 using NUtil.Generics;
+using NCase = NCaseFramework.Doc.Shared.NCase;
 
 namespace NCaseFramework.Doc
 {
@@ -20,7 +22,7 @@ namespace NCaseFramework.Doc
     public class Readme
     {
         // ReSharper disable once InconsistentNaming
-        [NotNull] private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
+        [NotNull] private readonly DocUtil docu = new DocUtil("docu", DocConstants.DocSourceFolder);
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()

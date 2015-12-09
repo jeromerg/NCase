@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using Autofac;
+using JetBrains.Annotations;
 using NDsl.Back.Api.Util;
 using NDsl.Back.Api.Util.Table;
 using NDsl.Back.Imp.Common;
@@ -21,16 +21,11 @@ namespace NDsl
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class NDslCoreModule : Module
     {
-        private readonly Assembly[] mNonUserAssemblies;
+        [NotNull] private readonly IUserStackFrameUtil mUserStackFrameUtil;
 
-        /// <param name="nonUserAssemblies">
-        ///     Assemblies considered as framework assemblies.
-        ///     They will be ignored while retrieving the user code location
-        ///     of user statements
-        /// </param>
-        public NDslCoreModule(Assembly[] nonUserAssemblies)
+        public NDslCoreModule([NotNull] IUserStackFrameUtil userStackFrameUtil)
         {
-            mNonUserAssemblies = nonUserAssemblies;
+            mUserStackFrameUtil = userStackFrameUtil;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -39,9 +34,10 @@ namespace NDsl
 
             builder.RegisterType<TableBuilder>().As<ITableBuilder>().InstancePerDependency();
 
-            builder.RegisterInstance(new StackFrameUtil(mNonUserAssemblies)).As<IStackFrameUtil>();
+            builder.RegisterInstance(mUserStackFrameUtil).As<IUserStackFrameUtil>();
+            builder.RegisterType<CodeLocationPrinter>().As<ICodeLocationPrinter>();
             builder.RegisterType<TableBuilder.Factory>().As<ITableBuilderFactory>();
-            builder.RegisterType<CodeLocationUtil>().As<ICodeLocationUtil>();
+            builder.RegisterType<CodeLocationFactory>().As<ICodeLocationFactory>();
             builder.RegisterType<FileCache>().As<IFileCache>();
             builder.RegisterType<TokenStream>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof (ActionVisitMapper<,>)).AsSelf().As(typeof (IActionVisitMapper<,>));

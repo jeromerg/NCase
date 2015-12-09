@@ -420,23 +420,23 @@ Result:
 
 <!--# Visualize_Def_Console -->
 ```
- Definition                                       | Location                              
- ------------------------------------------------ | ------------------------------------- 
- Tree todoSet                                     | c:\dev\NCase\Readme.cs: line 371 
-     todo.Title=forget                            | c:\dev\NCase\Readme.cs: line 373 
-         isValid.Value=True                       | c:\dev\NCase\Readme.cs: line 374 
-             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 375 
-                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 376 
-                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 377 
-         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 378 
-             todo.DueDate=10.11.2011 00:00:00     | c:\dev\NCase\Readme.cs: line 379 
-                 todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 380 
-     todo.Title=*++**+*                           | c:\dev\NCase\Readme.cs: line 381 
-         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 382 
-             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 383 
-                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 384 
-             todo.IsDone=True                     | c:\dev\NCase\Readme.cs: line 385 
-                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 386
+ Definition                                       | Location                         
+ ------------------------------------------------ | -------------------------------- 
+ Tree todoSet                                     | c:\dev\NCase\Readme.cs: line 373 
+     todo.Title=forget                            | c:\dev\NCase\Readme.cs: line 375 
+         isValid.Value=True                       | c:\dev\NCase\Readme.cs: line 376 
+             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 377 
+                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 378 
+                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 379 
+         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 380 
+             todo.DueDate=10.11.2011 00:00:00     | c:\dev\NCase\Readme.cs: line 381 
+                 todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 382 
+     todo.Title=*++**+*                           | c:\dev\NCase\Readme.cs: line 383 
+         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 384 
+             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 385 
+                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 386 
+             todo.IsDone=True                     | c:\dev\NCase\Readme.cs: line 387 
+                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 388
 ```
 
 #### Visualize Test Cases as a Table
@@ -480,12 +480,12 @@ Result:
 
 <!--# Visualize_Case_Console -->
 ```
- Fact                             | Location                              
- -------------------------------- | ------------------------------------- 
- todo.Title=forget                | c:\dev\NCase\Readme.cs: line 373 
- isValid.Value=True               | c:\dev\NCase\Readme.cs: line 374 
- todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 375 
- todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 376
+ Fact                             | Location                         
+ -------------------------------- | -------------------------------- 
+ todo.Title=forget                | c:\dev\NCase\Readme.cs: line 375 
+ isValid.Value=True               | c:\dev\NCase\Readme.cs: line 376 
+ todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 377 
+ todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 378
 ```
 
 Next Steps

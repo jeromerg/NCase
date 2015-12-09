@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 
 namespace NDsl.Back.Api.Util
 {
-    public interface ICodeLocationUtil
+    public interface ICodeLocationFactory
     {
         [NotNull]
         CodeLocation GetCurrentUserCodeLocation();

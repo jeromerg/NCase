@@ -18,27 +18,31 @@ namespace NCaseFramework.Front.Imp
         public class Factory : IDefFactory<AllCombinations>
         {
             [NotNull] private readonly IServiceSet<IAllCombinationsModel> mServices;
-            [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+            [NotNull] private readonly ICodeLocationFactory mCodeLocationFactory;
+            [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
 
             public Factory([NotNull] IServiceSet<IAllCombinationsModel> services,
-                           [NotNull] ICodeLocationUtil codeLocationUtil)
+                           [NotNull] ICodeLocationFactory codeLocationFactory, 
+                           [NotNull] ICodeLocationPrinter codeLocationPrinter)
             {
                 mServices = services;
-                mCodeLocationUtil = codeLocationUtil;
+                mCodeLocationFactory = codeLocationFactory;
+                mCodeLocationPrinter = codeLocationPrinter;
             }
 
             [NotNull]
             public AllCombinations Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
-                return new AllCombinationsImp(defName, tokenStream, mServices, mCodeLocationUtil);
+                return new AllCombinationsImp(defName, tokenStream, mServices, mCodeLocationFactory, mCodeLocationPrinter);
             }
         }
 
         public AllCombinationsImp([NotNull] string defName,
                                   [NotNull] ITokenStream tokenStream,
                                   [NotNull] IServiceSet<IAllCombinationsModel> services,
-                                  [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new AllCombinationsId(defName), tokenStream, services, codeLocationUtil)
+                                  [NotNull] ICodeLocationFactory codeLocationFactory, 
+                                  [NotNull] ICodeLocationPrinter codeLocationPrinter)
+            : base(new AllCombinationsId(defName), tokenStream, services, codeLocationFactory, codeLocationPrinter)
         {
         }
 

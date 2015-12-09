@@ -15,26 +15,29 @@ namespace NCaseFramework.Front.Imp
         public class Factory : IDefFactory<Sequence>
         {
             [NotNull] private readonly IServiceSet<ISequenceModel> mServices;
-            [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+            [NotNull] private readonly ICodeLocationFactory mCodeLocationFactory;
+            [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
 
-            public Factory([NotNull] IServiceSet<ISequenceModel> services, [NotNull] ICodeLocationUtil codeLocationUtil)
+            public Factory([NotNull] IServiceSet<ISequenceModel> services, [NotNull] ICodeLocationFactory codeLocationFactory, [NotNull] ICodeLocationPrinter codeLocationPrinter)
             {
                 mServices = services;
-                mCodeLocationUtil = codeLocationUtil;
+                mCodeLocationFactory = codeLocationFactory;
+                mCodeLocationPrinter = codeLocationPrinter;
             }
 
             [NotNull]
             public Sequence Create([NotNull] string defName, [NotNull] ITokenStream tokenStream)
             {
-                return new SequenceImp(defName, tokenStream, mServices, mCodeLocationUtil);
+                return new SequenceImp(defName, tokenStream, mServices, mCodeLocationFactory, mCodeLocationPrinter);
             }
         }
 
         public SequenceImp([NotNull] string defName,
                            [NotNull] ITokenStream tokenStream,
                            [NotNull] IServiceSet<ISequenceModel> services,
-                           [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(new SequenceId(defName), tokenStream, services, codeLocationUtil)
+                           [NotNull] ICodeLocationFactory codeLocationFactory, 
+                           [NotNull] ICodeLocationPrinter codeLocationPrinter)
+            : base(new SequenceId(defName), tokenStream, services, codeLocationFactory, codeLocationPrinter)
         {
         }
 

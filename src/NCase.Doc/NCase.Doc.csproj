@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ColorCode, Version=1.0.1.62759, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ColorCode.1.0.1\lib\ColorCode.dll</HintPath>
       <Private>True</Private>
@@ -50,8 +54,9 @@
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework">
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,6 +67,8 @@
     <Compile Include="..\..\Readme.cs">
       <Link>Readme.cs</Link>
     </Compile>
+    <Compile Include="Shared\DocConstants.cs" />
+    <Compile Include="Shared\NCase.cs" />
     <Compile Include="Slides\Presentation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -89,6 +96,10 @@
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
       <Name>NDsl.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDsl\NDsl.csproj">
+      <Project>{FD488CB0-EFEB-4E14-86D8-220D378A716F}</Project>
+      <Name>NDsl</Name>
     </ProjectReference>
     <ProjectReference Include="..\NUtil\NUtil.csproj">
       <Project>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</Project>
