@@ -10,11 +10,11 @@ using NDsl.Back.Api.Common;
 namespace NCaseFramework.Back.Imp.Combinations
 {
     public class GenerateCaseVisitors
-        : IGenerateCaseVisitor<ICombinationsNode>
+        : IGenerateCaseVisitor<IProdNode>
     {
         [NotNull, ItemNotNull]
         public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
-                                              [NotNull] ICombinationsNode node,
+                                              [NotNull] IProdNode node,
                                               [NotNull] GenerateOptions options)
         {
             if (options == null) throw new ArgumentNullException("options");
@@ -51,7 +51,7 @@ namespace NCaseFramework.Back.Imp.Combinations
 
         [NotNull, ItemNotNull]
         private IEnumerable<List<INode>> VisitTreeBranches([NotNull] IGenerateCasesDirector dir,
-                                                           [NotNull] ICombinationsNode node,
+                                                           [NotNull] IProdNode node,
                                                            [NotNull] GenerateOptions options)
         {
             if (options == null) throw new ArgumentNullException("options");
@@ -64,7 +64,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             }
             else
             {
-                foreach (ICombinationsNode branchNode in node.Branches)
+                foreach (IProdNode branchNode in node.Branches)
                 {
                     IEnumerable<List<INode>> casesOfBranch = dir.Visit(branchNode, options);
 

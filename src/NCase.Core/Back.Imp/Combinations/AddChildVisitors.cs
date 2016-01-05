@@ -9,7 +9,7 @@ using NDsl.Back.Api.Util;
 namespace NCaseFramework.Back.Imp.Combinations
 {
     public class AddChildVisitors
-        : IAddChildVisitor<ICombinationsNode, INode>
+        : IAddChildVisitor<IProdNode, INode>
     {
         private const int INDENTATION_SIZE = 4;
         [NotNull] private readonly IFileCache mFileCache;
@@ -21,51 +21,57 @@ namespace NCaseFramework.Back.Imp.Combinations
             mCodeLocationPrinter = codeLocationPrinter;
         }
 
-        public void Visit([NotNull] IAddChildDirector dir, [NotNull] ICombinationsNode root, [NotNull] INode nodeToAdd)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] IProdNode root, [NotNull] INode nodeToAdd)
         {
-            // [i] means indentation level i
-            // 
-            // set[i] := decl[i] line+ (union[i+1] (emptyline union[i+1])*)?;
-            // decl := (contribCall|ref...)
-            // union[i+1] := (set[i+1] (newline set[i+1])*)?;
-            //
-            //  TreeNode(decl[i])  {set}
-            //     |
-            //     +-- UnionNode[i+1] {union}
-            //     |     |
-            //     |     +-- TreeNode(decl[i+1])
-            //     |     |     |
-            //     |     |     +-- UnionNode[i+2]
-            //     |     |     |     |
-            //     |     |           +-- TreeNode(decl[i+2])  <LEAF>
-            //     |     |
-            //     |     +-- TreeNode(decl[i+1])              <LEAF>
-            //     |
-            //     +-- UnionNode {union}
-            //     |     |
-            //     |     +-- TreeNode(decl[i+1])              <LEAF>
+            // GRAMMAR:
+            // prod   := union (emptyline union)*
+            // union  := branch (newline branch)*  
+            // branch := decl (INDENT prod DEDENT)?
+            // decl   := (contribCall|ref...)
 
+            CodeLocation codeLocation = nodeToAdd.CodeLocation;
+
+            if (!root.Children.Any())
+            {
+                var unionNode = new UnionNode(new UnionId(), codeLocation);
+                unionNode.AddBranch(new BranchNode(new BranchId(), codeLocation, nodeToAdd));
+                root.AddUnion(unionNode);
+            }
 
             int nodeToAddIndentation = GetIndentation(nodeToAdd);
-            ICombinationsNode parent = FindBestParentRegardingToIndentation(root, nodeToAddIndentation, nodeToAdd);
+            INode parent = FindBestParentRegardingToIndentation(root, nodeToAddIndentation, nodeToAdd);
 
             if (parent == null)
+            {
                 throw new InvalidSyntaxException(mCodeLocationPrinter,
-                                                 nodeToAdd.CodeLocation,
+                                                 codeLocation,
                                                  "No parent found to add the node corresponding to this statement");
+            }
 
             INode previousSibling = parent.Children.LastOrDefault();
 
+            if (parent is IProdNode)
+            {
+                
+            }
+            else if (parent is UnionNode)
+            {
+                
+            }
+            else if (parent is BranchNode)
+            {
+                
+            }
             if (previousSibling == null)
             {
-                parent.AddTreeBranch(new CombinationsNode(nodeToAdd.CodeLocation, new CombinationsId(), nodeToAdd));
+                parent.AddTreeBranch(new ProdNode(nodeToAdd.CodeLocation, new ProdId(), nodeToAdd));
                 return;
             }
 
             bool isNewBranch = ExistBracketsBetweenSiblings(previousSibling, nodeToAdd);
             if (isNewBranch)
             {
-                parent.AddTreeBranch(new CombinationsNode(nodeToAdd.CodeLocation, new CombinationsId(), nodeToAdd));
+                parent.AddTreeBranch(new ProdNode(nodeToAdd.CodeLocation, new ProdId(), nodeToAdd));
                 return;
             }
 
@@ -78,10 +84,9 @@ namespace NCaseFramework.Back.Imp.Combinations
         }
 
         [CanBeNull]
-        private ICombinationsNode FindBestParentRegardingToIndentation(
-            [NotNull] ICombinationsNode parentCandidate,
-            int nodeToAddIndentation,
-            [NotNull] INode nodeToAdd)
+        private INode FindBestParentRegardingToIndentation([NotNull] INode parentCandidate,
+                                                           int nodeToAddIndentation,
+                                                           [NotNull] INode nodeToAdd)
         {
             INode lastChild = parentCandidate.Children.LastOrDefault();
             if (lastChild == null)
@@ -93,25 +98,15 @@ namespace NCaseFramework.Back.Imp.Combinations
                 return parentCandidate;
             }
 
-            var lastChildAsCombinationsNode = lastChild as ICombinationsNode;
-            if (lastChildAsCombinationsNode == null)
-            {
-                int lastChildIndentation = GetIndentation(lastChild);
-                if (nodeToAddIndentation != lastChildIndentation)
-                    throw new IndentationException(mCodeLocationPrinter, nodeToAdd.CodeLocation, "Invalid Indentation");
+            int lastChildIndentation = GetIndentation(lastChild);
 
+            if (nodeToAddIndentation < lastChildIndentation)
+                throw new IndentationException(mCodeLocationPrinter, nodeToAdd.CodeLocation, "Invalid Indentation");
+
+            if (nodeToAddIndentation == lastChildIndentation)
                 return parentCandidate;
-            }
 
-            ICombinationsNode betterParent = FindBestParentRegardingToIndentation(
-                                                                                  lastChildAsCombinationsNode,
-                                                                                  nodeToAddIndentation,
-                                                                                  nodeToAdd);
-
-            if (betterParent != null)
-                return betterParent;
-
-            return parentCandidate;
+            return FindBestParentRegardingToIndentation(lastChild, nodeToAddIndentation, nodeToAdd);
         }
 
         private bool ExistBracketsBetweenSiblings([NotNull] INode previousSibling, [NotNull] INode nodeToAdd)

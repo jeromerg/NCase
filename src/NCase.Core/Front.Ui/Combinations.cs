@@ -5,7 +5,7 @@ using NCaseFramework.Front.Api.Combinations;
 namespace NCaseFramework.Front.Ui
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public interface Combinations : SetDefBase<ICombinationsModel, CombinationsId, CombinationsDefiner>
+    public interface Combinations : SetDefBase<ICombinationsModel, ProdId, CombinationsDefiner>
     {
     }
 }

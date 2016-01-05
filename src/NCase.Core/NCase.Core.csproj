@@ -58,8 +58,10 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Back.Api\Combinations\IBranchNode.cs" />
     <Compile Include="Back.Api\Combinations\IndentationException.cs" />
     <Compile Include="Back.Api\Combinations\CompilationException.cs" />
+    <Compile Include="Back.Api\Combinations\IUnionNode.cs" />
     <Compile Include="Back.Api\Parse\GenerateOptions.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseDirector.cs" />
     <Compile Include="Back.Api\Print\IPrintCasePayload.cs" />
@@ -75,8 +77,10 @@
     <Compile Include="Back.Api\SetDef\ISetDefId.cs" />
     <Compile Include="Back.Api\SetDef\ISetDefNode.cs" />
     <Compile Include="Back.Api\SetDef\SetDefId.cs" />
-    <Compile Include="Back.Api\Combinations\ICombinationsNode.cs" />
-    <Compile Include="Back.Api\Combinations\CombinationsId.cs" />
+    <Compile Include="Back.Api\Combinations\IProdNode.cs" />
+    <Compile Include="Back.Api\Combinations\ProdId.cs" />
+    <Compile Include="Back.Imp\Combinations\BranchNode.cs" />
+    <Compile Include="Back.Imp\Combinations\UnionNode.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\InterfaceRecPlayNodeColumn.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\ParseVisitors.cs" />
@@ -119,7 +123,7 @@
     <Compile Include="Back.Imp\Combinations\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\Combinations\ParseVisitors.cs" />
     <Compile Include="Back.Imp\Combinations\PrintDefinitionVisitors.cs" />
-    <Compile Include="Back.Imp\Combinations\CombinationsNode.cs" />
+    <Compile Include="Back.Imp\Combinations\ProdNode.cs" />
     <Compile Include="Back.Imp\Tree\AddChildVisitors.cs" />
     <Compile Include="Back.Imp\Tree\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\Tree\ParseVisitors.cs" />

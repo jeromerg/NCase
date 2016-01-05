@@ -5,10 +5,10 @@ using NCaseFramework.Back.Api.Print;
 namespace NCaseFramework.Back.Imp.Combinations
 {
     public class PrintDefinitionVisitors
-        : IPrintDefinitionVisitor<ICombinationsNode>
+        : IPrintDefinitionVisitor<IProdNode>
     {
         public void Visit([NotNull] IPrintDefinitionDirector dir,
-                          [NotNull] ICombinationsNode node,
+                          [NotNull] IProdNode node,
                           [NotNull] IPrintDefinitionPayload payload)
         {
             if (node.CasesOfThisTreeNode == null)
@@ -20,7 +20,7 @@ namespace NCaseFramework.Back.Imp.Combinations
 
             payload.Indent();
 
-            foreach (ICombinationsNode child in node.Branches)
+            foreach (IProdNode child in node.Branches)
                 dir.Visit(child, payload);
 
             payload.Dedent();
