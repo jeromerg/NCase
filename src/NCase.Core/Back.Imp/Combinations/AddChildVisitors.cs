@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Combinations;
@@ -21,7 +22,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             mCodeLocationPrinter = codeLocationPrinter;
         }
 
-        public void Visit([NotNull] IAddChildDirector dir, [NotNull] IProdNode root, [NotNull] INode nodeToAdd)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] IProdNode prodNode, [NotNull] INode nodeToAdd)
         {
             // GRAMMAR:
             // prod   := union (emptyline union)*
@@ -31,67 +32,60 @@ namespace NCaseFramework.Back.Imp.Combinations
 
             CodeLocation codeLocation = nodeToAdd.CodeLocation;
 
-            if (!root.Children.Any())
+            if (!prodNode.Children.Any())
             {
-                var unionNode = new UnionNode(new UnionId(), codeLocation);
-                unionNode.AddBranch(new BranchNode(new BranchId(), codeLocation, nodeToAdd));
-                root.AddUnion(unionNode);
+                // CASE ROOT: ONLY PROD NODE TO NOT HAVE ANY CHILDREN INITIALLY
+                var branchNode = new BranchNode(new BranchId(), prodNode.CodeLocation, nodeToAdd);
+                var unionNode = new UnionNode(new UnionId(), prodNode.CodeLocation);
+                unionNode.AddBranch(branchNode);
+                prodNode.AddUnion(unionNode);
+            }
+
+            // NOW NORMAL CASE: THERE ARE ONLY BLOCKS OF (prod-union-branch)
+
+            IUnionNode lastUnion = prodNode.Unions.Last();
+            if (lastUnion == null) throw new ArgumentException("lastUnion is null");
+
+            IBranchNode lastBranch = lastUnion.Branches.Last();
+            if (lastBranch == null) throw new ArgumentException("lastBranch is null");
+
+            if(lastBranch.Product == null)
+            {
+                // CASE: k            
             }
 
             int nodeToAddIndentation = GetIndentation(nodeToAdd);
-            INode parent = FindBestParentRegardingToIndentation(root, nodeToAddIndentation, nodeToAdd);
+            INode topParentCandidate = FindTopParentRegardingToIndentation(prodNode, nodeToAddIndentation, nodeToAdd);
 
-            if (parent == null)
+            if (topParentCandidate == null)
             {
                 throw new InvalidSyntaxException(mCodeLocationPrinter,
                                                  codeLocation,
                                                  "No parent found to add the node corresponding to this statement");
             }
 
-            INode previousSibling = parent.Children.LastOrDefault();
+            /* bool isNewBranch = ExistBracketsBetweenSiblings(previousSibling, nodeToAdd);
+             * bool isNewSetOfCartesianProduct = ExistEmptyLineBetweenSiblings(previousSibling, nodeToAdd); */
 
-            if (parent is IProdNode)
-            {
-                
-            }
-            else if (parent is UnionNode)
-            {
-                
-            }
-            else if (parent is BranchNode)
-            {
-                
-            }
-            if (previousSibling == null)
-            {
-                parent.AddTreeBranch(new ProdNode(nodeToAdd.CodeLocation, new ProdId(), nodeToAdd));
-                return;
-            }
+            INode previousSibling = topParentCandidate.Children.LastOrDefault();
 
-            bool isNewBranch = ExistBracketsBetweenSiblings(previousSibling, nodeToAdd);
-            if (isNewBranch)
-            {
-                parent.AddTreeBranch(new ProdNode(nodeToAdd.CodeLocation, new ProdId(), nodeToAdd));
-                return;
-            }
+            if (!(topParentCandidate is IProdNode))
+                throw new InvalidOperationException("unexpected node type. Indentation occurs only at branch node, as a consequence, triplet prod-union-branch are blockwise at same level");
 
-            bool isNewSetOfCartesianProduct = ExistEmptyLineBetweenSiblings(previousSibling, nodeToAdd);
-            if (isNewSetOfCartesianProduct)
-            {
-            }
 
-            // else belongs to same set
+            if()
         }
 
         [CanBeNull]
-        private INode FindBestParentRegardingToIndentation([NotNull] INode parentCandidate,
+        private INode FindTopParentRegardingToIndentation([NotNull] INode parentCandidate,
                                                            int nodeToAddIndentation,
                                                            [NotNull] INode nodeToAdd)
         {
+            int parentCandidateIndentation = GetIndentation(parentCandidate);
+
             INode lastChild = parentCandidate.Children.LastOrDefault();
             if (lastChild == null)
             {
-                int parentCandidateIndentation = GetIndentation(parentCandidate);
                 if (nodeToAddIndentation < parentCandidateIndentation + INDENTATION_SIZE)
                     throw new IndentationException(mCodeLocationPrinter, nodeToAdd.CodeLocation, "Invalid Indentation");
 
@@ -106,7 +100,14 @@ namespace NCaseFramework.Back.Imp.Combinations
             if (nodeToAddIndentation == lastChildIndentation)
                 return parentCandidate;
 
-            return FindBestParentRegardingToIndentation(lastChild, nodeToAddIndentation, nodeToAdd);
+            var temporaryResult = FindTopParentRegardingToIndentation(lastChild, nodeToAddIndentation, nodeToAdd);
+            if(temporaryResult == null)
+                throw new InvalidOperationException("should never happen");
+
+            int temporaryResultIndentation = GetIndentation(temporaryResult);
+            return temporaryResultIndentation == parentCandidateIndentation
+                    ? parentCandidate
+                    : temporaryResult;
         }
 
         private bool ExistBracketsBetweenSiblings([NotNull] INode previousSibling, [NotNull] INode nodeToAdd)
