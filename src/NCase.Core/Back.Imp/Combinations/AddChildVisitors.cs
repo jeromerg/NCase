@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.Combinations;
@@ -32,144 +31,79 @@ namespace NCaseFramework.Back.Imp.Combinations
 
             CodeLocation codeLocation = nodeToAdd.CodeLocation;
 
-            if (!prodNode.Children.Any())
-            {
-                // CASE ROOT: ONLY PROD NODE TO NOT HAVE ANY CHILDREN INITIALLY
-                var branchNode = new BranchNode(new BranchId(), prodNode.CodeLocation, nodeToAdd);
-                var unionNode = new UnionNode(new UnionId(), prodNode.CodeLocation);
-                unionNode.AddBranch(branchNode);
-                prodNode.AddUnion(unionNode);
-            }
-
-            // NOW NORMAL CASE: THERE ARE ONLY BLOCKS OF (prod-union-branch)
-
             IUnionNode lastUnion = prodNode.Unions.Last();
-            if (lastUnion == null) throw new ArgumentException("lastUnion is null");
-
+            // ReSharper disable once PossibleNullReferenceException
             IBranchNode lastBranch = lastUnion.Branches.Last();
-            if (lastBranch == null) throw new ArgumentException("lastBranch is null");
 
-            if(lastBranch.Product == null)
+            // ReSharper disable once PossibleNullReferenceException
+            if (lastBranch.Product == null)
             {
-                // CASE: k            
+                // CASE: this prodNode doesn't have any child: add not to it
+                var newBranchNode = new BranchNode(new BranchId(), nodeToAdd.CodeLocation, nodeToAdd);
+                var newUnionNode = new UnionNode(new UnionId(), nodeToAdd.CodeLocation);
+                var newProdNode = new ProdNode(new ProdId(), nodeToAdd.CodeLocation);
+                newUnionNode.AddBranch(newBranchNode);
+                newProdNode.AddUnion(newUnionNode);
+                lastBranch.Product = newProdNode;
+                return;
             }
 
             int nodeToAddIndentation = GetIndentation(nodeToAdd);
-            INode topParentCandidate = FindTopParentRegardingToIndentation(prodNode, nodeToAddIndentation, nodeToAdd);
+            int nextProductIndentation = GetIndentation(lastBranch.Product);
 
-            if (topParentCandidate == null)
+            if (nodeToAddIndentation < nextProductIndentation + INDENTATION_SIZE)
             {
-                throw new InvalidSyntaxException(mCodeLocationPrinter,
-                                                 codeLocation,
-                                                 "No parent found to add the node corresponding to this statement");
-            }
-
-            /* bool isNewBranch = ExistBracketsBetweenSiblings(previousSibling, nodeToAdd);
-             * bool isNewSetOfCartesianProduct = ExistEmptyLineBetweenSiblings(previousSibling, nodeToAdd); */
-
-            INode previousSibling = topParentCandidate.Children.LastOrDefault();
-
-            if (!(topParentCandidate is IProdNode))
-                throw new InvalidOperationException("unexpected node type. Indentation occurs only at branch node, as a consequence, triplet prod-union-branch are blockwise at same level");
-
-
-            if()
-        }
-
-        [CanBeNull]
-        private INode FindTopParentRegardingToIndentation([NotNull] INode parentCandidate,
-                                                           int nodeToAddIndentation,
-                                                           [NotNull] INode nodeToAdd)
-        {
-            int parentCandidateIndentation = GetIndentation(parentCandidate);
-
-            INode lastChild = parentCandidate.Children.LastOrDefault();
-            if (lastChild == null)
-            {
-                if (nodeToAddIndentation < parentCandidateIndentation + INDENTATION_SIZE)
-                    throw new IndentationException(mCodeLocationPrinter, nodeToAdd.CodeLocation, "Invalid Indentation");
-
-                return parentCandidate;
-            }
-
-            int lastChildIndentation = GetIndentation(lastChild);
-
-            if (nodeToAddIndentation < lastChildIndentation)
                 throw new IndentationException(mCodeLocationPrinter, nodeToAdd.CodeLocation, "Invalid Indentation");
-
-            if (nodeToAddIndentation == lastChildIndentation)
-                return parentCandidate;
-
-            var temporaryResult = FindTopParentRegardingToIndentation(lastChild, nodeToAddIndentation, nodeToAdd);
-            if(temporaryResult == null)
-                throw new InvalidOperationException("should never happen");
-
-            int temporaryResultIndentation = GetIndentation(temporaryResult);
-            return temporaryResultIndentation == parentCandidateIndentation
-                    ? parentCandidate
-                    : temporaryResult;
-        }
-
-        private bool ExistBracketsBetweenSiblings([NotNull] INode previousSibling, [NotNull] INode nodeToAdd)
-        {
-            int previousSiblingLineIndex;
-            int nodeToAddLineIndex;
-            string fileName;
-
-            GetLineIndexes(
-                           previousSibling,
-                           nodeToAdd,
-                           out previousSiblingLineIndex,
-                           out nodeToAddLineIndex,
-                           out fileName);
-
-            for (int i = nodeToAddLineIndex; i >= previousSiblingLineIndex; i--)
-            {
             }
-            return false;
+            else if (nodeToAddIndentation > nextProductIndentation + INDENTATION_SIZE)
+            {
+                Visit(dir, lastBranch.Product, nodeToAdd); // recursion
+            }
+            else
+            {
+                IProdNode previousSibling = lastBranch.Product;
+                bool isNewUnion = ExistEmptyLineBetweenSiblings(previousSibling, nodeToAdd);
+
+                var newBranchNode = new BranchNode(new BranchId(), nodeToAdd.CodeLocation, nodeToAdd);
+
+                if (isNewUnion)
+                {
+                    var newUnionNode = new UnionNode(new UnionId(), nodeToAdd.CodeLocation);
+                    previousSibling.AddUnion(newUnionNode);
+                }
+                else
+                {
+                    // ReSharper disable once PossibleNullReferenceException
+                    previousSibling.Unions.Last().AddBranch(newBranchNode);
+                }
+            }
         }
 
         private bool ExistEmptyLineBetweenSiblings([NotNull] INode previousSibling, [NotNull] INode nodeToAdd)
         {
-            int previousSiblingLineIndex;
-            int nodeToAddLineIndex;
-            string fileName;
+            string previousSiblingFileName = GetFileName(previousSibling.CodeLocation);
+            string fileName = GetFileName(nodeToAdd.CodeLocation);
 
-            GetLineIndexes(
-                           previousSibling,
-                           nodeToAdd,
-                           out previousSiblingLineIndex,
-                           out nodeToAddLineIndex,
-                           out fileName);
-
-            for (int i = nodeToAddLineIndex; i >= previousSiblingLineIndex; i--)
-            {
-            }
-            return false;
-        }
-
-        private void GetLineIndexes(
-            [NotNull] INode node1,
-            [NotNull] INode node2,
-            out int node1LineIndex,
-            out int node2LineIndex,
-            out string fileName)
-        {
-            string node1FileName = GetFileName(node1.CodeLocation);
-            string node2FileName = GetFileName(node2.CodeLocation);
-
-            if (node1FileName != node2FileName)
+            if (previousSiblingFileName != fileName)
             {
                 throw new InvalidSyntaxException(mCodeLocationPrinter,
-                                                 node2.CodeLocation,
+                                                 nodeToAdd.CodeLocation,
                                                  "Both statements must be in the same file:\n- {0}\n-{1}",
-                                                 mCodeLocationPrinter.Print(node1.CodeLocation),
-                                                 mCodeLocationPrinter.Print(node2.CodeLocation));
+                                                 mCodeLocationPrinter.Print(previousSibling.CodeLocation),
+                                                 mCodeLocationPrinter.Print(nodeToAdd.CodeLocation));
             }
 
-            node1LineIndex = GetLineIndex(node1.CodeLocation);
-            node2LineIndex = GetLineIndex(node2.CodeLocation);
-            fileName = node1FileName;
+            int previousSiblingLineIndex = GetLineIndex(previousSibling.CodeLocation);
+            int nodeToAddLineIndex = GetLineIndex(nodeToAdd.CodeLocation);
+
+            for (int lineIndex = nodeToAddLineIndex; lineIndex >= previousSiblingLineIndex; lineIndex--)
+            {
+                string line = mFileCache.GetLine(fileName, lineIndex);
+                bool isEmptyLine = string.IsNullOrWhiteSpace(line);
+                if(isEmptyLine)
+                    return true;
+            }
+            return false;
         }
 
         private int GetIndentation([NotNull] INode node)
