@@ -8,7 +8,7 @@ using NDsl.Front.Api;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class CombinationsImp : SetDefBaseImp<ICombinationsModel, ProdId, CombinationsDefiner>, Combinations, ICombinationsModel
+    public class CombinationsImp : SetDefBaseImp<ICombinationsModel, CombinationId, CombinationsDefiner>, Combinations, ICombinationsModel
     {
         public class Factory : IDefFactory<Combinations>
         {
@@ -36,7 +36,7 @@ namespace NCaseFramework.Front.Imp
                        [NotNull] IServiceSet<ICombinationsModel> services,
                        [NotNull] ICodeLocationFactory codeLocationFactory, 
                        [NotNull] ICodeLocationPrinter codeLocationPrinter)
-            : base(new ProdId(defName), tokenStream, services, codeLocationFactory, codeLocationPrinter)
+            : base(new CombinationId(defName), tokenStream, services, codeLocationFactory, codeLocationPrinter)
         {
         }
 

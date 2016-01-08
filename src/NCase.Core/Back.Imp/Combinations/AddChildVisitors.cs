@@ -9,7 +9,7 @@ using NDsl.Back.Api.Util;
 namespace NCaseFramework.Back.Imp.Combinations
 {
     public class AddChildVisitors
-        : IAddChildVisitor<IProdNode, INode>
+        : IAddChildVisitor<ICombinationNode, INode>
     {
         private const int INDENTATION_SIZE = 4;
         [NotNull] private readonly IFileCache mFileCache;
@@ -21,7 +21,18 @@ namespace NCaseFramework.Back.Imp.Combinations
             mCodeLocationPrinter = codeLocationPrinter;
         }
 
-        public void Visit([NotNull] IAddChildDirector dir, [NotNull] IProdNode prodNode, [NotNull] INode nodeToAdd)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] ICombinationNode combinationNode, [NotNull] INode nodeToAdd)
+        {
+            if (combinationNode.Product == null)
+            {
+                combinationNode.Product = CreateNewProductUnionBranchTriplet(nodeToAdd, combinationNode.IsOnlyPairwise);
+                return;
+            }
+            
+            AddChildRecursive(combinationNode.Product, nodeToAdd, combinationNode.IsOnlyPairwise);
+        }
+
+        private void AddChildRecursive([NotNull] IProdNode parentCandidate, [NotNull] INode nodeToAdd, bool isOnlyPairwise)
         {
             // GRAMMAR:
             // prod   := union (emptyline union)*
@@ -29,9 +40,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             // branch := decl (INDENT prod DEDENT)?
             // decl   := (contribCall|ref...)
 
-            CodeLocation codeLocation = nodeToAdd.CodeLocation;
-
-            IUnionNode lastUnion = prodNode.Unions.Last();
+            IUnionNode lastUnion = parentCandidate.Unions.Last();
             // ReSharper disable once PossibleNullReferenceException
             IBranchNode lastBranch = lastUnion.Branches.Last();
 
@@ -39,12 +48,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             if (lastBranch.Product == null)
             {
                 // CASE: this prodNode doesn't have any child: add not to it
-                var newBranchNode = new BranchNode(new BranchId(), nodeToAdd.CodeLocation, nodeToAdd);
-                var newUnionNode = new UnionNode(new UnionId(), nodeToAdd.CodeLocation);
-                var newProdNode = new ProdNode(new ProdId(), nodeToAdd.CodeLocation);
-                newUnionNode.AddBranch(newBranchNode);
-                newProdNode.AddUnion(newUnionNode);
-                lastBranch.Product = newProdNode;
+                lastBranch.Product = CreateNewProductUnionBranchTriplet(nodeToAdd, isOnlyPairwise);
                 return;
             }
 
@@ -57,7 +61,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             }
             else if (nodeToAddIndentation > nextProductIndentation + INDENTATION_SIZE)
             {
-                Visit(dir, lastBranch.Product, nodeToAdd); // recursion
+                AddChildRecursive(lastBranch.Product, nodeToAdd, isOnlyPairwise); // recursion
             }
             else
             {
@@ -77,6 +81,25 @@ namespace NCaseFramework.Back.Imp.Combinations
                     previousSibling.Unions.Last().AddBranch(newBranchNode);
                 }
             }
+        }
+
+        private static ProdNode CreateNewProductUnionBranchTriplet([NotNull] INode nodeToAdd, bool isOnlyPairwise)
+        {
+            var newBranchNode = new BranchNode(new BranchId(), nodeToAdd.CodeLocation, nodeToAdd);
+            var newUnionNode = new UnionNode(new UnionId(), nodeToAdd.CodeLocation);
+
+            ProdNode newProdNode;
+            {
+
+                if (isOnlyPairwise) 
+                    newProdNode = new PairwiseProdNode(new PairwiseProdId(), nodeToAdd.CodeLocation);
+                else 
+                    newProdNode = new CartesianProdNode(new CartesianProdId(), nodeToAdd.CodeLocation);
+            }
+
+            newUnionNode.AddBranch(newBranchNode);
+            newProdNode.AddUnion(newUnionNode);
+            return newProdNode;
         }
 
         private bool ExistEmptyLineBetweenSiblings([NotNull] INode previousSibling, [NotNull] INode nodeToAdd)

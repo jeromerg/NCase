@@ -58,10 +58,18 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Back.Api\Combinations\BranchId.cs" />
+    <Compile Include="Back.Api\Combinations\CartesianProdId.cs" />
+    <Compile Include="Back.Api\Combinations\CombinationId.cs" />
     <Compile Include="Back.Api\Combinations\IBranchNode.cs" />
+    <Compile Include="Back.Api\Combinations\ICartesianProdNode.cs" />
+    <Compile Include="Back.Api\Combinations\ICombinationNode.cs" />
     <Compile Include="Back.Api\Combinations\IndentationException.cs" />
     <Compile Include="Back.Api\Combinations\CompilationException.cs" />
+    <Compile Include="Back.Api\Combinations\IPairwiseProdNode.cs" />
     <Compile Include="Back.Api\Combinations\IUnionNode.cs" />
+    <Compile Include="Back.Api\Combinations\PairwiseProdId.cs" />
+    <Compile Include="Back.Api\Combinations\UnionId.cs" />
     <Compile Include="Back.Api\Parse\GenerateOptions.cs" />
     <Compile Include="Back.Api\Print\IPrintCaseDirector.cs" />
     <Compile Include="Back.Api\Print\IPrintCasePayload.cs" />
@@ -80,6 +88,9 @@
     <Compile Include="Back.Api\Combinations\IProdNode.cs" />
     <Compile Include="Back.Api\Combinations\ProdId.cs" />
     <Compile Include="Back.Imp\Combinations\BranchNode.cs" />
+    <Compile Include="Back.Imp\Combinations\CartesianProdNode.cs" />
+    <Compile Include="Back.Imp\Combinations\CombinationNode.cs" />
+    <Compile Include="Back.Imp\Combinations\PairwiseProdNode.cs" />
     <Compile Include="Back.Imp\Combinations\UnionNode.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\InterfaceRecPlayNodeColumn.cs" />

@@ -10,10 +10,36 @@ using NDsl.Back.Api.Common;
 namespace NCaseFramework.Back.Imp.Combinations
 {
     public class GenerateCaseVisitors
-        : IGenerateCaseVisitor<IProdNode>
+        : IGenerateCaseVisitor<ICombinationNode>,
+          IGenerateCaseVisitor<IProdNode>,
+          IGenerateCaseVisitor<IUnionNode>,
+          IGenerateCaseVisitor<IBranchNode>
     {
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector director, [NotNull] ICombinationNode node, [NotNull] GenerateOptions options)
+        {
+            if(node.Product == null)
+                return Enumerable.Empty<List<INode>>();
+
+            return Visit(director, node.Product, options);
+        }
+
+        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector director, IProdNode node, GenerateOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector director, IUnionNode node, GenerateOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<List<INode>> Visit(IGenerateCasesDirector director, IBranchNode node, GenerateOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
         [NotNull, ItemNotNull]
-        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+        public IEnumerable<List<INode>> Visit2([NotNull] IGenerateCasesDirector dir,
                                               [NotNull] IProdNode node,
                                               [NotNull] GenerateOptions options)
         {
@@ -33,7 +59,7 @@ namespace NCaseFramework.Back.Imp.Combinations
                     if (caseOfThisTreeNode == null)
                     {
                         string msg = string.Format("Visit of child {0} returned a case having the list of facts equal to null",
-                                                       node.CasesOfThisTreeNode);
+                                                   node.CasesOfThisTreeNode);
                         throw new InvalidOperationException(msg);
                     }
 

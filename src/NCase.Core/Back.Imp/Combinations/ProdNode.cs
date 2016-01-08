@@ -9,15 +9,14 @@ using NDsl.Back.Api.Util;
 
 namespace NCaseFramework.Back.Imp.Combinations
 {
-    public class ProdNode : IProdNode
+    public abstract class ProdNode : IProdNode
     {
         [NotNull] private readonly CodeLocation mCodeLocation;
         [NotNull] private readonly ProdId mId;
         [NotNull] private readonly List<IUnionNode> mUnions = new List<IUnionNode>();
 
-        public ProdNode([NotNull] ProdId id, [NotNull] CodeLocation codeLocation)
+        protected ProdNode([NotNull] ProdId id, [NotNull] CodeLocation codeLocation)
         {
-            if (id == null) throw new ArgumentNullException("id");
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
 
             mId = id;

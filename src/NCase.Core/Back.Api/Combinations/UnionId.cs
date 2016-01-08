@@ -3,20 +3,20 @@ using NCaseFramework.Back.Api.SetDef;
 
 namespace NCaseFramework.Back.Api.Combinations
 {
-    public abstract class ProdId : SetDefId
+    public class UnionId : SetDefId
     {
-        protected ProdId()
+        public UnionId()
         {
         }
 
-        protected ProdId([NotNull] string name)
+        public UnionId([NotNull] string name)
             : base(name)
         {
         }
 
         [NotNull] public override string TypeName
         {
-            get { return "Product"; }
+            get { return "Union"; }
         }
     }
 }
