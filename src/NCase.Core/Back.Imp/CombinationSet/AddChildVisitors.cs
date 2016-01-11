@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.CombinationSet;
@@ -40,47 +41,50 @@ namespace NCaseFramework.Back.Imp.CombinationSet
             // branch := decl (INDENT prod DEDENT)?
             // decl   := (contribCall|ref...)
 
-            IUnionNode lastUnion = parentCandidate.Unions.Last();
-            // ReSharper disable once PossibleNullReferenceException
-            IBranchNode lastBranch = lastUnion.Branches.Last();
-
-            // ReSharper disable once PossibleNullReferenceException
-            if (lastBranch.Product == null)
-            {
-                // CASE: this prodNode doesn't have any child: add not to it
-                lastBranch.Product = CreateNewProductUnionBranchTriplet(nodeToAdd, isOnlyPairwise);
-                return;
-            }
-
+            int currentProductIndentation = GetIndentation(parentCandidate);
             int nodeToAddIndentation = GetIndentation(nodeToAdd);
-            int nextProductIndentation = GetIndentation(lastBranch.Product);
 
-            if (nodeToAddIndentation < nextProductIndentation + INDENTATION_SIZE)
+            IUnionNode lastUnion = parentCandidate.Unions.Last();
+            if (lastUnion == null) throw new ArgumentException("lastUnion is null"); // remark: resharper false negative
+
+            IBranchNode lastBranch = lastUnion.Branches.Last();
+            if (lastBranch == null) throw new ArgumentException("lastBranch is null"); // remark: resharper false negative
+
+
+            if (nodeToAddIndentation == currentProductIndentation)
             {
-                throw new IndentationException(mCodeLocationPrinter, nodeToAdd.CodeLocation, "Invalid Indentation");
-            }
-            else if (nodeToAddIndentation > nextProductIndentation + INDENTATION_SIZE)
-            {
-                AddChildRecursive(lastBranch.Product, nodeToAdd, isOnlyPairwise); // recursion
-            }
-            else
-            {
-                IProdNode previousSibling = lastBranch.Product;
-                bool isNewUnion = ExistEmptyLineBetweenSiblings(previousSibling, nodeToAdd);
+                bool isNewUnion = ExistEmptyLineBetweenSiblings(lastBranch, nodeToAdd);
 
                 var newBranchNode = new BranchNode(new BranchId(), nodeToAdd.CodeLocation, nodeToAdd);
 
                 if (isNewUnion)
                 {
                     var newUnionNode = new UnionNode(new UnionId(), nodeToAdd.CodeLocation);
-                    previousSibling.AddUnion(newUnionNode);
+                    parentCandidate.AddUnion(newUnionNode);
                 }
                 else
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    previousSibling.Unions.Last().AddBranch(newBranchNode);
+                    parentCandidate.Unions.Last().AddBranch(newBranchNode);
                 }
             }
+            else if (nodeToAddIndentation >= currentProductIndentation + INDENTATION_SIZE)
+            {
+                if(lastBranch.Product == null)
+                {
+                    ProdNode newProdNode = CreateNewProductUnionBranchTriplet(nodeToAdd, isOnlyPairwise);
+                    lastBranch.Product = newProdNode;
+                }
+                else
+                {
+                    AddChildRecursive(lastBranch.Product, nodeToAdd, isOnlyPairwise); // recursion
+                }
+            }
+            else 
+            {
+                throw new IndentationException(mCodeLocationPrinter, nodeToAdd.CodeLocation, "Invalid Indentation");
+            }
+            
         }
 
         private static ProdNode CreateNewProductUnionBranchTriplet([NotNull] INode nodeToAdd, bool isOnlyPairwise)
