@@ -8,24 +8,24 @@ using NDsl.Back.Api.Util;
 namespace NCaseFramework.Back.Imp.Combinations
 {
     public class ParseVisitors
-        : IParseVisitor<BeginToken<ProdId>>,
-          IParseVisitor<EndToken<ProdId>>,
-          IParseVisitor<RefToken<ProdId>>
+        : IParseVisitor<CombinationSetBeginToken>,
+          IParseVisitor<EndToken<CombinationSetId>>,
+          IParseVisitor<RefToken<CombinationSetId>>
     {
-        public void Visit([NotNull] IParseDirector dir, [NotNull] BeginToken<ProdId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] CombinationSetBeginToken token)
         {
-            var newCaseSetNode = new ProdNode(token.CodeLocation, token.Owner, null);
+            var newCaseSetNode = new CombinationSetNode(new CombinationSetId(token.Owner.Name), token.CodeLocation, token.OnlyPairwise);
 
             dir.AddId(token.Owner, newCaseSetNode);
             dir.PushScope(newCaseSetNode);
         }
 
-        public void Visit([NotNull] IParseDirector dir, [NotNull] EndToken<ProdId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] EndToken<CombinationSetId> token)
         {
             dir.PopScope();
         }
 
-        public void Visit([NotNull] IParseDirector dir, [NotNull] RefToken<ProdId> token)
+        public void Visit([NotNull] IParseDirector dir, [NotNull] RefToken<CombinationSetId> token)
         {
             CodeLocation codeLocation = token.CodeLocation;
 

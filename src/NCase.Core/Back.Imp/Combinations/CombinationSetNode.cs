@@ -10,13 +10,13 @@ using NDsl.Back.Api.Util;
 
 namespace NCaseFramework.Back.Imp.Combinations
 {
-    public class CombinationNode : ICombinationNode
+    public class CombinationSetNode : ICombinationSetNode
     {
-        [NotNull] private readonly CombinationId mId;
+        [NotNull] private readonly CombinationSetId mId;
         [NotNull] private readonly CodeLocation mCodeLocation;
         private readonly bool mIsOnlyPairwise;
 
-        public CombinationNode([NotNull] CombinationId id, [NotNull] CodeLocation codeLocation, bool isOnlyPairwise)
+        public CombinationSetNode([NotNull] CombinationSetId id, [NotNull] CodeLocation codeLocation, bool isOnlyPairwise)
         {
             if (id == null) throw new ArgumentNullException("id");
             if (codeLocation == null) throw new ArgumentNullException("codeLocation");
@@ -31,7 +31,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             get { return Id; }
         }
 
-        [NotNull] public CombinationId Id
+        [NotNull] public CombinationSetId Id
         {
             get { return mId; }
         }

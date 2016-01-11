@@ -3,13 +3,13 @@ using NCaseFramework.Back.Api.SetDef;
 
 namespace NCaseFramework.Back.Api.Combinations
 {
-    public class CombinationId : SetDefId
+    public class CombinationSetId : SetDefId
     {
-        public CombinationId()
+        public CombinationSetId()
         {
         }
 
-        public CombinationId([NotNull] string name)
+        public CombinationSetId([NotNull] string name)
             : base(name)
         {
         }

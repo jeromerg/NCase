@@ -25,7 +25,7 @@ namespace NCaseFramework.Test
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<Combinations>("set");
+            var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
             using (set.Define())
             {
@@ -49,7 +49,7 @@ namespace NCaseFramework.Test
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<Combinations>("set");
+            var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
             using (set.Define())
             {
@@ -72,7 +72,7 @@ namespace NCaseFramework.Test
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<Combinations>("set");
+            var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
             using (set.Define())
             {
@@ -109,7 +109,7 @@ namespace NCaseFramework.Test
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<Combinations>("set");
+            var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
             using (set.Define())
             {
@@ -135,7 +135,7 @@ namespace NCaseFramework.Test
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<Combinations>("set");
+            var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
             using (set.Define())
             {
@@ -163,7 +163,7 @@ namespace NCaseFramework.Test
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<Combinations>("set");
+            var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
             using (set.Define())
             {
@@ -195,7 +195,7 @@ namespace NCaseFramework.Test
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<Combinations>("set");
+            var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
             using (var o = set.Define())
             {
@@ -246,7 +246,7 @@ namespace NCaseFramework.Test
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<Combinations>("set");
+            var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
             using (var d = set.Define())
             {

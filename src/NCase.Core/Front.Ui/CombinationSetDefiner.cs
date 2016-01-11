@@ -4,7 +4,7 @@ using NDsl.Front.Ui;
 namespace NCaseFramework.Front.Ui
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public interface CombinationsDefiner : Definer
+    public interface CombinationSetDefiner : Definer
     {
         void Child();
     }

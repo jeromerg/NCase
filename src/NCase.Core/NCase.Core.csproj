@@ -60,13 +60,14 @@
     </Compile>
     <Compile Include="Back.Api\Combinations\BranchId.cs" />
     <Compile Include="Back.Api\Combinations\CartesianProdId.cs" />
-    <Compile Include="Back.Api\Combinations\CombinationId.cs" />
+    <Compile Include="Back.Api\Combinations\CombinationSetId.cs" />
     <Compile Include="Back.Api\Combinations\IBranchNode.cs" />
     <Compile Include="Back.Api\Combinations\ICartesianProdNode.cs" />
-    <Compile Include="Back.Api\Combinations\ICombinationNode.cs" />
+    <Compile Include="Back.Api\Combinations\ICombinationSetNode.cs" />
     <Compile Include="Back.Api\Combinations\IndentationException.cs" />
     <Compile Include="Back.Api\Combinations\CompilationException.cs" />
     <Compile Include="Back.Api\Combinations\IPairwiseProdNode.cs" />
+    <Compile Include="Back.Api\Combinations\CombinationSetBeginToken.cs" />
     <Compile Include="Back.Api\Combinations\IUnionNode.cs" />
     <Compile Include="Back.Api\Combinations\PairwiseProdId.cs" />
     <Compile Include="Back.Api\Combinations\UnionId.cs" />
@@ -89,7 +90,7 @@
     <Compile Include="Back.Api\Combinations\ProdId.cs" />
     <Compile Include="Back.Imp\Combinations\BranchNode.cs" />
     <Compile Include="Back.Imp\Combinations\CartesianProdNode.cs" />
-    <Compile Include="Back.Imp\Combinations\CombinationNode.cs" />
+    <Compile Include="Back.Imp\Combinations\CombinationSetNode.cs" />
     <Compile Include="Back.Imp\Combinations\PairwiseProdNode.cs" />
     <Compile Include="Back.Imp\Combinations\UnionNode.cs" />
     <Compile Include="Back.Imp\InterfaceRecPlay\GenerateCaseVisitors.cs" />
@@ -145,7 +146,7 @@
     <Compile Include="Front.Api\Seq\ISequenceModel.cs" />
     <Compile Include="Front.Api\Case\ICaseModel.cs" />
     <Compile Include="Front.Api\SetDef\IPrintCaseSvc.cs" />
-    <Compile Include="Front.Api\Combinations\ICombinationsModel.cs" />
+    <Compile Include="Front.Api\Combinations\ICombinationSetModel.cs" />
     <Compile Include="Front.Api\Tree\ITreeModel.cs" />
     <Compile Include="Front.Api\Fact\IFactFactory.cs" />
     <Compile Include="Front.Api\SetDef\IPrintDefSvc.cs" />
@@ -153,10 +154,10 @@
     <Compile Include="Front.Api\Fact\IReplayFactSvc.cs" />
     <Compile Include="Front.Api\Pairwise\IPairwiseCombinationsModel.cs" />
     <Compile Include="Front.Api\Case\ICaseFactory.cs" />
-    <Compile Include="Front.Imp\%28Artefact.Def%29\CombinationsDefinerImp.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\CombinationSetDefinerImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\PairwiseCombinationsImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\AllCombinationsImp.cs" />
-    <Compile Include="Front.Imp\%28Artefact.Def%29\CombinationsImp.cs" />
+    <Compile Include="Front.Imp\%28Artefact.Def%29\CombinationSetImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\TreeImp.cs" />
     <Compile Include="Front.Api\SetDef\IGetCasesSvc.cs" />
     <Compile Include="Front.Imp\%28Service%29\PrintCaseSvc.cs" />
@@ -167,7 +168,7 @@
     <Compile Include="Front.Ui\%28Shared%29\CaseExtensions.cs" />
     <Compile Include="Front.Ui\%28Shared%29\ExceptionAssert.cs" />
     <Compile Include="Front.Ui\%28Shared%29\TestCaseContext.cs" />
-    <Compile Include="Front.Ui\CombinationsDefiner.cs" />
+    <Compile Include="Front.Ui\CombinationSetDefiner.cs" />
     <Compile Include="Front.Ui\FactExtensions.cs" />
     <Compile Include="Front.Ui\CaseExtensions.cs" />
     <Compile Include="Front.Ui\DefExtensions.cs" />
@@ -202,7 +203,7 @@
     <Compile Include="Back.Api\Parse\IParseDirector.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\SetDefBaseImp.cs" />
     <Compile Include="Back.Api\Parse\IGenerateCasesDirector.cs" />
-    <Compile Include="Front.Ui\Combinations.cs" />
+    <Compile Include="Front.Ui\CombinationSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

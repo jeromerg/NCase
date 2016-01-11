@@ -1,6 +1,7 @@
 using System;
 using JetBrains.Annotations;
 using NDsl.All.Def;
+using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.Record;
@@ -76,7 +77,7 @@ namespace NDsl.Front.Imp
 
             State = DefState.Defining;
             TokenStream.SetWriteMode(true);
-            TokenStream.Append(new BeginToken<TId>(Id, Loc()));
+            TokenStream.Append(CreateBeginToken());
         }
 
         protected void End()
@@ -84,13 +85,25 @@ namespace NDsl.Front.Imp
             if (State != DefState.Defining)
                 throw new InvalidSyntaxException(mCodeLocationPrinter, Loc(), "{0} not in 'Defining' state", Id);
 
-            TokenStream.Append(new EndToken<TId>(Id, Loc()));
+            TokenStream.Append(CreateEndToken());
             State = DefState.Defined;
             TokenStream.SetWriteMode(false);
         }
 
         [NotNull]
-        private CodeLocation Loc()
+        protected virtual IToken CreateBeginToken()
+        {
+            return new BeginToken<TId>(Id, Loc());
+        }
+
+        [NotNull]
+        protected virtual IToken CreateEndToken()
+        {
+            return new EndToken<TId>(Id, Loc());
+        }
+
+        [NotNull]
+        protected CodeLocation Loc()
         {
             return mCodeLocationFactory.GetCurrentUserCodeLocation();
         }

@@ -9,7 +9,7 @@ using NDsl.Back.Api.Util;
 namespace NCaseFramework.Back.Imp.Combinations
 {
     public class AddChildVisitors
-        : IAddChildVisitor<ICombinationNode, INode>
+        : IAddChildVisitor<ICombinationSetNode, INode>
     {
         private const int INDENTATION_SIZE = 4;
         [NotNull] private readonly IFileCache mFileCache;
@@ -21,15 +21,15 @@ namespace NCaseFramework.Back.Imp.Combinations
             mCodeLocationPrinter = codeLocationPrinter;
         }
 
-        public void Visit([NotNull] IAddChildDirector dir, [NotNull] ICombinationNode combinationNode, [NotNull] INode nodeToAdd)
+        public void Visit([NotNull] IAddChildDirector dir, [NotNull] ICombinationSetNode combinationSetNode, [NotNull] INode nodeToAdd)
         {
-            if (combinationNode.Product == null)
+            if (combinationSetNode.Product == null)
             {
-                combinationNode.Product = CreateNewProductUnionBranchTriplet(nodeToAdd, combinationNode.IsOnlyPairwise);
+                combinationSetNode.Product = CreateNewProductUnionBranchTriplet(nodeToAdd, combinationSetNode.IsOnlyPairwise);
                 return;
             }
             
-            AddChildRecursive(combinationNode.Product, nodeToAdd, combinationNode.IsOnlyPairwise);
+            AddChildRecursive(combinationSetNode.Product, nodeToAdd, combinationSetNode.IsOnlyPairwise);
         }
 
         private void AddChildRecursive([NotNull] IProdNode parentCandidate, [NotNull] INode nodeToAdd, bool isOnlyPairwise)

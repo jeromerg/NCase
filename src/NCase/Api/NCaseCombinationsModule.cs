@@ -14,7 +14,7 @@ namespace NCaseFramework.Front.Api
             base.Load(builder);
 
             // Case sets
-            builder.RegisterType<CombinationsImp.Factory>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<CombinationSetImp.Factory>().AsImplementedInterfaces().SingleInstance();
 
             // Parser
             builder.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();

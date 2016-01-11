@@ -6,11 +6,11 @@ using NDsl.Front.Imp;
 
 namespace NCaseFramework.Front.Imp
 {
-    public class CombinationsDefinerImp : DefinerImp, CombinationsDefiner
+    public class CombinationSetDefinerImp : DefinerImp, CombinationSetDefiner
     {
         private readonly ITokenWriter mTokenWriter;
 
-        public CombinationsDefinerImp(ITokenWriter tokenWriter, [NotNull] Action onBegin, [NotNull] Action onEnd)
+        public CombinationSetDefinerImp(ITokenWriter tokenWriter, [NotNull] Action onBegin, [NotNull] Action onEnd)
             : base(onBegin, onEnd)
         {
             mTokenWriter = tokenWriter;

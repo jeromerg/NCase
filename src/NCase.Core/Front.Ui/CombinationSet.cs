@@ -5,7 +5,8 @@ using NCaseFramework.Front.Api.Combinations;
 namespace NCaseFramework.Front.Ui
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public interface Combinations : SetDefBase<ICombinationsModel, ProdId, CombinationsDefiner>
+    public interface CombinationSet : SetDefBase<ICombinationSetModel, CombinationSetId, CombinationSetDefiner>
     {
+        bool IsOnlyPairwiseProduct { get; set; }
     }
 }
