@@ -60,6 +60,7 @@ namespace NCaseFramework.Back.Imp.CombinationSet
                 if (isNewUnion)
                 {
                     var newUnionNode = new UnionNode(new UnionId(), nodeToAdd.CodeLocation);
+                    newUnionNode.AddBranch(newBranchNode);
                     parentCandidate.AddUnion(newUnionNode);
                 }
                 else
@@ -123,7 +124,7 @@ namespace NCaseFramework.Back.Imp.CombinationSet
             int previousSiblingLineIndex = GetLineIndex(previousSibling.CodeLocation);
             int nodeToAddLineIndex = GetLineIndex(nodeToAdd.CodeLocation);
 
-            for (int lineIndex = nodeToAddLineIndex; lineIndex >= previousSiblingLineIndex; lineIndex--)
+            for (int lineIndex = nodeToAddLineIndex-1; lineIndex > previousSiblingLineIndex; lineIndex--)
             {
                 string line = mFileCache.GetLine(fileName, lineIndex);
                 bool isEmptyLine = string.IsNullOrWhiteSpace(line);

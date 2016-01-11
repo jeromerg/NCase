@@ -19,7 +19,7 @@ namespace NDsl.Back.Imp.Util
             string[] lines = GetFileLines(fileName);
 
             // ReSharper disable once PossibleNullReferenceException
-            return lines[lineIndex];
+            return lines[lineIndex -1];
         }
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
