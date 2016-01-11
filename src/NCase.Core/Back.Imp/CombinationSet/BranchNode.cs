@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NCaseFramework.Back.Api.Combinations;
+using NCaseFramework.Back.Api.CombinationSet;
 using NDsl.All.Def;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Util;
 
-namespace NCaseFramework.Back.Imp.Combinations
+namespace NCaseFramework.Back.Imp.CombinationSet
 {
     public class BranchNode : IBranchNode
     {

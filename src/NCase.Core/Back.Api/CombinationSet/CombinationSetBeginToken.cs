@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Util;
 
-namespace NCaseFramework.Back.Api.Combinations
+namespace NCaseFramework.Back.Api.CombinationSet
 {
     public class CombinationSetBeginToken : BeginToken<CombinationSetId> 
     {

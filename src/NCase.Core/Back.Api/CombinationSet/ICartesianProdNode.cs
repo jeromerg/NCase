@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using NCaseFramework.Back.Api.SetDef;
 
-namespace NCaseFramework.Back.Api.Combinations
+namespace NCaseFramework.Back.Api.CombinationSet
 {
     public interface ICartesianProdNode : ISetDefNode
     {

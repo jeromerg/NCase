@@ -1,12 +1,12 @@
 using System.Linq;
 using JetBrains.Annotations;
-using NCaseFramework.Back.Api.Combinations;
+using NCaseFramework.Back.Api.CombinationSet;
 using NCaseFramework.Back.Api.Parse;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Ex;
 using NDsl.Back.Api.Util;
 
-namespace NCaseFramework.Back.Imp.Combinations
+namespace NCaseFramework.Back.Imp.CombinationSet
 {
     public class AddChildVisitors
         : IAddChildVisitor<ICombinationSetNode, INode>

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Autofac;
-using NCaseFramework.Back.Imp.Combinations;
+using NCaseFramework.Back.Imp.CombinationSet;
 using NCaseFramework.Front.Imp;
 
 namespace NCaseFramework.Front.Api

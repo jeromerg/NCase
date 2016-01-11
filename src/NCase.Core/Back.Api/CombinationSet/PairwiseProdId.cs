@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace NCaseFramework.Back.Api.Combinations
+namespace NCaseFramework.Back.Api.CombinationSet
 {
     public class PairwiseProdId : ProdId
     {

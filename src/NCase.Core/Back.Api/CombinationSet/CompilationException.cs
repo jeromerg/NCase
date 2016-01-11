@@ -1,6 +1,6 @@
 using System;
 
-namespace NCaseFramework.Back.Api.Combinations
+namespace NCaseFramework.Back.Api.CombinationSet
 {
     public class CompilationException : Exception
     {

@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
-using NCaseFramework.Back.Api.Combinations;
+using NCaseFramework.Back.Api.CombinationSet;
 using NDsl.Back.Api.Util;
 
-namespace NCaseFramework.Back.Imp.Combinations
+namespace NCaseFramework.Back.Imp.CombinationSet
 {
     public class CartesianProdNode : ProdNode, ICartesianProdNode
     {
