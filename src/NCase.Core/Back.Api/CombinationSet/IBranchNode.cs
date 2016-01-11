@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using NCaseFramework.Back.Api.SetDef;
 using NDsl.Back.Api.Common;
 
-namespace NCaseFramework.Back.Api.Combinations
+namespace NCaseFramework.Back.Api.CombinationSet
 {
     public interface IBranchNode : ISetDefNode
     {

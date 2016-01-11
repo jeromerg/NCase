@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using NCaseFramework.Back.Api.Combinations;
-using NCaseFramework.Front.Api.Combinations;
+using NCaseFramework.Back.Api.CombinationSet;
+using NCaseFramework.Front.Api.CombinationSet;
 
 namespace NCaseFramework.Front.Ui
 {

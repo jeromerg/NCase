@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace NCaseFramework.Test
 {
-    [TestFixture, Ignore("under construction")]
+    [TestFixture]
     public class CombinationsTests
     {
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
@@ -105,32 +105,6 @@ namespace NCaseFramework.Test
         }
 
         [Test]
-        public void AccumulationTest()
-        {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
-            var c = caseBuilder.NewContributor<IContrib>("c");
-            var set = caseBuilder.NewDefinition<CombinationSet>("set");
-
-            using (set.Define())
-            {
-                c.A = "a1"; c.B = "b1";
-                c.A = "a2"; c.B = "b2";
-            }
-
-            IEnumerator<Case> e = set.Cases().Replay().GetEnumerator();
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b1", c.B);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a2", c.A);
-            Assert.AreEqual("b2", c.B);
-
-            Assert.AreEqual(false, e.MoveNext());
-        }
-
-        [Test]
         public void TreeTest()
         {
             CaseBuilder caseBuilder = NCase.NewBuilder();
@@ -141,7 +115,7 @@ namespace NCaseFramework.Test
             {
                 c.A = "a1"; 
                     c.B = "b1";
-                c.A = "a2"; 
+                c.A = "a2";
                     c.B = "b2";
             }
 

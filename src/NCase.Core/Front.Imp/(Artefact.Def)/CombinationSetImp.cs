@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
-using NCaseFramework.Back.Api.Combinations;
-using NCaseFramework.Front.Api.Combinations;
+using NCaseFramework.Back.Api.CombinationSet;
+using NCaseFramework.Front.Api.CombinationSet;
 using NCaseFramework.Front.Ui;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Record;

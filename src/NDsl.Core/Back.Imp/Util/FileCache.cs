@@ -35,7 +35,7 @@ namespace NDsl.Back.Imp.Util
                         .ToArray();
                 });
 
-            return fileIndentations[lineIndex];
+            return fileIndentations[lineIndex - 1];
         }
 
         private string[] GetFileLines([NotNull] string fileName)

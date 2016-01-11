@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NCaseFramework.Back.Api.Combinations;
+using NCaseFramework.Back.Api.CombinationSet;
 using NDsl.All.Def;
 using NDsl.Back.Api.Common;
 using NDsl.Back.Api.Def;
 using NDsl.Back.Api.Util;
 
-namespace NCaseFramework.Back.Imp.Combinations
+namespace NCaseFramework.Back.Imp.CombinationSet
 {
     public class CombinationSetNode : ICombinationSetNode
     {
@@ -41,7 +41,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             get { return mCodeLocation; }
         }
 
-        public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<INode> Children
         {
             get
             {
@@ -51,7 +51,7 @@ namespace NCaseFramework.Back.Imp.Combinations
             }
         }
 
-        public IProdNode Product { get; set; }
+        [CanBeNull] public IProdNode Product { get; set; }
 
         public bool IsOnlyPairwise
         {

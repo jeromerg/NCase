@@ -1,10 +1,10 @@
 ﻿using JetBrains.Annotations;
-using NCaseFramework.Back.Api.Combinations;
+using NCaseFramework.Back.Api.CombinationSet;
 using NCaseFramework.Back.Api.Print;
 using NDsl.Back.Api.Util;
 using NUtil.Linq;
 
-namespace NCaseFramework.Back.Imp.Combinations
+namespace NCaseFramework.Back.Imp.CombinationSet
 {
     public class PrintDefinitionVisitors
         : IPrintDefinitionVisitor<ICombinationSetNode>,

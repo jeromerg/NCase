@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NCaseFramework.Back.Api.Combinations;
+using NCaseFramework.Back.Api.CombinationSet;
 using NCaseFramework.Back.Api.Parse;
 using NCaseFramework.Back.Api.Util;
 using NDsl.Back.Api.Common;
 using NUtil.Math.Combinatorics.Pairwise;
 
-namespace NCaseFramework.Back.Imp.Combinations
+namespace NCaseFramework.Back.Imp.CombinationSet
 {
     public class GenerateCaseVisitors
         : IGenerateCaseVisitor<ICombinationSetNode>,
