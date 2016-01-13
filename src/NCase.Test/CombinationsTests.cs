@@ -23,7 +23,7 @@ namespace NCaseFramework.Test
         [Test]
         public void UnionTest()
         {
-            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -47,7 +47,7 @@ namespace NCaseFramework.Test
         [Test]
         public void ProductTest()
         {
-            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -70,7 +70,7 @@ namespace NCaseFramework.Test
         [Test]
         public void ProductTest2()
         {
-            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -107,7 +107,7 @@ namespace NCaseFramework.Test
         [Test]
         public void TreeTest()
         {
-            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -135,7 +135,7 @@ namespace NCaseFramework.Test
         [Test]
         public void TreeTest2()
         {
-            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -167,7 +167,7 @@ namespace NCaseFramework.Test
         [Test]
         public void TreeAndProductTest()
         {
-            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -218,7 +218,7 @@ namespace NCaseFramework.Test
         [Test]
         public void ComplexTreeAndProductTest()
         {
-            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
+            CaseBuilder caseBuilder = NCase.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -226,7 +226,7 @@ namespace NCaseFramework.Test
             {
                 c.A = "a1";
                 {
-                    d.Child();
+                    d.Branch();
                     {
                         c.D = "d1";
                         {
@@ -244,7 +244,7 @@ namespace NCaseFramework.Test
                         c.E = "e1";
                         c.E = "e2";
                     }
-                    d.Child();
+                    d.Branch();
                     {
                         c.B = "b3";
                         {
@@ -277,6 +277,7 @@ namespace NCaseFramework.Test
             Assert.AreEqual("c1", c.C);
             Assert.AreEqual("e2", c.E);
 
+
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", c.A);
             Assert.AreEqual("d1", c.D);
@@ -291,76 +292,79 @@ namespace NCaseFramework.Test
             Assert.AreEqual("c2", c.C);
             Assert.AreEqual("e2", c.E);
 
-            //-- fork
 
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b3", c.B);
-            Assert.AreEqual("c4", c.C);
-            Assert.AreEqual("d2", c.D);
-            Assert.AreEqual("e3", c.E);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b3", c.B);
-            Assert.AreEqual("c4", c.C);
-            Assert.AreEqual("d2", c.D);
-            Assert.AreEqual("e4", c.E);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b3", c.B);
-            Assert.AreEqual("c4", c.C);
-            Assert.AreEqual("d3", c.D);
-            Assert.AreEqual("e3", c.E);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b3", c.B);
-            Assert.AreEqual("c4", c.C);
-            Assert.AreEqual("d3", c.D);
-            Assert.AreEqual("e4", c.E);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b3", c.B);
-            Assert.AreEqual("c5", c.C);
-            Assert.AreEqual("d2", c.D);
-            Assert.AreEqual("e3", c.E);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b3", c.B);
-            Assert.AreEqual("c5", c.C);
-            Assert.AreEqual("d2", c.D);
-            Assert.AreEqual("e4", c.E);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b3", c.B);
-            Assert.AreEqual("c5", c.C);
-            Assert.AreEqual("d3", c.D);
-            Assert.AreEqual("e3", c.E);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b3", c.B);
-            Assert.AreEqual("c5", c.C);
-            Assert.AreEqual("d3", c.D);
-            Assert.AreEqual("e4", c.E);
-
-            Assert.AreEqual(true, e.MoveNext());
-            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("d1", c.D);
             Assert.AreEqual("b2", c.B);
-            Assert.AreEqual("c1", c.C);
+            Assert.AreEqual("c3", c.C);
+            Assert.AreEqual("e1", c.E);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("d1", c.D);
+            Assert.AreEqual("b2", c.B);
+            Assert.AreEqual("c3", c.C);
+            Assert.AreEqual("e2", c.E);
+
+            //-- next branch
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("b3", c.B);
+            Assert.AreEqual("c4", c.C);
             Assert.AreEqual("d2", c.D);
             Assert.AreEqual("e3", c.E);
 
             Assert.AreEqual(true, e.MoveNext());
             Assert.AreEqual("a1", c.A);
-            Assert.AreEqual("b2", c.B);
-            Assert.AreEqual("c1", c.C);
+            Assert.AreEqual("b3", c.B);
+            Assert.AreEqual("c4", c.C);
             Assert.AreEqual("d2", c.D);
+            Assert.AreEqual("e4", c.E);
+
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("b3", c.B);
+            Assert.AreEqual("c4", c.C);
+            Assert.AreEqual("d3", c.D);
+            Assert.AreEqual("e3", c.E);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("b3", c.B);
+            Assert.AreEqual("c4", c.C);
+            Assert.AreEqual("d3", c.D);
+            Assert.AreEqual("e4", c.E);
+
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("b3", c.B);
+            Assert.AreEqual("c5", c.C);
+            Assert.AreEqual("d2", c.D);
+            Assert.AreEqual("e3", c.E);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("b3", c.B);
+            Assert.AreEqual("c5", c.C);
+            Assert.AreEqual("d2", c.D);
+            Assert.AreEqual("e4", c.E);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("b3", c.B);
+            Assert.AreEqual("c5", c.C);
+            Assert.AreEqual("d3", c.D);
+            Assert.AreEqual("e3", c.E);
+
+            Assert.AreEqual(true, e.MoveNext());
+            Assert.AreEqual("a1", c.A);
+            Assert.AreEqual("b3", c.B);
+            Assert.AreEqual("c5", c.C);
+            Assert.AreEqual("d3", c.D);
             Assert.AreEqual("e4", c.E);
 
             Assert.AreEqual(false, e.MoveNext());

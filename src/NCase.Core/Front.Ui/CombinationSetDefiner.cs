@@ -6,6 +6,6 @@ namespace NCaseFramework.Front.Ui
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public interface CombinationSetDefiner : Definer
     {
-        void Child();
+        void Branch();
     }
 }

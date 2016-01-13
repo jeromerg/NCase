@@ -39,6 +39,7 @@ namespace NCaseFramework.Front.Api
             cb.RegisterType<ParserGenerator>().As<IParserGenerator>().SingleInstance();
 
             cb.RegisterType<ParseDirector>().As<IParseDirector>().InstancePerDependency(); // STATEFUL!
+            cb.RegisterType<ParseVisitors>().AsImplementedInterfaces().SingleInstance();
             cb.RegisterType<AddChildDirector>().As<IAddChildDirector>().SingleInstance();
             cb.RegisterType<GenerateCasesDirector>().As<IGenerateCasesDirector>().SingleInstance();
             cb.RegisterType<GenerateCasesVisitors>().AsImplementedInterfaces().SingleInstance();

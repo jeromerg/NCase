@@ -22,7 +22,7 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterModule<NDslRecPlayModule>();
             cb.RegisterModule<NCaseCoreModule>();
             cb.RegisterModule<NCaseInterfaceRecPlayModule>();
-            cb.RegisterModule<NCaseCombinationsModule>();
+            cb.RegisterModule<NCaseCombinationSetModule>();
             cb.RegisterGeneric(typeof (ServiceSet<>)).As(typeof (IServiceSet<>));
 
             cb.RegisterModule<NCaseSeqModule>();

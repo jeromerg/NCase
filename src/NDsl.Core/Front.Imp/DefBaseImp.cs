@@ -63,7 +63,7 @@ namespace NDsl.Front.Imp
 
         public void Ref()
         {
-            TokenStream.Append(new RefToken<TId>(Id, Loc()));
+            TokenStream.Append(new RefToken<TId>(Id, GetCodeLocation()));
         }
 
         #endregion
@@ -73,7 +73,7 @@ namespace NDsl.Front.Imp
         protected void Begin()
         {
             if (State > DefState.NotDefined)
-                throw new InvalidSyntaxException(mCodeLocationPrinter, Loc(), "{0} not in 'NotDefined' state", Id);
+                throw new InvalidSyntaxException(mCodeLocationPrinter, GetCodeLocation(), "{0} not in 'NotDefined' state", Id);
 
             State = DefState.Defining;
             TokenStream.SetWriteMode(true);
@@ -83,7 +83,7 @@ namespace NDsl.Front.Imp
         protected void End()
         {
             if (State != DefState.Defining)
-                throw new InvalidSyntaxException(mCodeLocationPrinter, Loc(), "{0} not in 'Defining' state", Id);
+                throw new InvalidSyntaxException(mCodeLocationPrinter, GetCodeLocation(), "{0} not in 'Defining' state", Id);
 
             TokenStream.Append(CreateEndToken());
             State = DefState.Defined;
@@ -93,19 +93,24 @@ namespace NDsl.Front.Imp
         [NotNull]
         protected virtual IToken CreateBeginToken()
         {
-            return new BeginToken<TId>(Id, Loc());
+            return new BeginToken<TId>(Id, GetCodeLocation());
         }
 
         [NotNull]
         protected virtual IToken CreateEndToken()
         {
-            return new EndToken<TId>(Id, Loc());
+            return new EndToken<TId>(Id, GetCodeLocation());
         }
 
         [NotNull]
-        protected CodeLocation Loc()
+        protected CodeLocation GetCodeLocation()
         {
             return mCodeLocationFactory.GetCurrentUserCodeLocation();
+        }
+
+        [NotNull] protected ICodeLocationFactory CodeLocationFactory
+        {
+            get { return mCodeLocationFactory; }
         }
 
         #endregion

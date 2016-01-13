@@ -5,15 +5,15 @@ using NDsl.Back.Api.Util;
 
 namespace NDsl.Back.Api.Common
 {
-    /// <summary>Null Node object, following Null Object Pattern</summary>
-    public class NullNode : INode
+    /// <summary>Null Token object, following Null Object Pattern</summary>
+    public class NullToken : IToken
     {
         [NotNull]
-        public static readonly NullNode Instance = new NullNode(CodeLocation.Unknown);
+        public static readonly NullToken Instance = new NullToken(CodeLocation.Unknown);
 
         [NotNull] private readonly CodeLocation mCodeLocation;
 
-        public NullNode([NotNull] CodeLocation codeLocation)
+        public NullToken([NotNull] CodeLocation codeLocation)
         {
             mCodeLocation = codeLocation;
         }
@@ -23,9 +23,9 @@ namespace NDsl.Back.Api.Common
             get { return mCodeLocation; }
         }
 
-        [NotNull, ItemNotNull] public IEnumerable<INode> Children
+        [NotNull, ItemNotNull] public IEnumerable<IToken> Children
         {
-            get { return Enumerable.Empty<INode>(); }
+            get { return Enumerable.Empty<IToken>(); }
         }
     }
 }

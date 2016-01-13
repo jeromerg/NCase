@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using Autofac;
 using JetBrains.Annotations;
 using NCaseFramework.Front.Api;
@@ -17,12 +18,12 @@ namespace NCaseFramework.Front.Ui
         {
             var cb = new ContainerBuilder();
 
-            var userStackFrameUtil = new UserStackFrameUtil();
+            var userStackFrameUtil = new UserStackFrameUtil(excludedAssemblies: new[] {Assembly.GetExecutingAssembly()});
             cb.RegisterModule(new NDslCoreModule(userStackFrameUtil));
             cb.RegisterModule<NDslRecPlayModule>();
             cb.RegisterModule<NCaseCoreModule>();
             cb.RegisterModule<NCaseInterfaceRecPlayModule>();
-            cb.RegisterModule<NCaseCombinationsModule>();
+            cb.RegisterModule<NCaseCombinationSetModule>();
             cb.RegisterGeneric(typeof (ServiceSet<>)).As(typeof (IServiceSet<>));
 
             IContainer container = cb.Build();

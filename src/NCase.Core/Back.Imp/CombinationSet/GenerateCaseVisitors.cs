@@ -17,7 +17,6 @@ namespace NCaseFramework.Back.Imp.CombinationSet
           IGenerateCaseVisitor<IUnionNode>,
           IGenerateCaseVisitor<IBranchNode>
     {
-
         [NotNull] private readonly IPairwiseGenerator mPairwiseGenerator;
 
         public GenerateCaseVisitors([NotNull] IPairwiseGenerator pairwiseGenerator)
@@ -25,26 +24,79 @@ namespace NCaseFramework.Back.Imp.CombinationSet
             mPairwiseGenerator = pairwiseGenerator;
         }
 
-        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir, [NotNull] ICombinationSetNode node, [NotNull] GenerateOptions options)
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] IBranchNode node,
+                                              [NotNull] GenerateOptions options)
         {
-            if(node.Product == null)
+            IEnumerable<List<INode>> declarationCasesFacts = dir.Visit(node.Declaration, options);
+
+            if (declarationCasesFacts == null)
+                throw new ArgumentException("declarationCasesFacts is null");
+
+
+            if (node.Product == null)
+            {
+                // it is a LEAF 
+                foreach (List<INode> declarationCaseFacts in declarationCasesFacts)
+                {
+                    if (declarationCaseFacts == null)
+                        throw new InvalidOperationException("Visit returned a list of facts equal to null");
+
+                    yield return declarationCaseFacts;
+                }
+            }
+            else
+            {
+                // IT IS A BRANCH
+                IEnumerable<List<INode>> subBranchCasesFacts = dir.Visit(node.Product, options);
+
+                if (subBranchCasesFacts == null)
+                    throw new InvalidOperationException("Visit returned a list of facts equal to null");
+
+                // ReSharper disable PossibleMultipleEnumeration
+                if (!declarationCasesFacts.Any())
+                {
+                    foreach (List<INode> subBranchCaseFacts in subBranchCasesFacts)
+                    {
+                        if (subBranchCaseFacts == null)
+                            throw new InvalidOperationException("Visit returned a list containing an item equal to null");
+
+                        yield return subBranchCaseFacts;
+                    }
+                }
+                else
+                {
+                    foreach (List<INode> declarationCaseFacts in declarationCasesFacts)
+                    {
+                        if (declarationCaseFacts == null)
+                            throw new InvalidOperationException("Visit returned a list of facts equal to null");
+
+                        foreach (List<INode> subBranchCaseFacts in subBranchCasesFacts)
+                        {
+                            if (subBranchCaseFacts == null)
+                                throw new InvalidOperationException("Visit returned a list containing an item equal to null");
+
+                            yield return ListUtil.Concat(declarationCaseFacts, subBranchCaseFacts);
+                        }
+                    }
+                }
+                // ReSharper restore PossibleMultipleEnumeration
+            }
+        }
+
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] ICombinationSetNode node,
+                                              [NotNull] GenerateOptions options)
+        {
+            if (node.Product == null)
                 return Enumerable.Empty<List<INode>>();
 
             return Visit(dir, node.Product, options);
         }
 
-        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir, [NotNull] IProdNode node, [NotNull] GenerateOptions options)
-        {
-            if (options == null) throw new ArgumentNullException("options");
-
-            if (!node.Unions.Any())
-                return Enumerable.Empty<List<INode>>();
-            else
-                return ProduceCartesianProductRecursively(dir, node.Unions.ToList(), 0, options);
-
-        }
-
-        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir, [NotNull] IPairwiseProdNode node, [NotNull] GenerateOptions options)
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] IPairwiseProdNode node,
+                                              [NotNull] GenerateOptions options)
         {
             if (options == null) throw new ArgumentNullException("options");
 
@@ -83,65 +135,34 @@ namespace NCaseFramework.Back.Imp.CombinationSet
             }
         }
 
-        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir, [NotNull] IUnionNode node, [NotNull] GenerateOptions options)
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] IProdNode node,
+                                              [NotNull] GenerateOptions options)
+        {
+            if (options == null) throw new ArgumentNullException("options");
+
+            if (!node.Unions.Any())
+                return Enumerable.Empty<List<INode>>();
+            else
+                return ProduceCartesianProductRecursively(dir, node.Unions.ToList(), 0, options);
+        }
+
+        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
+                                              [NotNull] IUnionNode node,
+                                              [NotNull] GenerateOptions options)
         {
             foreach (IBranchNode branch in node.Branches)
             {
                 IEnumerable<List<INode>> branchCasesFacts = dir.Visit(branch, options);
-                
-                if (branchCasesFacts == null) 
+
+                if (branchCasesFacts == null)
                     throw new ArgumentException("branchCasesFacts is null");
 
-                foreach(List<INode> branchCaseFacts in branchCasesFacts)
+                foreach (List<INode> branchCaseFacts in branchCasesFacts)
                     yield return branchCaseFacts;
             }
         }
 
-        public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir, [NotNull] IBranchNode node, [NotNull] GenerateOptions options)
-        {
-            IEnumerable<List<INode>> declarationCasesFacts = dir.Visit(node.Declaration, options);
-            
-            if (declarationCasesFacts == null) 
-                throw new ArgumentException("declarationCasesFacts is null");
-
-            foreach (List<INode> declarationCaseFacts in declarationCasesFacts)
-            {
-                if (declarationCaseFacts == null)
-                {
-                    string msg = string.Format("Visit {0} returned a list of facts equal to null", node.Declaration);
-                    throw new InvalidOperationException(msg);
-                }
-
-                if(node.Product == null)
-                {
-                    // it is a LEAF 
-                    yield return declarationCaseFacts;
-                }
-                else
-                {
-                    // IT IS A BRANCH
-                    IEnumerable<List<INode>> subBranchCasesFacts = dir.Visit(node.Product, options);
-
-                    if (subBranchCasesFacts == null)
-                    {
-                        string msg = string.Format("Visit {0} returned a list of facts equal to null", node.Product);
-                        throw new InvalidOperationException(msg);
-                    }
-
-                    foreach (List<INode> subBranchCaseFacts in subBranchCasesFacts)
-                    {
-                        if (subBranchCaseFacts == null)
-                        {
-                            string msg = string.Format("Visit {0} returned a list containing an item equal to null", node.Product);
-                            throw new InvalidOperationException(msg);
-                        }
-
-                        yield return ListUtil.Concat(declarationCaseFacts, subBranchCaseFacts);
-                    }
-                }
-            }
-        }
-        
         [NotNull, ItemNotNull]
         private IEnumerable<List<INode>> ProduceCartesianProductRecursively([NotNull] IGenerateCasesDirector dir,
                                                                             [NotNull, ItemNotNull] List<IUnionNode> unions,
@@ -154,15 +175,12 @@ namespace NCaseFramework.Back.Imp.CombinationSet
             IEnumerable<List<INode>> currentUnionCases = dir.Visit(currentUnionNode, options);
 
             if (currentUnionCases == null)
-                throw new InvalidOperationException(string.Format("Visit of child {0} returned null", currentUnionNode));
+                throw new InvalidOperationException("Visit of child returned null");
 
             foreach (List<INode> caseFacts in currentUnionCases)
             {
                 if (caseFacts == null)
-                {
-                    string msg = string.Format("Visit of child {0} returned a case having the list of facts equal to null", currentUnionNode);
-                    throw new InvalidOperationException(msg);
-                }
+                    throw new InvalidOperationException("Visit returned a case having the list of facts equal to null");
 
                 if (isLastUnion)
                 {

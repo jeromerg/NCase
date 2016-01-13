@@ -51,12 +51,12 @@ namespace NCaseFramework.Front.Imp
         [NotNull]
         public override CombinationSetDefiner Define()
         {
-            return new CombinationSetDefinerImp(TokenStream, Begin, End);
+            return new CombinationSetDefinerImp(TokenStream, CodeLocationFactory, Begin, End);
         }
 
         protected override IToken CreateBeginToken()
         {
-            return new CombinationSetBeginToken(Id, Loc(), IsOnlyPairwiseProduct);
+            return new CombinationSetBeginToken(Id, GetCodeLocation(), IsOnlyPairwiseProduct);
         }
     }
 }

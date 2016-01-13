@@ -30,10 +30,29 @@ namespace NCaseFramework.Back.Imp.CombinationSet
                 return;
             }
             
-            AddChildRecursive(combinationSetNode.Product, nodeToAdd, combinationSetNode.IsOnlyPairwise);
+            INode previouslyAddedNode = GetPreviouslyAddedNodeRecursive(combinationSetNode.Product);
+
+            AddChildRecursive(combinationSetNode.Product, nodeToAdd, previouslyAddedNode, combinationSetNode.IsOnlyPairwise);
         }
 
-        private void AddChildRecursive([NotNull] IProdNode parentCandidate, [NotNull] INode nodeToAdd, bool isOnlyPairwise)
+        [NotNull]
+        private INode GetPreviouslyAddedNodeRecursive([NotNull] IProdNode product)
+        {
+            IUnionNode lastUnion = product.Unions.Last();
+            if (lastUnion == null) throw new ArgumentException("lastUnion is null"); // remark: resharper false negative
+
+            IBranchNode lastBranch = lastUnion.Branches.Last();
+            if (lastBranch == null) throw new ArgumentException("lastBranch is null"); // remark: resharper false negative
+
+            return lastBranch.Product != null 
+                ? GetPreviouslyAddedNodeRecursive(lastBranch.Product) 
+                : lastBranch.Declaration;
+        }
+
+        private void AddChildRecursive([NotNull] IProdNode parentCandidate, 
+            [NotNull] INode nodeToAdd, 
+            [NotNull] INode previouslyAddedNode,
+            bool isOnlyPairwise)
         {
             // GRAMMAR:
             // prod   := union (emptyline union)*
@@ -53,7 +72,7 @@ namespace NCaseFramework.Back.Imp.CombinationSet
 
             if (nodeToAddIndentation == currentProductIndentation)
             {
-                bool isNewUnion = ExistEmptyLineBetweenSiblings(lastBranch, nodeToAdd);
+                bool isNewUnion = ExistEmptyLineBetweenSiblings(previouslyAddedNode, nodeToAdd);
 
                 var newBranchNode = new BranchNode(new BranchId(), nodeToAdd.CodeLocation, nodeToAdd);
 
@@ -78,7 +97,7 @@ namespace NCaseFramework.Back.Imp.CombinationSet
                 }
                 else
                 {
-                    AddChildRecursive(lastBranch.Product, nodeToAdd, isOnlyPairwise); // recursion
+                    AddChildRecursive(lastBranch.Product, nodeToAdd, previouslyAddedNode, isOnlyPairwise); // recursion
                 }
             }
             else 
@@ -124,7 +143,7 @@ namespace NCaseFramework.Back.Imp.CombinationSet
             int previousSiblingLineIndex = GetLineIndex(previousSibling.CodeLocation);
             int nodeToAddLineIndex = GetLineIndex(nodeToAdd.CodeLocation);
 
-            for (int lineIndex = nodeToAddLineIndex-1; lineIndex > previousSiblingLineIndex; lineIndex--)
+            for (int lineIndex = nodeToAddLineIndex - 1; lineIndex > previousSiblingLineIndex; lineIndex--)
             {
                 string line = mFileCache.GetLine(fileName, lineIndex);
                 bool isEmptyLine = string.IsNullOrWhiteSpace(line);

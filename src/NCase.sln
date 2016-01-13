@@ -58,8 +58,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDocUtil", "NDocUtil\NDocUtil.csproj", "{E95016D2-61FD-4884-AC80-3630F54F30CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Legacy", "NCase.Legacy\NCase.Legacy.csproj", "{537FB79E-9F3A-4C8B-BAEC-1B8175BE61DD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCase.Core.Legacy", "NCase.Core.Legacy\NCase.Core.Legacy.csproj", "{41057C0B-6776-4458-ABEB-15866273516C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BADB59FB-1A14-42AF-B314-152C4787F437} = {BADB59FB-1A14-42AF-B314-152C4787F437}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -57,7 +57,7 @@
     <Compile Include="Ui\NCase.cs" />
     <Compile Include="Api\NCaseCoreModule.cs" />
     <Compile Include="Api\NCaseInterfaceRecPlayModule.cs" />
-    <Compile Include="Api\NCaseCombinationsModule.cs" />
+    <Compile Include="Api\NCaseCombinationSetModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Api\ServiceSet.cs" />
   </ItemGroup>

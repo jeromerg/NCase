@@ -38,7 +38,7 @@ namespace NCaseFramework.Doc.Shared
             cb.RegisterModule<NCaseInterfaceRecPlayModule>();
             cb.RegisterModule<NCaseSeqModule>();
             cb.RegisterModule<NCaseTreeModule>();
-            cb.RegisterModule<NCaseCombinationsModule>();
+            cb.RegisterModule<NCaseCombinationSetModule>();
             cb.RegisterModule<NCaseProdModule>();
             cb.RegisterModule<NCasePairwiseModule>();
 

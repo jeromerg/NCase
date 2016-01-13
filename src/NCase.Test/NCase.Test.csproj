@@ -62,17 +62,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RefInclusion\PairwiseCombinations_AllCombinations_Tests.cs" />
-    <Compile Include="RefInclusion\PairwiseCombinations_Tree_Tests.cs" />
-    <Compile Include="RefInclusion\RefTests.cs" />
-    <Compile Include="RefInclusion\AllCombinations_Tree_Tests.cs" />
+    <Compile Include="Legacy\RefInclusion\PairwiseCombinations_AllCombinations_Tests.cs" />
+    <Compile Include="Legacy\RefInclusion\PairwiseCombinations_Tree_Tests.cs" />
+    <Compile Include="Legacy\RefInclusion\RefTests.cs" />
+    <Compile Include="Legacy\RefInclusion\AllCombinations_Tree_Tests.cs" />
     <Compile Include="InterfaceRecPlayTests.cs" />
-    <Compile Include="PairwiseProductTests.cs" />
+    <Compile Include="Legacy\PairwiseProductTests.cs" />
     <Compile Include="PairwiseAlgorithmTests.cs" />
-    <Compile Include="AllCombinationsTests.cs" />
+    <Compile Include="Legacy\AllCombinationsTests.cs" />
     <Compile Include="CombinationsTests.cs" />
     <Compile Include="Util\LineUtil.cs" />
-    <Compile Include="TreeTests.cs" />
+    <Compile Include="Legacy\TreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

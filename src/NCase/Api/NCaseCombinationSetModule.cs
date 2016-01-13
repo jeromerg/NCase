@@ -2,12 +2,13 @@
 using Autofac;
 using NCaseFramework.Back.Imp.CombinationSet;
 using NCaseFramework.Front.Imp;
+using NUtil.Math.Combinatorics.Pairwise;
 
 namespace NCaseFramework.Front.Api
 {
     /// <summary> Requires NCaseCoreModule </summary>
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-    public class NCaseCombinationsModule : Module
+    public class NCaseCombinationSetModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -25,6 +26,10 @@ namespace NCaseFramework.Front.Api
 
             // PrintDefinition
             builder.RegisterType<PrintDefinitionVisitors>().AsImplementedInterfaces().SingleInstance();
+
+            // pairwise algorithm
+            builder.RegisterType<PairwiseGenerator>().As<IPairwiseGenerator>().SingleInstance();
+
         }
     }
 }
