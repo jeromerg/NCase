@@ -5,22 +5,23 @@ using JetBrains.Annotations;
 using Moq;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Ui;
+using NDocUtil;
 using NDsl.Front.Ui;
 using NUnit.Framework;
-using NUtil.Doc;
 using NUtil.Generics;
+using NCase = NCaseFramework.Doc.Shared.NCase;
 
-namespace NCaseFramework.doc
+namespace NCaseFramework.Doc
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
-    public class Readme
+    public class Introduction
     {
         // ReSharper disable once InconsistentNaming
-        [NotNull] private readonly DocUtil docu = new DocUtil("docu", @"c:\dev\NCase");
+        [NotNull] private readonly DocUtil docu = new DocUtil("docu");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
@@ -47,7 +48,7 @@ namespace NCaseFramework.doc
 
         public class TodoManager
         {
-            public void CreateTodo(ITodo todo) { }
+            public void AddTodo(ITodo todo) { }
         }
 
         DateTime now = new DateTime(2011, 11, 11, 0, 0, 0);
@@ -71,7 +72,7 @@ namespace NCaseFramework.doc
 
             // ACT
             var todoManager = new TodoManager();
-            todoManager.CreateTodo(todo);
+            todoManager.AddTodo(todo);
 
             // ASSERT
             //...
@@ -98,7 +99,7 @@ namespace NCaseFramework.doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -160,7 +161,7 @@ namespace NCaseFramework.doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -219,7 +220,7 @@ namespace NCaseFramework.doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -246,19 +247,19 @@ namespace NCaseFramework.doc
             using (set.Define())
             {
                 todo.Title = "Don't forget to forget";
-                //... alternative assignments
+                //... alternatives
 
                 todo.DueDate = yesterday;
-                //... alternative assignments
+                //... alternatives
 
                 todo.IsDone = false;
-                //... alternative assignments
+                //... alternatives
 
                 user.IsActive = true;
-                //... alternative assignments
+                //... alternatives
 
                 user.NotificationEmail = null;
-                //... alternative assignments
+                //... alternatives
             }
             //#
 
@@ -266,7 +267,7 @@ namespace NCaseFramework.doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -287,13 +288,13 @@ namespace NCaseFramework.doc
             using (todoSet.Define())
             {
                 todo.Title = "Don't forget to forget";
-                //... alternative assignments
+                //... alternatives
 
                 todo.DueDate = yesterday;
-                //... alternative assignments
+                //... alternatives
 
                 todo.IsDone = false;
-                //... alternative assignments
+                //... alternatives
             }
             //#
 
@@ -302,10 +303,10 @@ namespace NCaseFramework.doc
             using (userSet.Define())
             {
                 user.IsActive = true;
-                //... alternative assignments
+                //... alternatives
 
                 user.NotificationEmail = null;
-                //... alternative assignments
+                //... alternatives
 
             }
             //#
@@ -323,7 +324,7 @@ namespace NCaseFramework.doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -343,13 +344,13 @@ namespace NCaseFramework.doc
             using (todoSet.Define())
             {
                 todo.Title = "Don't forget to forget";
-                //... alternative assignments
+                //... alternatives
 
                 todo.DueDate = yesterday;
-                //... alternative assignments
+                //... alternatives
 
                 todo.IsDone = false;
-                //... alternative assignments
+                //... alternatives
 
             }
             //#
