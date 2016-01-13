@@ -48,7 +48,7 @@ todo.IsDone = false;
 
 // ACT
 var todoManager = new TodoManager();
-todoManager.CreateTodo(todo);
+todoManager.AddTodo(todo);
 
 // ASSERT
 //...
@@ -77,7 +77,7 @@ set.Cases().Replay().ActAndAssert(ea =>
 {
     // ACT
     var todoManager = new TodoManager();
-    todoManager.CreateTodo(todo);
+    todoManager.AddTodo(todo);
 
     // ASSERT
     //...
@@ -158,7 +158,7 @@ set.Cases().Replay().ActAndAssert(ea =>
 {
     // ACT
     var todoManager = new TodoManager();
-    todoManager.CreateTodo(todo);
+    todoManager.AddTodo(todo);
 
     // ASSERT
     //...
@@ -208,7 +208,7 @@ set.Cases().Replay().ActAndAssert(ea =>
 {
     // ACT
     var todoManager = new TodoManager();
-    todoManager.CreateTodo(todo);
+    todoManager.AddTodo(todo);
 
     // ASSERT
     //...

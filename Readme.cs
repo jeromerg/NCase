@@ -49,7 +49,7 @@ namespace NCaseFramework.Doc
 
         public class TodoManager
         {
-            public void CreateTodo(ITodo todo) { }
+            public void AddTodo(ITodo todo) { }
         }
 
         DateTime now = new DateTime(2011, 11, 11, 0, 0, 0);
@@ -73,7 +73,7 @@ namespace NCaseFramework.Doc
 
             // ACT
             var todoManager = new TodoManager();
-            todoManager.CreateTodo(todo);
+            todoManager.AddTodo(todo);
 
             // ASSERT
             //...
@@ -100,7 +100,7 @@ namespace NCaseFramework.Doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -162,7 +162,7 @@ namespace NCaseFramework.Doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -221,7 +221,7 @@ namespace NCaseFramework.Doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -268,7 +268,7 @@ namespace NCaseFramework.Doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
@@ -325,7 +325,7 @@ namespace NCaseFramework.Doc
             {
                 // ACT
                 var todoManager = new TodoManager();
-                todoManager.CreateTodo(todo);
+                todoManager.AddTodo(todo);
 
                 // ASSERT
                 //...
