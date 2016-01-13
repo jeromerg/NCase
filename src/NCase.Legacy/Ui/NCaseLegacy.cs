@@ -10,7 +10,7 @@ using NDsl.Front.Api;
 namespace NCaseFramework.Front.Ui
 {
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-    public static class NCase
+    public static class NCaseLegacy
     {
         [NotNull]
         public static CaseBuilder NewBuilder()
@@ -24,6 +24,11 @@ namespace NCaseFramework.Front.Ui
             cb.RegisterModule<NCaseInterfaceRecPlayModule>();
             cb.RegisterModule<NCaseCombinationsModule>();
             cb.RegisterGeneric(typeof (ServiceSet<>)).As(typeof (IServiceSet<>));
+
+            cb.RegisterModule<NCaseSeqModule>();
+            cb.RegisterModule<NCaseTreeModule>();
+            cb.RegisterModule<NCaseProdModule>();
+            cb.RegisterModule<NCasePairwiseModule>();
 
             IContainer container = cb.Build();
             return container.Resolve<IBuilderFactory>().Create();

@@ -23,7 +23,7 @@ namespace NCaseFramework.Test
         [Test]
         public void UnionTest()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -47,7 +47,7 @@ namespace NCaseFramework.Test
         [Test]
         public void ProductTest()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -70,7 +70,7 @@ namespace NCaseFramework.Test
         [Test]
         public void ProductTest2()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -107,7 +107,7 @@ namespace NCaseFramework.Test
         [Test]
         public void TreeTest()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -135,7 +135,7 @@ namespace NCaseFramework.Test
         [Test]
         public void TreeTest2()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -167,7 +167,7 @@ namespace NCaseFramework.Test
         [Test]
         public void TreeAndProductTest()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 
@@ -218,7 +218,7 @@ namespace NCaseFramework.Test
         [Test]
         public void ComplexTreeAndProductTest()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var c = caseBuilder.NewContributor<IContrib>("c");
             var set = caseBuilder.NewDefinition<CombinationSet>("set");
 

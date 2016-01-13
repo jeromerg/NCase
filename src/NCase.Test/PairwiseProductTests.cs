@@ -53,7 +53,7 @@ namespace NCaseFramework.Test
         public void Test_CartesianProduct_with_ref()
         {
             // Create a new builder
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
 
             // create a case contributor
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
@@ -130,7 +130,7 @@ namespace NCaseFramework.Test
         public void TestPairwiseProduct_TwoDimensions()
         {
             // Create a new builder
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
 
             // create a case contributor
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");

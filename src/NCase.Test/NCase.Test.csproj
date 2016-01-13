@@ -80,6 +80,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NCase.Core.Legacy\NCase.Core.Legacy.csproj">
+      <Project>{41057C0B-6776-4458-ABEB-15866273516C}</Project>
+      <Name>NCase.Core.Legacy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NCase.Legacy\NCase.Legacy.csproj">
+      <Project>{537FB79E-9F3A-4C8B-BAEC-1B8175BE61DD}</Project>
+      <Name>NCase.Legacy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NCase\NCase.csproj">
       <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
       <Name>NCase</Name>

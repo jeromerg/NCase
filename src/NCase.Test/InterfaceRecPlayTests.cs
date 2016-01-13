@@ -23,7 +23,7 @@ namespace NCaseFramework.Test
         [Test]
         public void AssignmentOutsideDef()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
 
             string line = LineUtil.GetLine(3);
@@ -43,7 +43,7 @@ namespace NCaseFramework.Test
         [Test]
         public void CallGetterInReplayModeButNotRecorded()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
             using (allPersonsAllAges.Define())
@@ -70,7 +70,7 @@ namespace NCaseFramework.Test
         [Test]
         public void CallGetterNotInReplayMode()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
 
             string line = LineUtil.GetLine(3);
@@ -90,7 +90,7 @@ namespace NCaseFramework.Test
         [Test]
         public void CallGetterNotInReplayMode2()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
             using (allPersonsAllAges.Define())
@@ -115,7 +115,7 @@ namespace NCaseFramework.Test
         [Test]
         public void CallSetterNotInRecordingMode()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
@@ -145,7 +145,7 @@ namespace NCaseFramework.Test
         [Test]
         public void CallSetterNotInRecordingMode2()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
@@ -175,7 +175,7 @@ namespace NCaseFramework.Test
         [Test]
         public void CallSetterNotInRecordingMode3()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
             var v2 = caseBuilder.NewContributor<IMyTestvalues>("v2");
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
@@ -206,7 +206,7 @@ namespace NCaseFramework.Test
         [Test]
         public void GetUnsetProperty()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
@@ -237,7 +237,7 @@ namespace NCaseFramework.Test
         [Test]
         public void RecPlay()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
@@ -256,7 +256,7 @@ namespace NCaseFramework.Test
         [Test]
         public void TwoProperties()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("allPersonsAllAges");
@@ -317,7 +317,7 @@ namespace NCaseFramework.Test
         [Test]
         public void Ref()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var names = caseBuilder.NewDefinition<Tree>("person_set");

@@ -128,7 +128,7 @@
     <Compile Include="Back.Api\Util\ICodeLocationFactory.cs" />
     <Compile Include="Back.Api\Util\IUserStackFrameUtil.cs" />
     <Compile Include="Back.Imp\Util\CodeLocationFactory.cs" />
-    <Compile Include="Back.Imp\Util\UserUserStackFrameUtil.cs" />
+    <Compile Include="Back.Imp\Util\UserStackFrameUtil.cs" />
     <Compile Include="Front.Imp\DefinerImp.cs" />
   </ItemGroup>
   <ItemGroup>

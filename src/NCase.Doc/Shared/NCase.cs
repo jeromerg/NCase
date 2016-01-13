@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Autofac;
 using JetBrains.Annotations;
+using NCaseFramework.Front;
 using NCaseFramework.Front.Api;
 using NDsl;
 using NDsl.Back.Api.Util;
@@ -30,7 +31,7 @@ namespace NCaseFramework.Doc.Shared
 
             // ReSharper disable once AssignNullToNotNullAttribute
             IEnumerable<Assembly> referencedAssemblies = Assembly.GetExecutingAssembly().GetReferencedAssemblies().Select(assemblyName => Assembly.Load(assemblyName));
-            var userUserStackFrameUtil = new UserUserStackFrameUtil(excludedAssemblies:referencedAssemblies);
+            var userUserStackFrameUtil = new UserStackFrameUtil(excludedAssemblies:referencedAssemblies);
             cb.RegisterModule(new NDslCoreModule(userUserStackFrameUtil));
             cb.RegisterModule<NDslRecPlayModule>();
             cb.RegisterModule<NCaseCoreModule>();

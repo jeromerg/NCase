@@ -24,7 +24,7 @@ namespace NCaseFramework.Test.RefInclusion
         [Test]
         public void Tree_In_pairwiseCombinations_Test()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var tree = caseBuilder.NewDefinition<Tree>("age_set");
@@ -78,7 +78,7 @@ namespace NCaseFramework.Test.RefInclusion
         [Test]
         public void pairwiseCombinations_As_TreeLeaf_Test()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var all = caseBuilder.NewDefinition<PairwiseCombinations>("all");
@@ -133,7 +133,7 @@ namespace NCaseFramework.Test.RefInclusion
         [Test]
         public void pairwiseCombinations_As_TreeNode_Test()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var all = caseBuilder.NewDefinition<PairwiseCombinations>("all");

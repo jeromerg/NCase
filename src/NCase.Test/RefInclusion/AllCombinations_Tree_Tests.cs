@@ -24,7 +24,7 @@ namespace NCaseFramework.Test.RefInclusion
         [Test]
         public void Tree_In_AllCombinations_Test()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var tree = caseBuilder.NewDefinition<Tree>("age_set");
@@ -97,7 +97,7 @@ namespace NCaseFramework.Test.RefInclusion
         [Test]
         public void AllCombinations_In_Tree_Test()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var all = caseBuilder.NewDefinition<AllCombinations>("all");

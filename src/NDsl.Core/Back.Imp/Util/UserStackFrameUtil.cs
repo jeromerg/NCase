@@ -7,7 +7,7 @@ using NDsl.Back.Api.Util;
 
 namespace NDsl.Back.Imp.Util
 {
-    public class UserUserStackFrameUtil : IUserStackFrameUtil
+    public class UserStackFrameUtil : IUserStackFrameUtil
     {
         /// <summary>Generated classes by Castle are located in following module </summary>
         private const string IN_MEMORY_MODULE_NAME = "<In Memory Module>";
@@ -16,7 +16,7 @@ namespace NDsl.Back.Imp.Util
         [NotNull, ItemNotNull] private readonly HashSet<Assembly> mExcludedAssemblies = new HashSet<Assembly>();
         [NotNull, ItemNotNull] private readonly HashSet<string> mExcludedNamespaces = new HashSet<string>();
 
-        public UserUserStackFrameUtil(
+        public UserStackFrameUtil(
             [ItemNotNull] IEnumerable<string> excludedModuleNames = null,
             [ItemNotNull] IEnumerable<Assembly> excludedAssemblies = null,
             [ItemNotNull] IEnumerable<string> excludedNamespaces = null)
@@ -34,11 +34,10 @@ namespace NDsl.Back.Imp.Util
             if(excludedAssemblies != null)
             {
                 foreach (Assembly excludedAssembly in excludedAssemblies)
-                {
                     // ReSharper disable once AssignNullToNotNullAttribute
                     ExcludeAssemblyAndReferenced(excludedAssembly);
-                }
             }
+
             if(excludedNamespaces != null)
             {
                 foreach (var excludedNamespace in excludedNamespaces)

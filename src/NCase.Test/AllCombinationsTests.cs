@@ -23,7 +23,7 @@ namespace NCaseFramework.Test
         [Test]
         public void UndefinedDef()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var allCombi = caseBuilder.NewDefinition<AllCombinations>("allCombi");
 
             string line = LineUtil.GetLine(3);
@@ -43,7 +43,7 @@ namespace NCaseFramework.Test
         [Test]
         public void DefinedTwice()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("allPersonsAllAges");
 
             string line = LineUtil.GetLine(4);
@@ -66,7 +66,7 @@ namespace NCaseFramework.Test
         [Test]
         public void EmptyDef()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
             using (allPersonsAllAges.Define())
@@ -80,7 +80,7 @@ namespace NCaseFramework.Test
         [Test]
         public void SingleAssignment()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var v = caseBuilder.NewContributor<IMyTestvalues>("v");
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("all");
 
@@ -99,7 +99,7 @@ namespace NCaseFramework.Test
         [Test]
         public void TwoProperties()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var allPersonsAllAges = caseBuilder.NewDefinition<AllCombinations>("allPersonsAllAges");
@@ -160,7 +160,7 @@ namespace NCaseFramework.Test
         [Test]
         public void Ref()
         {
-            CaseBuilder caseBuilder = NCase.NewBuilder();
+            CaseBuilder caseBuilder = NCaseLegacy.NewBuilder();
             var o = caseBuilder.NewContributor<IMyTestvalues>("o");
 
             var names = caseBuilder.NewDefinition<Tree>("person_set");
