@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 namespace NUtil.Linq
 {
-    public static class DictionaryCascadeExtensions
+    public static class CascadeExtensions
     {
         public static T CascadeAdd<TKey, T>([NotNull] this Dictionary<TKey, T> dict, [NotNull] TKey key) 
             where T : new()
@@ -27,9 +27,11 @@ namespace NUtil.Linq
             hasSet.Add(item);
         }
 
-        public static IEnumerable<T> CascadeRemove<TKey, T>([CanBeNull] this Dictionary<TKey, T> dict, TKey key)
+        public static IEnumerable<T> CascadeRemove<TKey, T>([CanBeNull] this Dictionary<TKey, T> dict, [NotNull] TKey key)
             where T : IEnumerable
         {
+            if (key == null) throw new ArgumentNullException("key");
+
             return CascadeRemove(Enumerable.Repeat(dict, 1), key);
         }
 

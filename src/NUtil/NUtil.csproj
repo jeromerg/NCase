@@ -48,7 +48,7 @@
     <Compile Include="File\CallerUtil.cs" />
     <Compile Include="Generics\Holder.cs" />
     <Compile Include="Generics\IHolder.cs" />
-    <Compile Include="Linq\DictionaryCascadeExtensions.cs" />
+    <Compile Include="Linq\CascadeExtensions.cs" />
     <Compile Include="Linq\LinqForeachExtensions.cs" />
     <Compile Include="Math\Combinatorics\Pairwise\DimValue.cs" />
     <Compile Include="Math\Combinatorics\Pairwise\IPairwiseGenerator.cs" />
