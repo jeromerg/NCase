@@ -38,6 +38,7 @@ namespace NDocUtil
         [NotNull] private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
 
         public DocUtil([NotNull] string codeExcludedLineRegexString,
+                       int tabIndentation = 4,
                        [NotNull, CallerFilePath] string filePath = "")
         {
             if (codeExcludedLineRegexString == null) throw new ArgumentNullException("codeExcludedLineRegexString");
@@ -51,12 +52,12 @@ namespace NDocUtil
             mFileNameWithoutExtension = callerFileNameWithoutExtension;
 
             var markdownSnippetRegex = new Regex(MARKDOWN_SNIPPET_REGEX_STRING, RegexOptions.Singleline | RegexOptions.Multiline);
-            mMarkdownSnippetParser = new SnippetParser(markdownSnippetRegex, null);
+            mMarkdownSnippetParser = new SnippetParser(markdownSnippetRegex, null, tabIndentation);
 
             string codeSnippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CODE_SNIPPET_MARKER);
             var codeSnippetRegex = new Regex(codeSnippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
             var codeExcludedLineRegex = new Regex(codeExcludedLineRegexString);
-            mCodeSnippetParser = new SnippetParser(codeSnippetRegex, codeExcludedLineRegex);
+            mCodeSnippetParser = new SnippetParser(codeSnippetRegex, codeExcludedLineRegex, tabIndentation);
         }
 
         public void BeginRecordConsole([NotNull] string snippetName, [CanBeNull] Func<string, string> postProcessing = null)

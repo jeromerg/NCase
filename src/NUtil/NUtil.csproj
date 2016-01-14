@@ -45,7 +45,6 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="File\CallerUtil.cs" />
     <Compile Include="Generics\Holder.cs" />
     <Compile Include="Generics\IHolder.cs" />
     <Compile Include="Linq\CascadeExtensions.cs" />

@@ -25,7 +25,7 @@ namespace NUtil.Text
         }
 
         [NotNull]
-        public static string Desindent([NotNull] this string txt)
+        public static string Desindent([NotNull] this string txt, int tabIndentation)
         {
             if (txt == null) throw new ArgumentNullException("txt");
 
@@ -35,7 +35,7 @@ namespace NUtil.Text
                 return txt;
 
             // ReSharper disable once AssignNullToNotNullAttribute
-            int indentMin = lines.Min(line => GetIndent(line));
+            int indentMin = lines.Min(line => GetIndent(line, tabIndentation));
 
             var sb = new StringBuilder();
             foreach (string line in lines)
@@ -47,7 +47,7 @@ namespace NUtil.Text
             return sb.ToString();
         }
 
-        private static int GetIndent([NotNull] string s)
+        private static int GetIndent([NotNull] string s, int tabIndentation)
         {
             if (s == null) throw new ArgumentNullException("s");
 
@@ -57,7 +57,7 @@ namespace NUtil.Text
                 switch (c)
                 {
                     case '\t':
-                        result += 4;
+                        result += tabIndentation;
                         break;
                     case ' ':
                         result += 1;

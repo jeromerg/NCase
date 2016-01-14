@@ -10,15 +10,17 @@ namespace NDocUtil.Snippets
 {
     public class SnippetParser
     {
+        private readonly int mTabIndentation;
         [NotNull] private readonly Regex mSnippetRegex;
         [CanBeNull] private readonly Regex mExcludedLineRegex;
 
-        public SnippetParser([NotNull] Regex snippetMarkerRegex, [CanBeNull] Regex excludedLineRegex)
+        public SnippetParser([NotNull] Regex snippetMarkerRegex, [CanBeNull] Regex excludedLineRegex, int tabIndentation)
         {
             if (snippetMarkerRegex == null) throw new ArgumentNullException("snippetMarkerRegex");
 
             mSnippetRegex = snippetMarkerRegex;
             mExcludedLineRegex = excludedLineRegex;
+            mTabIndentation = tabIndentation;
         }
 
         [NotNull]
@@ -52,7 +54,7 @@ namespace NDocUtil.Snippets
 
                 Console.WriteLine("Snippet: '{0}'", snippetName);
 
-                string unindentedBodyLines = TextExtensions.Desindent(snippetBody);
+                string unindentedBodyLines = TextExtensions.Desindent(snippetBody, mTabIndentation);
 
                 IEnumerable<string> unindentedAndIncludedLines = unindentedBodyLines
                     .Split(new[] {Environment.NewLine}, StringSplitOptions.None)
