@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -7,33 +8,39 @@ namespace NUtil.Linq
 {
     public static class DictionaryCascadeExtensions
     {
-        public static T CascadeAdd<T>([NotNull] this Dictionary<int, T> dict, int key) where T : new()
+        public static T CascadeAdd<TKey, T>([NotNull] this Dictionary<TKey, T> dict, [NotNull] TKey key) 
+            where T : new()
         {
+            if (key == null) throw new ArgumentNullException("key");
+
             T t;
-            if (!dict.TryGetValue(key, out t))
-            {
-                t = new T();
-                dict.Add(key, t);
-            }
+            if (dict.TryGetValue(key, out t)) 
+                return t;
+
+            t = new T();
+            dict.Add(key, t);
             return t;
         }
 
-        public static void CascadeAdd([NotNull] this HashSet<int> hasSet, int key)
+        public static void CascadeAdd<T>([NotNull] this HashSet<T> hasSet, T item)
         {
-            hasSet.Add(key);
+            hasSet.Add(item);
         }
 
-        public static IEnumerable<T> CascadeRemove<T>([CanBeNull] this Dictionary<int, T> dict, int key)
+        public static IEnumerable<T> CascadeRemove<TKey, T>([CanBeNull] this Dictionary<TKey, T> dict, TKey key)
             where T : IEnumerable
         {
             return CascadeRemove(Enumerable.Repeat(dict, 1), key);
         }
 
-        public static IEnumerable<T> CascadeRemove<T>([NotNull, ItemNotNull] this IEnumerable<Dictionary<int, T>> dictEnumerable,
-                                                      int key)
+        public static IEnumerable<T> CascadeRemove<TKey, T>(
+            [NotNull, ItemNotNull] this IEnumerable<Dictionary<TKey, T>> dictEnumerable,
+            [NotNull] TKey key)
             where T : IEnumerable
         {
-            foreach (Dictionary<int, T> dict in dictEnumerable)
+            if (key == null) throw new ArgumentNullException("key");
+
+            foreach (Dictionary<TKey, T> dict in dictEnumerable)
             {
                 T t;
                 if (!dict.TryGetValue(key, out t))
@@ -48,13 +55,13 @@ namespace NUtil.Linq
             }
         }
 
-        public static void CascadeRemove<T>([NotNull, ItemNotNull] this IEnumerable<HashSet<T>> hashSetEnumerable, T key)
+        public static void CascadeRemove<TKey>([NotNull, ItemNotNull] this IEnumerable<HashSet<TKey>> hashSetEnumerable, TKey key)
         {
-            foreach (HashSet<T> set in hashSetEnumerable)
+            foreach (HashSet<TKey> set in hashSetEnumerable)
                 set.Remove(key);
         }
 
-        public static T CascadeFirstOut<T>([CanBeNull] this Dictionary<int, T> dict, out int key)
+        public static T CascadeFirst<T>([CanBeNull] this Dictionary<int, T> dict, out int key)
         {
             if (dict == null)
             {
@@ -73,7 +80,7 @@ namespace NUtil.Linq
             return pair.Value;
         }
 
-        public static bool CascadeFirstOut([CanBeNull] this HashSet<int> hashSet, out int key)
+        public static bool CascadeFirst([CanBeNull] this HashSet<int> hashSet, out int key)
         {
             if (hashSet == null)
             {
@@ -91,7 +98,7 @@ namespace NUtil.Linq
             return true;
         }
 
-        public static T CascadeFirst<T>([CanBeNull] this Dictionary<int, T> dict, int key)
+        public static T CascadeGet<T>([CanBeNull] this Dictionary<int, T> dict, int key)
         {
             if (dict == null)
                 return default(T);
@@ -103,17 +110,6 @@ namespace NUtil.Linq
             dict.TryGetValue(key, out next);
 
             return next;
-        }
-
-        public static bool CascadeFirst([CanBeNull] this HashSet<int> hashSet, int key)
-        {
-            if (hashSet == null)
-                return false;
-
-            if (!hashSet.Any())
-                return false;
-
-            return hashSet.Contains(key);
         }
     }
 }

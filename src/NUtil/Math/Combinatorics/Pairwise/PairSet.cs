@@ -72,10 +72,10 @@ namespace NUtil.Math.Combinatorics.Pairwise
         {
             int val1, val2;
             bool ok = mPairs
-                .CascadeFirst(dim1Constraint)
-                .CascadeFirst(dim2Constraint)
-                .CascadeFirstOut(out val1)
-                .CascadeFirstOut(out val2);
+                .CascadeGet(dim1Constraint)
+                .CascadeGet(dim2Constraint)
+                .CascadeFirst(out val1)
+                .CascadeFirst(out val2);
 
             return ok
                        ? new Pair(dim1Constraint, val1, dim2Constraint, val2)
@@ -86,10 +86,10 @@ namespace NUtil.Math.Combinatorics.Pairwise
         {
             int val2;
             bool ok = mPairs
-                .CascadeFirst(dim1Constraint)
-                .CascadeFirst(dim2Constraint)
-                .CascadeFirst(val1Constraint)
-                .CascadeFirstOut(out val2);
+                .CascadeGet(dim1Constraint)
+                .CascadeGet(dim2Constraint)
+                .CascadeGet(val1Constraint)
+                .CascadeFirst(out val2);
 
             return ok
                        ? new Pair(dim1Constraint, val1Constraint, dim2Constraint, val2)

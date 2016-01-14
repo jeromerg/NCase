@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace NUtil.Linq
 {
-    public static class LinqDoExtensions
+    public static class LinqForeachExtensions
     {
 
         public static void ForEach<T>([NotNull] this IEnumerable<T> thisEnumerable, [NotNull] Action<T> func)

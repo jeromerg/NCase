@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="Legacy\RefInclusion\PairwiseCombinations_AllCombinations_Tests.cs" />
     <Compile Include="Legacy\RefInclusion\PairwiseCombinations_Tree_Tests.cs" />
-    <Compile Include="Legacy\RefInclusion\RefTests.cs" />
     <Compile Include="Legacy\RefInclusion\AllCombinations_Tree_Tests.cs" />
     <Compile Include="InterfaceRecPlayTests.cs" />
     <Compile Include="Legacy\PairwiseProductTests.cs" />
