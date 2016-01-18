@@ -8,13 +8,16 @@ namespace NUtil.Linq
 {
     public static class CascadeExtensions
     {
-        public static T CascadeAdd<TKey, T>([NotNull] this Dictionary<TKey, T> dict, [NotNull] TKey key) 
+        public static T CascadeAdd<TKey, T>(
+            [NotNull] this Dictionary<TKey, T> dict, 
+            [NotNull] TKey key)
             where T : new()
         {
+            if (dict == null) throw new ArgumentNullException("dict");
             if (key == null) throw new ArgumentNullException("key");
 
             T t;
-            if (dict.TryGetValue(key, out t)) 
+            if (dict.TryGetValue(key, out t))
                 return t;
 
             t = new T();
@@ -22,15 +25,12 @@ namespace NUtil.Linq
             return t;
         }
 
-        public static void CascadeAdd<T>([NotNull] this HashSet<T> hasSet, T item)
-        {
-            hasSet.Add(item);
-        }
-
-        public static IEnumerable<T> CascadeRemove<TKey, T>([CanBeNull] this Dictionary<TKey, T> dict, [NotNull] TKey key)
+        public static IEnumerable<T> CascadeRemove<TKey, T>(
+            [NotNull] this Dictionary<TKey, T> dict,
+            [NotNull] TKey key)
             where T : IEnumerable
         {
-            if (key == null) throw new ArgumentNullException("key");
+            if (dict == null) throw new ArgumentNullException("dict");
 
             return CascadeRemove(Enumerable.Repeat(dict, 1), key);
         }
@@ -57,51 +57,66 @@ namespace NUtil.Linq
             }
         }
 
-        public static void CascadeRemove<TKey>([NotNull, ItemNotNull] this IEnumerable<HashSet<TKey>> hashSetEnumerable, TKey key)
+        public static bool CascadeRemove<TVal>(
+            [NotNull, ItemNotNull] this IEnumerable<ICollection<TVal>> collectionEnumerable,
+            TVal value)
         {
-            foreach (HashSet<TKey> set in hashSetEnumerable)
-                set.Remove(key);
+            bool removed = false;
+            foreach (ICollection<TVal> set in collectionEnumerable)
+                removed |= set.Remove(value);
+
+            return removed;
         }
 
-        public static T CascadeFirst<T>([CanBeNull] this Dictionary<int, T> dict, out int key)
+        public static T CascadeTryFirst<TKey, T>(
+            [CanBeNull] this Dictionary<TKey, T> dict,
+            out TKey key,
+            TKey fallbackKey = default(TKey))
         {
             if (dict == null)
             {
-                key = -1;
+                key = fallbackKey;
                 return default(T);
             }
 
             if (!dict.Any())
             {
-                key = -1;
+                key = fallbackKey;
                 return default(T);
             }
 
-            KeyValuePair<int, T> pair = dict.First();
+            KeyValuePair<TKey, T> pair = dict.First();
             key = pair.Key;
             return pair.Value;
         }
 
-        public static bool CascadeFirst([CanBeNull] this HashSet<int> hashSet, out int key)
+        public static bool CascadeTryFirst<TKey>(
+            [CanBeNull] this ICollection<TKey> collection,
+            out TKey key,
+            TKey fallbackKey = default(TKey))
         {
-            if (hashSet == null)
+            if (collection == null)
             {
-                key = -1;
+                key = fallbackKey;
                 return false;
             }
 
-            if (!hashSet.Any())
+            if (!collection.Any())
             {
-                key = -1;
+                key = fallbackKey;
                 return false;
             }
 
-            key = hashSet.First();
+            key = collection.First();
             return true;
         }
 
-        public static T CascadeGet<T>([CanBeNull] this Dictionary<int, T> dict, int key)
+        public static T CascadeGetOrDefault<TKey, T>(
+            [CanBeNull] this Dictionary<TKey, T> dict,
+            [NotNull] TKey key)
         {
+            if (key == null) throw new ArgumentNullException("key");
+
             if (dict == null)
                 return default(T);
 
