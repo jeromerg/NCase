@@ -8,6 +8,7 @@ using NDocUtil;
 using NUnit.Framework;
 using NUtil.Linq;
 using NUtil.Math.Combinatorics.Pairwise;
+using NUtil.Text;
 
 namespace NUtil.Doc
 {
@@ -71,7 +72,8 @@ namespace NUtil.Doc
                 //# LinqForEachExtensions2
                 var set = Enumerable.Range(0, 10);
                 
-                set.ForEach(v => Console.Write(v), () => Console.Write(", "));
+                set.ForEach( v => Console.Write(v), 
+                            () => Console.Write(", "));
                 
                 //#
                 docu.StopRecordConsole();
@@ -83,7 +85,8 @@ namespace NUtil.Doc
                 //# LinqForEachExtensions3
                 var set = Enumerable.Range(0, 10);
                 
-                set.ForEach(v => SendToServer(v), () => Thread.Sleep(10));
+                set.ForEach( v => SendToServer(v), 
+                            () => Thread.Sleep(10));
                 
                 //#
             }
@@ -127,25 +130,34 @@ namespace NUtil.Doc
         {
 
             //# CascadeExtensions_Def
-            var stats = new Dictionary<string,                // Country
+            var model = new Dictionary<string,                // Country
                                 Dictionary<string,            // City
-                                        HashSet<int>>>();     // Year of Visit
+                                        HashSet<string>>>();  // Street
             //#
 
             {
                 //# CascadeExtensions_CascadeAdd
-                stats.CascadeAdd("FR").CascadeAdd("Paris").Add(2010);
-                stats.CascadeAdd("FR").CascadeAdd("Paris").Add(2011);
-                stats.CascadeAdd("DE").CascadeAdd("Mainz").Add(2013);
+                model.CascadeAdd("FR").CascadeAdd("Paris").Add("Rue de la paix");
+                model.CascadeAdd("FR").CascadeAdd("Paris").Add("Rue de Paradis");
+                model.CascadeAdd("DE").CascadeAdd("Mainz").Add("Gutenbergplatz");
                 //#
             }
 
             {
                 docu.BeginRecordConsole("CascadeExtensions_Indexer_Console");
                 //# CascadeExtensions_Indexer
-                var years = stats["FR"]["Paris"];
+                var streets1 = model["FR"]["Paris"];
 
-                Console.WriteLine("years = {0}", string.Join(", ", years));
+                Console.WriteLine("Street in Paris: {0}", string.Join(", ", streets1));
+
+                try
+                {
+                    var streets2 = model["Switzerland"]["Lausanne"]; // UNREGISTERED COUNTRY!
+                }
+                catch (KeyNotFoundException e)
+                {
+                    Console.WriteLine("Streets in Lausanne: KeyNotFoundException has been thrown");
+                }
                 //#
                 docu.StopRecordConsole();
             }
@@ -153,15 +165,16 @@ namespace NUtil.Doc
             {
                 docu.BeginRecordConsole("CascadeExtensions_CascadeGetOrDefault_Console");
                 //# CascadeExtensions_CascadeGetOrDefault
-                var yearsSafe1  = stats.CascadeGetOrDefault("FR")
-                                       .CascadeGetOrDefault("Paris");
+                var safeStreets1  = model.CascadeGetOrDefault("FR")
+                                         .CascadeGetOrDefault("Paris");
 
-                Console.WriteLine("yearsSafe1 = {0}", string.Join(", ", yearsSafe1));
+                Console.WriteLine("Streets in Paris : {0}", string.Join(", ", safeStreets1));
 
-                var yearsSafe2 = stats.CascadeGetOrDefault("FR")
-                                      .CascadeGetOrDefault("Lyon");
+                var safeStreets2 = model.CascadeGetOrDefault("Switzerland") // UNREGISTERED COUNTRY!
+                                        .CascadeGetOrDefault("Lausanne"); 
 
-                Console.WriteLine("yearsSafe2 is null? {0} (no exception)", yearsSafe2 == null ? "true" : "false");
+                if(safeStreets2 == null)
+                    Console.WriteLine("No street found in Lausanne");
                 //#
                 docu.StopRecordConsole();
             }
@@ -169,14 +182,13 @@ namespace NUtil.Doc
             {
                 docu.BeginRecordConsole("CascadeExtensions_CascadeTryFirst_Console");
                 //# CascadeExtensions_CascadeTryFirst
-                string country,city;
-                int year;
-                bool ok = stats.CascadeTryFirst(out country)
+                string country,city, street;
+                bool ok = model.CascadeTryFirst(out country)
                                .CascadeTryFirst(out city)
-                               .CascadeTryFirst(out year);
+                               .CascadeTryFirst(out street);
 
-                Console.WriteLine("CascadeTryFirst: ok={0}, country={1}, city={2}, year={3}", 
-                                  ok, country, city, year);
+                Console.WriteLine("CascadeTryFirst: ok={0}, country={1}, city={2}, street={3}", 
+                                  ok, country, city, street);
                 //#
                 docu.StopRecordConsole();
             }
@@ -184,23 +196,48 @@ namespace NUtil.Doc
             {
                 docu.BeginRecordConsole("CascadeExtensions_CascadeRemove_Console");
                 //# CascadeExtensions_CascadeRemove
-                bool isRemoved1 = stats
+                bool isRemoved1 = model
                     .CascadeRemove("FR")
                     .CascadeRemove("Paris")
-                    .CascadeRemove(2011);
+                    .CascadeRemove("Rue de la paix");
 
                 Console.WriteLine("isRemoved1= {0}", isRemoved1);
 
-                bool isRemoved2 = stats
+                bool isRemoved2 = model
                     .CascadeRemove("FR")
                     .CascadeRemove("Paris")
-                    .CascadeRemove(2052);
+                    .CascadeRemove("Trafalgar Square");
 
                 Console.WriteLine("isRemoved2= {0}", isRemoved2);
                 //#
                 docu.StopRecordConsole();
             }
         }
+
+        [Test]
+        public void Doc_TextExtensions()
+        {
+            {
+                //# TextExtensions_Lines_JoinLines
+                string txt = "one line\nand a second line";
+                IEnumerable<string> lines = txt.Lines();
+                string rejoinedLines = lines.JoinLines();
+                //#
+            }
+
+            {
+                docu.BeginRecordConsole("TextExtensions_Desindent_Console");
+                //# TextExtensions_Desindent
+                string txt = "    I was originally indented!";
+
+                string desindentedTxt = txt.Desindent(tabIndentation:4);
+
+                Console.WriteLine("Before: {0}\nAfter :{1}", txt, desindentedTxt);
+                //#
+                docu.StopRecordConsole();
+            }            
+        }
+
     }
 
 }

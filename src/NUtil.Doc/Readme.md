@@ -15,7 +15,27 @@ Install-Package NUtil
 Content
 -------
 
-### Pairwise Generator
+Here is the list of utilities:
+
+- [Pairwise Generator](#pairwise)
+- [ForEach](#foreach)
+- [Quadratic Processing](#quadratic)
+    - [CartesianProduct](#cartesianproduct)
+	- [TriangularProductWithoutDiagonal](#triangularproductwithoutdiagonal)
+- [Processing of Chained Dictionaries](#chaineddictionary)
+	- [CascadeAdd](#cascadeadd)
+	- [CascadeRemove](#cascaderemove)
+	- [Unsafe Indexer](#unsafeindexer)
+	- [CascadeGetOrDefault](#cascadegetordefault)
+	- [CascadeTryFirst](#cascadetryfirst)
+- [String Processing](#stringprocessing)
+	- [CascadeAdd](#cascadeadd)
+	- [Lines and JoinLines](#lines)
+	- [Desindent](#desindent)
+
+
+### Pairwise Generator 
+<a name="pairwise"></a>
 
 Considering a list of discrete and finite sets, the `PairwiseGenerator ` generates a list of tuples ensuring that all pairs between all sets pairwise appear at least once. 
 
@@ -42,12 +62,20 @@ Tuple #5:  2, 1, 1
 Tuple #6:  0, 0, 1
 Tuple #7:  0, 1, 0
 ```
-
+ 
 This pairwise generator is used in [NCase] as an alternative to the default cartesian product, in order to reduce the amount of generated test cases. More about pairwise testing [here][pair].
 
-### Linq ForEach
+#### About the algorithm
+- The implementation is very compact: the main algorithm contains only 51 lines of code 
+- Simple tests show good results
+	- The algorithm tries to distribute the re-use of pairs among the whole set of pairs, by introducing a concept of generations
+	- Further quantitative and qualitative analysis are required to evaluate precisely the properties of the algorithm
+- Simple tests show good performance: The generation of tuple is lazy, resulting in low initial pre-processing time. Only the available set of pairs have to be generated at startup time.
 
-Every Util framework re-implements the following ForEach extension method:
+### ForEach (Linq)
+<a name="foreach"></a>
+
+Every utility framework re-implements the following ForEach extension method:
 
 <!--# LinqForEachExtensions1 -->
 ```C#
@@ -67,7 +95,8 @@ The following overload is a little bit more interesting, as it enables placing a
 ```C#
 var set = Enumerable.Range(0, 10);
 
-set.ForEach(v => Console.Write(v), () => Console.Write(", "));
+set.ForEach( v => Console.Write(v), 
+            () => Console.Write(", "));
 ```
 Output:
 <!--# LinqForEachExtensions2_Console -->
@@ -75,18 +104,21 @@ Output:
 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 ```
 
-It is an alternative to the Linq `Aggregate(...)` function and the `string.Join(...)` static method, in order to perform aggregations. But the following use has no counterpart in the C# framework:
+It is an alternative to the Linq `Aggregate(...)` function and the `string.Join(...)` static method, in order to perform aggregations. But the following usage has no counterpart in the C# framework:
 
 <!--# LinqForEachExtensions3 -->
 ```C#
 var set = Enumerable.Range(0, 10);
 
-set.ForEach(v => SendToServer(v), () => Thread.Sleep(10));
+set.ForEach( v => SendToServer(v), 
+            () => Thread.Sleep(10));
 ```
 
-### Linq Quadratic Processing
+### Quadratic Processing (Linq)
+<a name="quadratic"></a>
 
 #### CartesianProduct
+<a name="cartesianproduct"></a>
 
 <!--# QuadraticExtensions -->
 ```C#
@@ -118,6 +150,7 @@ return from in1 in first
 But the wrapper enables to elegantly chain the cartesian product with other transformations. 
 
 #### TriangularProductWithoutDiagonal
+<a name="triangularproductwithoutdiagonal"></a>
 
 <!--# TriangularProductWithoutDiagonal -->
 ```C#
@@ -136,98 +169,165 @@ Output:
 (1, 2)
 ```
 
-### Chained Dictionaries Processing
+### Processing of Chained Dictionaries
+<a name="chaineddictionary"></a>
 
 <!--# CascadeExtensions_Def -->
 
-Let's say, you want to list year by year the city that you visited. You need to aggregate the values by city and by country. You can use the following model:
+Let's say, you need a model for the triplet (country, city, street). You can use the following model:
 ```C#
-var stats = new Dictionary<string,                // Country
-                    Dictionary<string,            // City
-                            HashSet<int>>>();     // Year of Visit
+var stats = new Dictionary<string,               // Country
+                    Dictionary<string,           // City
+                            HashSet<string>>>(); // Street
 ```
 
-The first thing to to is to add
+The purpose of the `CascadeExtensions` class is to provide extension methods that reduces as much as possible the need of `if-else` statements to handle this kind of model composed of chained dictionaries.
+
+#### CascadeAdd
+<a name="cascadeadd"></a>
 
 <!--# CascadeExtensions_CascadeAdd -->
 ```C#
-stats.CascadeAdd("FR").CascadeAdd("Paris").Add(2010);
-stats.CascadeAdd("FR").CascadeAdd("Paris").Add(2011);
-stats.CascadeAdd("DE").CascadeAdd("Mainz").Add(2013);
+model.CascadeAdd("FR").CascadeAdd("Paris").Add("Rue de la paix");
+model.CascadeAdd("FR").CascadeAdd("Paris").Add("Rue de Paradis");
+model.CascadeAdd("DE").CascadeAdd("Mainz").Add("Gutenbergplatz");
 ```
 
-<!--# CascadeExtensions_Indexer -->
-```C#
-var years1 = stats["FR"]["Paris"];
-
-Console.WriteLine("years1 = {0}", string.Join(", ", years1));
-```
-
-<!--# CascadeExtensions_Indexer_Console -->
-```
-years1 = 2010, 2011
-```
-
-<!--# CascadeExtensions_CascadeGetOrDefault -->
-```C#
-var yearsSafe1  = stats.CascadeGetOrDefault("FR")
-                       .CascadeGetOrDefault("Paris");
-
-Console.WriteLine("yearsSafe1 = {0}", string.Join(", ", yearsSafe1));
-
-var yearsSafe2 = stats.CascadeGetOrDefault("FR")
-                      .CascadeGetOrDefault("Lyon");
-
-Console.WriteLine("yearsSafe2 is null? {0} (no exception)", yearsSafe2 == null ? "true" : "false");
-```
-
-<!--# CascadeExtensions_CascadeGetOrDefault_Console -->
-```
-yearsSafe1 = 2010, 2011
-yearsSafe2 is null? true (no exception)
-```
-
-<!--# CascadeExtensions_CascadeTryFirst -->
-```C#
-string country,city;
-int year;
-bool ok = stats.CascadeTryFirst(out country)
-               .CascadeTryFirst(out city)
-               .CascadeTryFirst(out year);
-
-Console.WriteLine("CascadeTryFirst: ok={0}, country={1}, city={2}, year={3}", 
-                   ok, country, city, year);
-```
-
-<!--# CascadeExtensions_CascadeTryFirst_Console -->
-```
-CascadeTryFirst: ok=True, country=FR, city=Paris, year=2010
-```
+#### CascadeRemove
+<a name="cascaderemove"></a>
 
 <!--# CascadeExtensions_CascadeRemove -->
 ```C#
-bool isRemoved1 = stats
+bool isRemoved1 = model
     .CascadeRemove("FR")
     .CascadeRemove("Paris")
-    .CascadeRemove(2011);
+    .CascadeRemove("Rue de la paix");
 
 Console.WriteLine("isRemoved1= {0}", isRemoved1);
 
-bool isRemoved2 = stats
+bool isRemoved2 = model
     .CascadeRemove("FR")
     .CascadeRemove("Paris")
-    .CascadeRemove(2052);
+    .CascadeRemove("Trafalgar Square");
 
 Console.WriteLine("isRemoved2= {0}", isRemoved2);
 ```
 
+Output:
 <!--# CascadeExtensions_CascadeRemove_Console -->
 ```C#
 isRemoved1= True
 isRemoved2= False
 ```
 
+#### Unsafe Indexer 
+<a name="unsafeindexer"></a>
+
+You can get items from the model by using the indexer defined in the `Dictionary` class. But this indexer is unsafe: it throws an exception if the key does not exist.
+
+<!--# CascadeExtensions_Indexer -->
+```C#
+var streets1 = model["FR"]["Paris"];
+
+Console.WriteLine("Street in Paris: {0}", string.Join(", ", streets1));
+
+try
+{
+    var streets2 = model["Switzerland"]["Lausanne"]; // UNREGISTERED COUNTRY!
+}
+catch (KeyNotFoundException e)
+{
+    Console.WriteLine("Streets in Lausanne: KeyNotFoundException has been thrown");
+}
+```
+
+Output:
+
+<!--# CascadeExtensions_Indexer_Console -->
+```
+Street in Paris: Rue de la paix, Rue de Paradis
+Streets in Lausanne: KeyNotFoundException has been thrown
+```
+
+#### CascadeGetOrDefault
+<a name="cascadegetordefault"></a>
+
+So if you need a safe get implementation, you can use the `.CascadeGetOrDefault()` extension method:
+
+<!--# CascadeExtensions_CascadeGetOrDefault -->
+```C#
+var safeStreets1  = model.CascadeGetOrDefault("FR")
+                         .CascadeGetOrDefault("Paris");
+
+Console.WriteLine("Streets in Paris : {0}", string.Join(", ", safeStreets1));
+
+var safeStreets2 = model.CascadeGetOrDefault("Switzerland") // UNREGISTERED COUNTRY!
+                        .CascadeGetOrDefault("Lausanne"); 
+
+if(safeStreets2 == null)
+    Console.WriteLine("No street found in Lausanne");
+```
+
+Output: 
+<!--# CascadeExtensions_CascadeGetOrDefault_Console -->
+```
+Streets in Paris : Rue de la paix, Rue de Paradis
+No street found in Lausanne
+```
+
+#### CascadeTryFirst
+<a name="cascadetryfirst"></a>
+
+<!--# CascadeExtensions_CascadeTryFirst -->
+```C#
+string country,city, street;
+bool ok = model.CascadeTryFirst(out country)
+               .CascadeTryFirst(out city)
+               .CascadeTryFirst(out street);
+
+Console.WriteLine("CascadeTryFirst: ok={0}, country={1}, city={2}, street={3}", 
+                  ok, country, city, street);
+```
+
+<!--# CascadeExtensions_CascadeTryFirst_Console -->
+```
+CascadeTryFirst: ok=True, country=FR, city=Paris, street=Rue de la paix
+```
+
 ### String Processing
+<a name="stringprocessing"></a>
+
+#### Lines and JoinLines
+<a name="lines"></a>
+
+The `.Lines()` extension method enables splitting a string into an enumeration of lines, whereas `.JoinLines()` enables to join a enumeration of lines into a single string:
+<!--# TextExtensions_Lines_JoinLines -->
+```C#
+string txt = "one line\nand a second line";
+IEnumerable<string> lines = txt.Lines();
+string rejoinedLines = lines.JoinLines();
+```
+
+#### Desindent
+<a name="desindent"></a>
+
+The `.Desindent()` allows to removed the indentation of a string:
+<!--# TextExtensions_Desindent -->
+```C#
+string txt = "    I was originally indented!";
+
+string desindentedTxt = txt.Desindent(tabIndentation:4);
+
+Console.WriteLine("Before: {0}\nAfter :{1}", txt, desindentedTxt);
+```
+
+Output: 
+
+<!--# TextExtensions_Desindent_Console -->
+```C#
+Before:     I was originally indented!
+After :I was originally indented!
+```
 
 
 [NCase]: https://github.com/jeromerg/NCase

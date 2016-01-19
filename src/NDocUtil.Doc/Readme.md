@@ -28,6 +28,30 @@ Sample
 
 The following example illustrates all features at once:
 
+```C#
+[TestFixture]
+public class MyDocumentation
+{
+    private readonly DocUtil docu = new DocUtil("docu");
 
+    [TestFixtureTearDown]
+    public void UpdateMarkdownFile()
+    {
+        docu.UpdateDocAssociatedToThisFile();
+    }
+
+    [Test]
+    public void PairwiseGenerator()
+    {
+        //# MY_CODE_SNIPPET
+        var now = DateTime.Now;
+        //#
+
+        docu.BeginRecordConsole("MY_CONSOLE_SNIPPET");
+        Console.WriteLine("This line will be exported into the console snippet");
+        docu.StopRecordConsole();
+    }
+}
+```
 
 [NCase]: https://github.com/jeromerg/NCase
