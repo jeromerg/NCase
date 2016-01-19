@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace NDocUtil.ExportToImage.WinApi
+namespace NDocUtilLibrary.ExportToImage.WinApi
 {
     /// <summary>
     ///     Utility for Win32 API.

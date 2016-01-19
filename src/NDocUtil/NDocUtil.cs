@@ -7,13 +7,13 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using ColorCode;
 using JetBrains.Annotations;
-using NDocUtil.ConsoleUtil;
-using NDocUtil.ExportToImage;
-using NDocUtil.Snippets;
+using NDocUtilLibrary.ConsoleUtil;
+using NDocUtilLibrary.ExportToImage;
+using NDocUtilLibrary.Snippets;
 
-namespace NDocUtil
+namespace NDocUtilLibrary
 {
-    public class DocUtil
+    public class NDocUtil
     {
         private const string SNIPPET_REGEX_STRING_ARG0_MARKER =
             @"(?<=^\s*{0}\s+(?<name>\w+)\W*?\r\n)(?<body>.*?)(?=\r\n[ \t]*(?:{0}|\Z))";
@@ -22,7 +22,6 @@ namespace NDocUtil
             @"(?<=^\s*<!--#\s+(?<name>\w+)\s*-->[^\r\n]*\r\n```[^\r\n]*\r\n)(?<body>.*?)(?=\r\n[ \t]*```)";
 
         private const string DOC_FILE_EXTENSION = ".md";
-        private const string SNIPPET_RAW_FILE_EXTENSION = ".snippet";
         private const string SNIPPET_HTML_TEMPLATE = "<html><body>\n{0}\n</html></body>";
 
         private const string CODE_SNIPPET_MARKER = @"//#";
@@ -37,7 +36,7 @@ namespace NDocUtil
         [NotNull] private readonly SnippetParser mCodeSnippetParser;
         [NotNull] private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
 
-        public DocUtil([NotNull] string codeExcludedLineRegexString,
+        public NDocUtil([NotNull] string codeExcludedLineRegexString,
                        int tabIndentation = 4,
                        [NotNull, CallerFilePath] string filePath = "")
         {
@@ -83,15 +82,41 @@ namespace NDocUtil
             mMarkdownSnippetParser.SubstituteFileSnippets(docPath, allSnippetDictionary);
         }
 
-        public void SaveSnippets()
+        public void SaveSnippetsAsRaw([NotNull] string fileExtension = ".snippet")
         {
+            if (fileExtension == null) throw new ArgumentNullException("fileExtension");
+
             foreach (Snippet sn in GetAllSnippets())
             {
-                string path = BuildSnippetFilePath(sn.Name, SNIPPET_RAW_FILE_EXTENSION);
+                string path = BuildSnippetFilePath(sn.Name, fileExtension);
 
                 LogSaving(path);
 
                 File.WriteAllText(path, sn.Body);
+
+                LogSaved(path);
+            }
+        }
+
+        public void SaveSnippetsAsHtml([NotNull] string htmlSnippetDecorator = "{0}", [NotNull] string fileExtension = ".html")
+        {
+            if (htmlSnippetDecorator == null) throw new ArgumentNullException("htmlSnippetDecorator");
+            if (fileExtension == null) throw new ArgumentNullException("fileExtension");
+
+            foreach (Snippet sn in GetAllSnippets())
+            {
+                string path = BuildSnippetFilePath(sn.Name, fileExtension);
+
+                LogSaving(path);
+
+                ILanguage language = sn.Source == ConsoleRecorder.CONSOLE_SOURCE_NAME
+                                         ? Languages.PowerShell
+                                         : Languages.CSharp;
+
+                string divSnippet = mCodeColorizer.Colorize(sn.Body, language);
+                string htmlSnippet = string.Format(htmlSnippetDecorator, divSnippet);
+
+                File.WriteAllText(path, htmlSnippet);
 
                 LogSaved(path);
             }

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace NDocUtil.ExportToImage.WinApi
+namespace NDocUtilLibrary.ExportToImage.WinApi
 {
     [StructLayout(LayoutKind.Sequential)]
     internal struct BlendFunction

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NDocUtil.Snippets
+namespace NDocUtilLibrary.Snippets
 {
     [Flags]
     public enum SnippetType

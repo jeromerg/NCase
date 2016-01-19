@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using JetBrains.Annotations;
-using NDocUtil;
+using NDocUtilLibrary;
 using NUnit.Framework;
 using NUtil.Linq;
 using NUtil.Math.Combinatorics.Pairwise;
@@ -23,7 +23,7 @@ namespace NUtil.Doc
     public class Readme
     {
         // ReSharper disable once InconsistentNaming
-        [NotNull] private readonly DocUtil docu = new DocUtil("docu");
+        [NotNull] private readonly NDocUtil docu = new NDocUtil("docu");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()

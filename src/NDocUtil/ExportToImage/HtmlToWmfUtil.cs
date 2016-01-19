@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using NDocUtil.ExportToImage.WinApi;
+using NDocUtilLibrary.ExportToImage.WinApi;
 using TheArtOfDev.HtmlRenderer.WinForms;
 
-namespace NDocUtil.ExportToImage
+namespace NDocUtilLibrary.ExportToImage
 {
     public class HtmlToWmfUtil
     {

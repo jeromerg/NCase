@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Imaging;
 using JetBrains.Annotations;
-using NDocUtil;
+using NDocUtilLibrary;
 using NUnit.Framework;
 
 namespace NCaseFramework.Doc.Slides
@@ -14,7 +14,7 @@ namespace NCaseFramework.Doc.Slides
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
     public class Presentation
     {
-        [NotNull] private readonly DocUtil docu = new DocUtil("docu");
+        [NotNull] private readonly NDocUtil docu = new NDocUtil("docu");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()

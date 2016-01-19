@@ -3,7 +3,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace NDocUtil.ExportToImage
+namespace NDocUtilLibrary.ExportToImage
 {
     public static class MetafileExtensions
     {
