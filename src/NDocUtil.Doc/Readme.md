@@ -5,14 +5,14 @@ NDocUtil enables to automatically maintain C# and console snippets in your docum
 
 You declare snippets in unit tests. After that, you can automatically:
 
-- Update the snippets contained in your markdown documentation 
-- Export the snippets as row file, colored html fragment or colored image, either pixel-image like PNG, BMP... or lossless EMF/WMF image.
+- Inject them into the related markdown document, and keep it up-to-date 
+- Export the snippets as row file, colored html fragment, colored image, pixel-image  (PNG, BMP...) and lossless image (EMF/WMF).
 
 Have you ever made a powerpoint presentation containing code snippets? The maintenance of code snippets is a nightmare! With *NDocUtil*, it is a dream :-) The code snippets are refreshed automatically at each build!
   
 *NDocUtil* was primarly developed to write the documentation for the [NCase] project. 
 
-let's see how it works...
+Let's see how it works...
 
 Installation
 ------------
@@ -23,10 +23,62 @@ In the Nuget Package Manager Console:
 Install-Package NDocUtil
 ```
 
-Maintaining Markdown documentation
+Use with markdown documentation
 ----------------------------------
 
-In a C# project, you need two files in the same folder, with the same name. One must have the `*.markdown` extension, the other the `*.cs` extension. For example [MyDocumentation.markdown][MyDocumentation_markdown] and [MyDocumentation.cs][MyDocumentation_cs].
+Imagine, you write the following documentation in a file called [MyDocumentation.markdown][MyDocumentation_markdown]:
+
+	MyDocumentation Example
+	=======================
+	
+	Here is how you get the ISO 8601 date:
+
+	```C#
+    var someDate = new DateTime(2011, 11, 11, 11, 11, 11);
+	Console.WriteLine(someDate.ToString("o"));
+	```
+	
+    Output:
+
+	```
+	2011-11-11T11:11:11.0000000Z
+	```
+
+Now, you want to inject the code blocks directly from real lines of code. In this way, you avoid writing mistakes and you can automatically upgrade the documentation.
+
+You will have to proceed as follows:
+
+### Add placeholders in the markdown file
+
+Edit the previous markdown document as follows:
+	MyDocumentation Example
+	=======================
+	
+	Here is how you get the ISO 8601 date:
+
+	<!--# MY_CODE_SNIPPET -->
+	```C#
+    var someDate = new DateTime(2011, 11, 11, 11, 11, 11);
+	Console.WriteLine(someDate.ToString("o"));
+	```
+	
+    Output:
+
+	<!--# MY_CONSOLE_SNIPPET -->
+	```
+	2011-11-11T11:11:11.0000000Z
+	```
+
+We added over the code blocks the following html comments:
+
+    <!--# CODE_SNIPPET_TO_INJECT -->
+
+*NDocUtil* recognizes this syntax and injects the snippet named `CODE_SNIPPET_TO_INJECT` into the code block.
+
+### Write the C# Unit Test generating the snippets
+
+TODO HERE
+Add a csharp file next to You need to add a file with the same name in the same folder: [MyDocumentation.cs][MyDocumentation_cs].
 
 The csharp file is used to generate the snippets and to update the code blocks located in the markdown file. Here is an example: 
 

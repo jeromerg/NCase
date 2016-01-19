@@ -1,18 +1,17 @@
 MyDocumentation Example
 =======================
 
-This code snippet is refreshed on every unit test run:
+Here is how you get the ISO 8601 date:
 
 <!--# MY_CODE_SNIPPET -->
 ```C#
-var now = DateTime.Now; // this line will be included
+var someDate = new DateTime(2011, 11, 11, 11, 11, 11);
+Console.WriteLine(someDate.ToString("o"));
 ```
 
-As well as the following console snippet:
+Output:
 
 <!--# MY_CONSOLE_SNIPPET -->
 ```
-This line will be exported into the console snippet
+2011-11-11T11:11:11.0000000
 ```
-
-Bingo!
