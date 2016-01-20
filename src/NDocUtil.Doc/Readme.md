@@ -44,13 +44,16 @@ Imagine, you write the following documentation in a file called [MyDocumentation
 	2011-11-11T11:11:11.0000000Z
 	```
 
-Now, you want to inject the code blocks directly from real lines of code. In this way, you avoid writing mistakes and you can automatically upgrade the documentation.
+Instead of writing the code blocks yourself in the documentation, NDocUtil can inject code from a real scenario. It ensures that you don't write mistakes, and the documentation is refreshed during the build process, whatever the refactoring you performed.
 
-You will have to proceed as follows:
+You need to proceed as follows:
 
 ### Add placeholders in the markdown file
 
-Add placeholders into the the previous markdown document:
+First, you need to define placeholders in the markdown document, where the snippets will be injected. A placeholder consists of a code block preceded by a html comment looking like `<!--# SNIPPET_NAME -->`, where `SNIPPET_NAME` is the name of the snippet to inject. 
+
+The previous document looks like:
+
 	MyDocumentation Example
 	=======================
 	
@@ -69,28 +72,23 @@ Add placeholders into the the previous markdown document:
 	2011-11-11T11:11:11.0000000Z
 	```
 
-The addition consists of the following html comments over the code blocks:
-
-    <!--# CODE_SNIPPET_TO_INJECT -->
-
-*NDocUtil* recognizes this syntax and injects the snippet with the same name, here `CODE_SNIPPET_TO_INJECT`, into the code block.
-
 #### Remark
-if you introduce a new code block for the first time, you need to add at least one character in side the code block:
+if you introduce a new code block for the first time, you need to add at least one character inside the code block:
 
 	<!--# MY_CONSOLE_SNIPPET -->
 	```
 	at least one character here!
 	```
 
-Elsewhere the code snippet is not inserted properly.
-
+...elsewhere the code snippet will not be injected.
 
 ### Generate snippets and update the markdown file
 
-Write the code snippets as unit test in a file with the same name in the same folder as the documentation. Thus, in the example, the file must be named [MyDocumentation.cs][MyDocumentation_cs]. Add this file to any C# project. If the file is not in a subfolder of the project, you must add it as a link ([see here][addaslink]).
+Now, you can write the real code snippets as unit test. The file must have the same name without extension as the markdown file and must be located in the same folder as the documentation file. Therefore, in the example, we name the file [MyDocumentation.cs][MyDocumentation_cs]. 
 
-The csharp file is used to generate the snippets and to update the code blocks located in the markdown file. Here is the example corresponding to the previous markdown document: 
+You need to add this file to a C# project. If the file is not in a subfolder of the project, you must add it as a link ([see here the msdn documentation][addaslink]).
+
+In the example the file looks like: 
 
     [TestFixture]
     public class MyDocumentation
@@ -119,8 +117,8 @@ The csharp file is used to generate the snippets and to update the code blocks l
 
 - Here we use NUnit, but you can use any other test framework
 - The instance of `NDocUtil` is used to record the snippets and update the documentation
-	- The argument `docu` in `new NDocUtil("docu")` is a (regex) tag that can be used to hide rows of code snippets
-- The call to `docu.UpdateDocAssociatedToThisFile()` performs the documentation update at the end of the unit test run (fixture tear down method), so that the console snippets are correctly recorded
+	- The argument `docu` in `new NDocUtil("docu")` is a (regex) tag that can be used to hide rows in code snippets
+- The call to `docu.UpdateDocAssociatedToThisFile()` performs the documentation update. It is located in the fixture tear down method. It ensures that the console records have been recorded before.
 - The code snippets are declared with the following syntax:
 
       //# NAME_OF_THE_SNIPPET
@@ -137,11 +135,17 @@ The csharp file is used to generate the snippets and to update the code blocks l
 	- Nesting is not supported
 	- The exclusion tag doesn't apply to console snippets
 
-Now every time that you execute the unit tests of the test fixture, then the markdown document is refreshed automatically.
+That's it! Now every time that you execute the unit tests of the test fixture, then the markdown document is refreshed automatically.
 
-Maintaining Powerpoint presentation
+Exporting snippets
+------------------
+
+Instead of updating a markdown documentation, you can export the snippets.
+
+
+
+Maintaining snippets in Powerpoint presentation
 -----------------------------------
-
 
 
 [MyDocumentation_markdown]: MyDocumentation.markdown 
