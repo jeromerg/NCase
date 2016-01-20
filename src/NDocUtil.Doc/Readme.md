@@ -5,11 +5,11 @@ NDocUtil enables to automatically maintain C# and console snippets in your docum
 
 You declare snippets in unit tests. After that, you can automatically:
 
-- Inject them into the related markdown document, and keep it up-to-date 
+- Inject them into the related markdown documentation, and keep them up-to-date 
 - Export the snippets as row file, colored html fragment, colored image, pixel-image  (PNG, BMP...) and lossless image (EMF/WMF).
 
-Have you ever made a powerpoint presentation containing code snippets? The maintenance of code snippets is a nightmare! With *NDocUtil*, it is a dream :-) The code snippets are refreshed automatically at each build!
-  
+Have you ever made a powerpoint presentation containing code snippets? The maintenance of code snippets is a nightmare! With *NDocUtil*, the code snippets are refreshed automatically every build!
+
 *NDocUtil* was primarly developed to write the documentation for the [NCase] project. 
 
 Let's see how it works...
@@ -24,14 +24,14 @@ Install-Package NDocUtil
 ```
 
 Use with markdown documentation
-----------------------------------
+-------------------------------
 
 Imagine, you write the following documentation in a file called [MyDocumentation.markdown][MyDocumentation_markdown]:
 
 	MyDocumentation Example
 	=======================
 	
-	Here is how you get the ISO 8601 date:
+	Here is how you print out the ISO 8601 date:
 
 	```C#
     var someDate = new DateTime(2011, 11, 11, 11, 11, 11);
@@ -50,7 +50,7 @@ You will have to proceed as follows:
 
 ### Add placeholders in the markdown file
 
-Edit the previous markdown document as follows:
+Add placeholders into the the previous markdown document:
 	MyDocumentation Example
 	=======================
 	
@@ -69,49 +69,58 @@ Edit the previous markdown document as follows:
 	2011-11-11T11:11:11.0000000Z
 	```
 
-We added over the code blocks the following html comments:
+The addition consists of the following html comments over the code blocks:
 
     <!--# CODE_SNIPPET_TO_INJECT -->
 
-*NDocUtil* recognizes this syntax and injects the snippet named `CODE_SNIPPET_TO_INJECT` into the code block.
+*NDocUtil* recognizes this syntax and injects the snippet with the same name, here `CODE_SNIPPET_TO_INJECT`, into the code block.
 
-### Write the C# Unit Test generating the snippets
+#### Remark
+if you introduce a new code block for the first time, you need to add at least one character in side the code block:
 
-TODO HERE
-Add a csharp file next to You need to add a file with the same name in the same folder: [MyDocumentation.cs][MyDocumentation_cs].
+	<!--# MY_CONSOLE_SNIPPET -->
+	```
+	at least one character here!
+	```
 
-The csharp file is used to generate the snippets and to update the code blocks located in the markdown file. Here is an example: 
+Elsewhere the code snippet is not inserted properly.
 
-```C#
-[TestFixture]
-public class MyDocumentation
-{
-    private readonly NDocUtil docu = new NDocUtil("docu");
 
-    [TestFixtureTearDown]
-    public void UpdateMarkdownFile()
+### Generate snippets and update the markdown file
+
+Write the code snippets as unit test in a file with the same name in the same folder as the documentation. Thus, in the example, the file must be named [MyDocumentation.cs][MyDocumentation_cs]. Add this file to any C# project. If the file is not in a subfolder of the project, you must add it as a link ([see here][addaslink]).
+
+The csharp file is used to generate the snippets and to update the code blocks located in the markdown file. Here is the example corresponding to the previous markdown document: 
+
+    [TestFixture]
+    public class MyDocumentation
     {
-        docu.UpdateDocAssociatedToThisFile();
-    }
+        private readonly NDocUtil docu = new NDocUtil("docu");
 
-    [Test]
-    public void PairwiseGenerator()
-    {
-        //# MY_CODE_SNIPPET
-        var now = DateTime.Now;
-        var this_Row_Will_Be_Hidden = "as it contains the tag 'docu'";
-        //#
+        [TestFixtureTearDown]
+        public void UpdateMarkdownFile()
+        {
+            docu.UpdateDocAssociatedToThisFile();
+        }
 
-        docu.BeginRecordConsole("MY_CONSOLE_SNIPPET");
-        Console.WriteLine("This line will be exported into the console snippet");
-        docu.StopRecordConsole();
+        [Test]
+        public void PairwiseGenerator()
+        {
+            docu.BeginRecordConsole("MY_CONSOLE_SNIPPET");
+
+            //# MY_CODE_SNIPPET
+            var someDate = new DateTime(2011, 11, 11, 11, 11, 11);
+            Console.WriteLine(someDate.ToString("o"));
+            //#
+
+            docu.StopRecordConsole();
+        }
     }
-}
-```
 
 - Here we use NUnit, but you can use any other test framework
 - The instance of `NDocUtil` is used to record the snippets and update the documentation
 	- The argument `docu` in `new NDocUtil("docu")` is a (regex) tag that can be used to hide rows of code snippets
+- The call to `docu.UpdateDocAssociatedToThisFile()` performs the documentation update at the end of the unit test run (fixture tear down method), so that the console snippets are correctly recorded
 - The code snippets are declared with the following syntax:
 
       //# NAME_OF_THE_SNIPPET
@@ -119,44 +128,16 @@ public class MyDocumentation
 	  //#
     - Nesting is not supported 
     - There is no escape character, so you can't write `//#` at the beginning of a line inside the snippet
-    - Lines containing the exclusion tag are excluded from the snippet (here "docu")
-- The console snippets are recorded with the following calls:
+    - Lines containing the exclusion tag are excluded from the snippet
+- The console snippets are recorded with the following syntax:
 
        docu.BeginRecordConsole("NAME_OF_THE_SNIPPET");
-       ... calls echoing to the console
+       ... C# statements echoing to the console
        docu.StopRecordConsole();
 	- Nesting is not supported
 	- The exclusion tag doesn't apply to console snippets
-- The call to `docu.UpdateDocAssociatedToThisFile()` updates the documentation at the end of the unit test run, as it is located in the test fixture tear down method. 
 
-The markdown file `MyDocumentation.markdown` looks like as follows: 
-
-	MyDocumentation Example
-	=======================
-	
-	This code snippet is refreshed on every unit test run:
-	
-	<!--# MY_CODE_SNIPPET -->
-	```C#
-	var now = DateTime.Now; // this line will be included
-	```
-	
-	As well as the following console snippet:
-	
-	<!--# MY_CONSOLE_SNIPPET -->
-	```
-	This line will be exported into the console snippet
-	```
-
-    Bingo!
-
-- The syntax for the snippet placeholders is as follows:
-
-      <!--# NAME_OF_SNIPPET -->
-      ```
-          ... code snippet is inserted here
-      ``` 
-    - When you introduce a new code block for the first time, you must put at least one character inside the two  ```
+Now every time that you execute the unit tests of the test fixture, then the markdown document is refreshed automatically.
 
 Maintaining Powerpoint presentation
 -----------------------------------
@@ -166,3 +147,4 @@ Maintaining Powerpoint presentation
 [MyDocumentation_markdown]: MyDocumentation.markdown 
 [MyDocumentation_cs]: MyDocumentation.cs 
 [NCase]: https://github.com/jeromerg/NCase
+[addaslink]: https://msdn.microsoft.com/de-de/library/windows/apps/jj714082%28v=vs.105%29.aspx?f=255&MSPPError=-2147217396

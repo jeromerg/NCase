@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using Moq;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Ui;
-using NDocUtil;
+using NDocUtilLibrary;
 using NDsl.Front.Ui;
 using NUnit.Framework;
 using NUtil.Generics;
@@ -21,7 +21,7 @@ namespace NCaseFramework.Doc
     public class Introduction
     {
         // ReSharper disable once InconsistentNaming
-        [NotNull] private readonly DocUtil docu = new DocUtil("docu");
+        [NotNull] private readonly NDocUtil docu = new NDocUtil("docu");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()

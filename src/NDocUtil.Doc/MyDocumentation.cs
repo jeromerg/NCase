@@ -18,12 +18,14 @@ namespace NUtil.Doc
         [Test]
         public void PairwiseGenerator()
         {
+            docu.BeginRecordConsole("MY_CONSOLE_SNIPPET");
+
             //# MY_CODE_SNIPPET
             var someDate = new DateTime(2011, 11, 11, 11, 11, 11);
-            docu.BeginRecordConsole("MY_CONSOLE_SNIPPET");
             Console.WriteLine(someDate.ToString("o"));
-            docu.StopRecordConsole();
             //#
+
+            docu.StopRecordConsole();
         }
     }
 
