@@ -7,7 +7,7 @@ namespace NDocUtilLibrary.ExportToImage
 {
     public static class MetafileExtensions
     {
-        public static void SaveAsEmf(this Metafile me, string fileName)
+        public static void SaveAsVectorEmf(this Metafile me, string fileName)
         {
             /* http://social.msdn.microsoft.com/Forums/en-US/csharpgeneral/thread/12a1c749-b320-4ce9-aff7-9de0d7fd30ea 
                 How to save or serialize a Metafile: Solution found 

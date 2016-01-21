@@ -36,12 +36,10 @@ namespace NDocUtilLibrary
         [NotNull] private readonly SnippetParser mCodeSnippetParser;
         [NotNull] private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
 
-        public NDocUtil([NotNull] string codeExcludedLineRegexString,
+        public NDocUtil([CanBeNull] string codeExcludedLineRegexString = null,
                        int tabIndentation = 4,
                        [NotNull, CallerFilePath] string filePath = "")
         {
-            if (codeExcludedLineRegexString == null) throw new ArgumentNullException("codeExcludedLineRegexString");
-
             mFilePath = filePath;
             string callerFileDir = Path.GetDirectoryName(filePath);
             if (callerFileDir == null) throw new ArgumentException("callerFileDir is null");
@@ -55,7 +53,9 @@ namespace NDocUtilLibrary
 
             string codeSnippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CODE_SNIPPET_MARKER);
             var codeSnippetRegex = new Regex(codeSnippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
-            var codeExcludedLineRegex = new Regex(codeExcludedLineRegexString);
+            var codeExcludedLineRegex = codeExcludedLineRegexString != null 
+                                            ? new Regex(codeExcludedLineRegexString)
+                                            : null;
             mCodeSnippetParser = new SnippetParser(codeSnippetRegex, codeExcludedLineRegex, tabIndentation);
         }
 
@@ -138,8 +138,22 @@ namespace NDocUtilLibrary
                 string divSnippet = mCodeColorizer.Colorize(sn.Body, language);
                 string htmlSnippet = string.Format(SNIPPET_HTML_TEMPLATE, divSnippet);
 
-                Metafile image = HtmlToWmfUtil.Convert(htmlSnippet);
-                image.SaveAsEmf(path);
+                Metafile image = HtmlToMetafileUtil.Convert(htmlSnippet);
+
+                switch (imageFormat)
+                {
+                    case ImageFormat.Bmp:
+                        image.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
+                        break;
+                    case ImageFormat.Png:
+                        image.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+                        break;
+                    case ImageFormat.Emf:
+                        image.SaveAsVectorEmf(path);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("imageFormat", imageFormat, null);
+                }
 
                 LogSaved(path);
             }
@@ -180,24 +194,14 @@ namespace NDocUtilLibrary
         [NotNull]
         private string BuildAssociatedDocFilePath()
         {
-            string docFilePath = string.Format("{0}{1}{2}{3}",
-                                               mFileDir,
-                                               Path.DirectorySeparatorChar,
-                                               mFileNameWithoutExtension,
-                                               DOC_FILE_EXTENSION);
+            string docFilePath = string.Format("{0}{1}{2}{3}", mFileDir, Path.DirectorySeparatorChar, mFileNameWithoutExtension, DOC_FILE_EXTENSION);
             return docFilePath;
         }
 
         [NotNull]
-        private string BuildSnippetFilePath(
-            [NotNull] string fileNameWithoutExtension,
-            [NotNull] string fileExtension)
+        private string BuildSnippetFilePath([NotNull] string fileNameWithoutExtension, [NotNull] string fileExtension)
         {
-            string docPath = string.Format("{0}{1}{2}{3}",
-                                           mFileDir,
-                                           Path.DirectorySeparatorChar,
-                                           fileNameWithoutExtension,
-                                           fileExtension);
+            string docPath = string.Format("{0}{1}{2}{3}", mFileDir, Path.DirectorySeparatorChar, fileNameWithoutExtension, fileExtension);
             return docPath;
         }
     }

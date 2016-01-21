@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using JetBrains.Annotations;
 using NDocUtilLibrary.ExportToImage.WinApi;
 using TheArtOfDev.HtmlRenderer.WinForms;
 
 namespace NDocUtilLibrary.ExportToImage
 {
-    public class HtmlToWmfUtil
+    public class HtmlToMetafileUtil
     {
+        [NotNull]
         public static Metafile Convert(string htmlSnippet)
         {
             Metafile image;

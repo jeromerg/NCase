@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing.Imaging;
 using NDocUtilLibrary;
 using NUnit.Framework;
 
@@ -8,12 +7,11 @@ namespace NUtil.Doc
     [TestFixture]
     public class Readme
     {
-        private readonly NDocUtil docu = new NDocUtil("docu");
+        private readonly NDocUtil docu = new NDocUtil();
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-
             //# SaveSnippetsAsRaw
             docu.SaveSnippetsAsRaw();
             //#
@@ -38,6 +36,7 @@ namespace NUtil.Doc
             docu.SaveSnippetsAsImage(ImageFormat.Emf);
             //#
 
+            docu.UpdateDocAssociatedToThisFile();
         }
 
         [Test]
