@@ -1,7 +1,7 @@
 NDocUtil
 ========
 
-NDocUtil injects and keep up-to-date C# and console snippets in your documentation and presentations. 
+NDocUtil injects and keeps up-to-date C# and console snippets in your documentation and presentations. 
 
 You declare snippets in unit tests. After that, you can automatically:
 
@@ -9,8 +9,8 @@ You declare snippets in unit tests. After that, you can automatically:
 - Export the snippets as
 	- Text file, 
 	- Colored HTML fragment, 
-	- Bitmap images (PNG, BMP...),
-	- Vector images (EMF/WMF).
+	- Bitmap image (PNG, BMP),
+	- Vector image (EMF).
 
 Have you ever made a Powerpoint presentation containing code snippets? The maintenance of code snippets is a nightmare! With *NDocUtil*, the code snippets are refreshed automatically every build!
 
@@ -48,7 +48,7 @@ Imagine, you write the following documentation in a file called [MyDocumentation
 	2011-11-11T11:11:11.0000000Z
 	```
 
-Instead of writing the code blocks yourself in the documentation, NDocUtil can inject the lines of code from a real scenario. It ensures that you don't write mistakes, and that the documentation is refreshed during the build process, whatever the refactoring you performed.
+Instead of writing the code blocks yourself in the documentation, NDocUtil can inject the lines of code from a real scenario. It ensures that you don't write mistakes, and that the documentation is refreshed during the build process, whatever the refactoring you perform.
 
 You need to proceed as follows:
 
@@ -78,23 +78,22 @@ The previous document looks like after the change:
 
 *Remarks*
 
-- if you introduce a new code block for the first time, you need to add at least one character inside the code block:
+- if you introduce a new code block for the first time, you need to add at least one character inside the code block, elsewhere the code snippet will not be injected:
 
 		<!--# MY_CONSOLE_SNIPPET -->
 		```
 		at least one character here!
 		```
-...elsewhere the code snippet will not be injected.
 
-- NDocUtil only supports injection into fenced code blocks with three back-ticks ` ``` `. It doesn't support the inline code blocks nor the indented code blocks.
+- NDocUtil only supports injection into fenced code blocks with three back-ticks ` ``` `. It doesn't support the inline code blocks nor the indented code blocks. See  the [markdown documentation][codeblock].
 
 ### 2) Write snippets
 
-Now, you need to write pseudo unit-tests containing the code and console snippets. The unit test will also perform the update of the markdown documentation. 
+Next, you need to write pseudo unit-tests containing the code and console snippets. The test fixture will also perform the update of the markdown documentation. 
 
 The file must have the same name as the markdown file without its extension and must be located in the same folder as the documentation file. In the example, we name it then [MyDocumentation.cs][MyDocumentation_cs]. 
 
-You need to add this file into a C# project. If the file is not in a subfolder of the project, you must add it as a link ([see here the msdn documentation][addaslink]).
+You need to add this file into a C# project. If the file is not in a subfolder of the project, you must add it as a link. See the [msdn documentation][addaslink].
 
 In our example the file looks like: 
 
@@ -148,11 +147,11 @@ That's it! Now every time that you execute the unit tests, then the markdown doc
 Exporting snippets
 ------------------
 
-NDocUtil allows also to export the snippets directly as file.
+NDocUtil also allows to export the snippets directly as file.
 
 ### Export as raw file
 
-To export each snippet as raw text file `MY_SNIPPET_NAME.snippet`:
+To export each snippet as raw text file `MY_SNIPPET_NAME.snippet`, use:
 
 <!--# SaveSnippetsAsRaw -->
 ```C#
@@ -168,7 +167,7 @@ docu.SaveSnippetsAsRaw(fileExtension:".txt");
 
 ### Export as HTML snippet
 
-To export each snippet as HTML fragment file `MY_SNIPPET_NAME.html`:
+To export each snippet as HTML fragment file: `MY_SNIPPET_NAME.html`, use:
 
 <!--# SaveSnippetsAsHtml -->
 ```C#
@@ -182,16 +181,18 @@ You can decorate the HTML fragment and change the file extension as follows:
 docu.SaveSnippetsAsHtml(htmlSnippetDecorator: "{0}", fileExtension:".html");
 ```
 
+- The string `htmlSnippetDecorator` must contain the format placeholder `{0}`. The snippet will be injected at this location. For example, you can generate an HTML *Page* with the following decorator: `"<html><body>{0}</body></html>"`
+
 ### Export as image
 
-To export each snippet as image file `MY_SNIPPET_NAME.img_format_extension`:
+To export each snippet as an image file `MY_SNIPPET_NAME.img_format_extension`, use:
 
 <!--# SaveSnippetsAsImage -->
 ```C#
 docu.SaveSnippetsAsImage(ImageFormat.Png);
 ```
 
-The supported format are `Bmp`, `Png`, `Emf`. The latter `Emf`exports the snippet into a vector graphics. It allows to display on any device at any scale!
+The supported format are `Bmp`, `Png`, `Emf`. The latter exports the snippet into a vector graphics, allowing to display properly the snippet on any device at any scale!
 
 
 Maintaining snippets in Powerpoint presentation
@@ -199,18 +200,23 @@ Maintaining snippets in Powerpoint presentation
 
 While you insert an image into a powerpoint presentation, you can choose to add it with the button "Link to file":
 
+![c](./image/PowerPoint-Link-to-File.png)
 
-It is a good opportunity for us to enable the automatic refreshing of code snippets: NDocUtil exports the snippets as image, if possible as vector graphics EMF file,  
-The idea is to export the snippets with the following command:
+It is a good opportunity for us to enable the automatic refreshing of code snippets:
 
+- NDocUtil exports the snippets as image, by using:
 <!--# SaveSnippetsAsImage2 -->
 ```C#
 docu.SaveSnippetsAsImage(ImageFormat.Emf);
 ```
 
-So you get a vector graphics of the snippets. Then in the s
+- Powerpoint refreshes automatically the snippets
+
+The result can be seen in [this presentation](./Presentation.pptx).  
+
 
 [MyDocumentation_markdown]: MyDocumentation.md 
 [MyDocumentation_cs]: MyDocumentation.cs 
 [NCase]: https://github.com/jeromerg/NCase
 [addaslink]: https://msdn.microsoft.com/de-de/library/windows/apps/jj714082%28v=vs.105%29.aspx?f=255&MSPPError=-2147217396
+[codeblock]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#code-and-syntax-highlighting
