@@ -212,7 +212,7 @@ docu.SaveSnippetsAsImage(ImageFormat.Emf);
 
 - Then insert the EMF file with the option "Link to File" 
 
-That's it: The snippets will be refreshed within the Powerpoint presentation automatically every run of unit tests!
+That's it: The snippets will be refreshed on every build inside your presentation!
 
 The result can be seen in [this presentation](./Presentation.pptx).  
 
