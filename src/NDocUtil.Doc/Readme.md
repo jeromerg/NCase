@@ -12,7 +12,7 @@ You declare snippets in unit tests. After that, you can automatically:
 	- Bitmap image (PNG, BMP),
 	- Vector image (EMF).
 
-Have you ever made a Powerpoint presentation containing code snippets? The maintenance of code snippets is a nightmare! With *NDocUtil*, the code snippets are refreshed automatically every build!
+Have you ever made a Powerpoint presentation containing code snippets? The maintenance of code snippets is a nightmare! With *NDocUtil*, the code snippets are refreshed automatically on every build!
 
 *NDocUtil* was primarly developed to write the documentation for the [NCase] project. 
 
