@@ -200,7 +200,7 @@ Maintaining snippets in Powerpoint presentation
 
 While you insert an image into a powerpoint presentation, you can choose to add it with the button "Link to File":
 
-![c](./image/PowerPoint-Link-to-File.png)
+![c](./Image/PowerPoint-Link-to-File.png)
 
 It is a good opportunity for us to enable the automatic refreshing of code snippets:
 
