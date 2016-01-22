@@ -85,7 +85,7 @@ The previous document looks like after the change:
 		at least one character here!
 		```
 
-- NDocUtil only supports injection into fenced code blocks with three back-ticks ` ``` `. It doesn't support the inline code blocks nor the indented code blocks. See  the [markdown documentation][codeblock].
+- NDocUtil only supports injection into fenced code blocks with three back-ticks ```. It doesn't support the inline code blocks nor the indented code blocks. See  the [markdown documentation][codeblock].
 
 ### 2) Write snippets
 
