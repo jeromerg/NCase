@@ -136,6 +136,7 @@
     <Compile Include="Front.Ui\%28Shared%29\CaseExtensions.cs" />
     <Compile Include="Front.Ui\%28Shared%29\ExceptionAssert.cs" />
     <Compile Include="Front.Ui\%28Shared%29\TestCaseContext.cs" />
+    <Compile Include="Front.Ui\BuilderExtensions.cs" />
     <Compile Include="Front.Ui\CombinationSetDefiner.cs" />
     <Compile Include="Front.Ui\FactExtensions.cs" />
     <Compile Include="Front.Ui\CaseExtensions.cs" />

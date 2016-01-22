@@ -29,9 +29,9 @@ namespace NCaseFramework.Back.Imp.CombinationSet
         {
             CodeLocation codeLocation = token.CodeLocation;
 
-            IDefNode referredSetNode = dir.GetNodeForId<IProdNode>(token.Owner, codeLocation);
+            IDefNode referredSetNode = dir.GetNodeForId<ICombinationSetNode>(token.Owner, codeLocation);
 
-            var newNode = new RefNode<IProdNode>((IProdNode)referredSetNode, codeLocation);
+            var newNode = new RefNode<ICombinationSetNode>((ICombinationSetNode)referredSetNode, codeLocation);
 
             dir.AddChildToScope(newNode);
         }

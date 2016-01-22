@@ -90,6 +90,7 @@
     <Compile Include="Front.Imp\%28Artefact.Def%29\AllCombinationsImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\TreeImp.cs" />
     <Compile Include="Front.Imp\%28Artefact.Def%29\SequenceImp.cs" />
+    <Compile Include="Front.Ui\BuilderExtensions.cs" />
     <Compile Include="Front.Ui\Sequence.cs" />
     <Compile Include="Back.Api\Pairwise\PairwiseCombinationsId.cs" />
     <Compile Include="Back.Api\Prod\AllCombinationsId.cs" />

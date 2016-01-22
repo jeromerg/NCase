@@ -7,6 +7,6 @@ namespace NCaseFramework.Front.Ui
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public interface CombinationSet : SetDefBase<ICombinationSetModel, CombinationSetId, CombinationSetDefiner>
     {
-        bool IsOnlyPairwiseProduct { get; set; }
+        bool OnlyPairwise { get; set; }
     }
 }

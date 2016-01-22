@@ -46,7 +46,7 @@ namespace NCaseFramework.Front.Imp
             get { return this; }
         }
 
-        public bool IsOnlyPairwiseProduct { get; set; }
+        public bool OnlyPairwise { get; set; }
 
         [NotNull]
         public override CombinationSetDefiner Define()
@@ -56,7 +56,7 @@ namespace NCaseFramework.Front.Imp
 
         protected override IToken CreateBeginToken()
         {
-            return new CombinationSetBeginToken(Id, GetCodeLocation(), IsOnlyPairwiseProduct);
+            return new CombinationSetBeginToken(Id, GetCodeLocation(), OnlyPairwise);
         }
     }
 }
