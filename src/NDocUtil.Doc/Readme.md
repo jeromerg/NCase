@@ -130,15 +130,15 @@ In our example the file looks like:
 
         //# NAME_OF_THE_SNIPPET
         ... code here
-	//#
+        //#
     - Nesting is not supported 
     - There is no escape character, so you can't write `//#` at the beginning of a line inside the snippet
     - Lines containing the exclusion tag are excluded from the snippet
 - The console snippets are recorded with the following syntax:
 
-       docu.BeginRecordConsole("NAME_OF_THE_SNIPPET");
-       ... C# statements echoing to the console
-       docu.StopRecordConsole();
+        docu.BeginRecordConsole("NAME_OF_THE_SNIPPET");
+        ... C# statements echoing to the console
+        docu.StopRecordConsole();
 	- Nesting is not supported
 	- The exclusion tag doesn't apply to console snippets
 
@@ -205,10 +205,10 @@ While you insert an image into a powerpoint presentation, you can choose to add 
 It is a good opportunity for us to enable the automatic refreshing of code snippets:
 
 - Let NDocUtil exports the snippets as image, with the following call:
-<!--# SaveSnippetsAsImage2 -->
-```C#
-docu.SaveSnippetsAsImage(ImageFormat.Emf);
-```
+	<!--# SaveSnippetsAsImage2 -->
+	```C#
+	docu.SaveSnippetsAsImage(ImageFormat.Emf);
+	```
 
 - Then insert the EMF file with the option "Link to File" 
 
