@@ -128,9 +128,9 @@ In our example the file looks like:
 - The call to `docu.UpdateDocAssociatedToThisFile()` performs the documentation update. It is located in the fixture tear down method, ensuring that the console records have been recorded before.
 - The code snippets are declared with the following syntax:
 
-      //# NAME_OF_THE_SNIPPET
-      ... code here
-	  //#
+        //# NAME_OF_THE_SNIPPET
+        ... code here
+	//#
     - Nesting is not supported 
     - There is no escape character, so you can't write `//#` at the beginning of a line inside the snippet
     - Lines containing the exclusion tag are excluded from the snippet
