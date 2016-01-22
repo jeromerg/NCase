@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing.Imaging;
 using JetBrains.Annotations;
 using NDocUtilLibrary;
 using NUnit.Framework;
@@ -19,7 +18,7 @@ namespace NCaseFramework.Doc.Slides
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            docu.SaveSnippetsAsImage(ImageFormat.Wmf);
+            docu.SaveSnippetsAsImage(ImageFormat.Emf);
         }
 
         //# CodeSnippet
