@@ -198,19 +198,21 @@ The supported format are `Bmp`, `Png`, `Emf`. The latter exports the snippet int
 Maintaining snippets in Powerpoint presentation
 -----------------------------------------------
 
-While you insert an image into a powerpoint presentation, you can choose to add it with the button "Link to file":
+While you insert an image into a powerpoint presentation, you can choose to add it with the button "Link to File":
 
 ![c](./image/PowerPoint-Link-to-File.png)
 
 It is a good opportunity for us to enable the automatic refreshing of code snippets:
 
-- NDocUtil exports the snippets as image, by using:
+- Let NDocUtil exports the snippets as image, with the following call:
 <!--# SaveSnippetsAsImage2 -->
 ```C#
 docu.SaveSnippetsAsImage(ImageFormat.Emf);
 ```
 
-- Powerpoint refreshes automatically the snippets
+- Then insert the EMF file with the option "Link to File" 
+
+That's it: The snippets will be refreshed within the Powerpoint presentation automatically every run of unit tests!
 
 The result can be seen in [this presentation](./Presentation.pptx).  
 
