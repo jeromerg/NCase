@@ -26,21 +26,24 @@ namespace NCaseFramework.Front.Imp
         {
             if (setDefModel == null) throw new ArgumentNullException("setDefModel");
 
-            INode setDefNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
-            IEnumerable<List<INode>> cases = mParserGenerator.Generate(setDefNode, new GenerateOptions(isRecursive));
-
-            IPrintCaseTableDirector printCaseTableDirector = mPrintCaseTableDirectorFactory();
-
-            if (printCaseTableDirector == null)
-                throw new ArgumentException("printCaseTableDirector == null");
-
-            foreach (List<INode> @case in cases)
+            using (setDefModel.TokenStream.SetReadMode())
             {
-                printCaseTableDirector.NewRow();
-                foreach (INode fact in @case)
-                    printCaseTableDirector.Visit(fact);
+                INode setDefNode = mParserGenerator.Parse(setDefModel.Id, setDefModel.TokenStream);
+                IEnumerable<List<INode>> cases = mParserGenerator.Generate(setDefNode, new GenerateOptions(isRecursive));
+
+                IPrintCaseTableDirector printCaseTableDirector = mPrintCaseTableDirectorFactory();
+
+                if (printCaseTableDirector == null)
+                    throw new ArgumentException("printCaseTableDirector == null");
+
+                foreach (List<INode> @case in cases)
+                {
+                    printCaseTableDirector.NewRow();
+                    foreach (INode fact in @case)
+                        printCaseTableDirector.Visit(fact);
+                }
+                return printCaseTableDirector.GetString();
             }
-            return printCaseTableDirector.GetString();
         }
     }
 }

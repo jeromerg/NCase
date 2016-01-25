@@ -26,7 +26,7 @@ namespace NCaseFramework.Doc.intern
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            docu.SaveSnippetsAsImage(ImageFormat.Emf);
+            docu.SaveSnippetsAsImage(ImageFormat.Emf, leftBorder:5);
         }
 
         //# TodoInterface
@@ -81,7 +81,7 @@ namespace NCaseFramework.Doc.intern
             //#
 
             docu.BeginRecordConsole("Slide1_Console");
-            set.PrintCasesAsTable();
+            Console.WriteLine(set.PrintCasesAsTable());
             docu.StopRecordConsole();
         }
 

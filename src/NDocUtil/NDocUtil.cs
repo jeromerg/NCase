@@ -37,8 +37,8 @@ namespace NDocUtilLibrary
         [NotNull] private readonly ConsoleRecorder mConsoleRecorder = new ConsoleRecorder();
 
         public NDocUtil([CanBeNull] string codeExcludedLineRegexString = null,
-                       int tabIndentation = 4,
-                       [NotNull, CallerFilePath] string filePath = "")
+                        int tabIndentation = 4,
+                        [NotNull, CallerFilePath] string filePath = "")
         {
             mFilePath = filePath;
             string callerFileDir = Path.GetDirectoryName(filePath);
@@ -53,9 +53,9 @@ namespace NDocUtilLibrary
 
             string codeSnippetRegexString = string.Format(SNIPPET_REGEX_STRING_ARG0_MARKER, CODE_SNIPPET_MARKER);
             var codeSnippetRegex = new Regex(codeSnippetRegexString, RegexOptions.Multiline | RegexOptions.Singleline);
-            var codeExcludedLineRegex = codeExcludedLineRegexString != null 
-                                            ? new Regex(codeExcludedLineRegexString)
-                                            : null;
+            Regex codeExcludedLineRegex = codeExcludedLineRegexString != null
+                                              ? new Regex(codeExcludedLineRegexString)
+                                              : null;
             mCodeSnippetParser = new SnippetParser(codeSnippetRegex, codeExcludedLineRegex, tabIndentation);
         }
 
@@ -98,7 +98,9 @@ namespace NDocUtilLibrary
             }
         }
 
-        public void SaveSnippetsAsHtml([NotNull] string htmlSnippetDecorator = "{0}", [NotNull] string path = @"snippet\", [NotNull] string fileExtension = ".html")
+        public void SaveSnippetsAsHtml([NotNull] string htmlSnippetDecorator = "{0}",
+                                       [NotNull] string path = @"snippet\",
+                                       [NotNull] string fileExtension = ".html")
         {
             if (htmlSnippetDecorator == null) throw new ArgumentNullException("htmlSnippetDecorator");
             if (fileExtension == null) throw new ArgumentNullException("fileExtension");
@@ -122,7 +124,14 @@ namespace NDocUtilLibrary
             }
         }
 
-        public void SaveSnippetsAsImage([NotNull] ImageFormat imageFormat, [NotNull] string path = @"snippet\", [NotNull] string fileExtension = null)
+        public void SaveSnippetsAsImage(
+            [NotNull] ImageFormat imageFormat,
+            [NotNull] string path = @"snippet\",
+            [CanBeNull] string fileExtension = null,
+            float leftBorder = 0,
+            float topBorder = 0,
+            float rightBorder = 0,
+            float bottomBorder = 0)
         {
             foreach (Snippet sn in GetAllSnippets())
             {
@@ -138,7 +147,7 @@ namespace NDocUtilLibrary
                 string divSnippet = mCodeColorizer.Colorize(sn.Body, language);
                 string htmlSnippet = string.Format(SNIPPET_HTML_TEMPLATE, divSnippet);
 
-                Metafile image = HtmlToMetafileUtil.Convert(htmlSnippet);
+                Metafile image = HtmlToMetafileUtil.Convert(htmlSnippet, leftBorder, topBorder, rightBorder, bottomBorder);
 
                 switch (imageFormat)
                 {
@@ -194,20 +203,30 @@ namespace NDocUtilLibrary
         [NotNull]
         private string BuildAssociatedDocFilePath()
         {
-            string docFilePath = string.Format("{0}{1}{2}{3}", mFileDir, Path.DirectorySeparatorChar, mFileNameWithoutExtension, DOC_FILE_EXTENSION);
+            string docFilePath = string.Format("{0}{1}{2}{3}",
+                                               mFileDir,
+                                               Path.DirectorySeparatorChar,
+                                               mFileNameWithoutExtension,
+                                               DOC_FILE_EXTENSION);
             return docFilePath;
         }
 
         [NotNull]
-        private string BuildSnippetFilePathAndEnsureItExists([NotNull] string path, [NotNull] string fileNameWithoutExtension, [NotNull] string fileExtension)
+        private string BuildSnippetFilePathAndEnsureItExists([NotNull] string path,
+                                                             [NotNull] string fileNameWithoutExtension,
+                                                             [NotNull] string fileExtension)
         {
-            string fullPath = Path.IsPathRooted(path) 
-                                ? path
-                                : Path.Combine(mFileDir, path);
+            string fullPath = Path.IsPathRooted(path)
+                                  ? path
+                                  : Path.Combine(mFileDir, path);
 
             Directory.CreateDirectory(fullPath);
 
-            string docPath = string.Format("{0}{1}{2}{3}", fullPath, Path.DirectorySeparatorChar, fileNameWithoutExtension, fileExtension);
+            string docPath = string.Format("{0}{1}{2}{3}",
+                                           fullPath,
+                                           Path.DirectorySeparatorChar,
+                                           fileNameWithoutExtension,
+                                           fileExtension);
             return docPath;
         }
     }
