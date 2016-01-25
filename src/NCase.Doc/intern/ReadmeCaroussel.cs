@@ -1,13 +1,14 @@
-﻿using System;
+﻿
+using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using NCaseFramework.Front.Ui;
-using NDocUtilLibrary;
 using NDsl.Front.Ui;
 using NUnit.Framework;
-
-namespace NCaseFramework.Doc
-{
+using NDocUtilLibrary;
+    
+namespace NCaseFramework.Doc.intern
+{    
     // remark: must remain here, in order to redirect NCase calls to the doc-specific implementation
     using Shared;
     
@@ -16,6 +17,7 @@ namespace NCaseFramework.Doc
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class Readme
     {
         // ReSharper disable once InconsistentNaming
@@ -24,7 +26,7 @@ namespace NCaseFramework.Doc
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            docu.UpdateDocAssociatedToThisFile();
+            docu.SaveSnippetsAsImage(ImageFormat.Emf);
         }
 
         //# TodoInterface
@@ -52,8 +54,6 @@ namespace NCaseFramework.Doc
         DateTime now = new DateTime(2011, 11, 11, 0, 0, 0);
         DateTime yesterday = new DateTime(2011, 11, 10, 0, 0, 0);
         DateTime tomorrow = new DateTime(2011, 11, 12, 0, 0, 0);
-        DateTime daylightSavingTimeMissingTime = new DateTime(2011, 11, 12, 0, 0, 0);
-        DateTime daylightSavingTimeAmbiguousTime = new DateTime(2011, 11, 12, 0, 0, 0);
 
         [Test]
         public void Slide1()
@@ -61,8 +61,9 @@ namespace NCaseFramework.Doc
             //# Slide1
             var builder = NCase.NewBuilder();
 
-            var todo    = builder.NewContributor<ITodo>("todo");
-            var set     = builder.NewCombinationSet("set");
+            var todo = builder.NewContributor<ITodo>("todo");
+
+            var set = builder.NewCombinationSet("set");
 
             using (set.Define())
             {

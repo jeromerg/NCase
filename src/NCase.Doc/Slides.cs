@@ -20,7 +20,7 @@ namespace NCaseFramework.Doc
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
-    public class Presentation
+    public class Slides
     {
         // ReSharper disable once InconsistentNaming
         [NotNull] private readonly NDocUtil docu = new NDocUtil("docu");
