@@ -128,6 +128,7 @@
       <Link>Readme.md</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="Slides\slides.pptx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

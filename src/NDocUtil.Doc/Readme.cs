@@ -17,7 +17,7 @@ namespace NUtil.Doc
             //#
 
             //# SaveSnippetsAsRaw2
-            docu.SaveSnippetsAsRaw(fileExtension:".txt");
+            docu.SaveSnippetsAsRaw(path:"anotherPath", fileExtension:".txt");
             //#
 
             //# SaveSnippetsAsHtml
@@ -25,7 +25,7 @@ namespace NUtil.Doc
             //#
 
             //# SaveSnippetsAsHtml2
-            docu.SaveSnippetsAsHtml(htmlSnippetDecorator: "{0}", fileExtension:".html");
+            docu.SaveSnippetsAsHtml(htmlSnippetDecorator: "{0}", path:"anotherPath", fileExtension:".htm");
             //#
 
             //# SaveSnippetsAsImage
@@ -33,6 +33,10 @@ namespace NUtil.Doc
             //#
 
             //# SaveSnippetsAsImage2
+            docu.SaveSnippetsAsImage(ImageFormat.Png, path:"anotherPath");
+            //#
+
+            //# SaveSnippetsAsImage3
             docu.SaveSnippetsAsImage(ImageFormat.Emf);
             //#
 

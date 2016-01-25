@@ -82,32 +82,32 @@ namespace NDocUtilLibrary
             mMarkdownSnippetParser.SubstituteFileSnippets(docPath, allSnippetDictionary);
         }
 
-        public void SaveSnippetsAsRaw([NotNull] string fileExtension = ".snippet")
+        public void SaveSnippetsAsRaw([NotNull] string path = @"snippet\", [NotNull] string fileExtension = ".snippet")
         {
             if (fileExtension == null) throw new ArgumentNullException("fileExtension");
 
             foreach (Snippet sn in GetAllSnippets())
             {
-                string path = BuildSnippetFilePath(sn.Name, fileExtension);
+                string outputPath = BuildSnippetFilePathAndEnsureItExists(path, sn.Name, fileExtension);
 
-                LogSaving(path);
+                LogSaving(outputPath);
 
-                File.WriteAllText(path, sn.Body);
+                File.WriteAllText(outputPath, sn.Body);
 
-                LogSaved(path);
+                LogSaved(outputPath);
             }
         }
 
-        public void SaveSnippetsAsHtml([NotNull] string htmlSnippetDecorator = "{0}", [NotNull] string fileExtension = ".html")
+        public void SaveSnippetsAsHtml([NotNull] string htmlSnippetDecorator = "{0}", [NotNull] string path = @"snippet\", [NotNull] string fileExtension = ".html")
         {
             if (htmlSnippetDecorator == null) throw new ArgumentNullException("htmlSnippetDecorator");
             if (fileExtension == null) throw new ArgumentNullException("fileExtension");
 
             foreach (Snippet sn in GetAllSnippets())
             {
-                string path = BuildSnippetFilePath(sn.Name, fileExtension);
+                string outputPath = BuildSnippetFilePathAndEnsureItExists(path, sn.Name, fileExtension);
 
-                LogSaving(path);
+                LogSaving(outputPath);
 
                 ILanguage language = sn.Source == ConsoleRecorder.CONSOLE_SOURCE_NAME
                                          ? Languages.PowerShell
@@ -116,20 +116,20 @@ namespace NDocUtilLibrary
                 string divSnippet = mCodeColorizer.Colorize(sn.Body, language);
                 string htmlSnippet = string.Format(htmlSnippetDecorator, divSnippet);
 
-                File.WriteAllText(path, htmlSnippet);
+                File.WriteAllText(outputPath, htmlSnippet);
 
-                LogSaved(path);
+                LogSaved(outputPath);
             }
         }
 
-        public void SaveSnippetsAsImage([NotNull] ImageFormat imageFormat)
+        public void SaveSnippetsAsImage([NotNull] ImageFormat imageFormat, [NotNull] string path = @"snippet\", [NotNull] string fileExtension = null)
         {
             foreach (Snippet sn in GetAllSnippets())
             {
-                string ext = "." + imageFormat.ToString().ToLower();
-                string path = BuildSnippetFilePath(sn.Name, ext);
+                string ext = fileExtension ?? ("." + imageFormat.ToString().ToLower());
+                string outputPath = BuildSnippetFilePathAndEnsureItExists(path, sn.Name, ext);
 
-                LogSaving(path);
+                LogSaving(outputPath);
 
                 ILanguage language = sn.Source == ConsoleRecorder.CONSOLE_SOURCE_NAME
                                          ? Languages.PowerShell
@@ -143,19 +143,19 @@ namespace NDocUtilLibrary
                 switch (imageFormat)
                 {
                     case ImageFormat.Bmp:
-                        image.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
+                        image.Save(outputPath, System.Drawing.Imaging.ImageFormat.Bmp);
                         break;
                     case ImageFormat.Png:
-                        image.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+                        image.Save(outputPath, System.Drawing.Imaging.ImageFormat.Png);
                         break;
                     case ImageFormat.Emf:
-                        image.SaveAsVectorEmf(path);
+                        image.SaveAsVectorEmf(outputPath);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException("imageFormat", imageFormat, null);
                 }
 
-                LogSaved(path);
+                LogSaved(outputPath);
             }
         }
 
@@ -199,9 +199,15 @@ namespace NDocUtilLibrary
         }
 
         [NotNull]
-        private string BuildSnippetFilePath([NotNull] string fileNameWithoutExtension, [NotNull] string fileExtension)
+        private string BuildSnippetFilePathAndEnsureItExists([NotNull] string path, [NotNull] string fileNameWithoutExtension, [NotNull] string fileExtension)
         {
-            string docPath = string.Format("{0}{1}{2}{3}", mFileDir, Path.DirectorySeparatorChar, fileNameWithoutExtension, fileExtension);
+            string fullPath = Path.IsPathRooted(path) 
+                                ? path
+                                : Path.Combine(mFileDir, path);
+
+            Directory.CreateDirectory(fullPath);
+
+            string docPath = string.Format("{0}{1}{2}{3}", fullPath, Path.DirectorySeparatorChar, fileNameWithoutExtension, fileExtension);
             return docPath;
         }
     }

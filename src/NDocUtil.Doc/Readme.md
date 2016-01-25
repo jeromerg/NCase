@@ -158,11 +158,11 @@ To export each snippet as raw text file `MY_SNIPPET_NAME.snippet`, use:
 docu.SaveSnippetsAsRaw();
 ```
 
-You can change the file extension as follows:
+You can change output path and the file extension as follows:
 
 <!--# SaveSnippetsAsRaw2 -->
 ```C#
-docu.SaveSnippetsAsRaw(fileExtension:".txt");
+docu.SaveSnippetsAsRaw(path:"anotherPath", fileExtension:".txt");
 ```
 
 ### Export as HTML snippet
@@ -174,11 +174,11 @@ To export each snippet as HTML fragment file: `MY_SNIPPET_NAME.html`, use:
 docu.SaveSnippetsAsHtml();
 ```
 
-You can decorate the HTML fragment and change the file extension as follows:
+You can decorate the HTML fragment, change the output path and file extension as follows:
 
 <!--# SaveSnippetsAsHtml2 -->
 ```C#
-docu.SaveSnippetsAsHtml(htmlSnippetDecorator: "{0}", fileExtension:".html");
+docu.SaveSnippetsAsHtml(htmlSnippetDecorator: "{0}", path:"anotherPath", fileExtension:".htm");
 ```
 
 - The string `htmlSnippetDecorator` must contain the format placeholder `{0}`. The snippet will be injected at this location. For example, you can generate an HTML *Page* with the following decorator: `"<html><body>{0}</body></html>"`
@@ -190,6 +190,13 @@ To export each snippet as an image file `MY_SNIPPET_NAME.img_format_extension`, 
 <!--# SaveSnippetsAsImage -->
 ```C#
 docu.SaveSnippetsAsImage(ImageFormat.Png);
+```
+
+You can change the output path as follows:
+
+<!--# SaveSnippetsAsImage2 -->
+```C#
+docu.SaveSnippetsAsImage(ImageFormat.Png, path:"anotherPath");
 ```
 
 The supported format are `Bmp`, `Png`, `Emf`. The latter exports the snippet into a vector graphics, allowing to display properly the snippet on any device at any scale!
@@ -205,7 +212,7 @@ While you insert an image into a powerpoint presentation, you can choose to add 
 It is a good opportunity for us to enable the automatic refreshing of code snippets:
 
 - Let NDocUtil exports the snippets as image, with the following call:
-	<!--# SaveSnippetsAsImage2 -->
+	<!--# SaveSnippetsAsImage3 -->
 	```C#
 	docu.SaveSnippetsAsImage(ImageFormat.Emf);
 	```

@@ -9,10 +9,12 @@ using NDocUtilLibrary;
 using NDsl.Front.Ui;
 using NUnit.Framework;
 using NUtil.Generics;
-using NCase = NCaseFramework.Doc.Shared.NCase;
 
 namespace NCaseFramework.Doc
 {
+    // remark: must remain here, in order to redirect NCase calls to the doc-specific implementation
+    using Shared;
+    
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
@@ -66,7 +68,7 @@ namespace NCaseFramework.Doc
             mock.SetupAllProperties();
             ITodo todo = mock.Object;
 
-            todo.Title = "Don't forget to forget";
+            todo.Title = "Don't forget to forget NCase";
             todo.DueDate = now;
             todo.IsDone = false;
 
@@ -86,12 +88,14 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewDefinition<AllCombinations>("set");
+            var set = builder.NewCombinationSet("set");
 
             using (set.Define())
             {
-                todo.Title = "Don't forget to forget";
+                todo.Title = "Don't forget to forget NCase";
+
                 todo.DueDate = now;
+
                 todo.IsDone = false;
             }
 
@@ -117,22 +121,22 @@ namespace NCaseFramework.Doc
             mock.SetupAllProperties();
             ITodo todo = mock.Object;
 
-            todo.Title = "Don't forget to forget";
-            todo.DueDate = now;
+            todo.Title = "Don't forget to forget NCase";
+            todo.DueDate = now;            
             todo.IsDone = false;
 
             // ACT ... ASSERT ...
         }
 
         [Test]
-        public void MoqTest2()                      // DUPLICATED TEST
+        public void MoqTest2()                                 // DUPLICATED TEST
         {
             // ARRANGE
             var mock = new Mock<ITodo>();
             mock.SetupAllProperties();
             ITodo todo = mock.Object;
 
-            todo.Title = "Another todo to forget"; // CHANGE
+            todo.Title = "Another todo to never forget NCase!"; // CHANGE
             todo.DueDate = now;
             todo.IsDone = false;
 
@@ -147,13 +151,14 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewDefinition<AllCombinations>("set");
+            var set = builder.NewCombinationSet("set");
             using (set.Define())
             {
-                todo.Title = "Don't forget to forget";
-                todo.Title = "Another todo to forget";  // ADDITION
+                todo.Title = "Don't forget to forget NCase";
+                todo.Title = "Another todo to never forget NCase";  // SINGLE ADDITION!!!
 
                 todo.DueDate = now;
+
                 todo.IsDone = false;
             }
 
@@ -175,14 +180,15 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewDefinition<AllCombinations>("set");
+            var set = builder.NewCombinationSet("set");
             using (set.Define())
             {
                 //# NCaseExample2_AddedLine
-                todo.Title = "Another todo to forget";
+                todo.Title = "Another todo to never forget NCase";
                 //#
 
                 todo.DueDate = now;
+
                 todo.IsDone = false;
             }
         }
@@ -194,10 +200,10 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewDefinition<AllCombinations>("set");
+            var set = builder.NewCombinationSet("set");
             using (set.Define())
             {
-                todo.Title = "Don't forget to forget";
+                todo.Title = "Don't forget to forget NCase";
                 todo.Title = "";
                 todo.Title = null;
                 todo.Title = "ß üöä ÜÖÄ !§$%&/()=?";
@@ -241,12 +247,12 @@ namespace NCaseFramework.Doc
             var user = builder.NewContributor<IUser>("user");
             //# 
 
-            var set = builder.NewDefinition<AllCombinations>("set");
+            var set = builder.NewCombinationSet("set");
 
             //# NCaseCombiningContributors_DEF
             using (set.Define())
             {
-                todo.Title = "Don't forget to forget";
+                todo.Title = "Don't forget to forget NCase";
                 //... alternatives
 
                 todo.DueDate = yesterday;
@@ -284,51 +290,68 @@ namespace NCaseFramework.Doc
             var user = builder.NewContributor<IUser>("user");
 
             //# NCaseCombiningSets_TODO_SET
-            var todoSet = builder.NewDefinition<AllCombinations>("todoSet");
+            var todoSet = builder.NewCombinationSet("todoSet");
             using (todoSet.Define())
             {
-                todo.Title = "Don't forget to forget";
-                //... alternatives
+                todo.Title = "Don't forget to forget NCase";
+                //... and alternatives
 
                 todo.DueDate = yesterday;
-                //... alternatives
+                //... and alternatives
 
                 todo.IsDone = false;
-                //... alternatives
+                //... and alternatives
             }
             //#
 
             //# NCaseCombiningSets_USER_SET
-            var userSet = builder.NewDefinition<AllCombinations>("userSet");
+            var userSet = builder.NewCombinationSet("userSet");
             using (userSet.Define())
             {
                 user.IsActive = true;
-                //... alternatives
+                //... and alternatives
 
                 user.NotificationEmail = null;
-                //... alternatives
+                //... and alternatives
 
             }
             //#
 
-            //# NCaseCombiningSets_ALL_SET
-            var allSet = builder.NewDefinition<AllCombinations>("allSet");
-            using (allSet.Define())
-            {
-                todoSet.Ref();
-                userSet.Ref();
+            { 
+                //# NCaseCombiningSets_ALL_SET
+                var allSet = builder.NewCombinationSet("allSet");
+                using (allSet.Define())
+                {
+                    todoSet.Ref();
+
+                    userSet.Ref();
+                }
+                //#
+
+                allSet.Cases().Replay().ActAndAssert(ea =>
+                {
+                    // ACT
+                    var todoManager = new TodoManager();
+                    todoManager.AddTodo(todo);
+
+                    // ASSERT
+                    //...
+                });
             }
-            //#
 
-            allSet.Cases().Replay().ActAndAssert(ea =>
-            {
-                // ACT
-                var todoManager = new TodoManager();
-                todoManager.AddTodo(todo);
+            { 
+                //# NCaseCombiningSets_ALL_SET_Pairwise
+                var allSet = builder.NewCombinationSet("allSet");
+                using (allSet.Define())
+                {
+                    todoSet.Ref();    // Pairwise product!
 
-                // ASSERT
-                //...
-            });
+                    userSet.Ref();    // Default cartesian product
+                }
+                //#
+            }
+
+
         }
 
         [Test]
@@ -340,10 +363,10 @@ namespace NCaseFramework.Doc
             var todo = builder.NewContributor<ITodo>("todo");
 
             //# NCasePairwiseCombinations
-            var todoSet = builder.NewDefinition<PairwiseCombinations>("todoSet");
+            var todoSet  = builder.NewCombinationSet("todoSet", onlyPairwise: true);
             using (todoSet.Define())
             {
-                todo.Title = "Don't forget to forget";
+                todo.Title = "Don't forget to forget NCase";
                 //... alternatives
 
                 todo.DueDate = yesterday;
@@ -363,28 +386,23 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
 
-
             //# NCaseTree
             var todo = builder.NewContributor<ITodo>("todo");
             var isValid = builder.NewContributor<IHolder<bool>>("isValid");
 
-            var todoSet = builder.NewDefinition<Tree>("todoSet");
+            var todoSet  = builder.NewCombinationSet("todoSet");
             using (todoSet.Define())
             {
-                todo.Title = "forget";
+                todo.Title = "forget me";
                     isValid.Value = true;
-                        todo.IsDone = false;
-                            todo.DueDate = yesterday;
-                            todo.DueDate = tomorrow;
-                    isValid.Value = false;
+                        todo.DueDate = tomorrow;
+                            todo.IsDone = false;
                         todo.DueDate = yesterday;
                             todo.IsDone = false;
-                todo.Title = "*++**+*";
+                            todo.IsDone = true;
                     isValid.Value = false;
-                        todo.IsDone = false;
-                            todo.DueDate = yesterday;
-                        todo.IsDone = true;
-                            todo.DueDate = tomorrow;
+                        todo.DueDate = tomorrow;
+                            todo.IsDone = true;
             }
             //#
 
@@ -410,6 +428,37 @@ namespace NCaseFramework.Doc
 
             Console.WriteLine(cas);
             docu.StopRecordConsole();
+            //#
+        }
+
+        [Test]
+        public void NCaseTree2()
+        {
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+
+            //# NCaseTree2
+            var todo = builder.NewContributor<ITodo>("todo");
+            var isValid = builder.NewContributor<IHolder<bool>>("isValid");
+
+            var todoSet  = builder.NewCombinationSet("todoSet");
+            using (var d = todoSet.Define())
+            {
+                todo.Title = "forget me";
+                    isValid.Value = true;
+                        todo.DueDate = tomorrow;
+                            todo.IsDone = false;
+                        todo.DueDate = yesterday;
+                            todo.IsDone = false;
+                            todo.IsDone = true;
+                d.Branch();
+                    todo.Title = "remember me";
+                    todo.Title = "forgive me";
+
+                    isValid.Value = false;
+                        todo.DueDate = tomorrow;
+                            todo.IsDone = true;
+            }
             //#
         }
 
