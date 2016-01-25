@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
+
 namespace NDsl.Back.Api.Util
 {
     public interface IFileCache
     {
-        string GetLine(string fileName, int lineIndex); 
-        int GetIndentation(string fileName, int lineIndex); 
+        string GetLine(string fileName, int lineIndex);
+        string[] GetFileLines([NotNull] string fileName);
     }
 }

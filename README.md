@@ -170,9 +170,17 @@ set.Cases().Replay().ActAndAssert(ea =>
 
 Like a sorcerer, NCase calls the *Act and Assert* statements twice exactly in the same way as `MoqTest1` and `MoqTest2` do!
 
-Why? Because the Arrange statements are located inside a definition of type `AllCombinations`: the `AllCombinations` definition groups together subsequent assignments of the same property and performs a so called cartesian product between all groups. 
+Why? Because the Arrange statements are not executed directly, but recorded first inside a definition, building a set of test cases. Following rules apply:
+- Consecutive lines build a *union set* of test cases
+- An empty line build a cartesian product between two union sets
+- An indentation build a branch
 
-Finally the chain `set.Cases().Replay().ActAndAssert(...)` replays each test case and calls the *Act and Assert* statements.
+Once the definition has been recorded, the call to `set.Cases().Replay().ActAndAssert(...)` generates and replays each test case and calls the *Act and Assert* statements.
+
+
+*Remark*
+
+- To be aware of empty lines and line indentation, NCase parses again the C# file at runtime. For that purpose it needs the PDB file of the assembly and the related source files. Most of the time, Unit Tests are executed in environments that comply with both restrictions. If you need an alternative solution, you could provide your own `IFileCache` or `IFileAnalyzer` implementation at NCase initialization. NCase is 100% DI-Container based, so you can override most behaviors of it. 
 
 Many test cases
 ---------------
@@ -221,7 +229,7 @@ set.Cases().Replay().ActAndAssert(ea =>
 Combining Contributors
 ----------------------
 
-In NCase, you can mix any contributors in any definition.
+In a definition, you can mix any contributors.
 
 Imagine `TodoManager.AddTodo(...)` requires an additional argument, for example the user to assign the todo to:
 
@@ -321,18 +329,16 @@ The result is the same set of test cases as in the previous example, but the def
 Why do you need to split a definition? In order to acquire greater flexibility! Indeed, now, you can:
 
 - Re-use each sub-set individually
-- Use alternative definitions for each sets. Because `AllCombinations` is only one definition among others... as you will see now...
+- Use alternative definitions for each sets. as you will see now...
 
 Tackle complexity with Pairwise testing
 ---------------------------------------
 
-Testing all combinations is nice, but it is expensive. We generated before 84 test cases with only three properties and a few values for each one. Instead of generating all combinations with the `AllCombinations` definition, you can use the alternative definition called `PairwiseCombinations`. It generates a set of test cases, that contains all possible pairs between all groups of assignments (more about [pairwise testing here][pair]). 
-
-Both definitions, `AllCombinations` and `PairwiseCombinations`, have exactly the same syntax, so you just need to change the name of the definition when you call `builder.NewDefinition<...>(...)`: 
+Testing all combinations is nice, but it is expensive. We generated before 84 test cases with only three properties and a few values for each one. You can tell to the `CombinationSet` to substitute the pairwise product to the cartesian product. It generates a set of test cases, that contains all possible pairs between all union set (more about [pairwise testing here][pair]). 
 
 <!--# NCasePairwiseCombinations -->
 ```C#
-var todoSet  = builder.NewCombinationSet("todoSet");
+var todoSet  = builder.NewCombinationSet("todoSet", onlyPairwise: true);
 using (todoSet.Define())
 {
     todo.Title = "Don't forget to forget NCase";
@@ -347,30 +353,27 @@ using (todoSet.Define())
 }
 ```
 
-As with `AllCombinations`, you can combine this definition with others: 
+You can mix test case sub-sets defined with both cartesian and pairwise product: 
 
-<!--# NCaseCombiningSets_ALL_SET -->
+<!--# NCaseCombiningSets_ALL_SET_Pairwise -->
 ```C#
 var allSet = builder.NewCombinationSet("allSet");
 using (allSet.Define())
 {
-    todoSet.Ref();
+    todoSet.Ref();    // Pairwise product!
 
-    userSet.Ref();
+    userSet.Ref();    // Default cartesian product
 }
 ```
 
-The result is a fine granular level of testing: By keeping the `userSet` as it is, you exhaustively test of the `user` input. And by switching the `todoSet` to a `PairwiseCombinations` definition, you attain a more efficient, albeit superficial, level of testing of the `todo` input.
+The result is a fine granular level of testing: By keeping the `userSet` as it is, you exhaustively test the `user` input. And by switching the `todoSet` to pairwise testing, you attain a more efficient, albeit superficial, level of testing of the `todo` input.
 
 Tackle dedicated asserts: Tree Definition
 -----------------------------------------
 
-If you need to perform asserts that depend on the input values, you have two alternatives. You can:
+Cartesian and pairwise products are fantastic if you want to perform *n* times the same (the same!) test in *n* different input environments, like "this function must behave the same on all three x86, x64 and ARM CPUs". But you get a problem if you need to write tests which perform asserts depending on the input values, like `o = i1 * i2`. One solution is to rewrite a simplified logic of the system under test in your unit test to calculate the expectations. But you know, unit tests must have as few logic as possible...
 
-- Rewrite in a simplified form the logic of the system under test in your test, in order to calculate the expectations as a function of the input values
-- Or you can provide the expected values along with the input values and pass both to the *Act and Assert* statements.
-
-With the latter solution, you cannot automatically generate test cases with combinatorial operators, like `AllCombinations` or `PairwiseCombinations` because the expected values are bound to the input values. To solve this issue, NCase contains another definition called `Tree`. The `Tree` definition allows you to define a set of test cases by the mean of a tree.
+NCase provides the ability to define test cases as a tree. Tree is a good alternative to the systematic automatic generation of test cases: you can factorize aspects and re-use statement all the way up to the root of the tree:    
 
 The following lines of code illustrate how it works:
 
@@ -382,29 +385,54 @@ var isValid = builder.NewContributor<IHolder<bool>>("isValid");
 var todoSet  = builder.NewCombinationSet("todoSet");
 using (todoSet.Define())
 {
-    todo.Title = "forget";
+    todo.Title = "forget me";
         isValid.Value = true;
-            todo.IsDone = false;
-                todo.DueDate = yesterday;
-                todo.DueDate = tomorrow;
-        isValid.Value = false;
+            todo.DueDate = tomorrow;
+                todo.IsDone = false;
             todo.DueDate = yesterday;
                 todo.IsDone = false;
-    todo.Title = "*++**+*";
+                todo.IsDone = true;
         isValid.Value = false;
-            todo.IsDone = false;
-                todo.DueDate = yesterday;
-            todo.IsDone = true;
-                todo.DueDate = tomorrow;
+            todo.DueDate = tomorrow;
+                todo.IsDone = true;
 }
 ```
 
-The `Tree` definition performs an implicit fork every times it encounters an assignment of an already assigned property, at the level where the property was assigned the last time. Every path from a leaf back to the root builds a test case. 
+On every indentation, NCase attaches the indented set of sub-cases as children of the previous statement. Here, at the root level,  we factorize the `Title` value. At the first tree level, we divide the sub-sets into two categories: the valid and invalid ones. And so on!
 
-In the example, we mix the input values (`todo` instance) along with the expected values (`isValid` instance), illustrating how you simply define expected value along with input values.
+*Remark*
+- By the way, note how you can create contributors of simple types, like `bool`, by using the interface `IHolder<T>`. This interface contains a single property `Value` allowing to record/replay any single value of any type.
 
-### `IHolder<T>` Wrapper 
-By the way, note how you can create contributors of simple types, like `bool`, by using the interface `IHolder<T>`. This interface contains a single property `Value` allowing to record/replay any value of any type.
+### Explicit branching
+
+Sometimes you need to introduce a branch, but cannot use the indentation as in the previous example. NCase solves this problem by providing the ability to declare explicit branches:
+
+<!--# NCaseTree2 -->
+```C#
+var todo = builder.NewContributor<ITodo>("todo");
+var isValid = builder.NewContributor<IHolder<bool>>("isValid");
+
+var todoSet  = builder.NewCombinationSet("todoSet");
+using (var d = todoSet.Define())
+{
+    todo.Title = "forget me";
+        isValid.Value = true;
+            todo.DueDate = tomorrow;
+                todo.IsDone = false;
+            todo.DueDate = yesterday;
+                todo.IsDone = false;
+                todo.IsDone = true;
+    d.Branch();
+        todo.Title = "remember me";
+        todo.Title = "forgive me";
+
+        isValid.Value = false;
+            todo.DueDate = tomorrow;
+                todo.IsDone = true;
+}
+```
+
+We introduce an explicit branch by calling the `d.Branch()` on the instance returned by the `Define()` method. It forces NCase to build a new branch. In the example, we use to define a union set of two titles, with a common sub-tree, and the whole sub-set is joined by union to the previous sub-set.
 
 ## Visualize
 
@@ -425,23 +453,19 @@ Result:
 
 <!--# Visualize_Def_Console -->
 ```
- Definition                                       | Location                         
- ------------------------------------------------ | -------------------------------- 
- Combination Set 'todoSet'                        | c:\dev\NCase\Readme.cs: line 378 
-     todo.Title=forget                            | c:\dev\NCase\Readme.cs: line 380 
-         isValid.Value=True                       | c:\dev\NCase\Readme.cs: line 381 
-             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 382 
-                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 383 
-                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 384 
-         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 385 
-             todo.DueDate=10.11.2011 00:00:00     | c:\dev\NCase\Readme.cs: line 386 
-                 todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 387 
-     todo.Title=*++**+*                           | c:\dev\NCase\Readme.cs: line 388 
-         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 389 
-             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 390 
-                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 391 
-             todo.IsDone=True                     | c:\dev\NCase\Readme.cs: line 392 
-                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 393
+ Definition                                   | Location                         
+ -------------------------------------------- | -------------------------------- 
+ Combination Set 'todoSet'                    | c:\dev\NCase\Readme.cs: line 394 
+     todo.Title=forget me                     | c:\dev\NCase\Readme.cs: line 396 
+         isValid.Value=True                   | c:\dev\NCase\Readme.cs: line 397 
+             todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 398 
+                 todo.IsDone=False            | c:\dev\NCase\Readme.cs: line 399 
+             todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 400 
+                 todo.IsDone=False            | c:\dev\NCase\Readme.cs: line 401 
+                 todo.IsDone=True             | c:\dev\NCase\Readme.cs: line 402 
+         isValid.Value=False                  | c:\dev\NCase\Readme.cs: line 403 
+             todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 404 
+                 todo.IsDone=True             | c:\dev\NCase\Readme.cs: line 405
 ```
 
 #### Visualize Test Cases as a Table
@@ -459,15 +483,14 @@ Result:
 
 <!--# Visualize_Table_Console -->
 ```
- # | todo.Title | isValid.Value | todo.IsDone |        todo.DueDate 
- - | ---------- | ------------- | ----------- | ------------------- 
- 1 |     forget |          True |       False | 10.11.2011 00:00:00 
- 2 |     forget |          True |       False | 12.11.2011 00:00:00 
- 3 |     forget |         False |       False | 10.11.2011 00:00:00 
- 4 |    *++**+* |         False |       False | 10.11.2011 00:00:00 
- 5 |    *++**+* |         False |        True | 12.11.2011 00:00:00 
+ # | todo.Title | isValid.Value |        todo.DueDate | todo.IsDone 
+ - | ---------- | ------------- | ------------------- | ----------- 
+ 1 |  forget me |          True | 12.11.2011 00:00:00 |       False 
+ 2 |  forget me |          True | 10.11.2011 00:00:00 |       False 
+ 3 |  forget me |          True | 10.11.2011 00:00:00 |        True 
+ 4 |  forget me |         False | 12.11.2011 00:00:00 |        True 
 
-TOTAL: 5 TEST CASES
+TOTAL: 4 TEST CASES
 ```
 
 #### Visualize Single Case Definition
@@ -487,10 +510,10 @@ Result:
 ```
  Fact                             | Location                         
  -------------------------------- | -------------------------------- 
- todo.Title=forget                | c:\dev\NCase\Readme.cs: line 380 
- isValid.Value=True               | c:\dev\NCase\Readme.cs: line 381 
- todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 382 
- todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 383
+ todo.Title=forget me             | c:\dev\NCase\Readme.cs: line 396 
+ isValid.Value=True               | c:\dev\NCase\Readme.cs: line 397 
+ todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 398 
+ todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 399
 ```
 
 Next Steps
@@ -502,17 +525,10 @@ Then, please provide feedbacks, critiques, and suggestions!
 
 Finally, be aware that NCase is under continuous development. Some upcoming features are:
 
-- Improved syntax
-	- Inline definition
-	- Inline assignment of multiple values
 - Full mocking functionalities 
 	- mocking of classes
 	- mocking of methods
 	- "[moq][moq] like" `Setup(...)` and `Verify(...)`
-- New use case: Record & replay of test steps
-	- new definitions: `AllPermutations`, `PairwisePermutations`
-- Improved testing of borderline cases
-	- new definition `DrawDimensions`
 - Autonomous parametrized test framework (including Assert compatible with NCase record/replay mechanism, CLI, Visual Studio and Resharper adapter) 
 
 

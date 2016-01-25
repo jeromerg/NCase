@@ -13,12 +13,12 @@ namespace NCaseFramework.Back.Imp.CombinationSet
         : IAddChildVisitor<ICombinationSetNode, INode>
     {
         private const int INDENTATION_SIZE = 4;
-        [NotNull] private readonly IFileCache mFileCache;
+        [NotNull] private readonly IFileAnalyzer mFileAnalyzer;
         [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
 
-        public AddChildVisitors([NotNull] IFileCache fileCache, [NotNull] ICodeLocationPrinter codeLocationPrinter)
+        public AddChildVisitors([NotNull] IFileAnalyzer fileAnalyzer, [NotNull] ICodeLocationPrinter codeLocationPrinter)
         {
-            mFileCache = fileCache;
+            mFileAnalyzer = fileAnalyzer;
             mCodeLocationPrinter = codeLocationPrinter;
         }
 
@@ -145,8 +145,7 @@ namespace NCaseFramework.Back.Imp.CombinationSet
 
             for (int lineIndex = nodeToAddLineIndex - 1; lineIndex > previousSiblingLineIndex; lineIndex--)
             {
-                string line = mFileCache.GetLine(fileName, lineIndex);
-                bool isEmptyLine = string.IsNullOrWhiteSpace(line);
+                bool isEmptyLine = mFileAnalyzer.IsEmptyLine(fileName, lineIndex);
                 if(isEmptyLine)
                     return true;
             }
@@ -157,7 +156,7 @@ namespace NCaseFramework.Back.Imp.CombinationSet
         {
             string fileName = GetFileName(node.CodeLocation);
             int lineIndex = GetLineIndex(node.CodeLocation);
-            return mFileCache.GetIndentation(fileName, lineIndex);
+            return mFileAnalyzer.GetIndentation(fileName, lineIndex);
         }
 
         #region static helpers to move

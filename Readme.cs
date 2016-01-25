@@ -317,25 +317,41 @@ namespace NCaseFramework.Doc
             }
             //#
 
-            //# NCaseCombiningSets_ALL_SET
-            var allSet = builder.NewCombinationSet("allSet");
-            using (allSet.Define())
-            {
-                todoSet.Ref();
+            { 
+                //# NCaseCombiningSets_ALL_SET
+                var allSet = builder.NewCombinationSet("allSet");
+                using (allSet.Define())
+                {
+                    todoSet.Ref();
 
-                userSet.Ref();
+                    userSet.Ref();
+                }
+                //#
+
+                allSet.Cases().Replay().ActAndAssert(ea =>
+                {
+                    // ACT
+                    var todoManager = new TodoManager();
+                    todoManager.AddTodo(todo);
+
+                    // ASSERT
+                    //...
+                });
             }
-            //#
 
-            allSet.Cases().Replay().ActAndAssert(ea =>
-            {
-                // ACT
-                var todoManager = new TodoManager();
-                todoManager.AddTodo(todo);
+            { 
+                //# NCaseCombiningSets_ALL_SET_Pairwise
+                var allSet = builder.NewCombinationSet("allSet");
+                using (allSet.Define())
+                {
+                    todoSet.Ref();    // Pairwise product!
 
-                // ASSERT
-                //...
-            });
+                    userSet.Ref();    // Default cartesian product
+                }
+                //#
+            }
+
+
         }
 
         [Test]
@@ -347,7 +363,7 @@ namespace NCaseFramework.Doc
             var todo = builder.NewContributor<ITodo>("todo");
 
             //# NCasePairwiseCombinations
-            var todoSet  = builder.NewCombinationSet("todoSet");
+            var todoSet  = builder.NewCombinationSet("todoSet", onlyPairwise: true);
             using (todoSet.Define())
             {
                 todo.Title = "Don't forget to forget NCase";
@@ -377,20 +393,16 @@ namespace NCaseFramework.Doc
             var todoSet  = builder.NewCombinationSet("todoSet");
             using (todoSet.Define())
             {
-                todo.Title = "forget";
+                todo.Title = "forget me";
                     isValid.Value = true;
-                        todo.IsDone = false;
-                            todo.DueDate = yesterday;
-                            todo.DueDate = tomorrow;
-                    isValid.Value = false;
+                        todo.DueDate = tomorrow;
+                            todo.IsDone = false;
                         todo.DueDate = yesterday;
                             todo.IsDone = false;
-                todo.Title = "*++**+*";
+                            todo.IsDone = true;
                     isValid.Value = false;
-                        todo.IsDone = false;
-                            todo.DueDate = yesterday;
-                        todo.IsDone = true;
-                            todo.DueDate = tomorrow;
+                        todo.DueDate = tomorrow;
+                            todo.IsDone = true;
             }
             //#
 
@@ -416,6 +428,37 @@ namespace NCaseFramework.Doc
 
             Console.WriteLine(cas);
             docu.StopRecordConsole();
+            //#
+        }
+
+        [Test]
+        public void NCaseTree2()
+        {
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+
+            //# NCaseTree2
+            var todo = builder.NewContributor<ITodo>("todo");
+            var isValid = builder.NewContributor<IHolder<bool>>("isValid");
+
+            var todoSet  = builder.NewCombinationSet("todoSet");
+            using (var d = todoSet.Define())
+            {
+                todo.Title = "forget me";
+                    isValid.Value = true;
+                        todo.DueDate = tomorrow;
+                            todo.IsDone = false;
+                        todo.DueDate = yesterday;
+                            todo.IsDone = false;
+                            todo.IsDone = true;
+                d.Branch();
+                    todo.Title = "remember me";
+                    todo.Title = "forgive me";
+
+                    isValid.Value = false;
+                        todo.DueDate = tomorrow;
+                            todo.IsDone = true;
+            }
             //#
         }
 

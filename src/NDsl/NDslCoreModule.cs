@@ -39,6 +39,7 @@ namespace NDsl
             builder.RegisterType<TableBuilder.Factory>().As<ITableBuilderFactory>();
             builder.RegisterType<CodeLocationFactory>().As<ICodeLocationFactory>();
             builder.RegisterType<FileCache>().As<IFileCache>();
+            builder.RegisterType<FileAnalyzer>().As<IFileAnalyzer>();
             builder.RegisterType<TokenStream>().AsImplementedInterfaces();
             builder.RegisterGeneric(typeof (ActionVisitMapper<,>)).AsSelf().As(typeof (IActionVisitMapper<,>));
             builder.RegisterGeneric(typeof (ActionPayloadVisitMapper<,,>)).AsSelf().As(typeof (IActionPayloadVisitMapper<,,>));

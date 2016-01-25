@@ -55,6 +55,8 @@
     <Compile Include="Back.Api\Util\CodeLocationPrinter.cs" />
     <Compile Include="Back.Api\Util\ICodeLocationPrinter.cs" />
     <Compile Include="Back.Api\Util\IFileCache.cs" />
+    <Compile Include="Back.Api\Util\IFileAnalyzer.cs" />
+    <Compile Include="Back.Imp\Util\FileAnalyzer.cs" />
     <Compile Include="Back.Imp\Util\FileCache.cs" />
     <Compile Include="Front.Ui\Definer.cs" />
     <Compile Include="Back.Api\Record\IRecorder.cs" />
