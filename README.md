@@ -42,7 +42,7 @@ var mock = new Mock<ITodo>();
 mock.SetupAllProperties();
 ITodo todo = mock.Object;
 
-todo.Title = "Don't forget to forget";
+todo.Title = "Don't forget to forget NCase";
 todo.DueDate = now;
 todo.IsDone = false;
 
@@ -64,12 +64,14 @@ Now look how you write the same test with NCase:
 // ARRANGE
 var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
-var set = builder.NewDefinition<AllCombinations>("set");
+var set = builder.NewCombinationSet("set");
 
 using (set.Define())
 {
-    todo.Title = "Don't forget to forget";
+    todo.Title = "Don't forget to forget NCase";
+
     todo.DueDate = now;
+
     todo.IsDone = false;
 }
 
@@ -107,22 +109,22 @@ public void MoqTest1()
     mock.SetupAllProperties();
     ITodo todo = mock.Object;
 
-    todo.Title = "Don't forget to forget";
-    todo.DueDate = now;
+    todo.Title = "Don't forget to forget NCase";
+    todo.DueDate = now;            
     todo.IsDone = false;
 
     // ACT ... ASSERT ...
 }
 
 [Test]
-public void MoqTest2()                      // DUPLICATED TEST
+public void MoqTest2()                                 // DUPLICATED TEST
 {
     // ARRANGE
     var mock = new Mock<ITodo>();
     mock.SetupAllProperties();
     ITodo todo = mock.Object;
 
-    todo.Title = "Another todo to forget"; // CHANGE
+    todo.Title = "Another todo to never forget NCase!"; // CHANGE
     todo.DueDate = now;
     todo.IsDone = false;
 
@@ -134,7 +136,7 @@ But check this out! With NCase, you only need to add the single following line:
 
 <!--# NCaseExample2_AddedLine -->
 ```C#
-todo.Title = "Another todo to forget";
+todo.Title = "Another todo to never forget NCase";
 ```
 
 Thus, the previous NCase test becomes:
@@ -144,13 +146,14 @@ Thus, the previous NCase test becomes:
 // ARRANGE
 var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
-var set = builder.NewDefinition<AllCombinations>("set");
+var set = builder.NewCombinationSet("set");
 using (set.Define())
 {
-    todo.Title = "Don't forget to forget";
-    todo.Title = "Another todo to forget";  // ADDITION
+    todo.Title = "Don't forget to forget NCase";
+    todo.Title = "Another todo to never forget NCase";  // SINGLE ADDITION!!!
 
     todo.DueDate = now;
+
     todo.IsDone = false;
 }
 
@@ -182,10 +185,10 @@ NCase is stupidly systematic: You may add as many assignments to `Task`, `DueDat
 // ARRANGE
 var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
-var set = builder.NewDefinition<AllCombinations>("set");
+var set = builder.NewCombinationSet("set");
 using (set.Define())
 {
-    todo.Title = "Don't forget to forget";
+    todo.Title = "Don't forget to forget NCase";
     todo.Title = "";
     todo.Title = null;
     todo.Title = "ß üöä ÜÖÄ !§$%&/()=?";
@@ -240,7 +243,7 @@ So that you can extend the existing the definition, as follows:
 ```C#
 using (set.Define())
 {
-    todo.Title = "Don't forget to forget";
+    todo.Title = "Don't forget to forget NCase";
     //... alternatives
 
     todo.DueDate = yesterday;
@@ -270,17 +273,17 @@ You first define the set of cases related to the `todo` contributor:
 
 <!--# NCaseCombiningSets_TODO_SET -->
 ```C#
-var todoSet = builder.NewDefinition<AllCombinations>("todoSet");
+var todoSet = builder.NewCombinationSet("todoSet");
 using (todoSet.Define())
 {
-    todo.Title = "Don't forget to forget";
-    //... alternatives
+    todo.Title = "Don't forget to forget NCase";
+    //... and alternatives
 
     todo.DueDate = yesterday;
-    //... alternatives
+    //... and alternatives
 
     todo.IsDone = false;
-    //... alternatives
+    //... and alternatives
 }
 ```
 
@@ -288,14 +291,14 @@ Then you define the set of cases related to the `user` contributor:
 
 <!--# NCaseCombiningSets_USER_SET -->
 ```C#
-var userSet = builder.NewDefinition<AllCombinations>("userSet");
+var userSet = builder.NewCombinationSet("userSet");
 using (userSet.Define())
 {
     user.IsActive = true;
-    //... alternatives
+    //... and alternatives
 
     user.NotificationEmail = null;
-    //... alternatives
+    //... and alternatives
 
 }
 ```
@@ -304,10 +307,11 @@ Finally, you **combine both sets together** as follows:
 
 <!--# NCaseCombiningSets_ALL_SET -->
 ```C#
-var allSet = builder.NewDefinition<AllCombinations>("allSet");
+var allSet = builder.NewCombinationSet("allSet");
 using (allSet.Define())
 {
     todoSet.Ref();
+
     userSet.Ref();
 }
 ```
@@ -328,10 +332,10 @@ Both definitions, `AllCombinations` and `PairwiseCombinations`, have exactly the
 
 <!--# NCasePairwiseCombinations -->
 ```C#
-var todoSet = builder.NewDefinition<PairwiseCombinations>("todoSet");
+var todoSet  = builder.NewCombinationSet("todoSet");
 using (todoSet.Define())
 {
-    todo.Title = "Don't forget to forget";
+    todo.Title = "Don't forget to forget NCase";
     //... alternatives
 
     todo.DueDate = yesterday;
@@ -347,10 +351,11 @@ As with `AllCombinations`, you can combine this definition with others:
 
 <!--# NCaseCombiningSets_ALL_SET -->
 ```C#
-var allSet = builder.NewDefinition<AllCombinations>("allSet");
+var allSet = builder.NewCombinationSet("allSet");
 using (allSet.Define())
 {
     todoSet.Ref();
+
     userSet.Ref();
 }
 ```
@@ -374,7 +379,7 @@ The following lines of code illustrate how it works:
 var todo = builder.NewContributor<ITodo>("todo");
 var isValid = builder.NewContributor<IHolder<bool>>("isValid");
 
-var todoSet = builder.NewDefinition<Tree>("todoSet");
+var todoSet  = builder.NewCombinationSet("todoSet");
 using (todoSet.Define())
 {
     todo.Title = "forget";
@@ -422,21 +427,21 @@ Result:
 ```
  Definition                                       | Location                         
  ------------------------------------------------ | -------------------------------- 
- Tree todoSet                                     | c:\dev\NCase\Readme.cs: line 373 
-     todo.Title=forget                            | c:\dev\NCase\Readme.cs: line 375 
-         isValid.Value=True                       | c:\dev\NCase\Readme.cs: line 376 
-             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 377 
-                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 378 
-                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 379 
-         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 380 
-             todo.DueDate=10.11.2011 00:00:00     | c:\dev\NCase\Readme.cs: line 381 
-                 todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 382 
-     todo.Title=*++**+*                           | c:\dev\NCase\Readme.cs: line 383 
-         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 384 
-             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 385 
-                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 386 
-             todo.IsDone=True                     | c:\dev\NCase\Readme.cs: line 387 
-                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 388
+ Combination Set 'todoSet'                        | c:\dev\NCase\Readme.cs: line 378 
+     todo.Title=forget                            | c:\dev\NCase\Readme.cs: line 380 
+         isValid.Value=True                       | c:\dev\NCase\Readme.cs: line 381 
+             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 382 
+                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 383 
+                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 384 
+         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 385 
+             todo.DueDate=10.11.2011 00:00:00     | c:\dev\NCase\Readme.cs: line 386 
+                 todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 387 
+     todo.Title=*++**+*                           | c:\dev\NCase\Readme.cs: line 388 
+         isValid.Value=False                      | c:\dev\NCase\Readme.cs: line 389 
+             todo.IsDone=False                    | c:\dev\NCase\Readme.cs: line 390 
+                 todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 391 
+             todo.IsDone=True                     | c:\dev\NCase\Readme.cs: line 392 
+                 todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 393
 ```
 
 #### Visualize Test Cases as a Table
@@ -482,10 +487,10 @@ Result:
 ```
  Fact                             | Location                         
  -------------------------------- | -------------------------------- 
- todo.Title=forget                | c:\dev\NCase\Readme.cs: line 375 
- isValid.Value=True               | c:\dev\NCase\Readme.cs: line 376 
- todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 377 
- todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 378
+ todo.Title=forget                | c:\dev\NCase\Readme.cs: line 380 
+ isValid.Value=True               | c:\dev\NCase\Readme.cs: line 381 
+ todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 382 
+ todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 383
 ```
 
 Next Steps

@@ -12,6 +12,9 @@ using NUtil.Generics;
 
 namespace NCaseFramework.Doc
 {
+    // remark: must remain here, in order to redirect NCase calls to the doc-specific implementation
+    using Shared;
+    
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]

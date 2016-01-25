@@ -47,9 +47,12 @@ namespace NCaseFramework.Back.Imp.CombinationSet
         public void Visit([NotNull] IPrintDefinitionDirector dir, [NotNull] IBranchNode node, [NotNull] IPrintDefinitionPayload p)
         {
             dir.Visit(node.Declaration, p);
-            p.Indent();
-            dir.Visit(node.Product, p);
-            p.Dedent();
+            if (node.Product != null)
+            {
+                p.Indent();
+                dir.Visit(node.Product, p);
+                p.Dedent();
+            }
         }
     }
 }
