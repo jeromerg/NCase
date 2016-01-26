@@ -28,7 +28,12 @@ namespace NDocUtilLibrary.ConsoleUtil
                 throw new InvalidOperationException("mConsoleRecord is null: BeginRecord was not called before");
 
             mConsoleRecord.Stop();
-            mSnippets.Add(new Snippet(CONSOLE_SOURCE_NAME, mConsoleRecord.RecordName, mConsoleRecord.ConsoleOutput));
+            string consoleOutput = mConsoleRecord.ConsoleOutput;
+            string consoleOutputWithoutLastNewLine = consoleOutput.EndsWith("\n")
+                                                ? consoleOutput.Substring(0, consoleOutput.Length-2)
+                                                : consoleOutput;
+
+            mSnippets.Add(new Snippet(CONSOLE_SOURCE_NAME, mConsoleRecord.RecordName, consoleOutputWithoutLastNewLine));
         }
     }
 }

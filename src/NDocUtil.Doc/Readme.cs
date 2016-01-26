@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using NDocUtilLibrary;
 using NUnit.Framework;
 
 namespace NUtil.Doc
 {
     [TestFixture]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class Readme
     {
+        [NotNull]
         private readonly NDocUtil docu = new NDocUtil();
 
         [TestFixtureTearDown]
@@ -37,14 +41,14 @@ namespace NUtil.Doc
             //#
 
             //# SaveSnippetsAsImage3
-            docu.SaveSnippetsAsImage(ImageFormat.Emf);
+            docu.SaveSnippetsAsImage(ImageFormat.Emf, path:"pathToPowerpointFile");
             //#
 
             docu.UpdateDocAssociatedToThisFile();
         }
 
         [Test]
-        public void PairwiseGenerator()
+        public void MyCodeAndConsoleSnippets()
         {
             docu.BeginRecordConsole("MY_CONSOLE_SNIPPET");
 
@@ -54,6 +58,12 @@ namespace NUtil.Doc
             //#
 
             docu.StopRecordConsole();
+
+            const string dummy = @"
+                //# SNIPPET
+                at least one character here!
+                //#
+                ";
         }
     }
 

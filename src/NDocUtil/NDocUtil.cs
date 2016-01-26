@@ -16,10 +16,10 @@ namespace NDocUtilLibrary
     public class NDocUtil
     {
         private const string SNIPPET_REGEX_STRING_ARG0_MARKER =
-            @"(?<=^\s*{0}\s+(?<name>\w+)\W*?\r\n)(?<body>.*?)(?=\r\n[ \t]*(?:{0}|\Z))";
+            @"(?<=^\s*//#\s+(?<name>\w+)\W*?\r\n)(?<body>.*?[^\r\n])(?=\r\n[ \t]*(?://#|\Z))";
 
         private const string MARKDOWN_SNIPPET_REGEX_STRING =
-            @"(?<=^\s*<!--#\s+(?<name>\w+)\s*-->[^\r\n]*\r\n```[^\r\n]*\r\n)(?<body>.*?)(?=\r\n[ \t]*```)";
+            @"(?<=^(?<indent>[ \t]*)<!--#[ \t]+(?<name>\w+)[ \t]*-->[ \t]*\r\n[ \t]*```[^\r\n]*\r\n)(?<body>.*?)(?=\r\n[ \t]*```)";
 
         private const string DOC_FILE_EXTENSION = ".md";
         private const string SNIPPET_HTML_TEMPLATE = "<html><body>\n{0}\n</html></body>";

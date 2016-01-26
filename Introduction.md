@@ -446,26 +446,26 @@ If at some point, you get lost and don't understand what is going on, then first
 ```C#
 string def = todoSet.PrintDefinition(isFileInfo: true);
 
-Console.WriteLine(def);
+Console.Write(def);
 ```
 
 Result:
 
 <!--# Visualize_Def_Console -->
 ```
- Definition                                   | Location                         
- -------------------------------------------- | -------------------------------- 
- Combination Set 'todoSet'                    | c:\dev\NCase\Readme.cs: line 394 
-     todo.Title=forget me                     | c:\dev\NCase\Readme.cs: line 396 
-         isValid.Value=True                   | c:\dev\NCase\Readme.cs: line 397 
-             todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 398 
-                 todo.IsDone=False            | c:\dev\NCase\Readme.cs: line 399 
-             todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 400 
-                 todo.IsDone=False            | c:\dev\NCase\Readme.cs: line 401 
-                 todo.IsDone=True             | c:\dev\NCase\Readme.cs: line 402 
-         isValid.Value=False                  | c:\dev\NCase\Readme.cs: line 403 
-             todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 404 
-                 todo.IsDone=True             | c:\dev\NCase\Readme.cs: line 405
+ Definition                                   | Location                               
+ -------------------------------------------- | -------------------------------------- 
+ Combination Set 'todoSet'                    | c:\dev\NCase\Introduction.cs: line 394 
+     todo.Title=forget me                     | c:\dev\NCase\Introduction.cs: line 396 
+         isValid.Value=True                   | c:\dev\NCase\Introduction.cs: line 397 
+             todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Introduction.cs: line 398 
+                 todo.IsDone=False            | c:\dev\NCase\Introduction.cs: line 399 
+             todo.DueDate=10.11.2011 00:00:00 | c:\dev\NCase\Introduction.cs: line 400 
+                 todo.IsDone=False            | c:\dev\NCase\Introduction.cs: line 401 
+                 todo.IsDone=True             | c:\dev\NCase\Introduction.cs: line 402 
+         isValid.Value=False                  | c:\dev\NCase\Introduction.cs: line 403 
+             todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Introduction.cs: line 404 
+                 todo.IsDone=True             | c:\dev\NCase\Introduction.cs: line 405 
 ```
 
 #### Visualize Test Cases as a Table
@@ -476,7 +476,7 @@ You can get a systematic overview of the generated test cases, by calling the `P
 ```C#
 string table = todoSet.PrintCasesAsTable();
 
-Console.WriteLine(table);
+Console.Write(table);
 ```
 
 Result:
@@ -501,19 +501,19 @@ You can print information about a single test case, by calling the `Print()` ext
 ```C#
 string cas = todoSet.Cases().First().Print();
 
-Console.WriteLine(cas);
+Console.Write(cas);
 ```
 
 Result:
 
 <!--# Visualize_Case_Console -->
 ```
- Fact                             | Location                         
- -------------------------------- | -------------------------------- 
- todo.Title=forget me             | c:\dev\NCase\Readme.cs: line 396 
- isValid.Value=True               | c:\dev\NCase\Readme.cs: line 397 
- todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Readme.cs: line 398 
- todo.IsDone=False                | c:\dev\NCase\Readme.cs: line 399
+ Fact                             | Location                               
+ -------------------------------- | -------------------------------------- 
+ todo.Title=forget me             | c:\dev\NCase\Introduction.cs: line 396 
+ isValid.Value=True               | c:\dev\NCase\Introduction.cs: line 397 
+ todo.DueDate=12.11.2011 00:00:00 | c:\dev\NCase\Introduction.cs: line 398 
+ todo.IsDone=False                | c:\dev\NCase\Introduction.cs: line 399 
 ```
 
 Next Steps

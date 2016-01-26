@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using NUtil.Linq;
 
 namespace NUtil.Text
 {
@@ -20,8 +21,8 @@ namespace NUtil.Text
         public static string JoinLines([NotNull, ItemCanBeNull] this IEnumerable<string> lines)
         {
             if (lines == null) throw new ArgumentNullException("lines");
-            string joined = string.Join(Environment.NewLine, lines);
-            return joined;
+
+            return string.Join(Environment.NewLine, lines);
         }
 
         [NotNull]
@@ -37,13 +38,28 @@ namespace NUtil.Text
             // ReSharper disable once AssignNullToNotNullAttribute
             int indentMin = lines.Min(line => GetIndent(line, tabIndentation));
 
-            var sb = new StringBuilder();
-            foreach (string line in lines)
-            {
+            string desindentedTxt = lines
                 // ReSharper disable once PossibleNullReferenceException
-                sb.Append(line.Length >= indentMin ? line.Substring(indentMin) : "");
-                sb.AppendLine();
-            }
+                .Select(line => line.Length >= indentMin ? line.Substring(indentMin) : "")
+                .JoinLines();
+
+            return desindentedTxt;
+        }
+
+        [NotNull]
+        public static string Indent([NotNull] this string txt, int indentation)
+        {
+            if (txt == null) throw new ArgumentNullException("txt");
+
+            var sb = new StringBuilder();
+
+            txt.Lines().ForEach(l =>
+                                {
+                                    sb.Append(new string(' ', indentation));
+                                    sb.Append(l);
+                                },
+                                () => sb.AppendLine());
+
             return sb.ToString();
         }
 

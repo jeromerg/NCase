@@ -66,23 +66,23 @@ The previous document looks like after the change:
 	<!--# MY_CODE_SNIPPET -->
 	```C#
     var someDate = new DateTime(2011, 11, 11, 11, 11, 11);
-	Console.WriteLine(someDate.ToString("o"));
+    Console.WriteLine(someDate.ToString("o"));
 	```
 	
     Output:
 
 	<!--# MY_CONSOLE_SNIPPET -->
 	```
-	2011-11-11T11:11:11.0000000Z
+    2011-11-11T11:11:11.0000000
 	```
 
 *Remarks*
 
 - if you introduce a new code block for the first time, you need to add at least one character inside the code block, elsewhere the code snippet will not be injected:
 
-		<!--# MY_CONSOLE_SNIPPET -->
+		<!--# SNIPPET -->
 		```
-		at least one character here!
+        at least one character here!
 		```
 
 - NDocUtil only supports injection into fenced code blocks with three back-ticks ```. It doesn't support the inline code blocks nor the indented code blocks. See  the [markdown documentation][codeblock].
@@ -214,10 +214,11 @@ It is a good opportunity for us to enable the automatic refreshing of code snipp
 - Let NDocUtil exports the snippets as image, with the following call:
 	<!--# SaveSnippetsAsImage3 -->
 	```C#
-	docu.SaveSnippetsAsImage(ImageFormat.Emf);
+    docu.SaveSnippetsAsImage(ImageFormat.Emf, path:"pathToPowerpointFile");
 	```
 
 - Then insert the EMF file with the option "Link to File" 
+	- *Remark*: the image file must be located in the same folder as the powerpoint file in order to remain portable.
 
 That's it: The snippets will be refreshed on every build inside your presentation!
 

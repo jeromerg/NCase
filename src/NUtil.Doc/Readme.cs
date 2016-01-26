@@ -59,8 +59,7 @@ namespace NUtil.Doc
                 //# LinqForEachExtensions1
                 var set = Enumerable.Range(0, 10);
             
-                set.ForEach(v => Console.Write(v));
-                
+                set.ForEach(v => Console.Write(v));                
                 //#
                 docu.StopRecordConsole();
             }
@@ -73,8 +72,7 @@ namespace NUtil.Doc
                 var set = Enumerable.Range(0, 10);
                 
                 set.ForEach( v => Console.Write(v), 
-                            () => Console.Write(", "));
-                
+                            () => Console.Write(", "));                
                 //#
                 docu.StopRecordConsole();
             }
@@ -86,8 +84,7 @@ namespace NUtil.Doc
                 var set = Enumerable.Range(0, 10);
                 
                 set.ForEach( v => SendToServer(v), 
-                            () => Thread.Sleep(10));
-                
+                            () => Thread.Sleep(10));                
                 //#
             }
 

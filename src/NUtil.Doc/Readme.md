@@ -81,7 +81,7 @@ Every utility framework re-implements the following ForEach extension method:
 ```C#
 var set = Enumerable.Range(0, 10);
 
-set.ForEach(v => Console.Write(v));
+set.ForEach(v => Console.Write(v));                
 ```
 Output:
 <!--# LinqForEachExtensions1_Console -->
@@ -96,7 +96,7 @@ The following overload is a little bit more interesting, as it enables placing a
 var set = Enumerable.Range(0, 10);
 
 set.ForEach( v => Console.Write(v), 
-            () => Console.Write(", "));
+            () => Console.Write(", "));                
 ```
 Output:
 <!--# LinqForEachExtensions2_Console -->
@@ -111,7 +111,7 @@ It is an alternative to the Linq `Aggregate(...)` function and the `string.Join(
 var set = Enumerable.Range(0, 10);
 
 set.ForEach( v => SendToServer(v), 
-            () => Thread.Sleep(10));
+            () => Thread.Sleep(10));                
 ```
 
 ### Quadratic Processing (Linq)

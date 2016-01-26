@@ -56,12 +56,11 @@ namespace NDocUtilLibrary.Snippets
 
                 string unindentedBodyLines = TextExtensions.Desindent(snippetBody, mTabIndentation);
 
-                IEnumerable<string> unindentedAndIncludedLines = unindentedBodyLines
+                string snippetFinalBody = unindentedBodyLines
                     .Split(new[] {Environment.NewLine}, StringSplitOptions.None)
                     .Where(line => line != null)
-                    .Where(line => mExcludedLineRegex == null || !mExcludedLineRegex.IsMatch(line));
-
-                string snippetFinalBody = string.Join(Environment.NewLine, unindentedAndIncludedLines);
+                    .Where(line => mExcludedLineRegex == null || !mExcludedLineRegex.IsMatch(line))
+                    .JoinLines();
 
                 snippets.Add(new Snippet(source, snippetName, snippetFinalBody));
             }
@@ -107,6 +106,8 @@ namespace NDocUtilLibrary.Snippets
             string snippetBody;
             GetSnippetNameAndBody(match, out snippetName, out snippetBody);
 
+            int originalIndentation = GetIndentOrDefault(match);
+
             Snippet ersatzSnippet;
             if (!ersatzSnippets.TryGetValue(snippetName, out ersatzSnippet))
             {
@@ -116,14 +117,29 @@ namespace NDocUtilLibrary.Snippets
                 throw new ArgumentException(msg);
             }
 
+
             // ReSharper disable once PossibleNullReferenceException
-            string trimmedSnippet = ersatzSnippet.Body.TrimEnd();
-            if (snippetBody != trimmedSnippet)
+            if (snippetBody != ersatzSnippet.Body)
                 Console.WriteLine("Snippet '{0}' changed... upgrading it", snippetName);
             else
                 Console.WriteLine("Snippet '{0}' didn't change", snippetName);
 
-            return trimmedSnippet;
+            string result = ersatzSnippet.Body.Indent(originalIndentation);
+            return result;
+        }
+
+        private int GetIndentOrDefault([NotNull] Match match)
+        {
+            Group indentGroup = match.Groups["indent"];
+            if(indentGroup == null)
+                return 0;
+
+            string indentString = indentGroup.Value;
+
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+            int indent = indentString.Sum(c => c == '\t' ? mTabIndentation : 1);
+
+            return indent;
         }
 
         private static void GetSnippetNameAndBody(Match match, [NotNull] out string snippetName, [NotNull] out string snippetBody)

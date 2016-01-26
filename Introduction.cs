@@ -410,7 +410,7 @@ namespace NCaseFramework.Doc
             docu.BeginRecordConsole("Visualize_Def_Console");
             string def = todoSet.PrintDefinition(isFileInfo: true);
 
-            Console.WriteLine(def);
+            Console.Write(def);
             docu.StopRecordConsole();
             //#                
 
@@ -418,7 +418,7 @@ namespace NCaseFramework.Doc
             docu.BeginRecordConsole("Visualize_Table_Console");
             string table = todoSet.PrintCasesAsTable();
 
-            Console.WriteLine(table);
+            Console.Write(table);
             docu.StopRecordConsole();
             //#
 
@@ -426,7 +426,7 @@ namespace NCaseFramework.Doc
             docu.BeginRecordConsole("Visualize_Case_Console");
             string cas = todoSet.Cases().First().Print();
 
-            Console.WriteLine(cas);
+            Console.Write(cas);
             docu.StopRecordConsole();
             //#
         }
