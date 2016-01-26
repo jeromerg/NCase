@@ -35,7 +35,7 @@ namespace NDocUtilLibrary.ExportToImage
                         size.Width + leftBorder + rightBorder, 
                         size.Height + topBorder + bottomBorder);
 
-                    HtmlRender.Render(g, htmlSnippet);
+                    SizeF sizeF = HtmlRender.Render(g, htmlSnippet);
                 }
             }
             finally

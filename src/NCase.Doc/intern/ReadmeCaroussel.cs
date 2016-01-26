@@ -27,6 +27,7 @@ namespace NCaseFramework.Doc.intern
         public void UpdateMarkdownFile()
         {
             docu.SaveSnippetsAsImage(ImageFormat.Emf, leftBorder:5, path:".");
+            docu.SaveSnippetsAsRaw(path:".");
         }
 
         //# TodoInterface
@@ -58,18 +59,18 @@ namespace NCaseFramework.Doc.intern
         [Test]
         public void Slide1()
         {
-            //# Slide1
             var builder = NCase.NewBuilder();
 
             var todo = builder.NewContributor<ITodo>("todo");
 
-            var set = builder.NewCombinationSet("set");
+            var todoSet = builder.NewCombinationSet("todoSet");
 
-            using (set.Define())
+            //# Slide1
+            using (todoSet.Define())
             {
-                todo.Title = "Forget";
+                todo.Title = "Forget NCase";
                 todo.Title = "Remember";
-                todo.Title = "Forgive";
+                todo.Title = "Love!";
 
                 todo.DueDate = yesterday;
                 todo.DueDate = now;
@@ -81,7 +82,99 @@ namespace NCaseFramework.Doc.intern
             //#
 
             docu.BeginRecordConsole("Slide1_Console");
-            Console.WriteLine(set.PrintCasesAsTable());
+            Console.WriteLine(todoSet.PrintCasesAsTable());
+            docu.StopRecordConsole();
+        }
+
+        [Test]
+        public void Slide2()
+        {
+            var builder = NCase.NewBuilder();
+
+            var todo = builder.NewContributor<ITodo>("todo");
+
+            var todoSet = builder.NewCombinationSet("todoSet");
+
+            //# Slide2
+            using (todoSet.Define())
+            {
+                todo.IsDone = true;
+                    todo.DueDate = yesterday;
+                        todo.Title = "Forget NCase";
+                        todo.Title = "Remember";
+                        todo.Title = "Love!";
+                    todo.DueDate = now;
+                        todo.Title = "Remember";
+                    todo.DueDate = tomorrow;
+                        todo.Title = "Remember";
+                todo.IsDone = false;
+                    todo.Title = "Love!";
+                        todo.DueDate = tomorrow;
+            }
+            //#
+
+            docu.BeginRecordConsole("Slide2_Console");
+            Console.WriteLine(todoSet.PrintCasesAsTable());
+            docu.StopRecordConsole();
+        }
+
+        [Test]
+        public void Slide3()
+        {
+            var builder = NCase.NewBuilder();
+
+            var todo = builder.NewContributor<ITodo>("todo");
+
+            //# Slide3
+            var todoSet = builder.NewCombinationSet("todoSet", onlyPairwise: true);
+
+            using (todoSet.Define())
+            {
+                todo.Title = "Forget NCase";
+                todo.Title = "Remember";
+                todo.Title = "Love!";
+
+                todo.DueDate = yesterday;
+                todo.DueDate = now;
+                todo.DueDate = tomorrow;
+
+                todo.IsDone = false;
+                todo.IsDone = true;
+            }
+            //#
+
+            docu.BeginRecordConsole("Slide3_Console");
+            Console.WriteLine(todoSet.PrintCasesAsTable());
+            docu.StopRecordConsole();
+        }
+
+        [Test]
+        public void Slide4()
+        {
+            var builder = NCase.NewBuilder();
+
+            var todo = builder.NewContributor<ITodo>("todo");
+
+            //# Slide4
+            var todoSet = builder.NewCombinationSet("todoSet", onlyPairwise: true);
+
+            using (todoSet.Define())
+            {
+                todo.Title = "Forget NCase";
+                todo.Title = "Remember";
+                todo.Title = "Love!";
+
+                todo.DueDate = yesterday;
+                todo.DueDate = now;
+                todo.DueDate = tomorrow;
+
+                todo.IsDone = false;
+                todo.IsDone = true;
+            }
+            //#
+
+            docu.BeginRecordConsole("Slide3_Console");
+            Console.WriteLine(todoSet.PrintCasesAsTable());
             docu.StopRecordConsole();
         }
 

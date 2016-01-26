@@ -91,7 +91,7 @@ namespace NCaseFramework.Back.Imp.CombinationSet
             if (node.Product == null)
                 return Enumerable.Empty<List<INode>>();
 
-            return Visit(dir, node.Product, options);
+            return dir.Visit(node.Product, options);
         }
 
         public IEnumerable<List<INode>> Visit([NotNull] IGenerateCasesDirector dir,
