@@ -43,7 +43,7 @@ namespace NCaseFramework.Doc.intern
         public interface IUser
         {
             bool IsActive { get; set; }
-            string NotificationEmail { get; set; }
+            string Email { get; set; }
         }
         //#
 
@@ -153,11 +153,41 @@ namespace NCaseFramework.Doc.intern
         {
             var builder = NCase.NewBuilder();
 
-            var todo = builder.NewContributor<ITodo>("todo");
+
+            var todoSet = builder.NewCombinationSet("todoSet");
 
             //# Slide4
-            var todoSet = builder.NewCombinationSet("todoSet", onlyPairwise: true);
+            var todo = builder.NewContributor<ITodo>("todo");
 
+            var user = builder.NewContributor<IUser>("user");
+
+            using (todoSet.Define())
+            {
+                todo.Title = "Forget NCase";
+                todo.Title = "Remember";
+
+                todo.DueDate = now;
+                todo.DueDate = tomorrow;
+
+                user.Email = "some@email.com";
+                
+                user.IsActive = true;
+                user.IsActive = false;
+            }
+            //#
+
+            docu.BeginRecordConsole("Slide4_Console");
+            Console.WriteLine(todoSet.PrintCasesAsTable());
+            docu.StopRecordConsole();
+        }
+
+        [Test]
+        public void Slide5()
+        {
+            var builder = NCase.NewBuilder();
+
+            var todoSet = builder.NewCombinationSet("todoSet");
+            var todo = builder.NewContributor<ITodo>("todo");
             using (todoSet.Define())
             {
                 todo.Title = "Forget NCase";
@@ -171,10 +201,29 @@ namespace NCaseFramework.Doc.intern
                 todo.IsDone = false;
                 todo.IsDone = true;
             }
+
+            var user = builder.NewContributor<IUser>("user");
+
+            var allSet = builder.NewCombinationSet("allSet");
+
+            //# Slide5
+            using (allSet.Define())
+            {
+                todoSet.Ref();
+
+                user.Email = "some@email.com";
+                
+                user.IsActive = true;
+                user.IsActive = false;
+            }
             //#
 
-            docu.BeginRecordConsole("Slide3_Console");
-            Console.WriteLine(todoSet.PrintCasesAsTable());
+            docu.BeginRecordConsole("Slide5_Console");
+            Console.WriteLine(allSet.PrintCasesAsTable());
+            docu.StopRecordConsole();
+
+            docu.BeginRecordConsole("Slide5_Console2");
+            Console.WriteLine(allSet.PrintCasesAsTable(isRecursive: true));
             docu.StopRecordConsole();
         }
 
