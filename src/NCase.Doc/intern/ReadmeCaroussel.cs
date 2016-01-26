@@ -26,7 +26,7 @@ namespace NCaseFramework.Doc.intern
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            docu.SaveSnippetsAsImage(ImageFormat.Emf, leftBorder:5);
+            docu.SaveSnippetsAsImage(ImageFormat.Emf, leftBorder:5, path:".");
         }
 
         //# TodoInterface

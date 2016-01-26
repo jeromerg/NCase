@@ -28,8 +28,8 @@ namespace NDocUtilLibrary.ExportToImage
                 {
                     SizeF size = HtmlRender.Measure(g, htmlSnippet);
                     
-                    g.DrawRectangle(
-                        new Pen(Color.FromArgb(0, 0, 0, 0)), 
+                    g.FillRectangle(
+                        Brushes.White, 
                         leftBorder * -1, 
                         topBorder * -1, 
                         size.Width + leftBorder + rightBorder, 
