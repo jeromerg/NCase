@@ -12,6 +12,8 @@ NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized te
 Features at Glance
 ------------------
 
+![Slides](./slides.gif)
+
 
 Installation
 ------------

@@ -143,7 +143,9 @@ namespace NCaseFramework.Doc.intern
 
             //# Slide3
             var todoSet = builder.NewCombinationSet("todoSet", onlyPairwise: true);
+            //#
 
+            //# Slide3_2
             using (todoSet.Define())
             {
                 todo.Title = "Forget NCase";
@@ -339,6 +341,7 @@ namespace NCaseFramework.Doc.intern
         [Test]
         public void Slide7_NCase2()
         {
+            //# Slide7_NCase2
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
@@ -346,7 +349,6 @@ namespace NCaseFramework.Doc.intern
 
             using (todoSet.Define())
             {
-                //# Slide7_NCase2
                 todo.Title = "Remember to forget";
                 todo.Title = "forget to remember";
                 todo.Title = "and so on...";
@@ -360,8 +362,19 @@ namespace NCaseFramework.Doc.intern
 
                 todo.IsDone = false;
                 todo.IsDone = true;
-                //#
             }
+
+            todoSet.Cases().Replay().ActAndAssert(ea =>
+            {
+                // ACT
+                var tm = new TodoManager();
+                bool ok = tm.AddTodo(todo);
+
+                // ASSERT
+                Assert.IsTrue(ok);
+                Assert.AreEqual(1, tm.Todos.Count());
+            });
+            //#
         }
    }
 

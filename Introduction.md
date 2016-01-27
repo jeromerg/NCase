@@ -64,9 +64,9 @@ Now look how you write the same test with NCase:
 // ARRANGE
 var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
-var set = builder.NewCombinationSet("set");
+var todoSet = builder.NewCombinationSet("todoSet");
 
-using (set.Define())
+using (todoSet.Define())
 {
     todo.Title = "Don't forget to forget NCase";
 
@@ -75,7 +75,7 @@ using (set.Define())
     todo.IsDone = false;
 }
 
-set.Cases().Replay().ActAndAssert(ea =>
+todoSet.Cases().Replay().ActAndAssert(ea =>
 {
     // ACT
     var todoManager = new TodoManager();
@@ -146,8 +146,8 @@ Thus, the previous NCase test becomes:
 // ARRANGE
 var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
-var set = builder.NewCombinationSet("set");
-using (set.Define())
+var todoSet = builder.NewCombinationSet("todoSet");
+using (todoSet.Define())
 {
     todo.Title = "Don't forget to forget NCase";
     todo.Title = "Another todo to never forget NCase";  // SINGLE ADDITION!!!
@@ -157,7 +157,7 @@ using (set.Define())
     todo.IsDone = false;
 }
 
-set.Cases().Replay().ActAndAssert(ea =>
+todoSet.Cases().Replay().ActAndAssert(ea =>
 {
     // ACT
     var todoManager = new TodoManager();
@@ -193,8 +193,8 @@ NCase is stupidly systematic: You may add as many assignments to `Task`, `DueDat
 // ARRANGE
 var builder = NCase.NewBuilder();
 var todo = builder.NewContributor<ITodo>("todo");
-var set = builder.NewCombinationSet("set");
-using (set.Define())
+var todoSet = builder.NewCombinationSet("todoSet");
+using (todoSet.Define())
 {
     todo.Title = "Don't forget to forget NCase";
     todo.Title = "";
@@ -215,7 +215,7 @@ using (set.Define())
     todo.IsDone = true;
 }
 
-set.Cases().Replay().ActAndAssert(ea =>
+todoSet.Cases().Replay().ActAndAssert(ea =>
 {
     // ACT
     var todoManager = new TodoManager();
@@ -249,7 +249,7 @@ So that you can extend the existing the definition, as follows:
 
 <!--# NCaseCombiningContributors_DEF -->
 ```C#
-using (set.Define())
+using (wholeSet.Define())
 {
     todo.Title = "Don't forget to forget NCase";
     //... alternatives
@@ -263,7 +263,7 @@ using (set.Define())
     user.IsActive = true;
     //... alternatives
 
-    user.NotificationEmail = null;
+    user.Email = null;
     //... alternatives
 }
 ```
@@ -305,7 +305,7 @@ using (userSet.Define())
     user.IsActive = true;
     //... and alternatives
 
-    user.NotificationEmail = null;
+    user.Email = null;
     //... and alternatives
 
 }
