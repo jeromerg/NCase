@@ -44,7 +44,7 @@ namespace NCaseFramework.Doc
         public interface IUser
         {
             bool IsActive { get; set; }
-            string NotificationEmail { get; set; }
+            string Email { get; set; }
         }
         //#
 
@@ -88,9 +88,9 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewCombinationSet("set");
+            var todoSet = builder.NewCombinationSet("todoSet");
 
-            using (set.Define())
+            using (todoSet.Define())
             {
                 todo.Title = "Don't forget to forget NCase";
 
@@ -99,7 +99,7 @@ namespace NCaseFramework.Doc
                 todo.IsDone = false;
             }
 
-            set.Cases().Replay().ActAndAssert(ea =>
+            todoSet.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
                 var todoManager = new TodoManager();
@@ -151,8 +151,8 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewCombinationSet("set");
-            using (set.Define())
+            var todoSet = builder.NewCombinationSet("todoSet");
+            using (todoSet.Define())
             {
                 todo.Title = "Don't forget to forget NCase";
                 todo.Title = "Another todo to never forget NCase";  // SINGLE ADDITION!!!
@@ -162,7 +162,7 @@ namespace NCaseFramework.Doc
                 todo.IsDone = false;
             }
 
-            set.Cases().Replay().ActAndAssert(ea =>
+            todoSet.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
                 var todoManager = new TodoManager();
@@ -180,8 +180,8 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewCombinationSet("set");
-            using (set.Define())
+            var todoSet = builder.NewCombinationSet("todoSet");
+            using (todoSet.Define())
             {
                 //# NCaseExample2_AddedLine
                 todo.Title = "Another todo to never forget NCase";
@@ -200,8 +200,8 @@ namespace NCaseFramework.Doc
             // ARRANGE
             var builder = NCase.NewBuilder();
             var todo = builder.NewContributor<ITodo>("todo");
-            var set = builder.NewCombinationSet("set");
-            using (set.Define())
+            var todoSet = builder.NewCombinationSet("todoSet");
+            using (todoSet.Define())
             {
                 todo.Title = "Don't forget to forget NCase";
                 todo.Title = "";
@@ -222,7 +222,7 @@ namespace NCaseFramework.Doc
                 todo.IsDone = true;
             }
 
-            set.Cases().Replay().ActAndAssert(ea =>
+            todoSet.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
                 var todoManager = new TodoManager();
@@ -247,10 +247,10 @@ namespace NCaseFramework.Doc
             var user = builder.NewContributor<IUser>("user");
             //# 
 
-            var set = builder.NewCombinationSet("set");
+            var wholeSet = builder.NewCombinationSet("wholeSet");
 
             //# NCaseCombiningContributors_DEF
-            using (set.Define())
+            using (wholeSet.Define())
             {
                 todo.Title = "Don't forget to forget NCase";
                 //... alternatives
@@ -264,12 +264,12 @@ namespace NCaseFramework.Doc
                 user.IsActive = true;
                 //... alternatives
 
-                user.NotificationEmail = null;
+                user.Email = null;
                 //... alternatives
             }
             //#
 
-            set.Cases().Replay().ActAndAssert(ea =>
+            wholeSet.Cases().Replay().ActAndAssert(ea =>
             {
                 // ACT
                 var todoManager = new TodoManager();
@@ -311,7 +311,7 @@ namespace NCaseFramework.Doc
                 user.IsActive = true;
                 //... and alternatives
 
-                user.NotificationEmail = null;
+                user.Email = null;
                 //... and alternatives
 
             }

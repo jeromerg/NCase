@@ -69,6 +69,8 @@ namespace NCaseFramework.Doc.intern
         DateTime now = new DateTime(2011, 11, 11, 0, 0, 0);
         DateTime yesterday = new DateTime(2011, 11, 10, 0, 0, 0);
         DateTime tomorrow = new DateTime(2011, 11, 12, 0, 0, 0);
+        DateTime invalidLocalTime = new DateTime(2011, 11, 12, 0, 0, 0);
+        DateTime ambiguousLocalTime = new DateTime(2011, 11, 12, 0, 0, 0);
 
         [Test]
         public void Slide1()
@@ -332,6 +334,34 @@ namespace NCaseFramework.Doc.intern
                 Assert.AreEqual(1, tm.Todos.Count());
             });
             //#
+        }
+
+        [Test]
+        public void Slide7_NCase2()
+        {
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+            var todo = builder.NewContributor<ITodo>("todo");
+            var todoSet = builder.NewCombinationSet("todoSet");
+
+            using (todoSet.Define())
+            {
+                //# Slide7_NCase2
+                todo.Title = "Remember to forget";
+                todo.Title = "forget to remember";
+                todo.Title = "and so on...";
+                todo.Title = "all...";
+                todo.Title = "and everything ...";
+
+                todo.DueDate = yesterday;
+                todo.DueDate = now;
+                todo.DueDate = invalidLocalTime;
+                todo.DueDate = ambiguousLocalTime;
+
+                todo.IsDone = false;
+                todo.IsDone = true;
+                //#
+            }
         }
    }
 
