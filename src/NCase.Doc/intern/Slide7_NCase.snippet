@@ -1,0 +1,24 @@
+// ARRANGE
+var builder = NCase.NewBuilder();
+var todo = builder.NewContributor<ITodo>("todo");
+var todoSet = builder.NewCombinationSet("todoSet");
+
+using (todoSet.Define())
+{
+    todo.Title = "Remember to forget";
+
+    todo.DueDate = now;
+
+    todo.IsDone = false;
+}
+
+todoSet.Cases().Replay().ActAndAssert(ea =>
+{
+    // ACT
+    var tm = new TodoManager();
+    bool ok = tm.AddTodo(todo);
+
+    // ASSERT
+    Assert.IsTrue(ok);
+    Assert.AreEqual(1, tm.Todos.Count());
+});

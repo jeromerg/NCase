@@ -1,8 +1,12 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using JetBrains.Annotations;
+using Moq;
 using NCaseFramework.Front.Ui;
+using NCaseFramework.NunitAdapter.Front.Ui;
 using NDsl.Front.Ui;
 using NUnit.Framework;
 using NDocUtilLibrary;
@@ -49,7 +53,17 @@ namespace NCaseFramework.Doc.intern
 
         public class TodoManager
         {
-            public void AddTodo(ITodo todo) { }
+            public bool AddTodo(ITodo todo)
+            {
+                mTodos.Add(todo);
+                return true;
+            }
+
+            private readonly List<ITodo> mTodos = new List<ITodo>();
+            public IEnumerable<ITodo> Todos
+            {
+                get { return mTodos; }
+            }
         }
 
         DateTime now = new DateTime(2011, 11, 11, 0, 0, 0);
@@ -227,7 +241,98 @@ namespace NCaseFramework.Doc.intern
             docu.StopRecordConsole();
         }
 
+        [Test]
+        public void Slide6()
+        {
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+            var todo = builder.NewContributor<ITodo>("todo");
+            var todoSet = builder.NewCombinationSet("todoSet");
 
+            using (todoSet.Define())
+            {
+                todo.Title = "Don't forget to forget NCase";
+                todo.Title = "Another todo to never forget NCase";  // SINGLE ADDITION!!!
+
+                todo.DueDate = now;
+
+                todo.IsDone = false;
+            }
+
+            //# Slide6
+            todoSet.Cases().Replay().ActAndAssert(ea =>
+            {
+                // ACT
+                var tm = new TodoManager();
+                bool ok = tm.AddTodo(todo);
+
+                // ASSERT
+                Assert.IsTrue(ok);
+                Assert.AreEqual(1, tm.Todos.Count());
+            });
+            //#
+        }
+
+        [Test]
+        public void Slide7_Conventional()
+        {
+            //# Slide7_Conventional
+            // ARRANGE
+            var mock = new Mock<ITodo>();
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
+
+
+
+            todo.Title = "Remember to forget";
+
+            todo.DueDate = now;
+
+            todo.IsDone = false;
+
+            
+
+
+            // ACT
+            var tm = new TodoManager();
+            bool ok = tm.AddTodo(todo);
+
+            // ASSERT
+            Assert.IsTrue(ok);
+            Assert.AreEqual(1, tm.Todos.Count());
+            //#
+        }
+
+        [Test]
+        public void Slide7_NCase()
+        {
+            //# Slide7_NCase
+            // ARRANGE
+            var builder = NCase.NewBuilder();
+            var todo = builder.NewContributor<ITodo>("todo");
+            var todoSet = builder.NewCombinationSet("todoSet");
+
+            using (todoSet.Define())
+            {
+                todo.Title = "Remember to forget";
+
+                todo.DueDate = now;
+
+                todo.IsDone = false;
+            }
+
+            todoSet.Cases().Replay().ActAndAssert(ea =>
+            {
+                // ACT
+                var tm = new TodoManager();
+                bool ok = tm.AddTodo(todo);
+
+                // ASSERT
+                Assert.IsTrue(ok);
+                Assert.AreEqual(1, tm.Todos.Count());
+            });
+            //#
+        }
    }
 
 }
