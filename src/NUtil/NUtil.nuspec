@@ -11,11 +11,11 @@
     <projectUrl>http://github.com/jeromerg/NCase</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-		NDocUtil injects and keeps up-to-date C# and console snippets in your documentation and presentations. 
+		Various C# Utility classes, that were initially developed for the NCase project.
 	</description>
     <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
     <copyright>Apache License Version 2.0</copyright>
-    <tags>util documentation doc template markdown snippet snippets emf wmf png screenshot</tags>
+    <tags>util pairwise linq C# csharp combinatorics</tags>
   </metadata>
 
   <files>
