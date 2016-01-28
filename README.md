@@ -12,7 +12,7 @@ NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized te
 Features at Glance
 ------------------
 
-![loading slides](./tree/gh-pages/slides.gif)
+![loading slides](http://jeromerg.github.io/NCase/slides.gif)
 
 
 Want to learn more? Look at the following [introduction](./Introduction.md)!
