@@ -14,6 +14,7 @@ Features at Glance
 
 Slides coming soon...
 
+Look at the [long introduction](./Introduction.md).
 
 Installation
 ------------
