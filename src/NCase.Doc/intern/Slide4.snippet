@@ -1,0 +1,17 @@
+var todo = builder.NewContributor<ITodo>("todo");
+
+var user = builder.NewContributor<IUser>("user");
+
+using (todoSet.Define())
+{
+    todo.Title = "Forget NCase";
+    todo.Title = "Remember";
+
+    todo.DueDate = now;
+    todo.DueDate = tomorrow;
+
+    user.Email = "some@email.com";
+    
+    user.IsActive = true;
+    user.IsActive = false;
+}

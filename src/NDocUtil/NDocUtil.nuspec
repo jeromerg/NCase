@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://github.com/jeromerg/NCase/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/jeromerg/NCase</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		NDocUtil injects and keeps up-to-date C# and console snippets in your documentation and presentations. 
+	</description>
+    <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
+    <copyright>Apache License Version 2.0</copyright>
+    <tags>util documentation doc template markdown snippet snippets emf wmf png screenshot</tags>
+  </metadata>
+
+  <files>
+    <file target='readme.txt' src='readme-for-nuget.txt' />
+  </files>
+
+</package>

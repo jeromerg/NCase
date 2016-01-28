@@ -87,7 +87,7 @@ namespace NUtil.Math.Combinatorics.Pairwise
         private Pair TryPeakPairInFreeDims([NotNull] PairSet pairs, [NotNull] Tuple tuple)
         {
             return tuple.FreeDims
-                        .TriangleUnequal((dim1, dim2) => pairs.FirstOrDefault(dim1, dim2))
+                        .TriangularProductWithoutDiagonal((dim1, dim2) => pairs.FirstOrDefault(dim1, dim2))
                         .FirstOrDefault(pair => pair != null);
         }
 

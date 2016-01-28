@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using NUtil.Linq;
 
 namespace NUtil.Text
 {
@@ -20,12 +21,12 @@ namespace NUtil.Text
         public static string JoinLines([NotNull, ItemCanBeNull] this IEnumerable<string> lines)
         {
             if (lines == null) throw new ArgumentNullException("lines");
-            string joined = string.Join(Environment.NewLine, lines);
-            return joined;
+
+            return string.Join(Environment.NewLine, lines);
         }
 
         [NotNull]
-        public static string Desindent([NotNull] this string txt)
+        public static string Desindent([NotNull] this string txt, int tabIndentation)
         {
             if (txt == null) throw new ArgumentNullException("txt");
 
@@ -35,19 +36,34 @@ namespace NUtil.Text
                 return txt;
 
             // ReSharper disable once AssignNullToNotNullAttribute
-            int indentMin = lines.Min(line => GetIndent(line));
+            int indentMin = lines.Min(line => GetIndent(line, tabIndentation));
+
+            string desindentedTxt = lines
+                // ReSharper disable once PossibleNullReferenceException
+                .Select(line => line.Length >= indentMin ? line.Substring(indentMin) : "")
+                .JoinLines();
+
+            return desindentedTxt;
+        }
+
+        [NotNull]
+        public static string Indent([NotNull] this string txt, int indentation)
+        {
+            if (txt == null) throw new ArgumentNullException("txt");
 
             var sb = new StringBuilder();
-            foreach (string line in lines)
-            {
-                // ReSharper disable once PossibleNullReferenceException
-                sb.Append(line.Length >= indentMin ? line.Substring(indentMin) : "");
-                sb.AppendLine();
-            }
+
+            txt.Lines().ForEach(l =>
+                                {
+                                    sb.Append(new string(' ', indentation));
+                                    sb.Append(l);
+                                },
+                                () => sb.AppendLine());
+
             return sb.ToString();
         }
 
-        private static int GetIndent([NotNull] string s)
+        private static int GetIndent([NotNull] string s, int tabIndentation)
         {
             if (s == null) throw new ArgumentNullException("s");
 
@@ -57,7 +73,7 @@ namespace NUtil.Text
                 switch (c)
                 {
                     case '\t':
-                        result += 4;
+                        result += tabIndentation;
                         break;
                     case ' ':
                         result += 1;

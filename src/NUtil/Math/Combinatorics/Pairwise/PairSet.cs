@@ -50,21 +50,21 @@ namespace NUtil.Math.Combinatorics.Pairwise
 
         public void Add(int dim1, int val1, int dim2, int val2)
         {
-            // ReSharper disable AssignNullToNotNullAttribute
+            // ReSharper disable PossibleNullReferenceException
 
             mPairs
                 .CascadeAdd(dim1)
                 .CascadeAdd(dim2)
                 .CascadeAdd(val1)
-                .CascadeAdd(val2);
+                .Add(val2);
 
             mPairs
                 .CascadeAdd(dim2)
                 .CascadeAdd(dim1)
                 .CascadeAdd(val2)
-                .CascadeAdd(val1);
+                .Add(val1);
 
-            // ReSharper restore AssignNullToNotNullAttribute
+            // ReSharper restore PossibleNullReferenceException
         }
 
         [CanBeNull]
@@ -72,10 +72,10 @@ namespace NUtil.Math.Combinatorics.Pairwise
         {
             int val1, val2;
             bool ok = mPairs
-                .CascadeFirst(dim1Constraint)
-                .CascadeFirst(dim2Constraint)
-                .CascadeFirstOut(out val1)
-                .CascadeFirstOut(out val2);
+                .CascadeGetOrDefault(dim1Constraint)
+                .CascadeGetOrDefault(dim2Constraint)
+                .CascadeTryFirst(out val1)
+                .CascadeTryFirst(out val2);
 
             return ok
                        ? new Pair(dim1Constraint, val1, dim2Constraint, val2)
@@ -86,10 +86,10 @@ namespace NUtil.Math.Combinatorics.Pairwise
         {
             int val2;
             bool ok = mPairs
-                .CascadeFirst(dim1Constraint)
-                .CascadeFirst(dim2Constraint)
-                .CascadeFirst(val1Constraint)
-                .CascadeFirstOut(out val2);
+                .CascadeGetOrDefault(dim1Constraint)
+                .CascadeGetOrDefault(dim2Constraint)
+                .CascadeGetOrDefault(val1Constraint)
+                .CascadeTryFirst(out val2);
 
             return ok
                        ? new Pair(dim1Constraint, val1Constraint, dim2Constraint, val2)

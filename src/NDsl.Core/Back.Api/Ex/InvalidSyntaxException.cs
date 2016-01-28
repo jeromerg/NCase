@@ -9,8 +9,8 @@ namespace NDsl.Back.Api.Ex
         [NotNull] private readonly CodeLocation mCodeLocation;
 
         [StringFormatMethod("args")]
-        public InvalidSyntaxException([NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args)
-            : base(string.Format("{0}\n\t{1}", codeLocation.GetFullInfoWithSameSyntaxAsStackTrace(), string.Format(format, args)))
+        public InvalidSyntaxException([NotNull] ICodeLocationPrinter codeLocationPrinter, [NotNull] CodeLocation codeLocation, [NotNull] string format, [NotNull] params object[] args)
+            : base(string.Format("{0}\n\t{1}", codeLocationPrinter.Print(codeLocation), string.Format(format, args)))
         {
             mCodeLocation = codeLocation;
         }

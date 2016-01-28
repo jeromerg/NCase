@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://github.com/jeromerg/NCase/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/jeromerg/NCase</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+		Various C# Utility classes, that were initially developed for the NCase project.
+	</description>
+    <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
+    <copyright>Apache License Version 2.0</copyright>
+    <tags>util pairwise linq C# csharp combinatorics</tags>
+  </metadata>
+
+  <files>
+    <file target='readme.txt' src='readme-for-nuget.txt' />
+  </files>
+
+</package>

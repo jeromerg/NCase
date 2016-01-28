@@ -15,16 +15,5 @@ namespace NDsl.Front.Ui
             var contributorFactory = caseBuilder.Zapi.Services.GetService<ICreateContributor>();
             return contributorFactory.Create<T>(caseBuilder.Zapi.Model, name);
         }
-
-        [NotNull]
-        public static T NewDefinition<T>([NotNull] this CaseBuilder caseBuilder, [NotNull] string name)
-            where T : DefBase<Definer>
-        {
-            if (caseBuilder == null) throw new ArgumentNullException("caseBuilder");
-            if (name == null) throw new ArgumentNullException("name");
-
-            var treeFactory = caseBuilder.Zapi.Services.GetService<IDefFactory<T>>();
-            return treeFactory.Create(name, caseBuilder.Zapi.Model.TokenStream);
-        }
     }
 }

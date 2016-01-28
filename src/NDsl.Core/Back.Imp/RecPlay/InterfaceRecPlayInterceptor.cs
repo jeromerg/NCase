@@ -11,7 +11,7 @@ namespace NDsl.Back.Imp.RecPlay
 {
     public class InterfaceRecPlayInterceptor : IInterceptor, IInterfaceRecPlayInterceptor
     {
-        [NotNull] private readonly ICodeLocationUtil mCodeLocationUtil;
+        [NotNull] private readonly ICodeLocationFactory mCodeLocationFactory;
         [NotNull] private readonly ITokenWriter mTokenWriter;
         [NotNull] private readonly string mContributorName;
 
@@ -21,13 +21,13 @@ namespace NDsl.Back.Imp.RecPlay
         public InterfaceRecPlayInterceptor(
             [NotNull] ITokenWriter tokenWriter,
             [NotNull] string contributorName,
-            [NotNull] ICodeLocationUtil codeLocationUtil)
+            [NotNull] ICodeLocationFactory codeLocationFactory)
         {
-            if (codeLocationUtil == null) throw new ArgumentNullException("codeLocationUtil");
+            if (codeLocationFactory == null) throw new ArgumentNullException("codeLocationFactory");
             if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
 
-            mCodeLocationUtil = codeLocationUtil;
+            mCodeLocationFactory = codeLocationFactory;
             mContributorName = contributorName;
             mTokenWriter = tokenWriter;
         }
@@ -87,7 +87,7 @@ namespace NDsl.Back.Imp.RecPlay
             if (setterPropertyCallKey == null)
                 throw BuildEx(invocation, "Call to '{0}' is not allowed inside recording block: Only call to setter are allowed");
 
-            CodeLocation codeLocation = mCodeLocationUtil.GetCurrentUserCodeLocation();
+            CodeLocation codeLocation = mCodeLocationFactory.GetCurrentUserCodeLocation();
             var invocationRecord = new InvocationRecord(mContributorName, invocation, codeLocation);
             var token = new InvocationToken<IInterfaceRecPlayInterceptor>(this, invocationRecord, codeLocation);
             mTokenWriter.Append(token);

@@ -2,6 +2,7 @@
 
 	using System.Reflection;
 
+    [assembly: AssemblyProduct("NCase")]
 	[assembly: AssemblyCompany("<m.Company>")]
 	[assembly: AssemblyCopyright("<m.Copyright>")]
     [assembly:AssemblyTrademark              ("")]

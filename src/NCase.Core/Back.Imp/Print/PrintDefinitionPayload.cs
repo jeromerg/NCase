@@ -42,19 +42,21 @@ namespace NCaseFramework.Back.Imp.Print
         {
             [NotNull] private static readonly ITableColumn sDefinitionColumn = new SimpleTableColumn("Definition");
             [NotNull] private static readonly ITableColumn sFileInfoColumn = new SimpleTableColumn("Location");
+            [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
 
             [NotNull] private readonly ITableBuilder mStringBuilder;
 
-            public StrategyWithFileInfo([NotNull] ITableBuilder stringBuilder)
+            public StrategyWithFileInfo([NotNull] ICodeLocationPrinter codeLocationPrinter, [NotNull] ITableBuilder stringBuilder)
             {
                 mStringBuilder = stringBuilder;
+                mCodeLocationPrinter = codeLocationPrinter;
             }
 
             public void AppendLine([NotNull] CodeLocation codeLocation, [NotNull] string txt)
             {
                 mStringBuilder.NewRow();
                 mStringBuilder.Print(sDefinitionColumn, txt);
-                mStringBuilder.Print(sFileInfoColumn, codeLocation.GetFullInfoWithSameSyntaxAsStackTrace());
+                mStringBuilder.Print(sFileInfoColumn, mCodeLocationPrinter.Print(codeLocation));
             }
 
             [NotNull]
@@ -77,26 +79,32 @@ namespace NCaseFramework.Back.Imp.Print
 
         public class Factory : IPrintDefinitionPayloadFactory
         {
+        [NotNull] private readonly ICodeLocationPrinter mCodeLocationPrinter;
             [NotNull] private readonly ITableBuilderFactory mTableBuilderFactory;
 
-            public Factory([NotNull] ITableBuilderFactory tableBuilderFactory)
+            public Factory([NotNull] ICodeLocationPrinter codeLocationPrinter, [NotNull] ITableBuilderFactory tableBuilderFactory)
             {
                 mTableBuilderFactory = tableBuilderFactory;
+                mCodeLocationPrinter = codeLocationPrinter;
             }
 
             public IPrintDefinitionPayload Create(bool isFileInfo, bool isRecursive)
             {
-                return new PrintDefinitionPayload(mTableBuilderFactory.Create(), isFileInfo, isRecursive);
+                return new PrintDefinitionPayload(mCodeLocationPrinter, mTableBuilderFactory.Create(), isFileInfo, isRecursive);
             }
         }
 
-        public PrintDefinitionPayload([NotNull] ITableBuilder tableBuilder, bool isFileInfo, bool isRecursive)
+        public PrintDefinitionPayload([NotNull] ICodeLocationPrinter codeLocationPrinter,
+                                      [NotNull] ITableBuilder tableBuilder,
+                                      bool isFileInfo,
+                                      bool isRecursive)
         {
+            if (codeLocationPrinter == null) throw new ArgumentNullException("codeLocationPrinter");
             if (tableBuilder == null) throw new ArgumentNullException("tableBuilder");
             mIsRecursive = isRecursive;
 
             if (isFileInfo)
-                mStragegy = new StrategyWithFileInfo(tableBuilder);
+                mStragegy = new StrategyWithFileInfo(codeLocationPrinter, tableBuilder);
             else
                 mStragegy = new StrategyWithoutFileInfo();
         }

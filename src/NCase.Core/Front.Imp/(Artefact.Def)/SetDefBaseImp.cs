@@ -20,8 +20,9 @@ namespace NCaseFramework.Front.Imp
         protected SetDefBaseImp([NotNull] TId id,
                                 [NotNull] ITokenStream tokenStream,
                                 [NotNull] IServiceSet<TModel> services,
-                                [NotNull] ICodeLocationUtil codeLocationUtil)
-            : base(id, services, tokenStream, codeLocationUtil)
+                                [NotNull] ICodeLocationFactory codeLocationFactory,
+                                [NotNull] ICodeLocationPrinter codeLocationPrinter)
+            : base(id, services, tokenStream, codeLocationFactory, codeLocationPrinter)
         {
         }
     }
