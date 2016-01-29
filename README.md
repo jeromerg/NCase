@@ -9,17 +9,17 @@ Define, Combine, Visualize and Replay hundreds of test cases with a few lines of
 
 NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized test framework, having advanced combinatorial capabilities. 
 
+It can also be used alone to perform Batch Processing of combinatorial set of data.
+
 Features at Glance
 ------------------
 
-Slides coming soon...
-
-Look at the [long introduction](./Introduction.md).
+![loading slides](http://jeromerg.github.io/NCase/slides.gif)
 
 Installation
 ------------
 
-In the Nuget Package Manager Console:
+The easiest way is to install NCase with Nuget.
 
 In combination with NUnit:
 
@@ -33,7 +33,18 @@ In combination with XUnit:
 Install-Package NCase, NCase.XunitAdapter
 ```
 
-Introduction
+First Use
+---------
+
+Write the following unit test:
+
+<!--# FIRST_UNIT_TEST -->
+```
+...coming soon...
+```
+
+
+More
 ------------
 
 Read the [long introduction](./Introduction.md).
