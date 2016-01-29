@@ -24,66 +24,14 @@ namespace NCaseFramework.Doc
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            docu.UpdateDocAssociatedToThisFile();
+            //docu.UpdateDocAssociatedToThisFile();
         }
-
-        //# TodoInterface
-        public interface ITodo
-        {
-            string Title { get; set; }
-            DateTime DueDate { get; set; }
-            bool IsDone { get; set; }
-        }
-        //#
-
-        //# UserInterface
-        public interface IUser
-        {
-            bool IsActive { get; set; }
-            string NotificationEmail { get; set; }
-        }
-        //#
-
-        public class TodoManager
-        {
-            public void AddTodo(ITodo todo) { }
-        }
-
-        DateTime now = new DateTime(2011, 11, 11, 0, 0, 0);
-        DateTime yesterday = new DateTime(2011, 11, 10, 0, 0, 0);
-        DateTime tomorrow = new DateTime(2011, 11, 12, 0, 0, 0);
-        DateTime daylightSavingTimeMissingTime = new DateTime(2011, 11, 12, 0, 0, 0);
-        DateTime daylightSavingTimeAmbiguousTime = new DateTime(2011, 11, 12, 0, 0, 0);
 
         [Test]
-        public void Slide1()
+        public void DemoTest()
         {
-            //# Slide1
-            var builder = NCase.NewBuilder();
-
-            var todo    = builder.NewContributor<ITodo>("todo");
-            var set     = builder.NewCombinationSet("set");
-
-            using (set.Define())
-            {
-                todo.Title = "Forget";
-                todo.Title = "Remember";
-                todo.Title = "Forgive";
-
-                todo.DueDate = yesterday;
-                todo.DueDate = now;
-                todo.DueDate = tomorrow;
-
-                todo.IsDone = false;
-                todo.IsDone = true;
-            }
-            //#
-
-            docu.BeginRecordConsole("Slide1_Console");
-            set.PrintCasesAsTable();
-            docu.StopRecordConsole();
+            
         }
-
 
    }
 
