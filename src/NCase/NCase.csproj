@@ -43,6 +43,10 @@
       <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NUtil, Version=0.2.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUtil.0.2.0.6\lib\net45\NUtil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NVisitor, Version=1.1.0.73, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NVisitor.1.1.0.73\lib\net45\NVisitor.dll</HintPath>
       <Private>True</Private>
@@ -73,10 +77,6 @@
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
       <Name>NDsl.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NUtil\NUtil.csproj">
-      <Project>{80d9f218-e936-48ad-8c16-3d16b8218a0c}</Project>
-      <Name>NUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

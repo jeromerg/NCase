@@ -54,8 +54,16 @@
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NDocUtil, Version=0.2.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NDocUtil.0.2.0.5\lib\net45\NDocUtil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NUtil, Version=0.2.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUtil.0.2.0.6\lib\net45\NUtil.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -101,10 +109,6 @@
       <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
       <Name>NCase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NDocUtil\NDocUtil.csproj">
-      <Project>{E95016D2-61FD-4884-AC80-3630F54F30CC}</Project>
-      <Name>NDocUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577FB44-7DE1-4E70-A00A-AB13DF5E84F3}</Project>
       <Name>NDsl.Core</Name>
@@ -112,10 +116,6 @@
     <ProjectReference Include="..\NDsl\NDsl.csproj">
       <Project>{FD488CB0-EFEB-4E14-86D8-220D378A716F}</Project>
       <Name>NDsl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NUtil\NUtil.csproj">
-      <Project>{80D9F218-E936-48AD-8C16-3D16B8218A0C}</Project>
-      <Name>NUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
