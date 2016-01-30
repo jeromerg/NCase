@@ -67,7 +67,7 @@ public void Main()
 }
 ```
 
-Execute the program. The result in the console should look like:
+Ensure that the configuration is set to `DEBUG`. Execute the program. The result in the console should look like:
 
 <!--# FIRST_UNIT_TEST_CONSOLE -->
 ```
