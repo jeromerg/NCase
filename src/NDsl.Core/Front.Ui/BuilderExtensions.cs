@@ -12,8 +12,8 @@ namespace NDsl.Front.Ui
             if (caseBuilder == null) throw new ArgumentNullException("caseBuilder");
             if (name == null) throw new ArgumentNullException("name");
 
-            var contributorFactory = caseBuilder.Zapi.Services.GetService<ICreateContributor>();
-            return contributorFactory.Create<T>(caseBuilder.Zapi.Model, name);
+            var contributorFactory = caseBuilder.Api.Services.GetService<ICreateContributor>();
+            return contributorFactory.Create<T>(caseBuilder.Api.Model, name);
         }
     }
 }

@@ -12,9 +12,9 @@ namespace NCaseFramework.Front.Ui
             if (caseBuilder == null) throw new ArgumentNullException("caseBuilder");
             if (name == null) throw new ArgumentNullException("name");
 
-            var treeFactory = caseBuilder.Zapi.Services.GetService<IDefFactory<CombinationSet>>();
+            var treeFactory = caseBuilder.Api.Services.GetService<IDefFactory<CombinationSet>>();
 
-            CombinationSet combinationSet = treeFactory.Create(name, caseBuilder.Zapi.Model.TokenStream);
+            CombinationSet combinationSet = treeFactory.Create(name, caseBuilder.Api.Model.TokenStream);
             combinationSet.OnlyPairwise = onlyPairwise;
             return combinationSet;
         }

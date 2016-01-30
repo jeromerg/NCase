@@ -22,7 +22,7 @@ namespace NCaseFramework.Doc.intern
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class Readme
+    public class ReadmeCaroussel
     {
         // ReSharper disable once InconsistentNaming
         [NotNull] private readonly NDocUtil docu = new NDocUtil("docu");

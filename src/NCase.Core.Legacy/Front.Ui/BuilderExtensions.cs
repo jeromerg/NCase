@@ -14,8 +14,8 @@ namespace NCaseFramework.Front.Ui
             if (caseBuilder == null) throw new ArgumentNullException("caseBuilder");
             if (name == null) throw new ArgumentNullException("name");
 
-            var treeFactory = caseBuilder.Zapi.Services.GetService<IDefFactory<T>>();
-            return treeFactory.Create(name, caseBuilder.Zapi.Model.TokenStream);
+            var treeFactory = caseBuilder.Api.Services.GetService<IDefFactory<T>>();
+            return treeFactory.Create(name, caseBuilder.Api.Model.TokenStream);
         }
     }
 }

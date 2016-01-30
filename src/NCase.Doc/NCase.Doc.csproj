@@ -75,6 +75,9 @@
     <Compile Include="..\..\Introduction.cs">
       <Link>Introduction.cs</Link>
     </Compile>
+    <Compile Include="..\..\Readme.cs">
+      <Link>Readme.cs</Link>
+    </Compile>
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>

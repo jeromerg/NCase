@@ -14,7 +14,7 @@ namespace NCaseFramework.Front.Ui
         {
             if (setDef == null) throw new ArgumentNullException("setDef");
 
-            return setDef.Zapi.Services.GetService<IGetCasesSvc>().GetCases(setDef.Zapi.Model);
+            return setDef.Api.Services.GetService<IGetCasesSvc>().GetCases(setDef.Api.Model);
         }
 
         [NotNull]
@@ -24,7 +24,7 @@ namespace NCaseFramework.Front.Ui
         {
             if (setDef == null) throw new ArgumentNullException("setDef");
 
-            return setDef.Zapi.Services.GetService<IPrintDefSvc>().PrintDef(setDef.Zapi.Model, isFileInfo, isRecursive);
+            return setDef.Api.Services.GetService<IPrintDefSvc>().PrintDef(setDef.Api.Model, isFileInfo, isRecursive);
         }
 
         [NotNull]
@@ -33,7 +33,7 @@ namespace NCaseFramework.Front.Ui
         {
             if (setDef == null) throw new ArgumentNullException("setDef");
 
-            return setDef.Zapi.Services.GetService<IPrintCaseTableSvc>().Perform(setDef.Zapi.Model, isRecursive);
+            return setDef.Api.Services.GetService<IPrintCaseTableSvc>().Perform(setDef.Api.Model, isRecursive);
         }
     }
 }

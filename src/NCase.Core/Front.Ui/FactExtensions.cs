@@ -32,8 +32,8 @@ namespace NCaseFramework.Front.Ui
         {
             if (fact == null) throw new ArgumentNullException("fact");
 
-            var replayFact = fact.Zapi.Services.GetService<IReplayFactSvc>();
-            replayFact.Perform(fact.Zapi.Model, iReplay);
+            var replayFact = fact.Api.Services.GetService<IReplayFactSvc>();
+            replayFact.Perform(fact.Api.Model, iReplay);
             return fact;
         }
     }

@@ -12,8 +12,8 @@ namespace NCaseFramework.Front.Ui
         {
             if (cas == null) throw new ArgumentNullException("cas");
 
-            var printCase = cas.Zapi.Services.GetService<IPrintCaseSvc>();
-            return printCase.PrintCase(cas.Zapi.Model);
+            var printCase = cas.Api.Services.GetService<IPrintCaseSvc>();
+            return printCase.PrintCase(cas.Api.Model);
         }
 
         [NotNull, ItemNotNull]

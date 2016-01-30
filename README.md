@@ -33,21 +33,80 @@ In combination with XUnit:
 Install-Package NCase, NCase.XunitAdapter
 ```
 
-First Use
----------
+First Steps
+-----------
 
-Write the following unit test:
+Create a new console application containing the following lines:
 
 <!--# FIRST_UNIT_TEST -->
+```C#
+public interface IVar
+{
+    int X { get; set; }
+    int Y { get; set; }
+}
+
+public void Main()
+{
+    var builder = NCase.NewBuilder();
+    var v = builder.NewContributor<IVar>("v");
+    var mySet = builder.NewCombinationSet("c");
+
+    using (mySet.Define())
+    {
+        v.X = 0;
+        v.X = 1;
+
+        v.Y = 0;
+        v.Y = 1;
+    }
+
+    string table = mySet.PrintCasesAsTable();
+
+    Console.WriteLine(table);
+}
 ```
-...coming soon...
+
+Execute the program. The result in the console should look like:
+
+<!--# FIRST_UNIT_TEST_CONSOLE -->
+```
+ # | v.X | v.Y 
+ - | --- | --- 
+ 1 |   0 |   0 
+ 2 |   0 |   1 
+ 3 |   1 |   0 
+ 4 |   1 |   1 
+
+TOTAL: 4 TEST CASES
 ```
 
+Bingo! You generated your first set of test cases. 
 
-More
-------------
+Add the following lines to really use the combinations:
 
-Read the [long introduction](./Introduction.md).
+<!--# FIRST_UNIT_TEST_2 -->
+```C#
+foreach (Case c in mySet.Cases().Replay())
+    Console.WriteLine("{0} ^ {1} = {2}", v.X, v.Y, v.X ^ v.Y);
+```
+
+<!--# FIRST_UNIT_TEST_2_CONSOLE -->
+```
+0 ^ 0 = 0
+0 ^ 1 = 1
+1 ^ 0 = 1
+1 ^ 1 = 0
+```
+
+It generates and replays the test cases one by one! 
+
+Discovering NCase...
+----
+
+Read the **[long introduction](./Introduction.md)**
+
+A documentation is coming soon.
 
 Next Steps
 ==========
@@ -62,4 +121,5 @@ Finally, be aware that NCase is under continuous development. Some upcoming feat
 	- mocking of classes
 	- mocking of methods
 	- "[moq][moq] like" `Setup(...)` and `Verify(...)`
-- Autonomous parametrized test framework (including Assert compatible with NCase record/replay mechanism, CLI, Visual Studio and Resharper adapter) 
+- Permutation Set to allow mixing the order of statements
+- Test Framework that leverages the specificities of NCase (re-run single test among the set of test cases, improved reporting) 
