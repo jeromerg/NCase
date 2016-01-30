@@ -81,10 +81,8 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="intern\ReadmeCaroussel.cs" />
     <Compile Include="Shared\DocConstants.cs" />
     <Compile Include="Shared\NCase.cs" />
-    <Compile Include="Slides.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +126,7 @@
     <None Include="..\..\Readme.md">
       <Link>Readme.md</Link>
     </None>
-    <None Include="intern\ReadmeCaroussel.pptx" />
     <None Include="packages.config" />
-    <None Include="Slides.pptx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
