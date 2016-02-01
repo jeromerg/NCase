@@ -1,0 +1,10 @@
+todoSet.Cases().Replay().ActAndAssert(ea =>
+{
+    // ACT
+    var tm = new TodoManager();
+    bool ok = tm.AddTodo(todo);
+
+    // ASSERT
+    Assert.IsTrue(ok);
+    Assert.AreEqual(1, tm.Todos.Count());
+});
