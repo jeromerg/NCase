@@ -307,6 +307,65 @@ namespace NCaseFramework.Doc.intern
             //#
         }
 
+        //# Slide7_Conventional_ParametrizedSolution
+        [Test, Combinatorial]
+        public void ParametrizedTest(
+            [Values("Remember to forget", 
+                    "forget to remember", 
+                    "and so on...", "all...", 
+                    "and everything ...")] string title,
+            [Values("yesterday", 
+                    "now", 
+                    "invalidLocalTime", 
+                    "ambiguousLocalTime")] string dueDate,
+            [Values(false, true)] bool isDone
+            )
+        {
+            // ARRANGE
+            var mock = new Mock<ITodo>();
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
+
+            todo.Title = title;
+
+            // Conversion due to attribute restrictions
+            todo.DueDate = ConvertDueDate(dueDate);
+            
+            todo.IsDone = isDone;
+           
+            // ACT
+            var tm = new TodoManager();
+            bool ok = tm.AddTodo(todo);
+
+            // ASSERT
+            Assert.IsTrue(ok);
+            Assert.AreEqual(1, tm.Todos.Count());
+        }
+        //#
+
+        private DateTime ConvertDueDate(string dueDate)
+        {
+            DateTime dueDateValue;
+            switch (dueDate)
+            {
+                case "yesterday":
+                    dueDateValue = yesterday;
+                    break;
+                case "now":
+                    dueDateValue = now;
+                    break;
+                case "invalidLocalTime":
+                    dueDateValue = invalidLocalTime;
+                    break;
+                case "ambiguousLocalTime":
+                    dueDateValue = ambiguousLocalTime;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("dueDate");
+            }
+            return dueDateValue;
+        }
+
         [Test]
         public void Slide7_NCase()
         {

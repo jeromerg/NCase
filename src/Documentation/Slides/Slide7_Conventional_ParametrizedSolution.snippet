@@ -1,0 +1,33 @@
+[Test, Combinatorial]
+public void ParametrizedTest(
+    [Values("Remember to forget", 
+            "forget to remember", 
+            "and so on...", "all...", 
+            "and everything ...")] string title,
+    [Values("yesterday", 
+            "now", 
+            "invalidLocalTime", 
+            "ambiguousLocalTime")] string dueDate,
+    [Values(false, true)] bool isDone
+    )
+{
+    // ARRANGE
+    var mock = new Mock<ITodo>();
+    mock.SetupAllProperties();
+    ITodo todo = mock.Object;
+
+    todo.Title = title;
+
+    // Conversion due to attribute restrictions
+    todo.DueDate = ConvertDueDate(dueDate);
+    
+    todo.IsDone = isDone;
+   
+    // ACT
+    var tm = new TodoManager();
+    bool ok = tm.AddTodo(todo);
+
+    // ASSERT
+    Assert.IsTrue(ok);
+    Assert.AreEqual(1, tm.Todos.Count());
+}
