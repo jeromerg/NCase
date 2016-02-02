@@ -278,6 +278,31 @@ namespace NCaseFramework.Doc.intern
         }
 
         [Test]
+        public void Slide7_Conventional_Compact()
+        {
+            //# Slide7_Conventional_Compact
+            // ARRANGE
+            var mock = new Mock<ITodo>();
+            mock.SetupAllProperties();
+            ITodo todo = mock.Object;
+
+            todo.Title = "Remember to forget";
+
+            todo.DueDate = now;
+
+            todo.IsDone = false;
+
+            // ACT
+            var tm = new TodoManager();
+            bool ok = tm.AddTodo(todo);
+
+            // ASSERT
+            Assert.IsTrue(ok);
+            Assert.AreEqual(1, tm.Todos.Count());
+            //#
+        }
+
+        [Test]
         public void Slide7_Conventional()
         {
             //# Slide7_Conventional
