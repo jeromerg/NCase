@@ -4,17 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{537FB79E-9F3A-4C8B-BAEC-1B8175BE61DD}</ProjectGuid>
+    <ProjectGuid>{1B017A9D-5E7E-4A35-9B50-22382ECF67F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NCaseFramework.Front</RootNamespace>
-    <AssemblyName>NCase.Legacy</AssemblyName>
+    <RootNamespace>NCaseFramework.Test</RootNamespace>
+    <AssemblyName>NCase.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <NuGetPackageImportStamp>c927f53c</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,8 +25,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\NCase.Legacy.xml</DocumentationFile>
-    <NoWarn>1591</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -37,22 +36,27 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="JetBrains.Annotations, Version=9.2.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.9.2.0\lib\net20\JetBrains.Annotations.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NUtil, Version=0.2.0.276, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUtil.0.2.0.276\lib\net45\NUtil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NVisitor, Version=1.1.0.73, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NVisitor.1.1.0.73\lib\net45\NVisitor.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,14 +65,18 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Api\NCasePairwiseModule.cs" />
-    <Compile Include="Api\NCaseProdModule.cs" />
-    <Compile Include="Api\NCaseSeqModule.cs" />
-    <Compile Include="Api\NCaseTreeModule.cs" />
+    <Compile Include="Legacy\RefInclusion\PairwiseCombinations_AllCombinations_Tests.cs" />
+    <Compile Include="Legacy\RefInclusion\PairwiseCombinations_Tree_Tests.cs" />
+    <Compile Include="Legacy\RefInclusion\AllCombinations_Tree_Tests.cs" />
+    <Compile Include="InterfaceRecPlayTests.cs" />
+    <Compile Include="Legacy\PairwiseProductTests.cs" />
+    <Compile Include="Legacy\AllCombinationsTests.cs" />
+    <Compile Include="Legacy\TreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ui\NCaseLegacy.cs" />
+    <Compile Include="Util\LineUtil.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -76,22 +84,21 @@
       <Project>{41057C0B-6776-4458-ABEB-15866273516C}</Project>
       <Name>NCase.Core.Legacy</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NCase.Legacy\NCase.Legacy.csproj">
+      <Project>{537FB79E-9F3A-4C8B-BAEC-1B8175BE61DD}</Project>
+      <Name>NCase.Legacy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NCase.Core\NCase.Core.csproj">
       <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
       <Name>NCase.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NCase\NCase.csproj">
-      <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
-      <Name>NCase</Name>
     </ProjectReference>
     <ProjectReference Include="..\NDsl.Core\NDsl.Core.csproj">
       <Project>{8577fb44-7de1-4e70-a00a-ab13df5e84f3}</Project>
       <Name>NDsl.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NDsl\NDsl.csproj">
-      <Project>{FD488CB0-EFEB-4E14-86D8-220D378A716F}</Project>
-      <Name>NDsl</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
