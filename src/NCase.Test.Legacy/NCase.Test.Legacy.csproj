@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{02C99571-1D56-4883-963B-62B747D6B08C}</ProjectGuid>
+    <ProjectGuid>{1B017A9D-5E7E-4A35-9B50-22382ECF67F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NCaseFramework.Test</RootNamespace>
@@ -65,19 +65,28 @@
     <Compile Include="..\Version\src\NGitVersion\Generated\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Legacy\RefInclusion\PairwiseCombinations_AllCombinations_Tests.cs" />
+    <Compile Include="Legacy\RefInclusion\PairwiseCombinations_Tree_Tests.cs" />
+    <Compile Include="Legacy\RefInclusion\AllCombinations_Tree_Tests.cs" />
     <Compile Include="InterfaceRecPlayTests.cs" />
-    <Compile Include="CombinationsTests.cs" />
-    <Compile Include="Util\LineUtil.cs" />
+    <Compile Include="Legacy\PairwiseProductTests.cs" />
+    <Compile Include="Legacy\AllCombinationsTests.cs" />
+    <Compile Include="Legacy\TreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\LineUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NCase\NCase.csproj">
-      <Project>{D0D5C7C4-BF78-4E28-B7ED-012D30A7D224}</Project>
-      <Name>NCase</Name>
+    <ProjectReference Include="..\NCase.Core.Legacy\NCase.Core.Legacy.csproj">
+      <Project>{41057C0B-6776-4458-ABEB-15866273516C}</Project>
+      <Name>NCase.Core.Legacy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NCase.Legacy\NCase.Legacy.csproj">
+      <Project>{537FB79E-9F3A-4C8B-BAEC-1B8175BE61DD}</Project>
+      <Name>NCase.Legacy</Name>
     </ProjectReference>
     <ProjectReference Include="..\NCase.Core\NCase.Core.csproj">
       <Project>{27C500D5-5781-47C9-8F64-FCED56FDDBBD}</Project>
