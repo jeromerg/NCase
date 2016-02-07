@@ -459,6 +459,10 @@ namespace NCaseFramework.Doc.intern
                 Assert.AreEqual(1, tm.Todos.Count());
             });
             //#
+
+            docu.BeginRecordConsole("Slide7_NCase2_Console");
+            Console.Write(todoSet.PrintCasesAsTable());
+            docu.StopRecordConsole();
         }
    }
 
