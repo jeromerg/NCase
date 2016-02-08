@@ -20,8 +20,6 @@ Features at Glance
 
 ![loading slides](http://jeromerg.github.io/NCase/slides.gif)
 
-<p align="center">See slides: <a href="http://slides.com/jeromerg/ncase">http://slides.com/jeromerg/ncase</a></p>
-
 Installation
 ------------
 
