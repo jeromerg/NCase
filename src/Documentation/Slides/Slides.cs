@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -7,14 +6,14 @@ using JetBrains.Annotations;
 using Moq;
 using NCaseFramework.Front.Ui;
 using NCaseFramework.NunitAdapter.Front.Ui;
+using NDocUtilLibrary;
 using NDsl.Front.Ui;
 using NUnit.Framework;
-using NDocUtilLibrary;
-    
-namespace NCaseFramework.Doc.intern
-{    
+using NCase = NCaseFramework.Doc.Shared.NCase;
+
+namespace NCaseFramework.Doc.Slides
+{
     // remark: must remain here, in order to redirect NCase calls to the doc-specific implementation
-    using Shared;
     
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -30,8 +29,9 @@ namespace NCaseFramework.Doc.intern
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
         {
-            docu.SaveSnippetsAsImage(ImageFormat.Emf, leftBorder:5, path:".");
+            docu.SaveSnippetsAsImage(ImageFormat.Emf, leftBorder:5, path:".", removeLineTrailingSpaces:true);
             docu.SaveSnippetsAsRaw(path:".");
+            docu.SaveSnippetsAsHtml(path:".");
         }
 
         //# TodoInterface
@@ -188,7 +188,7 @@ namespace NCaseFramework.Doc.intern
                 todo.DueDate = tomorrow;
 
                 user.Email = "some@email.com";
-                
+
                 user.IsActive = true;
                 user.IsActive = false;
             }
@@ -230,7 +230,7 @@ namespace NCaseFramework.Doc.intern
                 todoSet.Ref();
 
                 user.Email = "some@email.com";
-                
+
                 user.IsActive = true;
                 user.IsActive = false;
             }
@@ -319,7 +319,7 @@ namespace NCaseFramework.Doc.intern
 
             todo.IsDone = false;
 
-            
+
 
 
             // ACT
@@ -335,13 +335,13 @@ namespace NCaseFramework.Doc.intern
         //# Slide7_Conventional_ParametrizedSolution
         [Test, Combinatorial]
         public void ParametrizedTest(
-            [Values("Remember to forget", 
-                    "forget to remember", 
-                    "and so on...", "all...", 
+            [Values("Remember to forget",
+                    "forget to remember",
+                    "and so on...", "all...",
                     "and everything ...")] string title,
-            [Values("yesterday", 
-                    "now", 
-                    "invalidLocalTime", 
+            [Values("yesterday",
+                    "now",
+                    "invalidLocalTime",
                     "ambiguousLocalTime")] string dueDate,
             [Values(false, true)] bool isDone
             )
@@ -355,9 +355,9 @@ namespace NCaseFramework.Doc.intern
 
             // Conversion due to attribute restrictions
             todo.DueDate = ConvertDueDate(dueDate);
-            
+
             todo.IsDone = isDone;
-           
+
             // ACT
             var tm = new TodoManager();
             bool ok = tm.AddTodo(todo);

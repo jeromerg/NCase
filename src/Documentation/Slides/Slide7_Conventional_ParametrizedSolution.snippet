@@ -1,12 +1,12 @@
 [Test, Combinatorial]
 public void ParametrizedTest(
-    [Values("Remember to forget", 
-            "forget to remember", 
-            "and so on...", "all...", 
+    [Values("Remember to forget",
+            "forget to remember",
+            "and so on...", "all...",
             "and everything ...")] string title,
-    [Values("yesterday", 
-            "now", 
-            "invalidLocalTime", 
+    [Values("yesterday",
+            "now",
+            "invalidLocalTime",
             "ambiguousLocalTime")] string dueDate,
     [Values(false, true)] bool isDone
     )
@@ -20,9 +20,9 @@ public void ParametrizedTest(
 
     // Conversion due to attribute restrictions
     todo.DueDate = ConvertDueDate(dueDate);
-    
+
     todo.IsDone = isDone;
-   
+
     // ACT
     var tm = new TodoManager();
     bool ok = tm.AddTodo(todo);

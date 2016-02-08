@@ -86,8 +86,8 @@
       <HintPath>..\packages\NCase.NunitAdapter.0.2.0.276\lib\net45\NCase.NunitAdapter.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NDocUtil, Version=0.2.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NDocUtil.0.2.0.5\lib\net45\NDocUtil.dll</HintPath>
+    <Reference Include="NDocUtil, Version=0.3.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NDocUtil.0.3.0.8\lib\net45\NDocUtil.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NDsl, Version=0.2.0.276, Culture=neutral, processorArchitecture=MSIL">
