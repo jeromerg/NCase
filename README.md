@@ -2,6 +2,8 @@ Status:
 
 [![Build status](https://ci.appveyor.com/api/projects/status/5t819acpeymgqdoh/branch/master?svg=true)](https://ci.appveyor.com/project/jeromerg/ncase/branch/master)  [![NuGet](https://img.shields.io/nuget/dt/NCase.svg)](https://www.nuget.org/packages/NCase/)
 
+(Related projects: [NVisitor], [NDocUtil], [NUtil], [NGitVersion])
+
 NCase
 =====
 
@@ -11,14 +13,14 @@ NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized te
 
 It can also be used alone to generate a set of data based on combinatorial rules.
 
-(Related projects: [NVisitor], [NDocUtil], [NUtil], [NGitVersion])
-
 Features at Glance
 ------------------
 
+<p align="center">See slides: <a href="http://slides.com/jeromerg/ncase">http://slides.com/jeromerg/ncase</a></p>
+
 ![loading slides](http://jeromerg.github.io/NCase/slides.gif)
 
-Read the slides on: [http://slides.com/jeromerg/ncase](http://slides.com/jeromerg/ncase) 
+<p align="center">See slides: <a href="http://slides.com/jeromerg/ncase">http://slides.com/jeromerg/ncase</a></p>
 
 Installation
 ------------
