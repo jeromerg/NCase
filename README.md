@@ -9,7 +9,9 @@ Define, Combine, Visualize and Replay hundreds of test cases with a few lines of
 
 NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized test framework, having advanced combinatorial capabilities. 
 
-It can also be used alone to perform Batch Processing of combinatorial set of data.
+It can also be used alone to generate a set of data based on combinatorial rules.
+
+(Related projects: [NVisitor], [NDocUtil], [NUtil], [NGitVersion])
 
 Features at Glance
 ------------------
@@ -115,3 +117,9 @@ Next Steps
 First, have fun with NCase! 
 
 Then, please provide feedbacks, critiques, and suggestions! 
+
+[Moq]: http://github.com/Moq/moq4
+[NVisitor]: http://github.com/jeromerg/NVisitor
+[NDocUtil]: http://github.com/jeromerg/NDocUtil
+[NUtil]: http://github.com/jeromerg/NUtil
+[NGitVersion]: http://github.com/jeromerg/NGitVersion
