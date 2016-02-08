@@ -16,6 +16,8 @@ Features at Glance
 
 ![loading slides](http://jeromerg.github.io/NCase/slides.gif)
 
+Read the slides on: [http://slides.com/jeromerg/ncase](http://slides.com/jeromerg/ncase) 
+
 Installation
 ------------
 
@@ -83,7 +85,7 @@ TOTAL: 4 TEST CASES
 
 Bingo! You generated your first set of test cases. 
 
-Add the following lines to really use the combinations:
+Now, add the following lines to use each combination:
 
 <!--# FIRST_UNIT_TEST_2 -->
 ```C#
@@ -99,14 +101,13 @@ foreach (Case c in mySet.Cases().Replay())
 1 ^ 1 = 0
 ```
 
-It generates and replays the test cases one by one! 
+It generates and replays all test cases one by one! 
 
-Discovering NCase...
-----
+Discovering NCase
+-----------------
 
-Read the **[long introduction](./Introduction.md)**
+See the **[long introduction](./Introduction.md)**
 
-A documentation is coming soon.
 
 Next Steps
 ==========
@@ -114,12 +115,3 @@ Next Steps
 First, have fun with NCase! 
 
 Then, please provide feedbacks, critiques, and suggestions! 
-
-Finally, be aware that NCase is under continuous development. Some upcoming features are:
-
-- Full mocking functionalities 
-	- mocking of classes
-	- mocking of methods
-	- "[moq][moq] like" `Setup(...)` and `Verify(...)`
-- Permutation Set to allow mixing the order of statements
-- Test Framework that leverages the specificities of NCase (re-run single test among the set of test cases, improved reporting) 
