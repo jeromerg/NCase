@@ -401,7 +401,7 @@ On every indentation, NCase attaches the indented set of sub-cases as children o
 
 ### Explicit branching
 
-Sometimes you need to introduce a branch, but cannot use the indentation as in the previous example. NCase solves this problem by providing the ability to declare explicit branches:
+Sometimes you need to introduce a branch, but cannot use the indentation as easily as in the previous example. NCase solves this problem by providing the ability to declare explicit branches:
 
 <!--# NCaseTree2 -->
 ```C#
@@ -428,7 +428,7 @@ using (var d = todoSet.Define())
 }
 ```
 
-We introduce an explicit branch by calling the `d.Branch()` on the instance returned by the `Define()` method. It forces NCase to build a new branch. In the example, we use to define a union set of two titles, with a common sub-tree, and the whole sub-set is joined by union to the previous sub-set.
+We introduce an explicit branch by calling the `d.Branch()` on the instance returned by the `Define()` method. It forces NCase to build a new branch. In the example, we use it to define a union set of two titles joined by union to the previous title set, but containing different DueDate and IsDone values.
 
 ## Visualize
 
