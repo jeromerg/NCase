@@ -16,9 +16,10 @@ It can also be used alone to generate a set of data based on combinatorial rules
 Features at Glance
 ------------------
 
-<p align="center">See slides: <a href="http://slides.com/jeromerg/ncase">http://slides.com/jeromerg/ncase</a></p>
+<p align="center">See the <a href="http://slides.com/jeromerg/ncase">slides</a> on slides.com or download the <a href="http://slides.com/jeromerg/ncase">PDF</a></p>
 
 ![loading slides](http://jeromerg.github.io/NCase/slides.gif)
+
 
 Installation
 ------------
@@ -50,7 +51,7 @@ public interface IVar
     int Y { get; set; }
 }
 
-public void Main()
+public static void Main()
 {
     var builder = NCase.NewBuilder();
     var v = builder.NewContributor<IVar>("v");

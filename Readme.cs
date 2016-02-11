@@ -19,7 +19,7 @@ namespace NCaseFramework.Doc
     public class Readme
     {
         // ReSharper disable once InconsistentNaming
-        [NotNull] private readonly NDocUtil docu = new NDocUtil("docu");
+        [NotNull] private static readonly NDocUtil docu = new NDocUtil("docu");
 
         [TestFixtureTearDown]
         public void UpdateMarkdownFile()
@@ -40,7 +40,7 @@ namespace NCaseFramework.Doc
             int Y { get; set; }
         }
 
-        public void Main()
+        public static void Main()
         {
             var builder = NCase.NewBuilder();
             var v = builder.NewContributor<IVar>("v");
