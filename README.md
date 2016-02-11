@@ -16,7 +16,7 @@ It can also be used alone to generate a set of data based on combinatorial rules
 Features at Glance
 ------------------
 
-<p align="center">See the <a href="http://slides.com/jeromerg/ncase">slides</a> on slides.com or download the <a href="http://slides.com/jeromerg/ncase">PDF</a></p>
+<p align="center">See the <a href="http://slides.com/jeromerg/ncase">slides</a> on slides.com or download the <a href="http://jeromerg.github.io/NCase/slides.pdf">PDF</a></p>
 
 ![loading slides](http://jeromerg.github.io/NCase/slides.gif)
 
