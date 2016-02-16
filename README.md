@@ -105,7 +105,7 @@ It generates and replays all test cases one by one!
 Discovering NCase
 -----------------
 
-See the **[long introduction](./Introduction.md)**
+See the **[long introduction](./doc/Introduction.md)**
 
 
 Next Steps
