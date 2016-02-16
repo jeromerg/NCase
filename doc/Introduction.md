@@ -1,9 +1,9 @@
-NCase
-=====
-
-Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code.
+Long Introduction
+===========================
 
 NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized test framework, having advanced combinatorial capabilities. 
+
+It allows to define, combine, visualize and replay hundreds of test cases with a few lines of code.
 
 Installation
 ------------
