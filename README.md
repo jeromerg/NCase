@@ -1,3 +1,7 @@
+<p align="center">See the <a href="http://slides.com/jeromerg/ncase">slides</a> on slides.com or download the <a href="http://jeromerg.github.io/NCase/Slides.pdf">PDF</a></p>
+
+<p align="center"><img src="http://jeromerg.github.io/NCase/slides.gif" alt="loading slides" width="600"></p>
+
 Status:
 
 [![Build status](https://ci.appveyor.com/api/projects/status/5t819acpeymgqdoh/branch/master?svg=true)](https://ci.appveyor.com/project/jeromerg/ncase/branch/master)  [![NuGet](https://img.shields.io/nuget/dt/NCase.svg)](https://www.nuget.org/packages/NCase/)
@@ -9,17 +13,9 @@ NCase
 
 Define, Combine, Visualize and Replay hundreds of test cases with a few lines of code.
 
-NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized test framework, having advanced combinatorial capabilities. 
+NCase is a mix between a Mocking Framework like [Moq][Moq] and a parametrized test framework, having advanced combinatorial capabilities.
 
 It can also be used alone to generate a set of data based on combinatorial rules.
-
-Features at Glance
-------------------
-
-<p align="center">See the <a href="http://slides.com/jeromerg/ncase">slides</a> on slides.com or download the <a href="http://jeromerg.github.io/NCase/Slides.pdf">PDF</a></p>
-
-![loading slides](http://jeromerg.github.io/NCase/slides.gif)
-
 
 Installation
 ------------
@@ -76,17 +72,17 @@ Ensure that the configuration is set to `DEBUG`. Execute the program. The result
 
 <!--# FIRST_UNIT_TEST_CONSOLE -->
 ```
- # | v.X | v.Y 
- - | --- | --- 
- 1 |   0 |   0 
- 2 |   0 |   1 
- 3 |   1 |   0 
- 4 |   1 |   1 
+ # | v.X | v.Y
+ - | --- | ---
+ 1 |   0 |   0
+ 2 |   0 |   1
+ 3 |   1 |   0
+ 4 |   1 |   1
 
 TOTAL: 4 TEST CASES
 ```
 
-Bingo! You generated your first set of test cases. 
+Bingo! You generated your first set of test cases.
 
 Now, add the following lines to use each combination:
 
@@ -104,7 +100,7 @@ foreach (Case c in mySet.Cases().Replay())
 1 ^ 1 = 0
 ```
 
-It generates and replays all test cases one by one! 
+It generates and replays all test cases one by one!
 
 Discovering NCase
 -----------------
@@ -115,9 +111,9 @@ See the **[long introduction](./Introduction.md)**
 Next Steps
 ==========
 
-First, have fun with NCase! 
+First, have fun with NCase!
 
-Then, please provide feedbacks, critiques, and suggestions! 
+Then, please provide feedbacks, critiques, and suggestions!
 
 [Moq]: http://github.com/Moq/moq4
 [NVisitor]: http://github.com/jeromerg/NVisitor
