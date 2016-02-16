@@ -72,7 +72,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Introduction.cs">
+    <Compile Include="..\..\doc\Introduction.cs">
       <Link>Introduction.cs</Link>
     </Compile>
     <Compile Include="..\..\Readme.cs">
@@ -116,7 +116,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Introduction.md">
+    <None Include="..\..\doc\Introduction.md">
       <Link>Introduction.md</Link>
     </None>
     <None Include="..\..\Readme.md">
