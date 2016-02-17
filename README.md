@@ -72,12 +72,12 @@ Ensure that the configuration is set to `DEBUG`. Execute the program. The result
 
 <!--# FIRST_UNIT_TEST_CONSOLE -->
 ```
- # | v.X | v.Y
- - | --- | ---
- 1 |   0 |   0
- 2 |   0 |   1
- 3 |   1 |   0
- 4 |   1 |   1
+ # | v.X | v.Y 
+ - | --- | --- 
+ 1 |   0 |   0 
+ 2 |   0 |   1 
+ 3 |   1 |   0 
+ 4 |   1 |   1 
 
 TOTAL: 4 TEST CASES
 ```

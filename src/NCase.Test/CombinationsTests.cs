@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using NCaseFramework.Back.Api.CombinationSet;
 using NCaseFramework.Front.Ui;
 using NDsl.Front.Api;
 using NDsl.Front.Ui;
@@ -369,5 +370,24 @@ namespace NCaseFramework.Test
 
             Assert.AreEqual(false, e.MoveNext());
         }
+
+        [Test]
+        public void TreeWrongIndentation()
+        {
+            CaseBuilder caseBuilder = NCase.NewBuilder();
+            var c = caseBuilder.NewContributor<IContrib>("c");
+            var set = caseBuilder.NewCombinationSet("set");
+
+            using (set.Define())
+            {
+                c.A = "a1"; 
+                 c.B = "b1";
+            }
+
+            IEnumerator<Case> e = set.Cases().Replay().GetEnumerator();
+
+            Assert.Throws<IndentationException>(() => Assert.AreEqual(true, e.MoveNext()));
+        }
+
     }
 }
