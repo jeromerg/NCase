@@ -56,6 +56,7 @@
     <Compile Include="Back.Api\Util\ICodeLocationPrinter.cs" />
     <Compile Include="Back.Api\Util\IFileCache.cs" />
     <Compile Include="Back.Api\Util\IFileAnalyzer.cs" />
+    <Compile Include="Back.Imp\RecPlay\ProxyMethodHook.cs" />
     <Compile Include="Back.Imp\Util\FileAnalyzer.cs" />
     <Compile Include="Back.Imp\Util\FileCache.cs" />
     <Compile Include="Front.Ui\Definer.cs" />

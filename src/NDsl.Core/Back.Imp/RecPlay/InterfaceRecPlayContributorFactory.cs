@@ -29,17 +29,39 @@ namespace NDsl.Back.Imp.RecPlay
 
             var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationFactory);
 
+            Type mockType = typeof (T);
+
             // ReSharper disable once PossibleNullReferenceException
-            Type[] interfaces = typeof (T)
+            Type[] interfaces = mockType
                 .GetInterfaces()
                 .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport)
                 .ToArray();
 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            return (T) mProxyGenerator.CreateInterfaceProxyWithoutTarget(typeof (T),
-                                                                         interfaces,
-                                                                         ProxyGenerationOptions.Default,
-                                                                         interceptor);
+            
+            var proxyOptions = new ProxyGenerationOptions { Hook = new ProxyMethodHook() };
+
+            if (mockType.IsInterface) {
+                // ReSharper disable once AssignNullToNotNullAttribute
+                return (T) mProxyGenerator.CreateInterfaceProxyWithoutTarget(mockType,
+                                                                             interfaces,
+                                                                             ProxyGenerationOptions.Default,
+                                                                             interceptor);
+            }
+            else
+            {
+			    try
+			    {
+				    return mProxyGenerator.CreateClassProxy(mockType, interfaces, proxyOptions, arguments, interceptor);
+			    }
+			    catch (TypeLoadException e)
+			    {
+				    throw new ArgumentException(Resources.InvalidMockClass, e);
+			    }
+			    catch (MissingMethodException e)
+			    {
+				    throw new ArgumentException(Resources.ConstructorNotFound, e);
+			    }
+            }
         }
     }
 }
