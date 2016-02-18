@@ -2,6 +2,7 @@
 using System.Linq;
 using Castle.DynamicProxy;
 using JetBrains.Annotations;
+using NDsl.All;
 using NDsl.Back.Api.Record;
 using NDsl.Back.Api.RecPlay;
 using NDsl.Back.Api.Util;
@@ -21,8 +22,18 @@ namespace NDsl.Back.Imp.RecPlay
             mCodeLocationFactory = codeLocationFactory;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tokenWriter"></param>
+        /// <param name="contributorName"></param>
+        /// <param name="setupUndefinedProperties"></param>
+        /// <returns></returns>
+        /// <exception cref="TypeCannotBeContributorException"/>
+        /// <exception cref="NoParameterlessConstructorException"/>
         [NotNull]
-        public T CreateContributor<T>([NotNull] ITokenWriter tokenWriter, [NotNull] string contributorName)
+        public T CreateContributor<T>([NotNull] ITokenWriter tokenWriter, [NotNull] string contributorName, bool setupUndefinedProperties)
         {
             if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
@@ -37,10 +48,11 @@ namespace NDsl.Back.Imp.RecPlay
                 .Where(i => (i.IsPublic || i.IsNestedPublic) && !i.IsImport)
                 .ToArray();
 
-            
-            var proxyOptions = new ProxyGenerationOptions { Hook = new ProxyMethodHook() };
 
-            if (mockType.IsInterface) {
+            var proxyOptions = new ProxyGenerationOptions {Hook = new ProxyMethodHook()};
+
+            if (mockType.IsInterface)
+            {
                 // ReSharper disable once AssignNullToNotNullAttribute
                 return (T) mProxyGenerator.CreateInterfaceProxyWithoutTarget(mockType,
                                                                              interfaces,
@@ -49,18 +61,19 @@ namespace NDsl.Back.Imp.RecPlay
             }
             else
             {
-			    try
-			    {
-				    return mProxyGenerator.CreateClassProxy(mockType, interfaces, proxyOptions, arguments, interceptor);
-			    }
-			    catch (TypeLoadException e)
-			    {
-				    throw new ArgumentException(Resources.InvalidMockClass, e);
-			    }
-			    catch (MissingMethodException e)
-			    {
-				    throw new ArgumentException(Resources.ConstructorNotFound, e);
-			    }
+                try
+                {
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    return (T)mProxyGenerator.CreateClassProxy(mockType, interfaces, proxyOptions, new object[0], interceptor);
+                }
+                catch (TypeLoadException)
+                {
+                    throw new TypeCannotBeContributorException(mockType);
+                }
+                catch (MissingMethodException)
+                {
+                    throw new NoParameterlessConstructorException(mockType);
+                }
             }
         }
     }

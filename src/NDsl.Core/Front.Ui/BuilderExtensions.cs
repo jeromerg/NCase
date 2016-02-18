@@ -7,13 +7,13 @@ namespace NDsl.Front.Ui
     public static class BuilderExtensions
     {
         [NotNull]
-        public static T NewContributor<T>([NotNull] this CaseBuilder caseBuilder, [NotNull] string name)
+        public static T NewContributor<T>([NotNull] this CaseBuilder caseBuilder, [NotNull] string name, bool setupUndefinedProperties = true)
         {
             if (caseBuilder == null) throw new ArgumentNullException("caseBuilder");
             if (name == null) throw new ArgumentNullException("name");
 
             var contributorFactory = caseBuilder.Api.Services.GetService<ICreateContributor>();
-            return contributorFactory.Create<T>(caseBuilder.Api.Model, name);
+            return contributorFactory.Create<T>(caseBuilder.Api.Model, name, setupUndefinedProperties);
         }
     }
 }

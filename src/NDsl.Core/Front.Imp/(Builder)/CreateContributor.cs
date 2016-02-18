@@ -16,12 +16,12 @@ namespace NDsl.Front.Imp
         }
 
         [NotNull]
-        public T Create<T>([NotNull] ICaseBuilderModel caseBuilderModel, [NotNull] string name)
+        public T Create<T>([NotNull] ICaseBuilderModel caseBuilderModel, [NotNull] string name, bool setupUndefinedProperties)
         {
             if (caseBuilderModel == null) throw new ArgumentNullException("caseBuilderModel");
             if (name == null) throw new ArgumentNullException("name");
 
-            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(caseBuilderModel.TokenStream, name);
+            return mInterfaceRecPlayContributorFactory.CreateContributor<T>(caseBuilderModel.TokenStream, name, setupUndefinedProperties);
         }
     }
 }
