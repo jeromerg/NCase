@@ -16,8 +16,6 @@ namespace NDsl.test
         [Test]
         public void Test()
         {
-            var proxyGenerator = new ProxyGenerator();
-            proxyGenerator.CreateInterfaceProxyWithoutTarget()
         }
     }
 }

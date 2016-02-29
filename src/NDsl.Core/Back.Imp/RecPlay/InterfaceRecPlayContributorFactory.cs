@@ -22,14 +22,6 @@ namespace NDsl.Back.Imp.RecPlay
             mCodeLocationFactory = codeLocationFactory;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="tokenWriter"></param>
-        /// <param name="contributorName"></param>
-        /// <param name="setupUndefinedProperties"></param>
-        /// <returns></returns>
         /// <exception cref="TypeCannotBeContributorException"/>
         /// <exception cref="NoParameterlessConstructorException"/>
         [NotNull]
@@ -38,7 +30,7 @@ namespace NDsl.Back.Imp.RecPlay
             if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
 
-            var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationFactory);
+            var interceptor = new InterfaceRecPlayInterceptor(tokenWriter, contributorName, mCodeLocationFactory, setupUndefinedProperties);
 
             Type mockType = typeof (T);
 

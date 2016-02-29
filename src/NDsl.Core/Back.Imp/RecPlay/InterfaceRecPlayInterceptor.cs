@@ -12,22 +12,24 @@ namespace NDsl.Back.Imp.RecPlay
     public class InterfaceRecPlayInterceptor : IInterceptor, IInterfaceRecPlayInterceptor
     {
         [NotNull] private readonly ICodeLocationFactory mCodeLocationFactory;
+        private readonly bool mIsSetupUndefinedProperties;
         [NotNull] private readonly ITokenWriter mTokenWriter;
         [NotNull] private readonly string mContributorName;
 
         [NotNull] private readonly Dictionary<PropertyCallKey, object> mReplayPropertyValues =
             new Dictionary<PropertyCallKey, object>();
 
-        public InterfaceRecPlayInterceptor(
-            [NotNull] ITokenWriter tokenWriter,
-            [NotNull] string contributorName,
-            [NotNull] ICodeLocationFactory codeLocationFactory)
+        public InterfaceRecPlayInterceptor([NotNull] ITokenWriter tokenWriter,
+                                           [NotNull] string contributorName,
+                                           [NotNull] ICodeLocationFactory codeLocationFactory,
+                                           bool isSetupUndefinedProperties)
         {
             if (codeLocationFactory == null) throw new ArgumentNullException("codeLocationFactory");
             if (tokenWriter == null) throw new ArgumentNullException("tokenWriter");
             if (contributorName == null) throw new ArgumentNullException("contributorName");
 
             mCodeLocationFactory = codeLocationFactory;
+            mIsSetupUndefinedProperties = isSetupUndefinedProperties;
             mContributorName = contributorName;
             mTokenWriter = tokenWriter;
         }
@@ -84,8 +86,12 @@ namespace NDsl.Back.Imp.RecPlay
         private void InterceptInRecordingMode([NotNull] IInvocation invocation)
         {
             PropertyCallKey setterPropertyCallKey = invocation.TryGetPropertyCallKeyFromSetter();
+            
             if (setterPropertyCallKey == null)
                 throw BuildEx(invocation, "Call to '{0}' is not allowed inside recording block: Only call to setter are allowed");
+
+            if (!mIsSetupUndefinedProperties)
+                throw BuildEx(invocation, "Call to '{0}' is not allowed inside recording block if SetupUndefinedProperties is set to false");
 
             CodeLocation codeLocation = mCodeLocationFactory.GetCurrentUserCodeLocation();
             var invocationRecord = new InvocationRecord(mContributorName, invocation, codeLocation);
