@@ -20,12 +20,14 @@ namespace NCaseFramework.Test
         {
             string Name { get; set; }
             int Age { get; set; }
+            void Do();
         }
 
-        public class MyTestvalues : IMyTestvalues
+        public abstract class MyTestvalues : IMyTestvalues
         {
             public string Name { get; set; }
             public int Age { get; set; }
+            public abstract void Do();
         }
 
         public class TestData
@@ -55,7 +57,7 @@ namespace NCaseFramework.Test
                 yield return new TestData("interface contributor", caseBuilder, caseBuilder.NewContributor<IMyTestvalues>("v"));
             }
             {
-                // CLASS CONTRIBUTOR
+                // ABSTRACT CLASS CONTRIBUTOR
                 CaseBuilder caseBuilder = NCase.NewBuilder();
                 yield return new TestData("class contributor", caseBuilder, caseBuilder.NewContributor<MyTestvalues>("v"));                
             }
@@ -258,6 +260,38 @@ namespace NCaseFramework.Test
             using (allPersonsAllAges.Define())
             {
                 v.Age = 10;
+            }
+
+            // ReSharper disable once AssignNullToNotNullAttribute
+            allPersonsAllAges.Cases().First().Replay(true);
+
+            Assert.AreEqual(10, v.Age);
+
+            string line = LineUtil.GetLine(3);
+            try
+            {
+                string name = v.Name;
+                Assert.Fail("Act expected to throw an exception");
+            }
+            catch (InvalidRecPlayStateException e)
+            {
+                string s = e.ToString();
+                StringAssert.Contains(line, s);
+                StringAssert.Contains("v.Name", s);
+            }
+        }
+
+        [Test, TestCaseSource("GenerateContributor")]
+        public void CallingUnimplementedMethid(TestData data)
+        {
+            CaseBuilder caseBuilder = data.CaseBuilder;
+            IMyTestvalues v = data.Values;
+
+            var allPersonsAllAges = caseBuilder.NewCombinationSet("all");
+
+            using (allPersonsAllAges.Define())
+            {
+                v.Do();
             }
 
             // ReSharper disable once AssignNullToNotNullAttribute
