@@ -14,7 +14,7 @@ namespace NCaseFramework.Test
     [SuppressMessage("ReSharper", "UnusedVariable")]
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
-    public class InterfaceRecPlayTests
+    public class SharedRecPlayTests
     {
         public interface IMyTestvalues
         {
